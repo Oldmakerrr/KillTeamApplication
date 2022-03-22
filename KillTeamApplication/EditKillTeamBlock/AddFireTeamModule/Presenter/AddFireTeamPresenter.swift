@@ -42,7 +42,12 @@ extension AddFireTeamPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
         model.killTeam = killTeam
         model.currentFireTeam = killTeam?.fireTeam
-        model.counterFireteam = killTeam?.counterFT
+        if model.counterFireteam == nil {
+            model.killTeam?.counterFT = [:]
+        } else {
+            model.counterFireteam = killTeam?.counterFT
+        }
+        
         self.maxCountOfFireTeam = killTeam!.countOfFireTeam
         self.currentCointOFFireTeam = killTeam!.choosenFireTeam.count
     }

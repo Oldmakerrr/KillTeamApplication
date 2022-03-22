@@ -140,7 +140,7 @@ class MoreInfoTacOp: UIStackView {
 
 class UnitUniqueAtionView: UIView {
     
-    let header = UIView()
+    private let header = UIView()
     
     let nameLabel = UILabel()
     let descriptionLabel = UILabel()

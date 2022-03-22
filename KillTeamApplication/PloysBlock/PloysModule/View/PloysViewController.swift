@@ -35,7 +35,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
             } else {
                 
                 self.presenter!.model.gameData.countCommandPoint -= ploy.cost
-                if ploy.type == .strategic {
+                if ploy.type == "strategic" {
                     self.presenter?.model.gameData.currentStrategicPloy = ploy
                 }
                 self.presenter?.gameStore.updateGameData(gameData: self.presenter!.model.gameData)
@@ -80,19 +80,48 @@ extension PloysViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PloysTableViewCell.identifier, for: indexPath) as! PloysTableViewCell
-        let strategicPloy = presenter?.model.strategicPloy
-        let tacticalPloy = presenter?.model.tacticalPloy
+        cell.subLabelsView.removeFromSuperview()
+        for label in cell.subLabels {
+            label.text = ""
+        }
+        cell.abilitiesView.removeFromSuperview()
+        cell.unitUniqueActionView.removeFromSuperview()
+        
         switch indexPath.section {
         case 0:
-            cell.nameLabel.text = strategicPloy?[indexPath.row].name
-            cell.coastLabel.text = "\(strategicPloy![indexPath.row].cost)CP"
-            cell.descriptionLabel.text = strategicPloy?[indexPath.row].description
+            let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
+            cell.addHeader(name: strategicPloy.name, cost: "\(strategicPloy.cost)CP")
+            cell.addDescriptionLabel(description: strategicPloy.description)
+            if let subText = strategicPloy.subText {
+                cell.addSubText(subText: subText)
+            }
+            if let uniqueAction = strategicPloy.abilities {
+                cell.addUnitUniqueActions(action: uniqueAction)
+            }
+            
+            if let abilitie = strategicPloy.passiveAbilities {
+                cell.addPassiveAbilitie(abilitie: abilitie)
+            }
+            cell.setupBackgroundStackView()
+            return cell
         default:
-            cell.nameLabel.text = tacticalPloy?[indexPath.row].name
-            cell.coastLabel.text = "\(tacticalPloy![indexPath.row].cost)CP"
-            cell.descriptionLabel.text = tacticalPloy?[indexPath.row].description
+            let tacticalPloy = presenter!.model.tacticalPloy[indexPath.row]
+            cell.addHeader(name: tacticalPloy.name, cost: "\(tacticalPloy.cost)CP")
+            cell.addDescriptionLabel(description: tacticalPloy.description)
+            if let subText = tacticalPloy.subText {
+                
+                cell.addSubText(subText: subText)
+            }
+            if let uniqueAction = tacticalPloy.abilities {
+                cell.addUnitUniqueActions(action: uniqueAction)
+            }
+        
+            if let abilitie = tacticalPloy.passiveAbilities {
+                cell.addPassiveAbilitie(abilitie: abilitie)
+            }
+            cell.setupBackgroundStackView()
+            return cell
         }
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

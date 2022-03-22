@@ -6,10 +6,11 @@
 //
 
 import Foundation
+/*
 
-let ork = Faction(name: "Ork", subFactionName: "hmm", killTeam: [greenskinKillTeam])
+let ork = Faction(name: "Ork", killTeam: [greenskinKillTeam])
 
-let greenskinKillTeam = KillTeam(factionName: "Ork", id: nil, killTeamName: "Greenskin", countOfFireTeam: 2, factionLogo: "orks", fireTeam: [boyzFireTeam, clanKommandoFireTeam, speshulistFireTeam], ploys: [dakkaDakkaDakka, waaaagh, getStuckIn, skulkAbout, justAScratch, moreDakka], abilitiesOfKillTeam: nil, equipment: [stikkbomb, evyArmor, bosspole, drumMag, targetinFing, cuttinNozzle, kustomForceField], tacOps: [blowItUp, shokkTaktiks, getStuckInTacOp])
+let greenskinKillTeam = KillTeam(killTeamName: "Greenskin", factionName: "Ork", id: nil, countOfFireTeam: 2, factionLogo: "orks", fireTeam: [boyzFireTeam, clanKommandoFireTeam, speshulistFireTeam], counterFT: ["sda":1], ploys: [], abilitiesOfKillTeam: nil, equipment: [stikkbomb, evyArmor, bosspole, drumMag, targetinFing, cuttinNozzle, kustomForceField], countEquipmentPoint: 10, tacOps: [blowItUp, shokkTaktiks, getStuckInTacOp])
 
 //MARK:  Equipment
 
@@ -34,19 +35,19 @@ let cuttinNozzleWargear = Weapon(name: "Cuttin’ nozzle", type: "close", attack
 let stikkbombWargear = Weapon(name: "stikkbomb", type: "range", attacks: 4, ballisticWeaponSkill: 3, damage: 2, critDamage: 4, specialRule: [rng6, limited, blast2, indirect], criticalHitspecialRule: nil)
 
 //MARK: - Ploys
+/*
+let dakkaDakkaDakka = Ploy(name: "DAKKA! DAKKA! DAKKA", description: "Until the end of the Turning Point, each time a friendly GREENSKIN operative makes a shooting attack, in the Roll Attack Dice step of that shooting attack, if you retain any critical hits, you can select one of your failed hits to be retained as a successful normal hit.", cost: 1, type: "strategic")
 
-let dakkaDakkaDakka = Ploy(name: "DAKKA! DAKKA! DAKKA", description: "Until the end of the Turning Point, each time a friendly GREENSKIN operative makes a shooting attack, in the Roll Attack Dice step of that shooting attack, if you retain any critical hits, you can select one of your failed hits to be retained as a successful normal hit.", cost: 1, type: .strategic)
+let waaaagh = Ploy(name: "WAAAAGH!", description: "Until the end of the Turning Point, each time a friendly GREENSKIN operative fights in combat, in the Roll Attack Dice step of that combat, when you would retain two or more normal hits, you can select one of those hits to be retained as a critical hit instead.", cost: 1, type: "strategic")
 
-let waaaagh = Ploy(name: "WAAAAGH!", description: "Until the end of the Turning Point, each time a friendly GREENSKIN operative fights in combat, in the Roll Attack Dice step of that combat, when you would retain two or more normal hits, you can select one of those hits to be retained as a critical hit instead.", cost: 1, type: .strategic)
+let getStuckIn = Ploy(name: "GET STUCK IN!", description: "Until the end of the Turning Point, each time a friendly BOY operative performs a Fight action, in the Roll Attack Dice step of that combat, you can re-roll one of your attack dice.", cost: 1, type: "strategic")
 
-let getStuckIn = Ploy(name: "GET STUCK IN!", description: "Until the end of the Turning Point, each time a friendly BOY operative performs a Fight action, in the Roll Attack Dice step of that combat, you can re-roll one of your attack dice.", cost: 1, type: .strategic)
+let skulkAbout = Ploy(name: "SKULK ABOUT", description: "Until the end of the Turning Point, each time a shooting attack is made against a friendly CLAN KOMMANDO operative, in the Roll Defence Dice step of that shooting attack, before rolling defence dice, if it has a Conceal order, you can retain one as a successful normal save without rolling it.", cost: 1, type: "strategic")
 
-let skulkAbout = Ploy(name: "SKULK ABOUT", description: "Until the end of the Turning Point, each time a shooting attack is made against a friendly CLAN KOMMANDO operative, in the Roll Defence Dice step of that shooting attack, before rolling defence dice, if it has a Conceal order, you can retain one as a successful normal save without rolling it.", cost: 1, type: .strategic)
+let justAScratch = Ploy(name: "JUST A SCRATCH", description: "Use this Tactical Ploy in the Resolve Successful Hits step of a shooting attack or combat, when damage would be inflicted on a friendly GREENSKIN operative from an attack dice. Ignore the damage inflicted from that attack dice.", cost: 1, type: "tactical")
 
-let justAScratch = Ploy(name: "JUST A SCRATCH", description: "Use this Tactical Ploy in the Resolve Successful Hits step of a shooting attack or combat, when damage would be inflicted on a friendly GREENSKIN operative from an attack dice. Ignore the damage inflicted from that attack dice.", cost: 1, type: .tactical)
-
-let moreDakka = Ploy(name: "MORE DAKKA", description: "Use this Tactical Ploy after making a shooting attack with a friendly GREENSKIN operative in which the target did not lose any wounds. Repeat that shooting attack.", cost: 1, type: .tactical)
-
+let moreDakka = Ploy(name: "MORE DAKKA", description: "Use this Tactical Ploy after making a shooting attack with a friendly GREENSKIN operative in which the target did not lose any wounds. Repeat that shooting attack.", cost: 1, type: "tactical")
+*/
 
 //MARK: TacOps
 
@@ -59,3 +60,4 @@ let shokkTaktiks = TacOps(name: "SHOKK TAKTIKS", type: .special, description: "R
 
 let getStuckInTacOp = TacOps(name: "GET STUCK IN!", type: .special, description: "You can reveal this Tac Op in the Reveal Tac Ops step of any Turning Point.", firstCondition: "At the end of any Turning Point (excluding the fourth), if three or more friendly operatives are within 6' of your opponent’s drop zone, you score 1VP.", victoryPointForfirstCondition: 1, secondCondition: "If you achieve the first condition at the end of any subsequent Turning Points (excluding the fourth), you score 1VP.", victoryPointSecondCondition: 1, subText: nil, uniquiAction: nil)
 
+*/

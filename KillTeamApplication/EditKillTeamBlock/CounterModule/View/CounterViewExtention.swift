@@ -15,9 +15,7 @@ extension CounterViewController {
     func createLabel (size: CGFloat) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.black
         label.font = UIFont.systemFont(ofSize: size)
-        label.numberOfLines = 0
         view.addSubview(label)
         return label
     }
@@ -116,7 +114,7 @@ extension CounterViewController {
         return button
     }
     
-    func addButton() {
+    func setupButtonAddKillTeam() {
         view.addSubview(addKillTeamButton)
         addKillTeamButton.backgroundColor = .orange
         addKillTeamButton.setImage(UIImage(systemName: "plus"), for: .normal)
@@ -147,11 +145,5 @@ extension CounterViewController {
         currentStrategicPloyButton.leadingAnchor.constraint(equalTo: currentStrategicPloyLabel.trailingAnchor, constant: 10).isActive = true
         currentStrategicPloyButton.addTarget(self, action: #selector(pressCurrentStrategicPloyButton), for: .touchUpInside)
         currentStrategicPloyButton.setTitleColor(.black, for: .normal)
-    }
-   
-    func setupTextPloy(ploy: Ploy) {
-        moreInfoPloyView.nameLabel.text = ploy.name
-        moreInfoPloyView.descriptionLabel.text = ploy.description
-        moreInfoPloyView.coastLabel.text = "\(ploy.cost)CP"
     }
 }

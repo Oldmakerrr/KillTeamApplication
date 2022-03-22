@@ -9,15 +9,9 @@ import Foundation
 import UIKit
 
 class PloyMoreInfoView: UIStackView {
-    let nameLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let coastLabel = UILabel()
+    
     let button = UIButton()
-    
-    static let identifier = "PloysTableViewCell"
 
-    private let header = UIView()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         settingview()
@@ -40,59 +34,126 @@ class PloyMoreInfoView: UIStackView {
         layer.masksToBounds = true
         layer.cornerRadius = 12
         backgroundColor = .systemGray2
-        addHeader()
-        addHeaderLabel()
-        addDescriptionLabel()
-        setupButton()
+        axis = .vertical
     }
 
-     private func addHeader() {
-         addSubview(header)
-         header.translatesAutoresizingMaskIntoConstraints = false
-         header.backgroundColor = .orange
-         header.topAnchor.constraint(equalTo: topAnchor).isActive = true
-         header.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-         header.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-         header.heightAnchor.constraint(equalToConstant: 40).isActive = true
+     
+     func addHeader(name: String, cost: String) {
+        let view = UIView()
+        view.backgroundColor = .orange
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        let nameLabel = UILabel()
+        view.addSubview(nameLabel)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        nameLabel.text = name
+        nameLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
+        let coastLabel = UILabel()
+        view.addSubview(coastLabel)
+        coastLabel.translatesAutoresizingMaskIntoConstraints = false
+        coastLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        coastLabel.text = cost
+        coastLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        coastLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
+        addArrangedSubview(view)
      }
      
-     private func addHeaderLabel() {
-         header.addSubview(nameLabel)
-         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-         nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
-         nameLabel.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
-         nameLabel.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 15).isActive = true
-         
-         header.addSubview(coastLabel)
-         coastLabel.translatesAutoresizingMaskIntoConstraints = false
-         coastLabel.font = UIFont.boldSystemFont(ofSize: 20)
-         coastLabel.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
-         coastLabel.trailingAnchor.constraint(equalTo: header.trailingAnchor, constant: -15).isActive = true
-     }
-     
-     private func addDescriptionLabel() {
-         addSubview(descriptionLabel)
-         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-         descriptionLabel.font = UIFont.systemFont(ofSize: 18)
-         descriptionLabel.numberOfLines = 0
-         descriptionLabel.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 15).isActive = true
-         descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
-         descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
-        // descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15).isActive = true
+    func addDescriptionLabel(description: String) {
+        let view = UIView()
+        view.backgroundColor = .systemGray2
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let label = UILabel()
+        view.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.numberOfLines = 0
+        label.text = description
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        addArrangedSubview(view)
      }
     
-    private func setupButton() {
-        addSubview(button)
+    func addSubText(subText: [String]) {
+        for text in subText {
+            let view = UIView()
+            view.backgroundColor = .systemGray2
+            let label = UILabel()
+            view.addSubview(label)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.font = UIFont.systemFont(ofSize: 18)
+            label.numberOfLines = 0
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+            label.text = text
+            addArrangedSubview(view)
+        }
+    }
+    
+    func addUnitUniqueActions(action: UnitUniqueActions) {
+        let view = TextView()
+        view.addView()
+        let attributBold = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
+        let text = NSMutableAttributedString(string: action.name, attributes: attributBold)
+        let coast = NSMutableAttributedString(string: " (\(action.cost)AP)", attributes: attributBold)
+        let description = NSAttributedString(string: ": \(action.description)")
+        text.append(coast)
+        text.append(description)
+        view.label.attributedText = text
+        addArrangedSubview(view)
+    }
+    
+    func addPassiveAbilitie(abilitie: UnitAbilities) {
+        let view = TextView()
+        view.addView()
+        let attributBold = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
+        let text = NSMutableAttributedString(string: abilitie.name, attributes: attributBold)
+        let description = NSAttributedString(string: ": \(abilitie.description)")
+        text.append(description)
+        view.label.attributedText = text
+        addArrangedSubview(view)
+    }
+    
+    func setupButton() {
+        let view = UIView()
+        view.backgroundColor = .systemGray2
+        view.addSubview(button)
+        view.translatesAutoresizingMaskIntoConstraints = false
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 12
         button.backgroundColor = .orange
         button.setTitle("Done", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15).isActive = true
-        button.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 15).isActive = true
-        button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+        button.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.widthAnchor.constraint(equalToConstant: 180).isActive = true
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        addArrangedSubview(view)
+    }
+    
+    func setupTextPloy(ploy: Ploy, view: PloyMoreInfoView) {
+        let cost = "\(ploy.cost)CP"
+        view.addHeader(name: ploy.name, cost: cost)
+        view.addDescriptionLabel(description: ploy.description)
+        if let subText = ploy.subText {
+            view.addSubText(subText: subText)
+        }
+        
+        if let uniqueAction = ploy.abilities {
+            view.addUnitUniqueActions(action: uniqueAction)
+        }
+        
+        if let passiveAbilitie = ploy.passiveAbilities {
+            view.addPassiveAbilitie(abilitie: passiveAbilitie)
+        }
+        view.setupButton()
     }
 
 }

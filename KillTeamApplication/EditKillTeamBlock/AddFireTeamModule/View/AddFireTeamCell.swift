@@ -93,7 +93,7 @@ class AddFireTeamCell: UITableViewCell {
 
 extension AddFireTeamCell: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        if let key = killTeam?.counterFT[fireTeam!.name] {
+        if let key = killTeam?.counterFT?[fireTeam!.name] {
             countFireTeam = key
         }
     }

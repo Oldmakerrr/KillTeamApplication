@@ -9,8 +9,7 @@ import UIKit
 
 class CounterViewController: UIViewController, CounterViewProtocol {
     
-    let moreInfoPloyView = PloyMoreInfoView()
-   lazy var customAlert = CustomAlert(alertView: moreInfoPloyView, targetView: view.self)
+    var customAlert: CustomAlert?
 
     var presenter: CounterPresenterProtocol?
     let currentKillTeamView = CurrentKillTeamView()
@@ -35,23 +34,20 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         super.viewDidLoad()
         view.backgroundColor = UIColor.gray
         navigationController?.navigationBar.isHidden = true
-        setupView()
-        addButton()
-        moreInfoPloyView.button.addTarget(self, action: #selector(hideAlertVew), for: .touchUpInside)
-        plusCommandPoint.isEnabled = false
-        minusCommandPoint.isEnabled = false
-        plusVictoryPoint.isEnabled = false
-        minusVictoryPoint.isEnabled = false
-        nextTurnButton.isHidden = false
-        endGameButton.isHidden = true
-        setLable()
-        //setView()
+        setupCurrentKillTeamView()
+        setupButtonAddKillTeam()
         
+        setLable()
         setupCurrentStrategicPloyLabel()
         setupCurrentStrategicPloyButton()
     }
     
-    func setupView() {
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.loadKeys()
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    func setupCurrentKillTeamView() {
         view.addSubview(currentKillTeamView)
         currentKillTeamView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
         currentKillTeamView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -60,64 +56,37 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         currentKillTeamView.setupView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
-        presenter?.loadKeys()
-    }
-    
     func setLable() {
         turningPointLabel.isHidden = false
         commandPointLabel.isHidden = false
         victoryPointLabel.isHidden = false
+        
+        plusCommandPoint.isEnabled = false
+        minusCommandPoint.isEnabled = false
+        plusVictoryPoint.isEnabled = false
+        minusVictoryPoint.isEnabled = false
+        nextTurnButton.isHidden = false
+        endGameButton.isHidden = true
     }
     
     @objc func pressCurrentStrategicPloyButton() {
         if let ploy = presenter?.model.gameData.currentStrategicPloy {
-            customAlert.showAlert()
-            setupTextPloy(ploy: ploy)
+            let moreInfoPloyView = PloyMoreInfoView()
+            moreInfoPloyView.button.addTarget(self, action: #selector(hideAlertVew), for: .touchUpInside)
+            customAlert = CustomAlert(alertView: moreInfoPloyView, targetView: self.view)
+            customAlert?.showAlert()
+            moreInfoPloyView.setupTextPloy(ploy: ploy, view: moreInfoPloyView)
         }
     }
     
     @objc func hideAlertVew() {
-        customAlert.dismissAlert()
+        customAlert?.dismissAlert()
     }
     
     @objc func addKillTeam() {
-        if !presenter!.keysForKillTeam.isEmpty {
-            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose an existing.", preferredStyle: .actionSheet)
-            let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
-                self.presenter?.showChooseKillTeamTableViewController()
-            }
-            let chooseKillTeamAlert = UIAlertAction(title: "Choose", style: .default) { _IOLBF in
-                self.presenter?.showChooseLoadedKillTeamTableViewController()
-            }
-            let cancleAlert = UIAlertAction(title: "Cancle", style: .cancel) { _IOLBF in
-                
-            }
-            addKillTeamAlertController.addAction(addNewKillTeamAlert)
-            addKillTeamAlertController.addAction(chooseKillTeamAlert)
-            addKillTeamAlertController.addAction(cancleAlert)
-            present(addKillTeamAlertController, animated: true) {
-            }
-        } else {
-            presenter?.showChooseKillTeamTableViewController()
-        }
+        presenter?.addKillTeam()
     }
     
-    /*
-    func setView() {
-        self.view.addSubview(currentKillTeamView)
-        currentKillTeamView.chooseKillTeamButton.addTarget(self, action: #selector(showChooseKillTeamTableViewController), for: .touchUpInside)
-        currentKillTeamView.killTeamNameLabel.text = "Choose your Kill Team"
-        currentKillTeamView.factionLogo.image = UIImage(named: presenter?.model.killTeam?.factionLogo ?? "empty")
-        currentKillTeamView.translatesAutoresizingMaskIntoConstraints = false
-        currentKillTeamView.backgroundColor = UIColor.systemGray3
-        currentKillTeamView.topAnchor.constraint(equalTo: view.topAnchor, constant: 75).isActive = true
-        currentKillTeamView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        currentKillTeamView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -100).isActive = true
-        currentKillTeamView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-    }
-    */
     @objc func buttonAction(sender: UIButton) {
         if let presenter = presenter {
             presenter.buttonAction(sender: sender)

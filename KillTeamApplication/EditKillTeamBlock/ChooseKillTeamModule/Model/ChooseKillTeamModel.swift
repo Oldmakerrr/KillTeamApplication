@@ -8,6 +8,5 @@
 import Foundation
 
 class AllKillTeam {
-    let allFaction: [Faction] = [ork]
-    var loadedKillTeam: [KillTeam] = []
+    var allFaction: [Faction] = []
 }

@@ -36,6 +36,7 @@ protocol CounterPresenterProtocol: AnyObject {
     func showChooseLoadedKillTeamTableViewController()
     func buttonAction(sender: UIButton)
     func loadKeys()
+    func addKillTeam()
 }
 
 protocol CounterPresenterDelegate: AnyObject {
@@ -56,7 +57,7 @@ class CounterPresenter: CounterPresenterProtocol {
     
     var model = CounterModel() {
         didSet {
-            labelState()
+            updateTextLabel()
         }
     }
     
@@ -85,7 +86,7 @@ class CounterPresenter: CounterPresenterProtocol {
         }
     }
     
-    func labelState() {
+    func updateTextLabel() {
         view?.commandPointLabel.text = "Command Point = \(model.gameData.countCommandPoint)"
         view?.victoryPointLabel.text = "Victory Point = \(model.gameData.countVictoryPoint)"
         view?.turningPointLabel.text = "Turning Point = \(model.gameData.countTurningPoint)"
@@ -118,6 +119,29 @@ class CounterPresenter: CounterPresenterProtocol {
         } else {
             view?.currentStrategicPloyLabel.text = ""
             view?.currentStrategicPloyButton.setTitle("", for: .normal)
+        }
+    }
+    
+    func addKillTeam() {
+        if !keysForKillTeam.isEmpty {
+            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose an existing.", preferredStyle: .actionSheet)
+            let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
+                self.showChooseKillTeamTableViewController()
+            }
+            let chooseKillTeamAlert = UIAlertAction(title: "Choose", style: .default) { _IOLBF in
+                self.showChooseLoadedKillTeamTableViewController()
+            }
+            let cancleAlert = UIAlertAction(title: "Cancle", style: .cancel) { _IOLBF in
+                
+            }
+            addKillTeamAlertController.addAction(addNewKillTeamAlert)
+            addKillTeamAlertController.addAction(chooseKillTeamAlert)
+            addKillTeamAlertController.addAction(cancleAlert)
+            let view = view as! UIViewController
+            view.present(addKillTeamAlertController, animated: true) {
+            }
+        } else {
+            showChooseKillTeamTableViewController()
         }
     }
     

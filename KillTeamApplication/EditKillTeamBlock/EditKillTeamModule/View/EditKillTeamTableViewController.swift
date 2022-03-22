@@ -57,8 +57,10 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
         let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
             cell.unitName.text = unit?.customName ?? unit?.name
 
-        
-                cell.closeWaepon.text = "Close weapon - \(unit!.selectedCloseWeapon.name)"
+        if let closeWeapon = unit?.selectedCloseWeapon{
+            cell.closeWaepon.text = "Close weapon - \(closeWeapon.name)"
+        }
+                
         if let rangeWeapon = unit?.selectedRangeWeapon {
             cell.rangeWaepon.text = "Range weapon - \(rangeWeapon.name)"
             

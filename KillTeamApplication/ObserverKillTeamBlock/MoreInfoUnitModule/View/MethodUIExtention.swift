@@ -34,30 +34,51 @@ extension MoreInfoUnitViewController {
     
     func setupAdditionalView() {
         guard let unit = presenter?.model.choosenUnit else { return }
-        scrollViewContainer.addArrangedSubview(addHeader(text: "Characteristics"))
+        addHeaderView(text: "Characteristics")
+        characteristicsView.setupText(unit: unit)
         scrollViewContainer.addArrangedSubview(characteristicsView)
-        scrollViewContainer.addArrangedSubview(addHeader(text: "Wargear"))
+        if let rangeWeapon = unit.selectedRangeWeapon {
+            addWeaponView(weapon: rangeWeapon, title: "Wargear (Range)")
+        }
+     
+        if let closeWeapon = unit.selectedCloseWeapon {
+            addWeaponView(weapon: closeWeapon, title: "Wargear (Close)")
+        }
         
-        if unit.selectedRangeWeapon != nil{
-            scrollViewContainer.addArrangedSubview(addWeaponView(weapon: unit.selectedRangeWeapon!))
-        }
-        scrollViewContainer.addArrangedSubview(addWeaponView(weapon: unit.selectedCloseWeapon))
         if !unit.equipment.isEmpty {
-            addEquipmentView()
+            addEquipmentView(equipments: unit.equipment)
         }
-        if unit.abilities != nil {
-            addAbilitiesView()
+        if let abilities = unit.abilities {
+            addAbilitiesView(abilities: abilities)
         }
-        if unit.uniqueActions != nil {
-            addUniqueActionsView()
+        if let uniqueActions = unit.uniqueActions {
+            addUniqueActionsView(uniqueActions: uniqueActions)
         }
         addKeywordView()
     }
     
-    func addKeywordView() {
+    private func addWeaponView(weapon: Weapon, title: String) {
+        addHeaderView(text: title)
+        let view = WeaponView()
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 12
+        view.addText(weapon: weapon)
+        scrollViewContainer.addArrangedSubview(view)
+        if let subProfiles = weapon.secondProfile {
+            for weapon in subProfiles {
+                let subView = WeaponView()
+                subView.layer.masksToBounds = true
+                subView.layer.cornerRadius = 12
+                subView.addText(weapon: weapon)
+                scrollViewContainer.addArrangedSubview(subView)
+            }
+        }
+    }
+    
+    private func addKeywordView() {
         guard let unit = presenter?.model.choosenUnit else { return }
-        scrollViewContainer.addArrangedSubview(addHeader(text: "Keywords"))
-        let view = AbilitiesView()
+        addHeaderView(text: "Keywords")
+        let view = TextView()
         view.addView()
         var keywords = ":"
         for (index, key) in unit.keyWords.enumerated() {
@@ -76,134 +97,48 @@ extension MoreInfoUnitViewController {
         scrollViewContainer.addArrangedSubview(view)
     }
     
-    func addUniqueActionsView() {
-        if let uniqueActions = presenter?.model.choosenUnit?.uniqueActions {
-            scrollViewContainer.addArrangedSubview(addHeader(text: "Unique Actions"))
-            for uniqueAction in uniqueActions {
-                let view = AbilitiesView()
-                view.addView()
-                let attributBold = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
-                let text = NSMutableAttributedString(string: uniqueAction.name, attributes: attributBold)
-                let coast = NSMutableAttributedString(string: " (\(uniqueAction.cost)AP)", attributes: attributBold)
-                let description = NSAttributedString(string: ": \(uniqueAction.description)")
-                text.append(coast)
-                text.append(description)
-                view.label.attributedText = text
-                scrollViewContainer.addArrangedSubview(view)
-            }
+    private func addUniqueActionsView(uniqueActions: [UnitUniqueActions]) {
+        addHeaderView(text: "Unique Actions")
+        for uniqueAction in uniqueActions {
+            let view = uniqueActionView()
+            view.setupTextForUnit(action: uniqueAction)
+            view.backgroundColor = .systemGray2
+            view.layer.masksToBounds = true
+            view.layer.cornerRadius = 12
+            scrollViewContainer.addArrangedSubview(view)
         }
     }
     
-    func addAbilitiesView () {
-        if let abilities = presenter?.model.choosenUnit?.abilities {
-            scrollViewContainer.addArrangedSubview(addHeader(text: "Abilities"))
-            for ability in abilities {
-                let view = AbilitiesView()
-                view.addView()
-                let attributBold = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
-                let text = NSMutableAttributedString(string: ability.name, attributes: attributBold)
-                let description = NSAttributedString(string: ": \(ability.description)")
-                text.append(description)
-                view.label.attributedText = text
-                scrollViewContainer.addArrangedSubview(view)
-            }
+    private func addAbilitiesView (abilities: [UnitAbilities]) {
+        addHeaderView(text: "Abilities")
+        for ability in abilities {
+            let view = AbilitieView()
+            view.backgroundColor = .systemGray2
+            view.layer.masksToBounds = true
+            view.layer.cornerRadius = 12
+            view.setupText(abilitie: ability)
+            scrollViewContainer.addArrangedSubview(view)
         }
     }
     
-    func addEquipmentView() {
-        let unit = presenter?.model.choosenUnit
-        let equipments = unit?.equipment
-        scrollViewContainer.addArrangedSubview(addHeader(text: "Equipment"))
-        for equipment in equipments! {
-            let equipmentView = EquipmentView()
-            scrollViewContainer.addArrangedSubview(equipmentView)
-            equipmentView.nameLabel.text = equipment.name
-            equipmentView.descriptionLabel.text = equipment.description
-            if let wargear = equipment.wargear {
-                let weaponView = addWeaponView(weapon: wargear)
-                weaponView.layer.cornerRadius = 0
-                equipmentView.addArrangedSubview(weaponView)
-            }
-            if let uniqueAction = equipment.uniqueAction {
-                equipmentView.setupuniqueAction()
-                let attributBold = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
-                let text = NSMutableAttributedString(string: uniqueAction.name, attributes: attributBold)
-                let description = NSAttributedString(string: ": \(uniqueAction.description)")
-                text.append(description)
-                equipmentView.uniqueActionDescriptionLabel.attributedText = text
-            }
+    private func addEquipmentView(equipments: [Equipment]) {
+        addHeaderView(text: "Equipment")
+        for equipment in equipments {
+            let view = EquipmentView()
+            view.layer.masksToBounds = true
+            view.layer.cornerRadius = 12
+            view.setupText(equipment: equipment)
+            scrollViewContainer.addArrangedSubview(view)
         }
     }
     
-    func setupLabelText() {
-        if let unit = presenter?.model.choosenUnit {
-            characteristicsView.movementLabel.text = "M = \(unit.movement)"
-            characteristicsView.actionPointLimit.text = "APL = \(unit.actionPointLimit)"
-            characteristicsView.groupActivation.text = "GA = \(unit.groupActivation)"
-            characteristicsView.defence.text = "D = \(unit.defense)"
-            characteristicsView.save.text = "Sv = \(unit.save)+"
-            characteristicsView.wounds.text = "W = \(unit.wounds)"
-        }
-    }
-    
-    func addWeaponView(weapon: Weapon) -> UIView {
-        let view = WeaponView()
-        view.nameLabel.text = weapon.name
-        view.attackLabel.text = "A = \(weapon.attacks)"
-        switch weapon.type {
-        case "range":
-            view.ballisticSkillsLabel.text = "BS = \(weapon.ballisticWeaponSkill)+"
-        case "close":
-            view.ballisticSkillsLabel.text = "WS = \(weapon.ballisticWeaponSkill)+"
-        default:
-            break
-        }
-        view.damageLabel.text = "D = \(weapon.damage)/\(weapon.critDamage)"
-        if let specialRule = weapon.specialRule {
-            let specialRuleView = view.secondSubView
-            view.setupView(view: specialRuleView)
-            var text = ""
-            for (index, rule) in specialRule.enumerated() {
-                switch index+1 == specialRule.count {
-                case true:
-                    text += "\(rule.name)."
-                case false:
-                    text += "\(rule.name), "
-                }
-            }
-            view.specialRuleLabel.text = "Special rule: \(text)"
-        }
-        if let critSpecialRule = weapon.criticalHitspecialRule {
-            let specialCritRuleView = view.thirdSubView
-            view.setupView(view: specialCritRuleView)
-            var text = ""
-            for (index, rule) in critSpecialRule.enumerated() {
-                switch index+1 == critSpecialRule.count {
-                case true:
-                    text += "\(rule.name)."
-                case false:
-                    text += "\(rule.name), "
-                }
-            }
-            view.criticalHitspecialRuleLabel.text = "!: \(text)"
-        }
-        return view
-    }
-    
-    
-    func addHeader(text: String) -> UIView {
-        let view = UIView()
-        let label = UILabel()
+    private func addHeaderView(text: String) {
+        let view = HeaderView()
+        view.setupText(name: text, cost: nil)
+       // view.nameLabel.text = text
+       // view.heightAnchor.constraint(equalToConstant: 40).isActive = true
         view.backgroundColor = .systemOrange
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        label.font = UIFont .boldSystemFont(ofSize: 24)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.black
-        label.text = text
-        view.addSubview(label)
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        return view
+        view.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        scrollViewContainer.addArrangedSubview(view)
     }
 }

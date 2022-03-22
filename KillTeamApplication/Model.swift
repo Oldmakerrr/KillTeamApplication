@@ -7,28 +7,26 @@
 
 import UIKit
 
-struct Faction {
+struct Faction: Decodable {
     let name: String
-    let subFactionName: String
     let killTeam: [KillTeam]
-    var userKillTeam: [KillTeam] = []
 }
 
 struct KillTeam: Codable {
-    let factionName: String
-    var id: String?
-    var userCustomName: String?
     let killTeamName: String
+    let factionName: String
+    var userCustomName: String?
+    var id: String?
     let countOfFireTeam: Int
     let factionLogo: String
-    var fireTeam: [FireTeam]
+    let fireTeam: [FireTeam]
     var choosenFireTeam: [FireTeam] = []
-    var counterFT: [String: Int] = [:]
+    var counterFT: [String: Int]?
     var choosenUnit: Unit?
     let ploys: [Ploy]
     let abilitiesOfKillTeam: [Abilitie]?
     let equipment: [Equipment]
-    var countEquipmentPoint = 10
+    var countEquipmentPoint: Int
     let tacOps: [TacOps]?
     var indexOfChoosenUnit: IndexPath?
  }
@@ -36,6 +34,7 @@ struct KillTeam: Codable {
 struct Abilitie: Codable{
     let name: String
     let description: String
+    let subText: [String]?
     let cost: Int?
     let weapon: Weapon?
 }
@@ -44,13 +43,16 @@ struct Ploy: Codable {
     let name: String
     let description: String
     let cost: Int
-    let type: TypeOfPloys
-}
-
-enum TypeOfPloys: String, Codable {
-    
-    case strategic
-    case tactical
+    let type: String
+    let subText: [String]?
+    let passiveAbilities : UnitAbilities?
+    let abilities: UnitUniqueActions?
+    let wargear: Weapon?
+    let firstSubText: String?
+    let secondSubText: String?
+    let thirdSubText: String?
+    let fourthSubText: String?
+    let fifthSubText: String?
 }
 
 struct FireTeam: Codable {
@@ -72,7 +74,9 @@ struct Equipment: Codable {
     let cost: Int
     let maxCounPerKillTeam: Int?
     let body: String?
-    let uniqueAction: Abilitie?
+    let subText: [String]?
+    let uniqueAction: UnitAbilities?
+    let unitAction: UnitUniqueActions?
     let wargear: Weapon?
 }
 
@@ -88,7 +92,7 @@ extension Equipment: Equatable {
 struct Unit: Codable {
     let name: String
     var customName: String?
-    let typeUnit: TypeOfUnit
+    let typeUnit: [String]
     let description: String
     let portrait: String
     let movement: Int
@@ -99,7 +103,8 @@ struct Unit: Codable {
     let wounds: Int
     //var currentWounds: Int
     var selectedRangeWeapon: Weapon?
-    var selectedCloseWeapon: Weapon
+    var selectedCloseWeapon: Weapon?
+    let additionalWeapon: [Weapon]?
     let availableWeapon: [Weapon]?
     var equipment: [Equipment] = []
     let abilities: [UnitAbilities]?
@@ -111,22 +116,31 @@ struct UnitUniqueActions: Codable {
     let name: String
     let cost: Int
     let description: String
+    let subText: [String]?
+    let wargear: Weapon?
+    let postSubText: String?
 }
 
 struct UnitAbilities: Codable {
     let name: String
     let description: String
+    let subText: [String]?
+}
+protocol WeaponProtocol {
+    var name: String { get }
+    var profileName: String? { get }
+    var type: String { get }
+    var attacks: Int { get }
+    var ballisticWeaponSkill: Int { get }
+    var damage: Int { get }
+    var critDamage: Int { get }
+    var specialRule: [WeaponSpecialRule]? { get }
+    var criticalHitspecialRule: [WeaponSpecialRule]? { get }
 }
 
-enum TypeOfUnit: String, Codable {
-    case combat
-    case staunch
-    case marksman
-    case scout
-}
-
-struct Weapon: Codable {
+struct Weapon: Codable, WeaponProtocol {
     let name: String
+    let profileName: String?
     let type: String
     let attacks: Int
     let ballisticWeaponSkill: Int
@@ -134,7 +148,20 @@ struct Weapon: Codable {
     let critDamage: Int
     let specialRule: [WeaponSpecialRule]?
     let criticalHitspecialRule: [WeaponSpecialRule]?
-    }
+    var secondProfile: [SubProfileWeapon]?
+}
+
+struct SubProfileWeapon: Codable, WeaponProtocol {
+    let name: String
+    let profileName: String?
+    let type: String
+    let attacks: Int
+    let ballisticWeaponSkill: Int
+    let damage: Int
+    let critDamage: Int
+    let specialRule: [WeaponSpecialRule]?
+    let criticalHitspecialRule: [WeaponSpecialRule]?
+}
 
 extension Weapon: Equatable {
     static func == (lhs: Weapon, rhs: Weapon) -> Bool {
@@ -144,26 +171,10 @@ extension Weapon: Equatable {
     
 }
 
-struct TwoProfileWeapon {
-    let secondProfile: Weapon
-    let name: String
-    let type: String
-    let attacks: Int
-    let ballisticWeaponSkill: Int
-    let damage: Int
-    let critDamage: Int
-    let specialRule: [WeaponSpecialRule]?
-    let criticalHitspecialRule: [WeaponSpecialRule]?
-    }
-
-enum TypeOfWeapon: String, Codable {
-    case range
-    case close
-}
-
 struct WeaponSpecialRule: Codable {
     let name: String
     let description: String
+    let subText: [String]?
 }
 
 struct TacOps: Codable {

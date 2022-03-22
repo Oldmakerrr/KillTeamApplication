@@ -22,7 +22,7 @@ class CustomAlert {
     }()
     
     private var targetView: UIView
-    private var alertView: UIView
+    var alertView: UIView
     
     init(alertView: UIView, targetView: UIView) {
         self.targetView = targetView

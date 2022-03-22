@@ -12,10 +12,11 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     var presenter: EditUnitPresenterProtocol?
     
     var countOfEquipmentPointLabel = UILabel()
-    var moreInfoWeapon = WeaponViewAlert()
-    var moreInfoEquipment = EquipmentViewAlert()
-    lazy var customAlertInfoWeapon = CustomAlert(alertView: moreInfoWeapon, targetView: view)
-    lazy var customAlertInfoEquipment = CustomAlert(alertView: moreInfoEquipment, targetView: view)
+    
+    var weaponView = WeaponView()
+    var equipmentView = EquipmentView()
+    lazy var customAlertInfoWeapon = CustomAlert(alertView: weaponView, targetView: view)
+    lazy var customAlertInfoEquipment = CustomAlert(alertView: equipmentView, targetView: view)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +24,10 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         tableView.register(EditUnitWargearCell.self, forCellReuseIdentifier: EditUnitWargearCell.identifier)
         tableView.register(EditUnitEquipmentCell.self, forCellReuseIdentifier: EditUnitEquipmentCell.identifier)
             createBarlabel()
-        moreInfoWeapon.button.addTarget(self, action: #selector(dismissWeponInfoAlert), for: .touchUpInside)
-        moreInfoEquipment.button.addTarget(self, action: #selector(dismissEquipmentInfoAlert), for: .touchUpInside)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         countOfEquipmentPointLabel.removeFromSuperview()
-       // presenter?.cleareIndex()
     }
     
     func showWeponInfoEquipment() {
@@ -41,11 +39,9 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     @objc func dismissEquipmentInfoAlert() {
         customAlertInfoEquipment.dismissAlert()
         tableView.isScrollEnabled = true
-        moreInfoEquipment.backgroundWeaponView.removeFromSuperview()
-        moreInfoEquipment.weaponView.specialRuleView.removeFromSuperview()
-        moreInfoEquipment.weaponView.critSpecialRuleView.removeFromSuperview()
-        moreInfoEquipment.backgroundUniqueActionView.removeFromSuperview()
-        moreInfoEquipment.bodyView.removeFromSuperview()
+        equipmentView = EquipmentView()
+        customAlertInfoEquipment.alertView = equipmentView
+        equipmentView.button.addTarget(self, action: #selector(dismissEquipmentInfoAlert), for: .touchUpInside)
     }
     
     func showWeponInfoAlert() {
@@ -57,8 +53,9 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     @objc func dismissWeponInfoAlert() {
         customAlertInfoWeapon.dismissAlert()
         tableView.isScrollEnabled = true
-        moreInfoWeapon.specialRuleView.removeFromSuperview()
-        moreInfoWeapon.critSpecialRuleView.removeFromSuperview()
+        weaponView = WeaponView()
+        customAlertInfoWeapon.alertView = weaponView
+        weaponView.button.addTarget(self, action: #selector(dismissWeponInfoAlert), for: .touchUpInside)
     }
     
     func createBarlabel() {
@@ -123,56 +120,22 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         switch indexPath.section {
         case 0:
-            let action = UIContextualAction(style: .normal, title: "More info") { _, _, complition in
+            let action = UIContextualAction(style: .normal, title: "More info") { [self] _, _, complition in
                 self.showWeponInfoAlert()
                 if let wargear = self.presenter?.model.currentUnit?.availableWeapon![indexPath.row] {
-                    self.moreInfoWeapon.layer.cornerRadius = 12
-                    self.moreInfoWeapon.attackLabel.text = "A = \(wargear.attacks)"
-                    self.moreInfoWeapon.header.nameLabel.text = "\(wargear.name)"
-                    switch wargear.type {
-                    case "range":
-                        self.moreInfoWeapon.ballisticSkillsLabel.text = "BS = +\(wargear.ballisticWeaponSkill)"
-                    case "close":
-                        self.moreInfoWeapon.ballisticSkillsLabel.text = "WS = +\(wargear.ballisticWeaponSkill)"
-                    default:
-                        break
-                    }
-                    self.moreInfoWeapon.damageLabel.text = "D = \(wargear.damage)/\(wargear.critDamage)"
-                    
-                    if let sp = wargear.specialRule {
-                        var spe = ""
-                        for (index, text) in sp.enumerated() {
-                            let n = text.name
-                            switch index+1 == sp.count {
-                            case false:
-                                spe += " \(n),"
-                            case true:
-                                spe += " \(n)."
-                            }
-                            
+                    self.weaponView.addText(weapon: wargear)
+                    if let subWeapon = wargear.secondProfile {
+                        for weapon in subWeapon {
+                            self.weaponView.addText(weapon: weapon)
                         }
-                        self.moreInfoWeapon.specialRuleLabel.text = "Special Rule: \(spe)"
-                        self.moreInfoWeapon.setupSpecialRuleView()
                     }
-                                    
-                    if let sp = wargear.criticalHitspecialRule {
-                        var cspe = ""
-                        for (index, text) in sp.enumerated() {
-                            let n = text.name
-                            switch index+1 == sp.count {
-                            case false:
-                                cspe += " \(n),"
-                            case true:
-                                cspe += " \(n)."
-                            }
-                            
-                        }
-                        self.moreInfoWeapon.critSpecialRuleLabel.text = "!: \(cspe)"
-                        self.moreInfoWeapon.setupCritSpecialRuleView()
-                    }
-                    self.moreInfoWeapon.setupButton()
-                    complition(true)
+                    self.weaponView.setupButton()
+                    self.weaponView.button.addTarget(self, action: #selector(self.dismissWeponInfoAlert), for: .touchUpInside)
+                    self.weaponView.layer.masksToBounds = true
+                    self.weaponView.layer.cornerRadius = 12
                 }
+            complition(true)
+                
             }
             action.backgroundColor = .blue
             action.title = "Info"
@@ -182,71 +145,15 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
             let action = UIContextualAction(style: .normal, title: "More info") { _, _, complition in
                 self.showWeponInfoEquipment()
                 if let equipment = self.presenter?.model.killTeam?.equipment[indexPath.row] {
-                    self.moreInfoEquipment.header.nameLabel.text = equipment.name
-                    self.moreInfoEquipment.header.coastLabel.text = "[\(equipment.cost)EP]"
-                    self.moreInfoEquipment.setupDescription(text: equipment.description)
-                    if let body = equipment.body {
-                        self.moreInfoEquipment.setupBody()
-                        self.moreInfoEquipment.bodyLabel.text = body
-                    }
-                    if let uniqueAction = equipment.uniqueAction {
-                        self.moreInfoEquipment.setupUniqueActionView()
-                        self.moreInfoEquipment.uniqueActionView.nameLabel.text = uniqueAction.name
-                        if let cost = uniqueAction.cost {
-                            self.moreInfoEquipment.uniqueActionView.coastLabel.text = "\(cost) AP"
-                        }
-                        self.moreInfoEquipment.uniqueActionView.descriptionLabel.text = uniqueAction.description
-                    }
-                    if let wargear = equipment.wargear {
-                        self.moreInfoEquipment.setupWeaponView()
-                        self.moreInfoEquipment.weaponView.layer.cornerRadius = 0
-                        self.moreInfoEquipment.weaponView.attackLabel.text = "A = \(wargear.attacks)"
-                        self.moreInfoEquipment.weaponView.header.nameLabel.text = wargear.name
-                        switch wargear.type {
-                        case "range":
-                            self.moreInfoEquipment.weaponView.ballisticSkillsLabel.text = "BS = +\(wargear.ballisticWeaponSkill)"
-                        case "close":
-                            self.moreInfoEquipment.weaponView.ballisticSkillsLabel.text = "WS = +\(wargear.ballisticWeaponSkill)"
-                        default:
-                            break
-                        }
-                        self.moreInfoEquipment.weaponView.damageLabel.text = "D = \(wargear.damage)/\(wargear.critDamage)"
-                        
-                        if let sp = wargear.specialRule {
-                            self.moreInfoEquipment.weaponView.setupSpecialRuleView()
-                            var spe = ""
-                            for (index, text) in sp.enumerated() {
-                                let n = text.name
-                                switch index+1 == sp.count {
-                                case false:
-                                    spe += " \(n),"
-                                case true:
-                                    spe += " \(n)."
-                                }
-                                
-                            }
-                            self.moreInfoEquipment.weaponView.specialRuleLabel.text = "Special Rule: \(spe)"
-                        }
-                                        
-                        if let sp = wargear.criticalHitspecialRule {
-                            self.moreInfoEquipment.weaponView.setupCritSpecialRuleView()
-                            var cspe = ""
-                            for (index, text) in sp.enumerated() {
-                                let n = text.name
-                                switch index+1 == sp.count {
-                                case false:
-                                    cspe += " \(n),"
-                                case true:
-                                    cspe += " \(n)."
-                                }
-                            }
-                            self.moreInfoWeapon.critSpecialRuleLabel.text = "!: \(cspe)"
-                        }
-                    }
-                    self.moreInfoEquipment.setupButton()
+                    self.equipmentView.setupText(equipment: equipment)
+                    self.equipmentView.setupButton()
+                    self.equipmentView.button.addTarget(self, action: #selector(self.dismissEquipmentInfoAlert), for: .touchUpInside)
+                    self.equipmentView.layer.masksToBounds = true
+                    self.equipmentView.layer.cornerRadius = 12
+                    self.equipmentView.axis = .vertical
+                   
                 complition(true)
                 }
-                
             }
             action.backgroundColor = .blue
             action.title = "Info"
@@ -257,66 +164,3 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         }
     }
 }
-
-/*
- if let body = equipment.body {
-     self.moreInfoEquipment.addArrangedSubview(self.moreInfoEquipment.bodyView)
-     self.moreInfoEquipment.bodyLabel.text = body
- }
- if let uniqueAction = equipment.uniqueAction {
-     self.moreInfoEquipment.addArrangedSubview(self.moreInfoEquipment.uniqueActionView)
-     self.moreInfoEquipment.uniqueActionView.nameLabel.text = uniqueAction.name
-     self.moreInfoEquipment.uniqueActionView.coastLabel.text = "\(uniqueAction.coast) AP"
-     self.moreInfoEquipment.uniqueActionView.descriptionLabel.text = uniqueAction.discription
- }
- if let wargear = equipment.wargear {
-     self.moreInfoEquipment.addArrangedSubview(self.moreInfoEquipment.weaponView)
-     self.moreInfoEquipment.weaponView.attackLabel.text = "A = \(wargear.attacks)"
-     self.moreInfoEquipment.weaponView.header.nameLabel.text = wargear.name
-     switch wargear.type {
-     case "range":
-         self.moreInfoWeapon.ballisticSkillsLabel.text = "BS = +\(wargear.ballisticWeaponSkill)"
-     case "close":
-         self.moreInfoWeapon.ballisticSkillsLabel.text = "WS = +\(wargear.ballisticWeaponSkill)"
-     default:
-         do {return}
-     }
-     self.moreInfoWeapon.damageLabel.text = "D = \(wargear.damage)/\(wargear.critDamage)"
-     
-     if let sp = wargear.specialRule {
-         var spe = ""
-         for (index, text) in sp.enumerated() {
-             let n = text.name
-             switch index+1 == sp.count {
-             case false:
-                 spe += " \(n),"
-             case true:
-                 spe += " \(n)."
-             }
-             
-         }
-         self.moreInfoWeapon.specialRuleLabel.text = "Special Rule: \(spe)"
-     } else {
-         self.moreInfoWeapon.specialRuleLabel.text = "Special Rule:"
-     }
-                     
-     if let sp = wargear.criticalHitspecialRule {
-         var cspe = ""
-         for (index, text) in sp.enumerated() {
-             let n = text.name
-             switch index+1 == sp.count {
-             case false:
-                 cspe += " \(n),"
-             case true:
-                 cspe += " \(n)."
-             }
-             
-         }
-         self.moreInfoWeapon.critSpecialRuleLabel.text = "!: \(cspe)"
-     } else {
-         self.moreInfoWeapon.critSpecialRuleLabel.text = "!:"
-     }
-     self.moreInfoEquipment.addArrangedSubview(self.moreInfoEquipment.button)
-     //self.moreInfoEquipment.wargear
-     
- */

@@ -38,14 +38,13 @@ class ChooseKillTeamPresenter: ChooseKillTeamPresenterProtocol {
         self.view = view
         self.store = store
         self.store.multicastDelegate.addDelegate(self)
-       // if let keys = KeySaver.getKey() {
-       //     keysForKillTeam = keys
-       // }
-       // for key in keysForKillTeam {
-       //     if let killTeam = loadMyKillTeam(key: key) {
-       //         model.loadedKillTeam.append(killTeam)
-       //     }
-       // }
+        model.allFaction += killTeamFromJson()
+    }
+    
+    func killTeamFromJson() -> [Faction] {
+        let path = Bundle.main.path(forResource: "AllFactionV1 ", ofType: "json")
+        let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
+        return try! JSONDecoder().decode([Faction].self, from: jsonData! as Data)
     }
     
     

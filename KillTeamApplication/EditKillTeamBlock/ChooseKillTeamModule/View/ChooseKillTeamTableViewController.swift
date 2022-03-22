@@ -54,6 +54,7 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
         var killTeam = (presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row])!
         killTeam.id = generateKey(name: killTeam.killTeamName)
         self.dismiss(animated: true, completion: nil)
+        killTeam.counterFT = [:]
         presenter?.goToEditKillTeamViewController(killTeam: killTeam)
     }
 }

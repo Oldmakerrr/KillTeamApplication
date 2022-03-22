@@ -38,7 +38,6 @@ final class StoreMulticastDelegate<T> {
 protocol StoreProtocol {
     var multicastDelegate: StoreMulticastDelegate<StoreDelegate> {get set}
     func addKillTeam(killTeam: KillTeam)
-    func addUnit(unit: Unit, indexPath: IndexPath)
     func addFireTeam(fireTeam: FireTeam)
     func removeTeam(fireTeam: FireTeam)
     func addIndexOfChoosenUnit(index: IndexPath)
@@ -71,18 +70,17 @@ final class Store: StoreProtocol {
         self.killTeam = killTeam
     }
     
-    func addUnit(unit: Unit, indexPath: IndexPath) {
-        self.killTeam?.fireTeam[indexPath.section].currentDataslates.append(unit)
-    }
-    
     func addFireTeam(fireTeam: FireTeam) {
         self.killTeam?.choosenFireTeam.append(fireTeam)
-        if killTeam!.counterFT.contains(where: { (key, _) in
+        guard let counter = killTeam!.counterFT else {
+            return
+        }
+        if counter.contains(where: { (key, _) in
             key == fireTeam.name
         }) {
-            killTeam?.counterFT[fireTeam.name]! += 1
+            killTeam?.counterFT?[fireTeam.name]! += 1
         } else{
-        self.killTeam?.counterFT[fireTeam.name] = 1
+        self.killTeam?.counterFT?[fireTeam.name] = 1
         }
     }
     
@@ -99,10 +97,10 @@ final class Store: StoreProtocol {
     func removeTeam(fireTeam: FireTeam) {
         var index = 0
         if killTeam!.choosenFireTeam.contains(fireTeam) {
-            for i in killTeam!.choosenFireTeam {
-                if i == fireTeam {
+            for team in killTeam!.choosenFireTeam {
+                if team == fireTeam {
                     killTeam!.choosenFireTeam.remove(at: index)
-                    self.killTeam?.counterFT[fireTeam.name]! -= 1
+                    self.killTeam?.counterFT?[fireTeam.name]! -= 1
                     break
                 }
                 index += 1

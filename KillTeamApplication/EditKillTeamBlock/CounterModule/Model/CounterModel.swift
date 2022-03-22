@@ -8,10 +8,6 @@
 import Foundation
 
 struct CounterModel {
-    var countCommandPoint = 0
-    var countVictoryPoint = 0
-    var countTurningPoint = 0
-    var currentStrategicPloy: Ploy?
     var killTeam: KillTeam?
     var gameData = GameData()
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/*
 //MARK: - BoyzNob
 
 let boyzNobPowerKlaw = Weapon(name: "Power klaw", type: "close", attacks: 4, ballisticWeaponSkill: 3, damage: 5, critDamage: 7, specialRule: [brutal], criticalHitspecialRule: nil)
@@ -103,7 +103,7 @@ let blast2 = WeaponSpecialRule(name: "Blast 2", description: "Each time a friend
 let indirect = WeaponSpecialRule(name: "Indirect", description: "Each time a friendly operative makes a shooting attack with this weapon, in the select valid target step of that shooting attack, enemy operatives are not in Cover.")
 
 let lethal5 = WeaponSpecialRule(name: "Lethal 5+", description: "Each time a friendly operative fights in combat or makes a shooting attack with this weapon, in the Roll Attack Dice step of that combat or shooting attack, your attack dice results of equal to or greater than x that are successful hits are critical hits, x is the number after the weapon’s Lethal, e.g. Lethal 5+.")
-
+ */
 
 let headhunter = TacOps(name: "HEADHUNTER", type: .seekandDestroy, description: "Reveal this Tac Op when an enemy LEADER operative is incapacitated.", firstCondition: "You score 1VP.", victoryPointForfirstCondition: 1, secondCondition: "If it is the first or second Turning Point, you score 1VP.", victoryPointSecondCondition: 1, subText: nil, uniquiAction: nil)
 
@@ -126,8 +126,10 @@ let protectAssets = TacOps(name: "PROTECT ASSETS", type: .security, description:
 
 let damageLimitation = TacOps(name: "DAMAGE LIMITATION", type: .security, description: "You can reveal this Tac Op in the Target Reveal step of any Turning Point after the first.", firstCondition: "At the end of any Turning Point, if no friendly operatives were incapacitated during that Turning Point, you score 1VP.", victoryPointForfirstCondition: 1, secondCondition: "If you achieve the first condition at the end of any subsequent Turning Points, you score 1VP.", victoryPointSecondCondition: 1, subText: nil, uniquiAction: nil)
 
-let tacOpsActionDestroyBanner = UnitUniqueActions(name: "DESTROY BANNER", cost: 1, description: "An operative can perform this action while within  of the centre of an opponent’s Banner token. Remove that Banner token from the killzone. An operative cannot perform this action while within  of enemy operatives.")
+let tacOpsActionDestroyBanner = UnitUniqueActions(name: "DESTROY BANNER", cost: 1, description: "An operative can perform this action while within  of the centre of an opponent’s Banner token. Remove that Banner token from the killzone. An operative cannot perform this action while within  of enemy operatives.", subText: nil, wargear: nil, postSubText: nil)
 
 let plantBanner = TacOps(name: "PLANT BANNER", type: .security, description: "After selecting this Tac Op, secretly select one friendly operative to be carrying your Banner token. Reveal this Tac Op when that operative drops your Banner token. When you do, until the end of the battle, the Pick Up action can be performed by friendly operatives upon your Banner token.", firstCondition: "At the end of the battle, if your Banner token is within 6' of but not wholly within your opponent’s drop zone, you score 1VP.", victoryPointForfirstCondition: 1, secondCondition: "At the end of the battle, if your Banner token is wholly within your opponent’s drop zone, you score 2VP.", victoryPointSecondCondition: 1, subText: "Operatives can perform the following mission action:", uniquiAction: tacOpsActionDestroyBanner)
 
 let centralControl = TacOps(name: "CENTRAL CONTROL", type: .security, description: "You can reveal this Tac Op in the Target Reveal step of any Turning Point.", firstCondition: "At the end of any Turning Point, if the total APL of friendly operatives within 3' of the centre of the killzone is greater than that of enemy operatives, you score 1VP.", victoryPointForfirstCondition: 1, secondCondition: "If you achieve the first condition at the end of any subsequent Turning Points, you score 1VP.", victoryPointSecondCondition: 1, subText: nil, uniquiAction: nil)
+
+

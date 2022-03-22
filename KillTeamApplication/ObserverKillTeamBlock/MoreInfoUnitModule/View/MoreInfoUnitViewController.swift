@@ -14,15 +14,7 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
     let scrollView = UIScrollView()
     let scrollViewContainer = UIStackView()
     
-    let headerLabel = UILabel()
-    let header = UIView()
-    
     let characteristicsView = CharacteristicsView()
-    let weaponView = WeaponView()
-    
-    let abilitiesView = UIView()
-    let uniquiActionView = UIView()
-    let keywordsView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +23,5 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
         setupScrollView()
         setupScrollViewContainer()
         setupAdditionalView()
-        setupLabelText()
-        
     }
 }

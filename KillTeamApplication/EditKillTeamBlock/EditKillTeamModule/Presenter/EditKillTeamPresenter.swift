@@ -53,6 +53,7 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         store.multicastDelegate.addDelegate(self)
         if let keys = KeySaver.getKey() {
             arrayKey = keys
+        
         }
     }
     

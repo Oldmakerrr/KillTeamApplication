@@ -44,7 +44,7 @@ class AddFireTeamTableVC: UITableViewController, AddFireTeamTableVCProtocol {
         cell.delegate = presenter as? AddFireTeamCellDelegate
         let fireTeam = presenter?.model.currentFireTeam![indexPath.row]
         cell.fireTeam = fireTeam
-        cell.countFireTeam = presenter?.model.counterFireteam![fireTeam!.name] ?? 0
+        cell.countFireTeam = presenter?.model.counterFireteam?[fireTeam!.name] ?? 0
         return cell
     }
 }
