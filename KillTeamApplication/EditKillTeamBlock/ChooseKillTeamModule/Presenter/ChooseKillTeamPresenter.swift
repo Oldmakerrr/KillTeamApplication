@@ -65,6 +65,6 @@ class ChooseKillTeamPresenter: ChooseKillTeamPresenterProtocol {
 }
 
 extension ChooseKillTeamPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
     }
 }

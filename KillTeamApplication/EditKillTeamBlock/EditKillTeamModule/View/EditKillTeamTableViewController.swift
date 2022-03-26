@@ -15,7 +15,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.red
+        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9529411765, blue: 0.9568627451, alpha: 1)
         navigationController?.navigationBar.isHidden = false
         tableView.register(EditKillTeamCell.self, forCellReuseIdentifier: EditKillTeamCell.identifire)
         createBarButton()
@@ -31,10 +31,14 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     }
     
     @objc func tapBarButtonAdd() {
-
-        presenter?.additionalSettings(view: self)
-
-        presenter?.goToAddFireTeam()
+        presenter?.additionalSettings()
+    }
+    
+    func createBarButton() {
+        goToAddFireTeamButton.title = "Edit"
+        navigationItem.rightBarButtonItem = goToAddFireTeamButton
+        goToAddFireTeamButton.target = self
+        goToAddFireTeamButton.action = #selector(tapBarButtonAdd)
     }
 
     // MARK: - Table view data source
@@ -53,60 +57,12 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EditKillTeamCell.identifire, for: indexPath) as! EditKillTeamCell
-        let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
-            cell.unitName.text = unit?.customName ?? unit?.name
-
-        if let closeWeapon = unit?.selectedCloseWeapon{
-            cell.closeWaepon.text = "Close weapon - \(closeWeapon.name)"
+        let cell = EditKillTeamCell()
+        guard let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] else {
+            return UITableViewCell()
         }
-                
-        if let rangeWeapon = unit?.selectedRangeWeapon {
-            cell.rangeWaepon.text = "Range weapon - \(rangeWeapon.name)"
-            
-        }
-        func printEquipment() -> String {
-            var equipmentArray = ""
-            var index = 1
-            for equipment in unit!.equipment {
-                equipmentArray += equipment.name
-                if index == unit?.equipment.count {
-                    equipmentArray += "."
-                } else {
-                    equipmentArray += ", "
-                }
-                index += 1
-            }
-            return equipmentArray
-        }
-        
-        if !unit!.equipment.isEmpty {
-            cell.equipment.text = "Equipment: \(printEquipment())"
-
-        } else {
-            cell.equipment.text = ""
-        }
+        cell.setupText(unit: unit)
         return cell
-    }
-    
-    func createBarButton() {
-        goToAddFireTeamButton.title = "Edit"
-        navigationItem.rightBarButtonItem = goToAddFireTeamButton
-        goToAddFireTeamButton.target = self
-        goToAddFireTeamButton.action = #selector(tapBarButtonAdd)
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var sizeCell: CGFloat = 85
-        if let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] {
-            if unit.equipment.isEmpty {
-                sizeCell = 85
-            } else {
-                sizeCell = 105
-            }
-        }
-        return sizeCell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -114,14 +70,13 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let changeUnit = presenter?.changeUnitAction(indexPath: indexPath, view: self)
-        let addUnit = presenter?.addUnitAction(indexPath: indexPath, view: self)
-        let renameUnit = presenter?.renameUnitAction(indexPath: indexPath, view: self)
-        return UISwipeActionsConfiguration(actions: [changeUnit!, addUnit!, renameUnit!])
+       guard let changeUnit = presenter?.changeUnitAction(indexPath: indexPath),
+             let renameUnit = presenter?.renameUnitAction(indexPath: indexPath) else { return nil }
+        return UISwipeActionsConfiguration(actions: [changeUnit, renameUnit])
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let removeUnit = presenter?.removeUnitAction(indexPath: indexPath, view: self)
+        let removeUnit = presenter?.removeUnitAction(indexPath: indexPath)
         return UISwipeActionsConfiguration(actions: [removeUnit!])
     }
 

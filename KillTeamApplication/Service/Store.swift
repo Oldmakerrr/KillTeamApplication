@@ -44,11 +44,12 @@ protocol StoreProtocol {
     func addCounterFireTeam(counter: [String: Int])
     func updateWargear(indexPath: IndexPath, unit: Unit)
     func updateChoosenUnit(unit: Unit)
+    var arrayKey: [String] { get set }
 
 }
 
 protocol StoreDelegate: AnyObject {
-    func didUpdate(_ store: Store, killTeam: KillTeam?)
+    func didUpdate(_ store: Store, killTeam: KillTeam)
 }
 
 final class Store: StoreProtocol {
@@ -57,9 +58,9 @@ final class Store: StoreProtocol {
         didSet {
             if let killTeam = killTeam {
                 saveMyKillTeam(killTeam: killTeam)
-            }
-            multicastDelegate.invoke { presenter in
-                presenter.didUpdate(self, killTeam: killTeam)
+                multicastDelegate.invoke { presenter in
+                    presenter.didUpdate(self, killTeam: killTeam)
+                }
             }
         }
     }
@@ -94,7 +95,7 @@ final class Store: StoreProtocol {
     
     
     
-    func removeTeam(fireTeam: FireTeam) {
+    func NremoveTeam(fireTeam: FireTeam) {
         var index = 0
         if killTeam!.choosenFireTeam.contains(fireTeam) {
             for team in killTeam!.choosenFireTeam {
@@ -109,6 +110,25 @@ final class Store: StoreProtocol {
         }
     }
     
+    func removeTeam(fireTeam: FireTeam) {
+        guard var killTeam = killTeam else { return }
+        if killTeam.choosenFireTeam.contains(fireTeam) {
+            for (index, team) in killTeam.choosenFireTeam.enumerated(){
+                if team == fireTeam {
+                    killTeam.choosenFireTeam[index].currentDataslates.forEach { unit in
+                        unit.equipment.forEach { equipment in
+                            killTeam.countEquipmentPoint += equipment.cost
+                        }
+                    }
+                    killTeam.choosenFireTeam.remove(at: index)
+                    killTeam.counterFT?[fireTeam.name]! -= 1
+                    break
+                }
+            }
+            self.killTeam = killTeam
+        }
+    }
+    
     func updateWargear(indexPath: IndexPath, unit: Unit) {
         killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
     }
@@ -118,7 +138,7 @@ final class Store: StoreProtocol {
         killTeam?.choosenUnit = unit
     }
 
-    private var arrayKey: [String] = []
+    var arrayKey: [String] = []
     
     private func saveMyKillTeam(killTeam: KillTeam) {
         if let key = killTeam.id {

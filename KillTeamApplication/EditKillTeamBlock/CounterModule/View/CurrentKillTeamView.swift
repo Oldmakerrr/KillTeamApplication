@@ -47,12 +47,13 @@ class CurrentKillTeamView: UIView {
     private func setupImageView() {
         addSubview(killTeamLogo)
         killTeamLogo.layer.masksToBounds = true
-        killTeamLogo.image = UIImage(named: "empty")
+        killTeamLogo.image = UIImage(named: "KILL_TEAM")
         killTeamLogo.translatesAutoresizingMaskIntoConstraints = false
         killTeamLogo.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
         killTeamLogo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
         killTeamLogo.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
         killTeamLogo.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        killTeamLogo.contentMode = .scaleAspectFit
         killTeamLogo.layer.cornerRadius = 40
         killTeamLogo.backgroundColor = .orange
         killTeamLogo.layer.borderWidth = 1

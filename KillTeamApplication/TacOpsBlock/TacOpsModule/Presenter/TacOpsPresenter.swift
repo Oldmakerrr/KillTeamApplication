@@ -140,8 +140,8 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
 }
 
 extension TacOpsPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        if let tacOps = killTeam?.tacOps {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
+        if let tacOps = killTeam.tacOps {
             model.tacOpsKillTeam = tacOps
         }
     }

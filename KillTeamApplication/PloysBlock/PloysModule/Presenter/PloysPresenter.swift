@@ -44,10 +44,10 @@ class PloysPresenter: PloysPresenterProtocol {
 }
 
 extension PloysPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
         model.strategicPloy = []
         model.tacticalPloy = []
-        killTeam?.ploys.forEach({ ploy in
+        killTeam.ploys.forEach({ ploy in
             switch ploy.type {
             case "strategic":
                 model.strategicPloy.append(ploy)

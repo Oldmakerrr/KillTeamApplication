@@ -18,11 +18,10 @@ protocol EditKillTeamPresenterProtocol: AnyObject {
     init (view: EditKillTeamProtocol, store: StoreProtocol)
     func goToEditUnitVC(indexPath: IndexPath)
     func goToAddFireTeam()
-    func changeUnitAction(indexPath: IndexPath, view: UITableViewController)-> UIContextualAction
-    func addUnitAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction
-    func removeUnitAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction
-    func renameUnitAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction
-    func additionalSettings(view: UITableViewController)
+    func changeUnitAction(indexPath: IndexPath)-> UIContextualAction
+    func removeUnitAction(indexPath: IndexPath) -> UIContextualAction
+    func renameUnitAction(indexPath: IndexPath) -> UIContextualAction
+    func additionalSettings()
 }
 
 protocol DataSenderUnitProtocol: AnyObject {
@@ -60,8 +59,9 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     //MARK: - Navigation
     
     func goToAddFireTeam() {
+        guard let killTeam = model.killTeam else { return }
         delegate?.didComplete(_presenter: self, sender: .addFireTeam)
-        store.addKillTeam(killTeam: model.killTeam!)
+        store.addKillTeam(killTeam: killTeam)
     }
     
     func goToEditUnitVC(indexPath: IndexPath) {
@@ -77,7 +77,8 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     
     //MARK: - Change Unit with TableView
     
-    func removeUnitAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction {
+    func removeUnitAction(indexPath: IndexPath) -> UIContextualAction {
+        guard let view = view as? UITableViewController else { return UIContextualAction() }
         let action = UIContextualAction(style: .destructive, title: "Remove") { _, _, completion in
             self.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates.remove(at: indexPath.row)
             view.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -89,19 +90,9 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         return action
     }
     
-    func addUnitAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Add") { _, _, completion in
-            self.addUnitAlert(indexPath: indexPath, view: view)
-            completion(true)
-        }
-        action.backgroundColor = .green
-        action.image = UIImage(systemName: "plus.app.fill")
-        return action
-    }
-    
-    func changeUnitAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction {
+    func changeUnitAction(indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "Change") {(_, _, completion) in
-            self.changeUnitaAlert(indexPath: indexPath, view: view)
+            self.changeUnitaAlert(indexPath: indexPath)
             completion(true)
         }
         action.backgroundColor = .orange
@@ -109,9 +100,9 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         return action
     }
     
-    func renameUnitAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction {
+    func renameUnitAction(indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .normal, title: "Rename") {(_, _, completion) in
-            self.renameUnitAlert(indexPath: indexPath, view: view)
+            self.renameUnitAlert(indexPath: indexPath)
             completion(true)
         }
         action.backgroundColor = .blue
@@ -119,7 +110,8 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         return action
     }
     
-    func changeUnitaAlert(indexPath: IndexPath, view: UITableViewController) {
+    func changeUnitaAlert(indexPath: IndexPath) {
+        guard let view = view as? UITableViewController else { return }
         let alert = UIAlertController(title: "Change unit", message: nil, preferredStyle: .actionSheet)
         if let availableUnit = model.killTeam?.choosenFireTeam[indexPath.section].availableDataslates {
             for unit in availableUnit {
@@ -131,27 +123,13 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
                 alert.addAction(action)
             }
         }
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(actionCancel)
         view.present(alert, animated: true, completion: nil)
     }
     
-
-    
-    func addUnitAlert(indexPath: IndexPath, view: UITableViewController) {
-        let alert = UIAlertController(title: "Add unit", message: nil, preferredStyle: .actionSheet)
-        if let availableUnit = model.killTeam?.choosenFireTeam[indexPath.section].availableDataslates {
-            for unit in availableUnit {
-                let action = UIAlertAction(title: unit.name, style: .default) { _ in
-                    self.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates.insert(unit, at: indexPath.row)
-                    view.tableView.reloadData()
-                    self.store.addKillTeam(killTeam: self.model.killTeam!)
-                }
-                alert.addAction(action)
-            }
-        }
-        view.present(alert, animated: true, completion: nil)
-    }
-    
-    func renameUnitAlert(indexPath: IndexPath, view: UITableViewController) {
+    func renameUnitAlert(indexPath: IndexPath) {
+        guard let view = view as? UITableViewController else { return }
         let alert = UIAlertController(title: "Rename", message: "Input new name for this unit", preferredStyle: .alert)
         let actionRename = UIAlertAction(title: "Rename", style: .default) { action in
             let textField = alert.textFields?.first
@@ -174,48 +152,84 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         
     }
     
-//MARK: EdditingKillTeamAlert
+//MARK: - EdditingKillTeamAlert
     
-    func additionalSettings(view: UITableViewController) {
-        let alert = UIAlertController(title: "Edit your Kill Team", message: nil, preferredStyle: .alert)
-        let renameKillTeamAction = UIAlertAction(title: "Rename Kill Team", style: .default) { _ in
-            self.renameKillTeamAlertController(title: "Rename", alertTitle: "Input name for your Kill Team", message: "")
+    private func addUnitToFireTeam() -> UIAlertAction {
+        guard let view = view as? UITableViewController else { return UIAlertAction() }
+        let action = UIAlertAction(title: "Add unit", style: .default) { _ in
+            let alert = UIAlertController(title: "Add unit", message: "Choose FireTeam", preferredStyle: .alert)
+            if self.model.killTeam?.choosenFireTeam.count == 1 {
+                self.addUnit(index: 0)
+            } else {
+                for (index, fireTeam) in self.model.killTeam!.choosenFireTeam.enumerated() {
+                    let action = UIAlertAction(title: fireTeam.name, style: .default) { _ in
+                        self.addUnit(index: index)
+                    }
+                    alert.addAction(action)
+                }
+            }
+            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(actionCancel)
+            view.present(alert, animated: true, completion: nil)
         }
-        
-        let goToAddFireTeamAction = UIAlertAction(title: "Add Fire Team", style: .default) { _ in
-            self.delegate?.didComplete(_presenter: self, sender: .addFireTeam)
-            self.store.addKillTeam(killTeam: self.model.killTeam!)
-        }
+        return action
+    }
     
-        let cancel = UIAlertAction(title: "Cancle", style: .cancel) { _ in
+    private func addUnit(index: Int) {
+        guard let view = view as? UITableViewController else { return }
+        let alert = UIAlertController(title: "Add unit", message: nil, preferredStyle: .actionSheet)
+        self.model.killTeam?.choosenFireTeam[index].availableDataslates.forEach { unit in
+            let action = UIAlertAction(title: unit.name, style: .default) { _ in
+                self.model.killTeam?.choosenFireTeam[index].currentDataslates.insert(unit, at: 0)
+                view.tableView.reloadData()
+                self.store.addKillTeam(killTeam: self.model.killTeam!)
+            }
+            alert.addAction(action)
         }
-        alert.addAction(goToAddFireTeamAction)
-        alert.addAction(renameKillTeamAction)
-        alert.addAction(cancel)
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(actionCancel)
         view.present(alert, animated: true, completion: nil)
     }
     
-    func renameKillTeamAlertController(title: String, alertTitle: String, message: String) {
-        let alert = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
-        let actionRename = UIAlertAction(title: title, style: .default) { action in
-            let textField = alert.textFields?.first
-            if let newName = textField?.text {
-                self.model.killTeam?.userCustomName = newName
-                self.store.addKillTeam(killTeam: self.model.killTeam!)
+    func additionalSettings() {
+
+        guard let view = view as? UITableViewController, let killTeam = model.killTeam else { return }
+        let alert = UIAlertController(title: "Edit your Kill Team", message: nil, preferredStyle: .alert)
+        let renameKillTeamAction = self.renameKillTeamAlertController()
+        let goToAddFireTeamAction = UIAlertAction(title: "Add Fire Team", style: .default) { _ in
+            self.goToAddFireTeam()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(goToAddFireTeamAction)
+        if !killTeam.choosenFireTeam.isEmpty {
+            let addUnitToFireTeamAction = addUnitToFireTeam()
+            alert.addAction(addUnitToFireTeamAction)
+        }
+        alert.addAction(renameKillTeamAction)
+        alert.addAction(cancelAction)
+        view.present(alert, animated: true, completion: nil)
+    }
+    
+    func renameKillTeamAlertController() -> UIAlertAction {
+        guard let view = view as? UITableViewController else { return UIAlertAction() }
+        let action = UIAlertAction(title: "Rename Kill Team", style: .default) { _ in
+            let alert = UIAlertController(title: "Input name for your Kill Team", message: nil, preferredStyle: .alert)
+            let renameAction = UIAlertAction(title: "Rename", style: .default) { action in
+                let textField = alert.textFields?.first
+                if let newName = textField?.text {
+                    self.model.killTeam?.userCustomName = newName
+                    self.store.addKillTeam(killTeam: self.model.killTeam!)
+                }
             }
-        }
-        let cancel = UIAlertAction(title: "Cancle", style: .cancel) { _ in
-        }
-        
-        alert.addTextField { textField in
-            textField.text = self.model.killTeam?.userCustomName ?? ""
-        }
-        alert.addAction(actionRename)
-        alert.addAction(cancel)
-        let view = view as? UITableViewController
-        if let view = view {
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addTextField { textField in
+                textField.text = self.model.killTeam?.userCustomName ?? ""
+            }
+            alert.addAction(renameAction)
+            alert.addAction(cancelAction)
             view.present(alert, animated: true, completion: nil)
         }
+        return action
     }
 }
 //MARK: - Delegate Method
@@ -227,7 +241,7 @@ extension EditKillTeamPresenter: DataSenderUnitProtocol {
 }
 
 extension EditKillTeamPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
         model.killTeam = killTeam
     }
 }

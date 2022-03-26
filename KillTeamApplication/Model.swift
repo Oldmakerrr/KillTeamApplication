@@ -112,7 +112,13 @@ struct Unit: Codable {
     let keyWords: [String]
 }
 
-struct UnitUniqueActions: Codable {
+protocol AbilitiesProtocol {
+    var name: String { get }
+    var description: String { get }
+    var subText: [String]? { get }
+}
+
+struct UnitUniqueActions: Codable, AbilitiesProtocol {
     let name: String
     let cost: Int
     let description: String
@@ -121,7 +127,7 @@ struct UnitUniqueActions: Codable {
     let postSubText: String?
 }
 
-struct UnitAbilities: Codable {
+struct UnitAbilities: Codable, AbilitiesProtocol {
     let name: String
     let description: String
     let subText: [String]?

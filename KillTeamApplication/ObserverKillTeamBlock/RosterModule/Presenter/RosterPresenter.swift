@@ -52,7 +52,7 @@ class RosterPresenter: RosterPresenterProtocol {
 
 
 extension RosterPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
         model.killTeam = killTeam
     }
 }

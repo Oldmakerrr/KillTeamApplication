@@ -17,6 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let store = Store()
+        if let keys = KeySaver.getKey() {
+            store.arrayKey = keys
+        }
         let gameStore = GameStore()
         let builder = ModuleBuilder(store: store, gameStore: gameStore)
         _ = MainTabbarRouter(builder: builder, window: window!)

@@ -37,8 +37,8 @@ class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
 }
 
 extension MoreUnitInfoPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
         model.killTeam = killTeam
-        model.choosenUnit = killTeam?.choosenUnit
+        model.choosenUnit = killTeam.choosenUnit
     }
 }

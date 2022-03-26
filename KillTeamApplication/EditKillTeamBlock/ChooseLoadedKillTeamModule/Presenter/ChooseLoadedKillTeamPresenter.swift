@@ -66,9 +66,9 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
     
     func removeMyKillTeam(indexPath: IndexPath, view: UITableViewController) {
         model.loadedKillTeam.remove(at: indexPath.row)
-        keysForKillTeam.remove(at: indexPath.row)
+        store.arrayKey.remove(at: indexPath.row)
+        KeySaver.saveKey(key: store.arrayKey)
         view.tableView.reloadData()
-        KeySaver.saveKey(key: keysForKillTeam)
     }
     
     func removeKillTeamSwipeAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction {
@@ -84,6 +84,6 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
 }
 
 extension ChooseLoadedKillTeamPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
     }
 }

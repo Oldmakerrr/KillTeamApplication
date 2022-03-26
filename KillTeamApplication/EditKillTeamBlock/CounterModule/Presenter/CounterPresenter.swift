@@ -100,7 +100,7 @@ class CounterPresenter: CounterPresenterProtocol {
             view?.currentKillTeamView.nameLabel.text = killTeam.userCustomName ?? killTeam.killTeamName
         }
         if model.gameData.countTurningPoint == 0 {
-            view?.nextTurnButton.setTitle("Star Game", for: .normal)
+            view?.nextTurnButton.setTitle("Start Game", for: .normal)
             view?.plusCommandPoint.isEnabled = false
             view?.plusVictoryPoint.isEnabled = false
             view?.minusCommandPoint.isEnabled = false
@@ -131,7 +131,7 @@ class CounterPresenter: CounterPresenterProtocol {
             let chooseKillTeamAlert = UIAlertAction(title: "Choose", style: .default) { _IOLBF in
                 self.showChooseLoadedKillTeamTableViewController()
             }
-            let cancleAlert = UIAlertAction(title: "Cancle", style: .cancel) { _IOLBF in
+            let cancleAlert = UIAlertAction(title: "Cancel", style: .cancel) { _IOLBF in
                 
             }
             addKillTeamAlertController.addAction(addNewKillTeamAlert)
@@ -195,7 +195,7 @@ extension CounterPresenter: GameStoreDelegate {
 }
 
 extension CounterPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
         model.killTeam = killTeam
     }
 }

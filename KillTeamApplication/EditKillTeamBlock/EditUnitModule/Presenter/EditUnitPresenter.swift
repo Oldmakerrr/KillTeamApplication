@@ -37,6 +37,7 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         self.view = view
         self.store = store
         self.store.multicastDelegate.addDelegate(self)
+        
     }
     
     func cleareIndex() {
@@ -47,17 +48,41 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
 }
 
 extension EditUnitPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        let indexPath = killTeam?.indexOfChoosenUnit
-        model.indexPathUnit = indexPath
-        model.killTeam = killTeam
-        if model.killTeam!.choosenFireTeam.isEmpty {
-            return
-        } else {
-            if let indexPath = indexPath {
-                model.currentUnit = model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
-                
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
+        if let indexPath = killTeam.indexOfChoosenUnit {
+            model.indexPathUnit = indexPath
+            if !killTeam.choosenFireTeam.isEmpty {
+                model.currentUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
             }
+        }
+        model.killTeam = killTeam
+        if let availableWeapon = model.currentUnit?.availableWeapon {
+            var countRangeWeapon = 0
+            var countCloseWeapon = 0
+            availableWeapon.forEach { weapon in
+                switch weapon.type {
+                case "range":
+                    countRangeWeapon += 1
+                    model.rangeWeapon.append(weapon)
+                case "close":
+                    countCloseWeapon += 1
+                    model.closeWeapon.append(weapon)
+                default:
+                    break
+                }
+            }
+            if countRangeWeapon != 0 {
+                model.numberOfRow.append(countRangeWeapon)
+                model.headerForRow.append("Range Weapon")
+            }
+            if countCloseWeapon != 0 {
+                model.numberOfRow.append(countCloseWeapon)
+                model.headerForRow.append("Close Weapon")
+            }
+        }
+        if !killTeam.equipment.isEmpty {
+            model.numberOfRow.append(killTeam.equipment.count)
+            model.headerForRow.append("Equipment")
         }
     }
 }

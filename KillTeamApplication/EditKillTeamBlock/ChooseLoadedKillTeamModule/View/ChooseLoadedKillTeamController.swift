@@ -14,7 +14,7 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ChooseLoadedKillTeamCell.self, forCellReuseIdentifier: ChooseLoadedKillTeamCell.identifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,10 +32,15 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ChooseLoadedKillTeamCell.identifier, for: indexPath) as! ChooseLoadedKillTeamCell
         let killTeam = presenter?.model.loadedKillTeam[indexPath.row]
-        cell.textLabel?.text = killTeam?.userCustomName ?? killTeam?.killTeamName
-        cell.detailTextLabel?.text = killTeam?.factionName
+        if let userName = killTeam?.userCustomName {
+            cell.textLabel?.text = userName
+            cell.detailTextLabel?.text = killTeam?.killTeamName
+        } else {
+            cell.textLabel?.text = killTeam?.killTeamName
+            cell.detailTextLabel?.text = killTeam?.factionName
+        }
         return cell
     }
     

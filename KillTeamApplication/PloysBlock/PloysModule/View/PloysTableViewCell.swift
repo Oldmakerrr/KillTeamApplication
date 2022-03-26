@@ -32,6 +32,18 @@ class PloysTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         settingview()
         contentView.addSubview(ployView)
+        /*
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "background")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.alpha = 0.5
+        ployView.addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: ployView.topAnchor),
+            imageView.widthAnchor.constraint(equalTo: ployView.widthAnchor),
+            imageView.bottomAnchor.constraint(equalTo: ployView.bottomAnchor, constant: 20)
+        ])
+         */
         ployView.translatesAutoresizingMaskIntoConstraints = false
         ployView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         ployView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true

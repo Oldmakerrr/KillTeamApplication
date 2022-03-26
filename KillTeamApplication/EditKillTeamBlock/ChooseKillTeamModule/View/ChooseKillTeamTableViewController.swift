@@ -14,18 +14,9 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.gray
-        tableView.register(ChooseKillTeamTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ChooseKillTeamTableViewCell.self, forCellReuseIdentifier: ChooseKillTeamTableViewCell.identifier)
     }
     
-    private func generateKey(name: String) -> String {
-        var key = ""
-        let random2 = Int.random(in: 0...100000)
-        key += String(random2)
-        key += name
-        let random = Int.random(in: 0...100000)
-        key += String(random)
-        return key
-    }
 
     // MARK: - Table view data source
 
@@ -37,12 +28,17 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
         return presenter!.model.allFaction[section].killTeam.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let KillTeam = presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row]
-        cell.imageView?.image = UIImage(named: KillTeam!.factionLogo)
-        cell.textLabel?.text = KillTeam?.killTeamName
+        let cell = tableView.dequeueReusableCell(withIdentifier: ChooseKillTeamTableViewCell.identifier, for: indexPath) as! ChooseKillTeamTableViewCell
+        guard let killTeam = presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row] else { return cell }
+        cell.setupText(killTeam: killTeam)
+        //  cell.imageView?.translatesAutoresizingMaskIntoConstraints = false
+      //  cell.imageView?.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 2).isActive = true
+      //  cell.imageView?.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -2).isActive = true
+      //  cell.imageView?.widthAnchor.constraint(equalTo: cell.imageView!.heightAnchor).isActive = true
+      //  cell.imageView?.contentMode = .scaleAspectFill
+       // cell.textLabel?.text = killTeam?.killTeamName
+       // cell.detailTextLabel?.text = killTeam?.factionName
         return cell
     }
     
@@ -50,11 +46,16 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
         return presenter?.model.allFaction[section].name
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var killTeam = (presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row])!
-        killTeam.id = generateKey(name: killTeam.killTeamName)
-        self.dismiss(animated: true, completion: nil)
+        let uuid = UUID().uuidString
+        killTeam.id = uuid
         killTeam.counterFT = [:]
+        self.dismiss(animated: true, completion: nil)
         presenter?.goToEditKillTeamViewController(killTeam: killTeam)
     }
 }

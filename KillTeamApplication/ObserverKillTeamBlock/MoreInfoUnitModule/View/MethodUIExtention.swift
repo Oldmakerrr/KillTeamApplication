@@ -62,14 +62,14 @@ extension MoreInfoUnitViewController {
         let view = WeaponView()
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 12
-        view.addText(weapon: weapon)
+        view.addText(weapon: weapon, delegate: self)
         scrollViewContainer.addArrangedSubview(view)
         if let subProfiles = weapon.secondProfile {
             for weapon in subProfiles {
                 let subView = WeaponView()
                 subView.layer.masksToBounds = true
                 subView.layer.cornerRadius = 12
-                subView.addText(weapon: weapon)
+                subView.addText(weapon: weapon, delegate: self)
                 scrollViewContainer.addArrangedSubview(subView)
             }
         }
@@ -100,8 +100,8 @@ extension MoreInfoUnitViewController {
     private func addUniqueActionsView(uniqueActions: [UnitUniqueActions]) {
         addHeaderView(text: "Unique Actions")
         for uniqueAction in uniqueActions {
-            let view = uniqueActionView()
-            view.setupTextForUnit(action: uniqueAction)
+            let view = UniqueActionView()
+            view.setupTextForUnit(action: uniqueAction, delegate: self)
             view.backgroundColor = .systemGray2
             view.layer.masksToBounds = true
             view.layer.cornerRadius = 12
@@ -127,7 +127,7 @@ extension MoreInfoUnitViewController {
             let view = EquipmentView()
             view.layer.masksToBounds = true
             view.layer.cornerRadius = 12
-            view.setupText(equipment: equipment)
+            view.setupText(equipment: equipment, delegate: self)
             scrollViewContainer.addArrangedSubview(view)
         }
     }
@@ -141,4 +141,13 @@ extension MoreInfoUnitViewController {
         view.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
         scrollViewContainer.addArrangedSubview(view)
     }
+}
+
+
+extension MoreInfoUnitViewController: WeaponRuleButtonProtocol {
+    func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
+        moreInfoWeaponRuleAlert(weaponRule: weaponRule)
+    }
+    
+    
 }
