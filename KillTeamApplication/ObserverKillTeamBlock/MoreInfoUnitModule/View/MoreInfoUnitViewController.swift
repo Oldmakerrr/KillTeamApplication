@@ -18,7 +18,7 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         title = presenter?.model.choosenUnit?.name
         setupScrollView()
         setupScrollViewContainer()

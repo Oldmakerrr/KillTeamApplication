@@ -9,7 +9,7 @@ import UIKit
 
 protocol EditUnitViewControllerProtocol: AnyObject {
     var presenter: EditUnitPresenterProtocol? { get }
-    var countOfEquipmentPointLabel: UILabel { get }
+    var countOfEquipmentPointLabel: NormalLabel { get }
 }
 
 protocol EditUnitPresenterProtocol: AnyObject {
@@ -42,24 +42,26 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
     
     func cleareIndex() {
         model.killTeam?.indexOfChoosenUnit = nil
-        store.addKillTeam(killTeam: model.killTeam!)
+        store.updateCurrentKillTeam(killTeam: model.killTeam!)
     }
     
-}
-
-extension EditUnitPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam) {
-        if let indexPath = killTeam.indexOfChoosenUnit {
-            model.indexPathUnit = indexPath
-            if !killTeam.choosenFireTeam.isEmpty {
-                model.currentUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+    private func sortirateWEapon(weapons: [Weapon]) {
+        var countRangeWeapon = 0
+        var countCloseWeapon = 0
+        weapons.forEach { weapon in
+            switch weapon.type {
+            case "range":
+                countRangeWeapon += 1
+                model.rangeWeapon.append(weapon)
+            case "close":
+                countCloseWeapon += 1
+                model.closeWeapon.append(weapon)
+            default:
+                break
             }
         }
-        model.killTeam = killTeam
-        if let availableWeapon = model.currentUnit?.availableWeapon {
-            var countRangeWeapon = 0
-            var countCloseWeapon = 0
-            availableWeapon.forEach { weapon in
+        if let additionalWeapon = model.currentUnit?.additionalWeapon {
+            additionalWeapon.forEach { weapon in
                 switch weapon.type {
                 case "range":
                     countRangeWeapon += 1
@@ -71,14 +73,29 @@ extension EditUnitPresenter: StoreDelegate {
                     break
                 }
             }
-            if countRangeWeapon != 0 {
-                model.numberOfRow.append(countRangeWeapon)
-                model.headerForRow.append("Range Weapon")
-            }
-            if countCloseWeapon != 0 {
-                model.numberOfRow.append(countCloseWeapon)
-                model.headerForRow.append("Close Weapon")
-            }
+        }
+        if countRangeWeapon != 0 {
+            model.numberOfRow.append(countRangeWeapon)
+            model.headerForRow.append("Range Weapon")
+        }
+        if countCloseWeapon != 0 {
+            model.numberOfRow.append(countCloseWeapon)
+            model.headerForRow.append("Close Weapon")
+        }
+    }
+    
+}
+
+extension EditUnitPresenter: StoreDelegate {
+    func didUpdate(_ store: Store, killTeam: KillTeam) {
+        guard let indexPath = killTeam.indexOfChoosenUnit else { return }
+        model.killTeam = killTeam
+        model.indexPathUnit = indexPath
+        if !killTeam.choosenFireTeam.isEmpty {
+            model.currentUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        }
+        if let availableWeapon = model.currentUnit?.availableWeapon {
+            sortirateWEapon(weapons: availableWeapon)
         }
         if !killTeam.equipment.isEmpty {
             model.numberOfRow.append(killTeam.equipment.count)
@@ -89,37 +106,39 @@ extension EditUnitPresenter: StoreDelegate {
 
 extension EditUnitPresenter: EditUnitCellDelegate {
     func selectedWargear(wargear: Weapon, selected: Bool) {
-        var unit = model.currentUnit
+        guard var unit = model.currentUnit, let indexPath = model.indexPathUnit  else { return }
+        if let additionalWeapon = unit.additionalWeapon {
+            guard !additionalWeapon.contains(wargear) else { return }
+        }
         if selected {
             switch wargear.type {
             case "close":
-                unit?.selectedCloseWeapon = wargear
+                unit.selectedCloseWeapon = wargear
             case "range":
-                unit?.selectedRangeWeapon = wargear
+                unit.selectedRangeWeapon = wargear
             default:
                 return
             }
-            store.updateWargear(indexPath: self.model.indexPathUnit!, unit: unit!)
+            store.updateUnitWargearInChoosenFireTeam(indexPath: indexPath, unit: unit)
         }
     }
 }
 
 extension EditUnitPresenter: EditUnitEquipmentCellDelegate {
     func selectEquipment(equipment: Equipment, selected: Bool) {
-        var unit = model.currentUnit
+        guard var unit = model.currentUnit, let indexPath = model.indexPathUnit  else { return }
         if selected {
-            if unit!.equipment.contains(equipment) {
+            if unit.equipment.contains(equipment) {
                 model.killTeam?.countEquipmentPoint += equipment.cost
-                unit?.equipment.removeAll(where: { equip in
+                unit.equipment.removeAll(where: { equip in
                     equip == equipment
-                
                 })
             } else {
-                unit?.equipment.append(equipment)
+                unit.equipment.append(equipment)
                 model.killTeam?.countEquipmentPoint -= equipment.cost
             }
-            store.addKillTeam(killTeam: model.killTeam!)
-            store.updateWargear(indexPath: self.model.indexPathUnit!, unit: unit!)
+            store.updateCurrentKillTeam(killTeam: model.killTeam!)
+            store.updateUnitWargearInChoosenFireTeam(indexPath: indexPath, unit: unit)
         }
     }
     

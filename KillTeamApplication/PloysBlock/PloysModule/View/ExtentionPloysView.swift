@@ -12,7 +12,7 @@ extension PloysViewController {
     
     func setupTableView() {
         view.addSubview(tableView)
-        tableView.backgroundColor = .black
+        tableView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(PloysTableViewCell.self, forCellReuseIdentifier: PloysTableViewCell.identifier)
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

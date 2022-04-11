@@ -28,8 +28,8 @@ class WeaponRuleButton: UIButton {
     }
     
     private func configure() {
-        titleLabel?.textColor = .blue
-        titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        titleLabel?.textColor = ColorScheme.shared.theme.textHyperlink
+        titleLabel?.font = Constant.Font.systemFont
         translatesAutoresizingMaskIntoConstraints = false
         addTarget(self, action: #selector(actionForButton), for: .touchUpInside)
     }
@@ -43,7 +43,7 @@ class WeaponRuleButton: UIButton {
     func setupText(weaponRule: WeaponSpecialRule) {
         self.weaponRule = weaponRule
         let underlineAttriString = NSAttributedString(string: weaponRule.name,
-                                                  attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                                                      attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         setAttributedTitle(underlineAttriString, for: .normal)
     }
 }

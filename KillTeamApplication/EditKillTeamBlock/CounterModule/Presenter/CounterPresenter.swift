@@ -8,18 +8,19 @@
 import UIKit
 
 protocol CounterViewProtocol: AnyObject {
+    
     var currentKillTeamView: CurrentKillTeamView { get }
     
-    var turningPointLabel: UILabel {get set}
-    var commandPointLabel: UILabel {get set}
-    var victoryPointLabel: UILabel {get set}
+    var turningPointLabel: CounterLabel { get }
+    var commandPointLabel: CounterLabel { get }
+    var victoryPointLabel: CounterLabel { get }
 
-    var plusCommandPoint: UIButton {get set}
-    var minusCommandPoint: UIButton {get set}
-    var plusVictoryPoint: UIButton {get set}
-    var minusVictoryPoint: UIButton {get set}
-    var nextTurnButton: UIButton {get set}
-    var endGameButton: UIButton {get set}
+    var plusCommandPoint: ChangePointButton { get }
+    var minusCommandPoint: ChangePointButton { get }
+    var plusVictoryPoint: ChangePointButton { get }
+    var minusVictoryPoint: ChangePointButton { get }
+    var nextTurnButton: ChangeTurnButton { get }
+    var endGameButton: ChangeTurnButton { get }
     
     var currentStrategicPloyLabel: UILabel { get }
     var currentStrategicPloyButton: UIButton { get }
@@ -31,11 +32,9 @@ protocol CounterPresenterProtocol: AnyObject {
     var model: CounterModel {get set}
     var store: StoreProtocol {get}
     var gameStore: GameStoreProtocol { get }
-    var keysForKillTeam: [String] { get }
     func showChooseKillTeamTableViewController()
     func showChooseLoadedKillTeamTableViewController()
     func buttonAction(sender: UIButton)
-    func loadKeys()
     func addKillTeam()
 }
 
@@ -61,8 +60,6 @@ class CounterPresenter: CounterPresenterProtocol {
         }
     }
     
-    var keysForKillTeam: [String] = []
-    
     required init(view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol) {
         self.view = view
         self.router = router
@@ -80,12 +77,6 @@ class CounterPresenter: CounterPresenterProtocol {
         delegate?.didComplete(self, sender: "loaded")
      }
     
-    func loadKeys() {
-        if let keys = KeySaver.getKey() {
-            keysForKillTeam = keys
-        }
-    }
-    
     func updateTextLabel() {
         view?.commandPointLabel.text = "Command Point = \(model.gameData.countCommandPoint)"
         view?.victoryPointLabel.text = "Victory Point = \(model.gameData.countVictoryPoint)"
@@ -95,10 +86,7 @@ class CounterPresenter: CounterPresenterProtocol {
         } else {
             view?.endGameButton.isHidden = true
         }
-        if let killTeam = model.killTeam {
-            view?.currentKillTeamView.killTeamLogo.image = UIImage(named: killTeam.factionLogo)
-            view?.currentKillTeamView.nameLabel.text = killTeam.userCustomName ?? killTeam.killTeamName
-        }
+        
         if model.gameData.countTurningPoint == 0 {
             view?.nextTurnButton.setTitle("Start Game", for: .normal)
             view?.plusCommandPoint.isEnabled = false
@@ -123,17 +111,15 @@ class CounterPresenter: CounterPresenterProtocol {
     }
     
     func addKillTeam() {
-        if !keysForKillTeam.isEmpty {
+        if !store.loadedKillTeam.isEmpty {
             let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose an existing.", preferredStyle: .actionSheet)
             let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
                 self.showChooseKillTeamTableViewController()
             }
-            let chooseKillTeamAlert = UIAlertAction(title: "Choose", style: .default) { _IOLBF in
+            let chooseKillTeamAlert = UIAlertAction(title: "Choose", style: .default) { _ in
                 self.showChooseLoadedKillTeamTableViewController()
             }
-            let cancleAlert = UIAlertAction(title: "Cancel", style: .cancel) { _IOLBF in
-                
-            }
+            let cancleAlert = UIAlertAction(title: "Cancel", style: .cancel)
             addKillTeamAlertController.addAction(addNewKillTeamAlert)
             addKillTeamAlertController.addAction(chooseKillTeamAlert)
             addKillTeamAlertController.addAction(cancleAlert)

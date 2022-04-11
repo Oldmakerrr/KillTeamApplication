@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+/*
 class ChooseLoadedKillTeamCell: UITableViewCell {
     
     static let identifier = "ChooseLoadedKillTeamCell"
@@ -20,3 +20,4 @@ class ChooseLoadedKillTeamCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+*/

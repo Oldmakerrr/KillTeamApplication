@@ -34,20 +34,9 @@ class WeaponRuleAlertController: UIAlertController {
 
 class WeaponRuleView: UIView {
     
-    let titleLabel = UILabel()
-    let messageLabel = UILabel()
-    let doneButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Done", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.4431372549, green: 0.4901960784, blue: 0.4941176471, alpha: 1), for: .normal)
-        button.backgroundColor = #colorLiteral(red: 0.9960784314, green: 0.9764705882, blue: 0.9058823529, alpha: 1)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 12
-        button.layer.borderWidth = 1
-        button.layer.borderColor = #colorLiteral(red: 0.9411764706, green: 0.6980392157, blue: 0.4784313725, alpha: 1)
-        return button
-    }()
+    let titleLabel = BoldLabel()
+    let messageLabel = NormalLabel()
+    let doneButton = DoneButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,8 +50,8 @@ class WeaponRuleView: UIView {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.masksToBounds = true
-        layer.cornerRadius = 12
-        backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.9215686275, blue: 0.8156862745, alpha: 1)
+        layer.cornerRadius = Constant.Size.cornerRadius
+        setupBlurView()
     }
     
     func setupText(title: String?, message: String?, subText: [String]?) {
@@ -72,6 +61,23 @@ class WeaponRuleView: UIView {
             setupButton(topView: messageLabel)
         } else {
             setupSubTextLabels(subText: subText)
+        }
+    }
+    
+    private func setupBlurView() {
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            backgroundColor = .clear
+            let blurEffect = UIBlurEffect(style: .extraLight)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(blurEffectView)
+            NSLayoutConstraint.activate([
+                blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+                blurEffectView.widthAnchor.constraint(equalTo: widthAnchor),
+                blurEffectView.heightAnchor.constraint(equalTo: heightAnchor)
+            ])
+        } else {
+            backgroundColor = ColorScheme.shared.theme.viewBackground
         }
     }
     
@@ -87,9 +93,7 @@ class WeaponRuleView: UIView {
     }
     
     private func setupTitleLabel(title: String?) {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.textAlignment = .center
         titleLabel.text = title
         NSLayoutConstraint.activate([
@@ -99,11 +103,8 @@ class WeaponRuleView: UIView {
     }
     
     private func setupMessageLabel(message: String?) {
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(messageLabel)
-        messageLabel.font = UIFont.systemFont(ofSize: 18)
         messageLabel.text = message
-        messageLabel.numberOfLines = 0
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
@@ -115,11 +116,8 @@ class WeaponRuleView: UIView {
         guard let subText = subText else { return }
         var labels = [UILabel]()
         for (index, text) in subText.enumerated() {
-            let label = UILabel()
+            let label = NormalLabel()
             addSubview(label)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.numberOfLines = 0
-            label.font = UIFont.systemFont(ofSize: 16)
             label.text = text
             labels.append(label)
             if index == 0 {

@@ -13,15 +13,15 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
-        tableView.register(ChooseLoadedKillTeamCell.self, forCellReuseIdentifier: ChooseLoadedKillTeamCell.identifier)
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        tableView.register(ChooseKillTeamTableViewCell.self, forCellReuseIdentifier: KillTeamTableViewCell.ChooseLoadedKillTeamCell.rawValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
 
-    // MARK: - Table view data source
+// MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -32,16 +32,14 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ChooseLoadedKillTeamCell.identifier, for: indexPath) as! ChooseLoadedKillTeamCell
-        let killTeam = presenter?.model.loadedKillTeam[indexPath.row]
-        if let userName = killTeam?.userCustomName {
-            cell.textLabel?.text = userName
-            cell.detailTextLabel?.text = killTeam?.killTeamName
-        } else {
-            cell.textLabel?.text = killTeam?.killTeamName
-            cell.detailTextLabel?.text = killTeam?.factionName
-        }
+        guard let killTeam = presenter?.model.loadedKillTeam[indexPath.row] else { return UITableViewCell() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: KillTeamTableViewCell.ChooseLoadedKillTeamCell.rawValue, for: indexPath) as! ChooseKillTeamTableViewCell
+        cell.setupText(killTeam: killTeam)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -49,13 +47,14 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let killTeam = presenter?.model.loadedKillTeam[indexPath.row] {
-            self.dismiss(animated: true, completion: nil)
-            presenter?.chooseKillTeam(killTeam: killTeam)
-        }
+        guard let killTeam = presenter?.model.loadedKillTeam[indexPath.row] else { return }
+        self.dismiss(animated: true, completion: nil)
+        presenter?.chooseKillTeam(killTeam: killTeam)
     }
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let removeKillTeamAction = presenter?.removeKillTeamSwipeAction(indexPath: indexPath, view: self)
-        return UISwipeActionsConfiguration(actions: [removeKillTeamAction!])
+        guard let removeKillTeamAction = presenter?.removeKillTeamSwipeAction(indexPath: indexPath, view: self) else {
+            return nil
+        }
+        return UISwipeActionsConfiguration(actions: [removeKillTeamAction])
     }
 }

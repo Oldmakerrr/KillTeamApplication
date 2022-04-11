@@ -15,11 +15,11 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.9490196078, green: 0.9529411765, blue: 0.9568627451, alpha: 1)
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         navigationController?.navigationBar.isHidden = false
         tableView.register(EditKillTeamCell.self, forCellReuseIdentifier: EditKillTeamCell.identifire)
         createBarButton()
-        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -58,9 +58,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = EditKillTeamCell()
-        guard let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] else {
-            return UITableViewCell()
-        }
+        guard let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] else { return UITableViewCell() }
         cell.setupText(unit: unit)
         return cell
     }
@@ -70,14 +68,14 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-       guard let changeUnit = presenter?.changeUnitAction(indexPath: indexPath),
-             let renameUnit = presenter?.renameUnitAction(indexPath: indexPath) else { return nil }
+        guard let changeUnit = presenter?.changeUnitAction(indexPath: indexPath),
+              let renameUnit = presenter?.renameUnitAction(indexPath: indexPath) else { return nil }
         return UISwipeActionsConfiguration(actions: [changeUnit, renameUnit])
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let removeUnit = presenter?.removeUnitAction(indexPath: indexPath)
-        return UISwipeActionsConfiguration(actions: [removeUnit!])
+        guard let removeUnit = presenter?.removeUnitAction(indexPath: indexPath) else { return nil }
+        return UISwipeActionsConfiguration(actions: [removeUnit])
     }
 
 }

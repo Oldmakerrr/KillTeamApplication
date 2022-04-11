@@ -23,7 +23,7 @@ extension MoreInfoUnitViewController {
         scrollView.addSubview(scrollViewContainer)
         scrollViewContainer.axis = .vertical
         scrollViewContainer.spacing = 10
-        scrollViewContainer.backgroundColor = .gray
+        scrollViewContainer.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         scrollViewContainer.translatesAutoresizingMaskIntoConstraints = false
         scrollViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         scrollViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
@@ -62,14 +62,14 @@ extension MoreInfoUnitViewController {
         let view = WeaponView()
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 12
-        view.addText(weapon: weapon, delegate: self)
+        view.setupText(wargear: weapon, delegate: self)
         scrollViewContainer.addArrangedSubview(view)
         if let subProfiles = weapon.secondProfile {
             for weapon in subProfiles {
                 let subView = WeaponView()
                 subView.layer.masksToBounds = true
                 subView.layer.cornerRadius = 12
-                subView.addText(weapon: weapon, delegate: self)
+                subView.setupText(wargear: weapon, delegate: self)
                 scrollViewContainer.addArrangedSubview(subView)
             }
         }
@@ -127,7 +127,7 @@ extension MoreInfoUnitViewController {
             let view = EquipmentView()
             view.layer.masksToBounds = true
             view.layer.cornerRadius = 12
-            view.setupText(equipment: equipment, delegate: self)
+            view.setupText(wargear: equipment, delegate: self)
             scrollViewContainer.addArrangedSubview(view)
         }
     }
@@ -137,7 +137,7 @@ extension MoreInfoUnitViewController {
         view.setupText(name: text, cost: nil)
        // view.nameLabel.text = text
        // view.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        view.backgroundColor = .systemOrange
+        view.backgroundColor = ColorScheme.shared.theme.viewHeader
         view.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
         scrollViewContainer.addArrangedSubview(view)
     }

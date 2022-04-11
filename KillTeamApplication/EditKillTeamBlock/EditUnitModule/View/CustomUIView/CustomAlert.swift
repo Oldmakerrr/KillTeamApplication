@@ -21,31 +21,52 @@ class CustomAlert {
         return backgrounView
     }()
     
-    private var targetView: UIView
-    var alertView: UIView
+    private var viewController: UIViewController?
+    private var targetView: UIView?
+    private var alertView: UIView?
     
-    init(alertView: UIView, targetView: UIView) {
-        self.targetView = targetView
+   // init(alertView: UIView, targetView: UIViewController) {
+   //     self.targetView = targetView.view
+   //     self.alertView = alertView
+   //     self.viewController = targetView
+   // }
+    
+    func initAlert(alertView: UIView, targetView: UIViewController) {
+        self.targetView = targetView.view
         self.alertView = alertView
+        self.viewController = targetView
     }
-    
- //   lazy var up = CGPoint(x: targetView.bounds.size.width/2, y: targetView.bounds.size.height-1000)
-    lazy var down = CGPoint(x: targetView.bounds.size.width/2, y: targetView.bounds.size.height+alertView.bounds.size.height)
         
-    func showAlert() {
+    func showAlert(alertView: UIView, targetView: UIViewController) {
+        initAlert(alertView: alertView, targetView: targetView)
+        guard let viewController = viewController,
+              let targetView = self.targetView,
+              let alertView = self.alertView else { return }
         backgrowndView.frame = targetView.bounds
         targetView.addSubview(backgrowndView)
         targetView.addSubview(alertView)
         alertView.translatesAutoresizingMaskIntoConstraints = false
-        alertView.bottomAnchor.constraint(equalTo: targetView.topAnchor, constant: -100).isActive = true
-        alertView.widthAnchor.constraint(equalTo: targetView.widthAnchor, constant: -50).isActive = true
-        alertView.centerXAnchor.constraint(equalTo: targetView.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            alertView.widthAnchor.constraint(equalTo: targetView.widthAnchor, constant: -30),
+            alertView.centerXAnchor.constraint(equalTo: targetView.centerXAnchor),
+            alertView.bottomAnchor.constraint(greaterThanOrEqualTo: targetView.topAnchor, constant: -UIScreen.main.bounds.height)
+        ])
+        
         UIView.animate(withDuration: 0.25, animations: {
             self.backgrowndView.alpha = Constant.backgroundAlphaTo
+            
         }) { done in
             if done {
-                UIView.animate(withDuration: 0.25) { [self] in
-                    alertView.center = targetView.center
+                UIView.animate(withDuration: 0.25) {
+                    guard let tableViewController = viewController as? UITableViewController else {
+                        alertView.center = CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2)
+                        alertView.translatesAutoresizingMaskIntoConstraints = true
+                        return
+                    }
+                    var center = tableViewController.tableView.contentOffset
+                    center.x += UIScreen.main.bounds.width/2
+                    center.y += UIScreen.main.bounds.height/2
+                    alertView.center = center
                     alertView.translatesAutoresizingMaskIntoConstraints = true
                 }
             }
@@ -53,21 +74,26 @@ class CustomAlert {
     }
     
     func dismissAlert() {
-        UIView.animate(withDuration: 0.25,
-                       animations: { [self] in
-                        alertView.translatesAutoresizingMaskIntoConstraints = true
-                        alertView.center = down
+        guard let targetView = self.targetView,
+              let alertView = self.alertView else { return }
+        UIView.animate(withDuration: 0.25, animations: {
+            alertView.translatesAutoresizingMaskIntoConstraints = true
+            alertView.center = CGPoint(x: UIScreen.main.bounds.width/2, y: targetView.frame.height*3)
+                        
         }, completion: { done in
             if done {
+                alertView.removeFromSuperview()
+                self.backgrowndView.removeFromSuperview()
                 UIView.animate(withDuration: 0.25, animations: {
                     self.backgrowndView.alpha = 0
-                }, completion: { done in
-                    if done {
-                        self.alertView.removeFromSuperview()
-                        self.backgrowndView.removeFromSuperview()
-                    }
                 })
             }
         })
+    }
+}
+
+extension CustomAlert: EditUnitProtocol {
+    func didComplete(_ EditUnitViewController: EditUnitViewController) {
+        dismissAlert()
     }
 }

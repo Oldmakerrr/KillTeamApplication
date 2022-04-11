@@ -114,7 +114,7 @@ class CharacteristicsView: UIView {
         addSubview(view)
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 12
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = ColorScheme.shared.theme.subViewBackground
         view.translatesAutoresizingMaskIntoConstraints = false
         view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -20).isActive = true
         view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20).isActive = true
@@ -130,7 +130,7 @@ class CharacteristicsView: UIView {
     
     private func settingsView() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemGray2
+        backgroundColor = ColorScheme.shared.theme.viewBackground
         layer.masksToBounds = true
         layer.cornerRadius = 12
     }

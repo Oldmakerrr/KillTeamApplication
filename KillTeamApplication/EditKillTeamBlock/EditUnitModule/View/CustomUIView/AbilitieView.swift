@@ -39,6 +39,6 @@ class AbilitieView: UIStackView {
         addArrangedSubview(view)
         view.addSubview(label)
         label.addText(bold: abilitie.name, normal: abilitie.description)
-        addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: view, subView: label)
+        addView(view: view, subView: label)
     }
 }

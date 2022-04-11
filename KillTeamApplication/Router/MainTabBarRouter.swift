@@ -44,3 +44,4 @@ class MainTabbarRouter: MainTabbarRouterProtocol {
         window.makeKeyAndVisible()
     }
 }
+

@@ -73,7 +73,7 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     func mixDeck() {
         var currentDeck = model.customTacOps
         var newDeck: [TacOps] = []
-        for tacOp in model.customTacOps {
+        for _ in model.customTacOps {
             let i = Int.random(in: 0..<currentDeck.count)
             let random = currentDeck[i]
             newDeck.append(random)
@@ -95,7 +95,7 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
             }
         }
         var newDeck: [TacOps] = []
-        for j in 0..<6 {
+        for _ in 0..<6 {
             let i = Int.random(in: 0..<currentDeck.count)
             let random = currentDeck[i]
             newDeck.append(random)
@@ -121,6 +121,7 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     }
     
     
+    
     func selectTacOp(tacOp: TacOps, indexPath: IndexPath) {
         switch indexPath.item {
         case 0,1:
@@ -136,6 +137,16 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
             return
         }
         gameStore.updateGameData(gameData: model.gameData)
+    }
+    
+    private func selectCell(tacOp: TacOps?, cell: TacOpsCollectionCell, collectionView: UICollectionView, index: Int) {
+        if cell.tacOp == tacOp {
+            cell.contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
+            cell.contentView.layer.applyCornerRadius()
+            cell.contentView.layer.applySketchShadow(color: .black, alpha: 0, x: 0, y: 0, blur: 0)
+            collectionView.visibleCells[index].contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
+            collectionView.visibleCells[index].contentView.layer.applyCornerRadius()
+        }
     }
 }
 
@@ -157,40 +168,33 @@ extension TacOpsPresenter: GameStoreDelegate {
 
 extension TacOpsPresenter: TacOpsCollectionCellDelegate {
     func didSelect(_ cell: TacOpsCollectionCell) {
-        guard let indexCell = cell.index, let tacOpCell = cell.tacOp, let anotherCell = view?.tacOpsCollection else { return }
+        guard let indexCell = cell.index,
+              let collectionView = view?.tacOpsCollection
+               else { return }
+        let firstTacOp = model.gameData.firstTacOp
+        let secondTacOp = model.gameData.secondTacOp
+        let thirdTacOp = model.gameData.thirdTacOp
         switch indexCell{
         case 0:
-            if tacOpCell == model.gameData.firstTacOp {
-                cell.contentView.backgroundColor = .orange
-                anotherCell.visibleCells[1].contentView.backgroundColor = .systemGray2
-            }
+            selectCell(tacOp: firstTacOp, cell: cell, collectionView: collectionView, index: 1)
+           
         case 1:
-            if tacOpCell == model.gameData.firstTacOp {
-                cell.contentView.backgroundColor = .orange
-                anotherCell.visibleCells[0].contentView.backgroundColor = .systemGray2
-            }
+            selectCell(tacOp: firstTacOp, cell: cell, collectionView: collectionView, index: 0)
+           
         case 2:
-            if tacOpCell == model.gameData.secondTacOp {
-                cell.contentView.backgroundColor = .orange
-                anotherCell.visibleCells[3].contentView.backgroundColor = .systemGray2
-            }
+            selectCell(tacOp: secondTacOp, cell: cell, collectionView: collectionView, index: 3)
+          
         case 3:
-            if tacOpCell == model.gameData.secondTacOp {
-                cell.contentView.backgroundColor = .orange
-                anotherCell.visibleCells[2].contentView.backgroundColor = .systemGray2
-            }
+            selectCell(tacOp: secondTacOp, cell: cell, collectionView: collectionView, index: 2)
         case 4:
-            if tacOpCell == model.gameData.thirdTacOp {
-                cell.contentView.backgroundColor = .orange
-                anotherCell.visibleCells[5].contentView.backgroundColor = .systemGray2
-            }
+            selectCell(tacOp: thirdTacOp, cell: cell, collectionView: collectionView, index: 5)
+           
         case 5:
-            if tacOpCell == model.gameData.thirdTacOp {
-                cell.contentView.backgroundColor = .orange
-                anotherCell.visibleCells[4].contentView.backgroundColor = .systemGray2
-            } 
+            selectCell(tacOp: thirdTacOp, cell: cell, collectionView: collectionView, index: 4)
+           
         default:
             break
         }
+    
     }
 }

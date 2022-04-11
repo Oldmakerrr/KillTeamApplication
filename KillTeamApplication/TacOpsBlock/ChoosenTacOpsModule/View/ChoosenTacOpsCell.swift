@@ -21,7 +21,6 @@ class ChoosenTacOpsCell: UICollectionViewCell, ReusableView {
         super.init(frame: frame)
         setupView()
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .systemGray3
         setupProgressTacOplabel()
     }
     

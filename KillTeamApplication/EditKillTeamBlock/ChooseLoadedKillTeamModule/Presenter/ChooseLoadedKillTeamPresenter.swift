@@ -36,38 +36,22 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
     
     weak var delegate: ChooseLoadedKillTeamPresenterDelegate?
     
-    private var keysForKillTeam: [String] = []
-    
     required init(view: ChooseLoadedKillTeamControllerProtocol, store: StoreProtocol) {
         self.view = view
         self.store = store
-        store.multicastDelegate.addDelegate(self)
-        if let keys = KeySaver.getKey() {
-            keysForKillTeam = keys
-        }
-        for key in keysForKillTeam {
-            if let killTeam = loadMyKillTeam(key: key) {
-                model.loadedKillTeam.append(killTeam)
-            }
-        }
-    }
-    
-    
-    private func loadMyKillTeam(key: String) -> KillTeam? {
-        if let data = UserDefaults.standard.value(forKey: key) as? Data {
-            return try? PropertyListDecoder().decode(KillTeam.self, from: data)
-        } else { return nil }
+        model.loadedKillTeam += store.loadedKillTeam
     }
     
     func chooseKillTeam(killTeam: KillTeam) {
         delegate?.didComplete(self)
-        store.addKillTeam(killTeam: killTeam)
+        store.updateCurrentKillTeam(killTeam: killTeam)
     }
     
     func removeMyKillTeam(indexPath: IndexPath, view: UITableViewController) {
         model.loadedKillTeam.remove(at: indexPath.row)
-        store.arrayKey.remove(at: indexPath.row)
-        KeySaver.saveKey(key: store.arrayKey)
+        store.removeKey(indexPath: indexPath)
+        store.removeKillTeam(indexPath: indexPath)
+        KeySaver.saveKey(key: store.keysForKillTeam)
         view.tableView.reloadData()
     }
     
@@ -81,9 +65,4 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
         return removeSwipe
     }
     
-}
-
-extension ChooseLoadedKillTeamPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam) {
-    }
 }

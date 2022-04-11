@@ -31,6 +31,12 @@ struct KillTeam: Codable {
     var indexOfChoosenUnit: IndexPath?
  }
 
+//extension KillTeam: Equatable {
+//    static func == (lhs: KillTeam, rhs: KillTeam) -> Bool {
+//        lhs.id == rhs.id && lhs.killTeamName == rhs.killTeamName
+//    }
+//}
+
 struct Abilitie: Codable{
     let name: String
     let description: String
@@ -48,11 +54,6 @@ struct Ploy: Codable {
     let passiveAbilities : UnitAbilities?
     let abilities: UnitUniqueActions?
     let wargear: Weapon?
-    let firstSubText: String?
-    let secondSubText: String?
-    let thirdSubText: String?
-    let fourthSubText: String?
-    let fifthSubText: String?
 }
 
 struct FireTeam: Codable {

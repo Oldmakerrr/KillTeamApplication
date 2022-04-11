@@ -13,7 +13,7 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     

@@ -10,125 +10,148 @@ import UIKit
 
 extension CounterViewController {
     
-//MARK: - Label
+//MARK: - SetupViewMethods
     
-    func createLabel (size: CGFloat) -> UILabel {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: size)
-        view.addSubview(label)
-        return label
+    func configure() {
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        navigationController?.navigationBar.isHidden = true
     }
     
-    func createTurningPointLabel() -> UILabel {
-        let label = createLabel(size: 20)
-        label.topAnchor.constraint(equalTo: currentKillTeamView.bottomAnchor, constant: 50).isActive = true
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.text = "Turning Point = 0"
-        return label
+    func setupSubView() {
+        setupCurrentKillTeamView()
+        setupLabels()
+        setupButtons()
+        
     }
     
-    func createCommandPointLabel() -> UILabel {
-        let label = createLabel(size: 20)
-        label.topAnchor.constraint(equalTo: turningPointLabel.bottomAnchor, constant: 50).isActive = true
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.text = "Command Point = 0"
-        return label
+    func setupLabels() {
+        setupTurningPointLabel()
+        setupCommandPointLabel()
+        setupVictoryPointLabel()
     }
     
-    func createVictoryPointLabel() -> UILabel {
-        let label = createLabel(size: 20)
-        label.topAnchor.constraint(equalTo: commandPointLabel.bottomAnchor, constant: 50).isActive = true
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.text = "Victory Point = 0"
-        return label
+    func setupButtons() {
+        setupCommandPointAndVictoryPointButtons()
+        setupChangeTurnButtons()
+        setupAddButton()
     }
     
-//MARK: - Button
-    
-    func createButton(image: String) -> UIButton {
-        let button = UIButton(type: .roundedRect)
-        button.backgroundColor = UIColor.orange
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        button.setImage(UIImage(systemName: image), for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        view.addSubview(button)
-        return button
+    func setupCurrentKillTeamView() {
+        view.addSubview(currentKillTeamView)
+        NSLayoutConstraint.activate([
+            currentKillTeamView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constant.Size.screenWidth*0.025),
+            currentKillTeamView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth*0.05),
+            currentKillTeamView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth*0.05),
+            currentKillTeamView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.13),
+            currentKillTeamView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+        ])
+        
+        currentKillTeamView.killTeamLogo.layer.applyCornerRadiusRound(view: currentKillTeamView.killTeamLogo)
+        currentKillTeamView.killTeamLogo.layer.masksToBounds = true
     }
     
-    func createPluseButtonCommandPoint() -> UIButton {
-        let button = createButton(image: "plus")
-        button.topAnchor.constraint(equalTo: commandPointLabel.topAnchor, constant: 0).isActive = true
-        button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-        return button
+    func setupTurningPointLabel() {
+        turningPointLabel.text = "Turning Point = 0"
+        view.addSubview(turningPointLabel)
+        NSLayoutConstraint.activate([
+            turningPointLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025),
+            turningPointLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
+            turningPointLabel.topAnchor.constraint(equalTo: currentKillTeamView.bottomAnchor, constant: Constant.Size.screenHeight * 0.055),
+            turningPointLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+        ])
     }
     
-    func createMinusButtonCommandPoint() -> UIButton {
-        let button = createButton(image: "minus")
-        button.topAnchor.constraint(equalTo: commandPointLabel.topAnchor, constant: 0).isActive = true
-        button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
-        return button
+    func setupCommandPointLabel() {
+        commandPointLabel.text = "Command Point = 0"
+        view.addSubview(commandPointLabel)
+        NSLayoutConstraint.activate([
+            commandPointLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025),
+            commandPointLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
+            commandPointLabel.topAnchor.constraint(equalTo: turningPointLabel.bottomAnchor, constant: Constant.Size.screenHeight * 0.055),
+            commandPointLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+        ])
     }
     
-    func createPluseButtonVictoryPoint() -> UIButton {
-        let button = createButton(image: "plus")
-        button.topAnchor.constraint(equalTo: victoryPointLabel.topAnchor, constant: 0).isActive = true
-        button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-        return button
+    func setupVictoryPointLabel() {
+        victoryPointLabel.text = "Victory Point = 0"
+        view.addSubview(victoryPointLabel)
+        NSLayoutConstraint.activate([
+            victoryPointLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025),
+            victoryPointLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
+            victoryPointLabel.topAnchor.constraint(equalTo: commandPointLabel.bottomAnchor, constant: Constant.Size.screenHeight * 0.055),
+            victoryPointLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+        ])
     }
     
-    func createMinusButtonVictoryPoint() -> UIButton {
-        let button = createButton(image: "minus")
-        button.topAnchor.constraint(equalTo: victoryPointLabel.topAnchor, constant: 0).isActive = true
-        button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
-        return button
+    func setupPlusAndMinusButtons(minusButton: ChangePointButton, plusButton: ChangePointButton, to view: UIView) {
+        self.view.addSubview(plusButton)
+        self.view.addSubview(minusButton)
+        plusButton.setupImage(imageName: "plus")
+        plusButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        minusButton.setupImage(imageName: "minus")
+        minusButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            plusButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            plusButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.1),
+            plusButton.leadingAnchor.constraint(greaterThanOrEqualTo: self.view.leadingAnchor),
+            plusButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.3),
+            plusButton.widthAnchor.constraint(equalTo: plusButton.heightAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            minusButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            minusButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constant.Size.screenWidth * 0.1),
+            minusButton.trailingAnchor.constraint(lessThanOrEqualTo: self.view.trailingAnchor),
+            minusButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.3),
+            minusButton.widthAnchor.constraint(equalTo: minusButton.heightAnchor)
+        ])
+        plusButton.layer.applyCornerRadiusRound(view: plusButton)
+        minusButton.layer.applyCornerRadiusRound(view: minusButton)
     }
     
-    func createBigButton() -> UIButton {
-        let button = UIButton()
-        button.backgroundColor = UIColor.orange
-        button.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(button)
-        button.widthAnchor.constraint(equalToConstant: 160).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        return button
+    func setupCommandPointAndVictoryPointButtons() {
+        setupPlusAndMinusButtons(minusButton: minusCommandPoint, plusButton: plusCommandPoint, to: commandPointLabel)
+        setupPlusAndMinusButtons(minusButton: minusVictoryPoint, plusButton: plusVictoryPoint, to: victoryPointLabel)
     }
     
-    func createNextTurnButton () -> UIButton {
-        let button = createBigButton()
-        button.topAnchor.constraint(equalTo: victoryPointLabel.bottomAnchor, constant: 120).isActive = true
-        button.setTitle("Start Game", for: .normal)
-        return button
+    func setupChangeTurnButtons() {
+        view.addSubview(nextTurnButton)
+        view.addSubview(endGameButton)
+        nextTurnButton.setTitle("Start Game", for: .normal)
+        endGameButton.setTitle("End Game", for: .normal)
+        nextTurnButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        endGameButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            endGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.Size.screenHeight * 0.1),
+            endGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            endGameButton.widthAnchor.constraint(equalToConstant: Constant.Size.screenWidth * 0.4),
+            endGameButton.heightAnchor.constraint(equalTo: endGameButton.widthAnchor, multiplier: 0.3),
+            endGameButton.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
+            
+            nextTurnButton.bottomAnchor.constraint(equalTo: endGameButton.bottomAnchor, constant: -Constant.Size.screenHeight * 0.1),
+            nextTurnButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nextTurnButton.widthAnchor.constraint(equalTo: endGameButton.widthAnchor),
+            nextTurnButton.heightAnchor.constraint(equalTo: endGameButton.heightAnchor),
+            nextTurnButton.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor)
+        ])
+        endGameButton.isHidden = true
     }
     
-    func createEndGameButton() -> UIButton {
-        let button = createBigButton()
-        button.topAnchor.constraint(equalTo: self.nextTurnButton.bottomAnchor, constant: 50).isActive = true
-        button.setTitle("End Game", for: .normal)
-        return button
-    }
-    
-    func setupButtonAddKillTeam() {
+    func setupAddButton() {
         view.addSubview(addKillTeamButton)
-        addKillTeamButton.backgroundColor = .orange
-        addKillTeamButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        addKillTeamButton.imageView?.tintColor = .black
-        addKillTeamButton.layer.masksToBounds = true
-        addKillTeamButton.layer.cornerRadius = 30
-        addKillTeamButton.layer.borderWidth = 1
         addKillTeamButton.addTarget(self, action: #selector(addKillTeam), for: .touchUpInside)
-        addKillTeamButton.translatesAutoresizingMaskIntoConstraints = false
-        addKillTeamButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        addKillTeamButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        addKillTeamButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.bounds.size.height/8).isActive = true
-        addKillTeamButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+        NSLayoutConstraint.activate([
+            addKillTeamButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.Size.screenHeight * 0.04),
+            addKillTeamButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.085),
+            addKillTeamButton.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor),
+            addKillTeamButton.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
+            addKillTeamButton.widthAnchor.constraint(equalToConstant: Constant.Size.screenWidth * 0.145),
+            addKillTeamButton.heightAnchor.constraint(equalTo: addKillTeamButton.widthAnchor)
+        ])
+        addKillTeamButton.layer.applyCornerRadiusRound(view: addKillTeamButton)
     }
+    
+//MARK: - NeedChange
+  
     
     func setupCurrentStrategicPloyLabel() {
         view.addSubview(currentStrategicPloyLabel)
@@ -145,5 +168,11 @@ extension CounterViewController {
         currentStrategicPloyButton.leadingAnchor.constraint(equalTo: currentStrategicPloyLabel.trailingAnchor, constant: 10).isActive = true
         currentStrategicPloyButton.addTarget(self, action: #selector(pressCurrentStrategicPloyButton), for: .touchUpInside)
         currentStrategicPloyButton.setTitleColor(.black, for: .normal)
+    }
+}
+
+extension CounterViewController: PloyViewDelegate {
+    func didComplete(_ view: PloyView) {
+        dismissAlert()
     }
 }

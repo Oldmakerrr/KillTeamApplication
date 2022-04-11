@@ -8,9 +8,30 @@
 import Foundation
 import UIKit
 
-class EquipmentView: UIStackView {
+protocol WargearView {
+    associatedtype Wargear
+    associatedtype Delegate
+    func setupText(wargear: Wargear, delegate: WeaponRuleButtonProtocol?)
+    func setupButton()
+    func setDelegate(delegate: Delegate)
+}
+
+protocol EquipmentViewProtocol: AnyObject {
+    func didComplete(_ EquipmentView: EquipmentView)
+}
+
+class EquipmentView: UIStackView, WargearView {
     
-    let button = UIButton()
+    typealias Delegate = EquipmentViewProtocol?
+    
+    
+    func setDelegate(delegate: Delegate) {
+        self.delegate = delegate
+    }
+    
+    weak var delegate: EquipmentViewProtocol?
+    
+    private let button = DoneButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,22 +42,25 @@ class EquipmentView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupText(equipment: Equipment, delegate: WeaponRuleButtonProtocol) {
-        setupHeader(equipment: equipment)
-        addTextView(text: equipment.description)
-        if let body = equipment.body {
+    func setupText(wargear: Equipment, delegate: WeaponRuleButtonProtocol?) {
+        
+        setupHeader(equipment: wargear)
+        addTextView(text: wargear.description)
+        if let body = wargear.body {
             addTextView(text: body)
         }
-        if let subText = equipment.subText {
+        if let subText = wargear.subText {
             addSubTextView(subText: subText)
         }
-        if let uniqueAction = equipment.unitAction {
+        if let uniqueAction = wargear.unitAction {
+            guard let delegate = delegate else { return }
             setupUniqueActionView(action: uniqueAction, delegate: delegate)
         }
-        if let abilitie = equipment.uniqueAction {
+        if let abilitie = wargear.uniqueAction {
             setupAbilitie(abilitie: abilitie)
         }
-        if let wargear = equipment.wargear {
+        if let wargear = wargear.wargear {
+            guard let delegate = delegate else { return }
             setupWeaponView(weapon: wargear, delegate: delegate)
         }
     }
@@ -44,7 +68,11 @@ class EquipmentView: UIStackView {
     private func configue() {
         translatesAutoresizingMaskIntoConstraints = false
         axis = .vertical
-        backgroundColor = .systemGray2
+        backgroundColor = ColorScheme.shared.theme.viewBackground
+    }
+    
+    @objc private func buttonAction() {
+        delegate?.didComplete(self)
     }
     
     private func setupHeader(equipment: Equipment) {
@@ -65,42 +93,41 @@ class EquipmentView: UIStackView {
         view.setupText(action: action, delegate: delegate)
         addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: backgroundView, subView: view)
         addArrangedSubview(backgroundView)
-        view.backgroundColor = .systemGray4
-        view.layer.borderWidth = 2
-        view.layer.borderColor = CGColor(red: 225, green: 165, blue: 0, alpha: 1)
+        view.backgroundColor = ColorScheme.shared.theme.subViewBackground
+        view.layer.borderWidth = Constant.Size.borderWidht
+        view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
     }
     
     private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonProtocol) {
         let view = WeaponView()
         let backgroundView = UIView()
-        view.addText(weapon: weapon, delegate: delegate)
-        if let subProfiles = weapon.secondProfile {
-            for profile in subProfiles {
-                view.addText(weapon: profile, delegate: delegate)
-            }
-        }
+        view.setupText(wargear: weapon, delegate: delegate)
+       // if let subProfiles = weapon.secondProfile {
+       //     for profile in subProfiles {
+       //         view.setupText(weapon: profile, delegate: delegate)
+       //     }
+       // }
         addArrangedSubview(backgroundView)
         addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: backgroundView, subView: view)
-        view.backgroundColor = .systemGray4
-        view.layer.borderWidth = 2
-        view.layer.borderColor = CGColor(red: 225, green: 165, blue: 0, alpha: 1)
+        view.backgroundColor = ColorScheme.shared.theme.subViewBackground
+        view.layer.borderWidth = Constant.Size.borderWidht
+        view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
     }
     
     func setupButton() {
         let view = UIView()
         view.addSubview(button)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         addArrangedSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 12
-        button.backgroundColor = .orange
-        button.setTitle("Done", for: .normal)
-        button.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
-        button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
-        button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 180).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            button.centerXAnchor.constraint(equalTo: centerXAnchor),
+            button.widthAnchor.constraint(equalToConstant: 180),
+            button.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
     }
 }
 
@@ -112,11 +139,8 @@ extension UIStackView {
         let view = UIView()
         addArrangedSubview(view)
         for (index, text) in subText.enumerated() {
-            let label = UILabel()
+            let label = NormalLabel()
             view.addSubview(label)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.numberOfLines = 0
-            label.font = UIFont.systemFont(ofSize: 18)
             label.text = text
             labels.append(label)
             if index == 0 {
@@ -133,13 +157,10 @@ extension UIStackView {
     }
     
     func addTextView(text: String) {
-        let label = UILabel()
+        let label = NormalLabel()
         let view = UIView()
         addArrangedSubview(view)
         view.addSubview(label)
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 18)
-        view.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
         addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: view, subView: label)
     }
@@ -149,7 +170,12 @@ extension UIStackView {
 
 extension UIView {
     
-    func addView(top: CGFloat, bottom: CGFloat, leading: CGFloat, trailing: CGFloat, view: UIView, subView: UIView) {
+    func addView(top: CGFloat = 10,
+                 bottom: CGFloat = 10,
+                 leading: CGFloat = 10,
+                 trailing: CGFloat = 10,
+                 view: UIView, subView:
+                    UIView) {
         subView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(subView)
         NSLayoutConstraint.activate([

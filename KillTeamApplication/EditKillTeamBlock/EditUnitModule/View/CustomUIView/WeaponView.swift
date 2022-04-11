@@ -8,9 +8,21 @@
 import Foundation
 import UIKit
 
-class WeaponView: UIStackView{
+protocol WeaponViewProtocol: AnyObject {
+    func didComplete(_ weaponView: WeaponView)
+}
+
+class WeaponView: UIStackView, WargearView {
     
-    let button = UIButton()
+    typealias Delegate = WeaponViewProtocol
+    
+    func setDelegate(delegate: Delegate) {
+        self.delegate = delegate
+    }
+    
+    weak var delegate: WeaponViewProtocol?
+    
+    private let button = DoneButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,57 +37,60 @@ class WeaponView: UIStackView{
         let buttonView = UIView()
         addArrangedSubview(buttonView)
         buttonView.addSubview(button)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 12
-        button.backgroundColor = .orange
-        button.setTitle("Done", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 15).isActive = true
-        button.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -15).isActive = true
-        button.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 180).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 15),
+            button.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -15),
+            button.centerXAnchor.constraint(equalTo: centerXAnchor),
+            button.widthAnchor.constraint(equalToConstant: 180),
+            button.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
     }
     
-    func addText(weapon: WeaponProtocol, delegate: WeaponRuleButtonProtocol?) {
-        if weapon.profileName != nil {
-            setupHeader(name: "\(weapon.name) (\(weapon.profileName!))")
+    
+     func setupText(wargear: WeaponProtocol, delegate: WeaponRuleButtonProtocol?) {
+        if wargear.profileName != nil {
+            setupHeader(name: "\(wargear.name) (\(wargear.profileName!))")
         } else {
-            setupHeader(name: weapon.name)
+            setupHeader(name: wargear.name)
         }
-        switch weapon.type {
+        switch wargear.type {
         case "range":
-            setupCharacteristicView(attack: "A = \(weapon.attacks)",
-                                    ballisticSkills: "BS = +\(weapon.ballisticWeaponSkill)",
-                                    damage: "D = \(weapon.damage)/\(weapon.critDamage)")
+            setupCharacteristicView(attack: "A = \(wargear.attacks)",
+                                    ballisticSkills: "BS = +\(wargear.ballisticWeaponSkill)",
+                                    damage: "D = \(wargear.damage)/\(wargear.critDamage)")
         case "close":
-            setupCharacteristicView(attack: "A = \(weapon.attacks)",
-                                    ballisticSkills: "WS = +\(weapon.ballisticWeaponSkill)",
-                                    damage: "D = \(weapon.damage)/\(weapon.critDamage)")
+            setupCharacteristicView(attack: "A = \(wargear.attacks)",
+                                    ballisticSkills: "WS = +\(wargear.ballisticWeaponSkill)",
+                                    damage: "D = \(wargear.damage)/\(wargear.critDamage)")
         default:
             return
         }
-        if let specialRule = weapon.specialRule {
+        if let specialRule = wargear.specialRule {
             setupSpecialRule(rules: specialRule, text: "Special rule:", delegate: delegate)
         }
         
-        if let critSpecialRule = weapon.criticalHitspecialRule {
+        if let critSpecialRule = wargear.criticalHitspecialRule {
             setupSpecialRule(rules: critSpecialRule, text: "!:", delegate: delegate)
+        }
+        if let weapon = wargear as? Weapon, let subWeapon = weapon.secondProfile   {
+            for weapon in subWeapon {
+                setupText(wargear: weapon, delegate: delegate)
+            }
         }
     }
     
+    @objc private func buttonAction() {
+        delegate?.didComplete(self)
+    }
+    
     private func settingsView() {
-        backgroundColor = .systemGray2
+        backgroundColor = ColorScheme.shared.theme.viewBackground
         layer.masksToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
         axis = .vertical
         spacing = 10
-    }
-    
-    private func setupLabel(label: UILabel, view: UIView) {
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        view.addSubview(label)
     }
   
     private func setupHeader(name: String) {
@@ -89,19 +104,24 @@ class WeaponView: UIStackView{
         view.translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(view)
         view.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        view.backgroundColor = .systemGray4
-        let attackLabel = UILabel()
-        let ballisticSkillsLabel = UILabel()
-        let damageLabel = UILabel()
-        setupLabel(label: attackLabel, view: view)
-        setupLabel(label: ballisticSkillsLabel, view: view)
-        setupLabel(label: damageLabel, view: view)
-        attackLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        attackLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        ballisticSkillsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        ballisticSkillsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        damageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        damageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        view.backgroundColor = ColorScheme.shared.theme.subViewBackground
+        let attackLabel = BoldLabel()
+        let ballisticSkillsLabel = BoldLabel()
+        let damageLabel = BoldLabel()
+        view.addSubview(attackLabel)
+        view.addSubview(ballisticSkillsLabel)
+        view.addSubview(damageLabel)
+        NSLayoutConstraint.activate([
+            attackLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            attackLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            ballisticSkillsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            ballisticSkillsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            damageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            damageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+        
         attackLabel.text = attack
         ballisticSkillsLabel.text = ballisticSkills
         damageLabel.text = damage
@@ -109,13 +129,11 @@ class WeaponView: UIStackView{
     
     private func setupSpecialRule(rules: [WeaponSpecialRule], text: String, delegate: WeaponRuleButtonProtocol?) {
         let view = UIView()
-        let label = UILabel()
-        view.backgroundColor = .systemGray4
+        let label = BoldLabel()
+        view.backgroundColor = ColorScheme.shared.theme.subViewBackground
         addArrangedSubview(view)
         view.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
-        label.font = UIFont.boldSystemFont(ofSize: 16)
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -137,25 +155,6 @@ class WeaponView: UIStackView{
         }
     }
 
-    
-    private func dsetupSpecialRule(rules: [String], text: String) {
-        let view = UIView()
-        view.backgroundColor = .systemGray4
-        addArrangedSubview(view)
-        let label = UILabel()
-        view.addSubview(label)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 20)
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
-        ])
-        let ruleText = label.mergedString(array: rules)
-        label.text = "\(text) \(ruleText)"
-    }
 }
 
 extension UILabel {

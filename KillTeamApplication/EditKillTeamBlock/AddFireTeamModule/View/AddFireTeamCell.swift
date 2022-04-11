@@ -25,43 +25,33 @@ protocol AddFireTeamCellDelegate: AnyObject {
              countSelectedFireTeamLabel.text = "\(countFireTeam)"
          }
      }
+    
+    lazy var countSelectedFireTeamLabel: NormalLabel = {
+        let label = NormalLabel()
+        label.textAlignment = .center
+        label.text = "\(countFireTeam)"
+        return label
+    }()
+    
+    let plusButton: AddFireTeamButton = {
+        let button = AddFireTeamButton()
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.imageView?.tintColor = ColorScheme.shared.theme.selectedView
+        button.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
+        return button
+    }()
+    
+    let minusButton: AddFireTeamButton = {
+        let button = AddFireTeamButton()
+        button.setImage(UIImage(systemName: "minus"), for: .normal)
+        button.imageView?.tintColor = ColorScheme.shared.theme.selectedView
+        button.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
+        return button
+    }()
      
-     let plusButton: UIButton = {
-         let button = UIButton()
-         button.backgroundColor = .gray
-         button.translatesAutoresizingMaskIntoConstraints = false
-         button.setImage(UIImage(systemName: "plus"), for: .normal)
-         button.imageView?.tintColor = .systemOrange
-         button.layer.masksToBounds = true
-         button.layer.cornerRadius = 10
-         button.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
-         return button
-     }()
-     
-     lazy var countSelectedFireTeamLabel: UILabel = {
-         let label = UILabel()
-         label.translatesAutoresizingMaskIntoConstraints = false
-         label.textAlignment = .center
-         label.font = UIFont.systemFont(ofSize: 20)
-         label.text = "\(countFireTeam)"
-         return label
-     }()
-     
-     let minusButton: UIButton = {
-         let button = UIButton()
-         button.translatesAutoresizingMaskIntoConstraints = false
-         button.backgroundColor = .gray
-         button.setImage(UIImage(systemName: "minus"), for: .normal)
-         button.imageView?.tintColor = .systemOrange
-         button.layer.masksToBounds = true
-         button.layer.cornerRadius = 10
-         button.addTarget(self, action: #selector(removeFireTeam), for: .touchUpInside)
-         return button
-     }()
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .systemGray3
+        contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
         plusButton.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
         minusButton.addTarget(self, action: #selector(removeFireTeam), for: .touchUpInside)
         setupConstraints()
@@ -117,5 +107,27 @@ protocol AddFireTeamCellDelegate: AnyObject {
      }
  }
 
+
+class AddFireTeamButton: UIButton {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = ColorScheme.shared.theme.buttonBackground
+        layer.masksToBounds = true
+        layer.cornerRadius = Constant.Size.cornerRadius
+        layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
+        layer.borderWidth = Constant.Size.borderWidht
+    }
+    
+}
  
 

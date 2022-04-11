@@ -15,9 +15,11 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.dataSource = self
         tableView.delegate = self
         setupTableView()
+        tabBarController?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,47 +81,15 @@ extension PloysViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PloysTableViewCell.identifier, for: indexPath) as! PloysTableViewCell
-        cell.subLabelsView.removeFromSuperview()
-        for label in cell.subLabels {
-            label.text = ""
-        }
-        cell.abilitiesView.removeFromSuperview()
-        cell.unitUniqueActionView.removeFromSuperview()
-        
+        let cell = PloysTableViewCell()
         switch indexPath.section {
         case 0:
             let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
-            cell.addHeader(name: strategicPloy.name, cost: "\(strategicPloy.cost)CP")
-            cell.addDescriptionLabel(description: strategicPloy.description)
-            if let subText = strategicPloy.subText {
-                cell.addSubText(subText: subText)
-            }
-            if let uniqueAction = strategicPloy.abilities {
-                cell.addUnitUniqueActions(action: uniqueAction)
-            }
-            
-            if let abilitie = strategicPloy.passiveAbilities {
-                cell.addPassiveAbilitie(abilitie: abilitie)
-            }
-            cell.setupBackgroundStackView()
+            cell.ployView.setupPloy(ploy: strategicPloy)
             return cell
         default:
             let tacticalPloy = presenter!.model.tacticalPloy[indexPath.row]
-            cell.addHeader(name: tacticalPloy.name, cost: "\(tacticalPloy.cost)CP")
-            cell.addDescriptionLabel(description: tacticalPloy.description)
-            if let subText = tacticalPloy.subText {
-                
-                cell.addSubText(subText: subText)
-            }
-            if let uniqueAction = tacticalPloy.abilities {
-                cell.addUnitUniqueActions(action: uniqueAction)
-            }
-        
-            if let abilitie = tacticalPloy.passiveAbilities {
-                cell.addPassiveAbilitie(abilitie: abilitie)
-            }
-            cell.setupBackgroundStackView()
+            cell.ployView.setupPloy(ploy: tacticalPloy)
             return cell
         }
     }
@@ -141,3 +111,10 @@ extension PloysViewController: UITableViewDelegate {
     
 }
 
+extension PloysViewController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        guard let nav = viewController as? UINavigationController else { return }
+        nav.popToRootViewController(animated: true)
+    }
+}

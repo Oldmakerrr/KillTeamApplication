@@ -12,17 +12,17 @@ class UniqueActionView: UIStackView {
    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupSettings()
+        configure()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupSettings() {
+    func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         axis = .vertical
-        backgroundColor = .systemGray2
+        backgroundColor = ColorScheme.shared.theme.subViewBackground
     }
     
     func setupTextForUnit(action: UnitUniqueActions, delegate: WeaponRuleButtonProtocol) {
@@ -55,13 +55,12 @@ class UniqueActionView: UIStackView {
     
     private func setupActionText(uniqueAction: UnitUniqueActions) {
         let view = UIView()
-        //let label = UILabel()
         let label = BoldTextLabel()
         label.addText(bold: "\(uniqueAction.name) (\(uniqueAction.cost)AP)", normal: uniqueAction.description)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
         addArrangedSubview(view)
-        addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: view, subView: label)
+        addView(view: view, subView: label)
     }
     
     private func setupHeader(action: UnitUniqueActions) {
@@ -73,16 +72,17 @@ class UniqueActionView: UIStackView {
     private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonProtocol) {
         let view = WeaponView()
         let backgroundView = UIView()
-        if let subWeapon = weapon.secondProfile {
-            for weapon in subWeapon {
-                view.addText(weapon: weapon, delegate: delegate)
-            }
-        }
-        addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: backgroundView, subView: view)
+        view.setupText(wargear: weapon, delegate: delegate)
+       // if let subWeapon = weapon.secondProfile {
+       //     for weapon in subWeapon {
+       //         view.setupText(wargear: weapon, delegate: delegate)
+       //     }
+       // }
+        addView(view: backgroundView, subView: view)
         addArrangedSubview(backgroundView)
-        view.layer.borderWidth = 2
-        view.layer.borderColor = CGColor(red: 225, green: 165, blue: 0, alpha: 1)
-        view.addText(weapon: weapon, delegate: delegate)
+        view.layer.borderWidth = Constant.Size.borderWidht
+        view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
+       // view.setupText(wargear: weapon, delegate: delegate)
         
     }
 }

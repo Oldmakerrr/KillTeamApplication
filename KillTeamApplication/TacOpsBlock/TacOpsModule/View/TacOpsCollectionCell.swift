@@ -34,9 +34,9 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemGray2
-        layer.masksToBounds = true
-        layer.cornerRadius = 12
+        backgroundColor = ColorScheme.shared.theme.cellBackground
+        layer.applySketchShadow()
+        layer.applyCornerRadius()
         setupLabel()
         setupButton()
     }
@@ -68,10 +68,13 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
     private func setupButton() {
         contentView.addSubview(moreInfoButton)
         moreInfoButton.translatesAutoresizingMaskIntoConstraints = false
-        moreInfoButton.backgroundColor = .orange
+        moreInfoButton.backgroundColor = ColorScheme.shared.theme.buttonBackground
         moreInfoButton.setTitle("More Info", for: .normal)
         moreInfoButton.layer.masksToBounds = true
         moreInfoButton.layer.cornerRadius = 12
+        moreInfoButton.setTitleColor(ColorScheme.shared.theme.textNormal, for: .normal)
+        moreInfoButton.layer.borderWidth = Constant.Size.borderWidht
+        moreInfoButton.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
         moreInfoButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 15).isActive = true
         moreInfoButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         moreInfoButton.widthAnchor.constraint(equalToConstant: 100).isActive = true

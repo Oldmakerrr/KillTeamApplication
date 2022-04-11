@@ -14,7 +14,7 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.gray
-        tableView.register(ChooseKillTeamTableViewCell.self, forCellReuseIdentifier: ChooseKillTeamTableViewCell.identifier)
+        tableView.register(ChooseKillTeamTableViewCell.self, forCellReuseIdentifier: KillTeamTableViewCell.ChooseKillTeamTableViewCell.rawValue)
     }
     
 
@@ -29,16 +29,9 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ChooseKillTeamTableViewCell.identifier, for: indexPath) as! ChooseKillTeamTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: KillTeamTableViewCell.ChooseKillTeamTableViewCell.rawValue, for: indexPath) as! ChooseKillTeamTableViewCell
         guard let killTeam = presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row] else { return cell }
         cell.setupText(killTeam: killTeam)
-        //  cell.imageView?.translatesAutoresizingMaskIntoConstraints = false
-      //  cell.imageView?.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 2).isActive = true
-      //  cell.imageView?.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -2).isActive = true
-      //  cell.imageView?.widthAnchor.constraint(equalTo: cell.imageView!.heightAnchor).isActive = true
-      //  cell.imageView?.contentMode = .scaleAspectFill
-       // cell.textLabel?.text = killTeam?.killTeamName
-       // cell.detailTextLabel?.text = killTeam?.factionName
         return cell
     }
     
@@ -51,7 +44,7 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var killTeam = (presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row])!
+        guard var killTeam = (presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row]) else { return }
         let uuid = UUID().uuidString
         killTeam.id = uuid
         killTeam.counterFT = [:]

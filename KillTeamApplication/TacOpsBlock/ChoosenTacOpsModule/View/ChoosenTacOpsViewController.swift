@@ -16,13 +16,13 @@ class ChoosenTacOpsViewController: UIViewController, ChoosenTacOpsViewController
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .gray
+        collectionView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         return collectionView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         setupTacOpsCollection()
     }
     

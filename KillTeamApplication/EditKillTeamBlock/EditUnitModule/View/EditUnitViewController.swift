@@ -8,133 +8,46 @@
 import Foundation
 import UIKit
 
+protocol EditUnitProtocol: AnyObject {
+    func didComplete(_ EditUnitViewController: EditUnitViewController)
+}
+
 class EditUnitViewController: UITableViewController, EditUnitViewControllerProtocol {
+    
+    weak var delegate: EditUnitProtocol?
     
     var presenter: EditUnitPresenterProtocol?
     
-    var countOfEquipmentPointLabel = UILabel()
+    var countOfEquipmentPointLabel = NormalLabel()
     
-    var weaponView = WeaponView()
-    var equipmentView = EquipmentView()
-    lazy var customAlertInfoWeapon = CustomAlert(alertView: weaponView, targetView: view)
-    lazy var customAlertInfoEquipment = CustomAlert(alertView: equipmentView, targetView: view)
+    let customAlert = CustomAlert()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
-        tableView.register(EditUnitWargearCell.self, forCellReuseIdentifier: EditUnitWargearCell.identifier)
-        tableView.register(EditUnitEquipmentCell.self, forCellReuseIdentifier: EditUnitEquipmentCell.identifier)
-            createBarlabel()
+        registerCell()
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         countOfEquipmentPointLabel.removeFromSuperview()
+        presenter?.cleareIndex()
     }
     
-    func showWeponInfoEquipment() {
-        customAlertInfoEquipment.showAlert()
-        tableView.isScrollEnabled = false
-    
+    func showAlert(alertView: UIView) {
+        customAlert.showAlert(alertView: alertView, targetView: self)
+        delegate = customAlert
     }
     
-    @objc func dismissEquipmentInfoAlert() {
-        customAlertInfoEquipment.dismissAlert()
-        tableView.isScrollEnabled = true
-        equipmentView = EquipmentView()
-        customAlertInfoEquipment.alertView = equipmentView
+    func dismissAlert() {
+        delegate?.didComplete(self)
     }
     
-    func showWeponInfoAlert() {
-        customAlertInfoWeapon.showAlert()
-        tableView.isScrollEnabled = false
-    }
     
-    @objc func dismissWeponInfoAlert() {
-        customAlertInfoWeapon.dismissAlert()
-        tableView.isScrollEnabled = true
-        weaponView = WeaponView()
-        customAlertInfoWeapon.alertView = weaponView
-    }
-    
-    func createBarlabel() {
-        guard let navigationBar = navigationController?.navigationBar, let countOfEquipmentPoint = presenter?.model.killTeam?.countEquipmentPoint  else { return }
-        navigationBar.addSubview(countOfEquipmentPointLabel)
-        countOfEquipmentPointLabel.translatesAutoresizingMaskIntoConstraints = false
-        countOfEquipmentPointLabel.text = "Count of Equipment Point = \(countOfEquipmentPoint)"
-        NSLayoutConstraint.activate([
-            countOfEquipmentPointLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -15),
-            countOfEquipmentPointLabel.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor)
-        ])
-    }
-    
-    func setupWeaponCell(tableView: UITableView, indexPath: IndexPath, wargear: [Weapon]) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EditUnitWargearCell.identifier, for: indexPath) as! EditUnitWargearCell
-        presenter?.store.multicastDelegate.addDelegate(cell)
-        cell.textLabel?.text = wargear[indexPath.row].name
-        cell.wargear = wargear[indexPath.row]
-        cell.unit = presenter?.model.currentUnit
-        cell.delegate = presenter as? EditUnitCellDelegate
-        return cell
-    }
-    
-    func setupEquipmentCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EditUnitEquipmentCell.identifier, for: indexPath) as! EditUnitEquipmentCell
-        if let equipment = presenter?.model.killTeam?.equipment[indexPath.row] {
-            presenter?.store.multicastDelegate.addDelegate(cell)
-            cell.equipment = equipment
-            cell.unit = presenter?.model.currentUnit
-            cell.delegate = presenter as? EditUnitEquipmentCellDelegate
-            cell.textLabel?.text = "\(equipment.name)"
-            cell.setupCostLabel(cost: equipment.cost)
-        }
-            return cell
-    }
-    
-    func addWeaponAction(wargear: [Weapon], indexPtah: IndexPath) -> UISwipeActionsConfiguration {
-        let action = UIContextualAction(style: .normal, title: "More info") { [self] _, _, complition in
-            let weapon = wargear[indexPtah.row]
-            self.showWeponInfoAlert()
-            self.weaponView.addText(weapon: weapon, delegate: self)
-            if let subWeapon = weapon.secondProfile {
-                for weapon in subWeapon {
-                    self.weaponView.addText(weapon: weapon, delegate: self)
-                }
-            }
-            self.weaponView.setupButton()
-            self.weaponView.button.addTarget(self, action: #selector(self.dismissWeponInfoAlert), for: .touchUpInside)
-            self.weaponView.layer.masksToBounds = true
-            self.weaponView.layer.cornerRadius = 12
-        complition(true)
-        }
-        action.backgroundColor = .blue
-        action.title = "Info"
-        action.image = UIImage(systemName: "info.circle.fill")
-        return UISwipeActionsConfiguration(actions: [action])
-    }
-    
-    func addEquipmentAction(indexPath: IndexPath) -> UISwipeActionsConfiguration {
-        let action = UIContextualAction(style: .normal, title: "More info") { _, _, complition in
-            self.showWeponInfoEquipment()
-            if let equipment = self.presenter?.model.killTeam?.equipment[indexPath.row] {
-                self.equipmentView.setupText(equipment: equipment, delegate: self)
-                self.equipmentView.setupButton()
-                self.equipmentView.button.addTarget(self, action: #selector(self.dismissEquipmentInfoAlert), for: .touchUpInside)
-                self.equipmentView.layer.masksToBounds = true
-                self.equipmentView.layer.cornerRadius = 12
-                self.equipmentView.axis = .vertical
-               
-            complition(true)
-            }
-        }
-        action.backgroundColor = .blue
-        action.title = "Info"
-        action.image = UIImage(systemName: "info.circle.fill")
-        return UISwipeActionsConfiguration(actions: [action])
-    }
     
     
 
-    // MARK: - Table view data source
+// MARK: - TableView DataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return presenter?.model.numberOfRow.count ?? 0
@@ -154,20 +67,27 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = viewForHeaderInTableView()
         switch section {
         case 0:
-            return presenter?.model.headerForRow[0]
+            view.label.text = presenter?.model.headerForRow[0]
+            view.imageView.image = UIImage(named: presenter?.model.headerForRow[0] ?? "")
         case 1:
-            return presenter?.model.headerForRow[1]
+            view.label.text = presenter?.model.headerForRow[1]
+            view.imageView.image = UIImage(named: presenter?.model.headerForRow[1] ?? "")
         case 2:
-            return presenter?.model.headerForRow[2]
+            view.label.text = presenter?.model.headerForRow[2]
+            view.imageView.image = UIImage(named: presenter?.model.headerForRow[2] ?? "")
         default:
-            return  ""
+            view.label.text = ""
         }
+        return view
     }
     
-    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        40
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let model = presenter?.model else { return UITableViewCell() }
@@ -197,7 +117,10 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         default:
             return UITableViewCell()
         }
-        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -229,6 +152,8 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
             return nil
         }
     }
+    
+    
 }
 
 extension EditUnitViewController: WeaponRuleButtonProtocol {
@@ -236,6 +161,20 @@ extension EditUnitViewController: WeaponRuleButtonProtocol {
         moreInfoWeaponRuleAlert(weaponRule: weaponRule)
     }
 }
+
+extension EditUnitViewController: WeaponViewProtocol {
+    func didComplete(_ weaponView: WeaponView) {
+        dismissAlert()
+    }
+}
+
+extension EditUnitViewController: EquipmentViewProtocol {
+    func didComplete(_ EquipmentView: EquipmentView) {
+        dismissAlert()
+    }
+}
+
+//MARK: - extension UIViewController
 
 extension UIViewController {
     
@@ -253,4 +192,40 @@ extension UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+
+class viewForHeaderInTableView: UIView {
+    
+    let label = HeaderLabel()
+    let imageView = UIImageView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = ColorScheme.shared.theme.viewHeader
+        setupSubview()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupSubview() {
+        addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+        ])
+        
+        addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        NSLayoutConstraint.activate([
+            //imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 20),
+            imageView.topAnchor.constraint(equalTo: label.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+        ])
+    }
 }

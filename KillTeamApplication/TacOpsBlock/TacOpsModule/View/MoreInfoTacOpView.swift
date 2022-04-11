@@ -35,7 +35,7 @@ class MoreInfoTacOp: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemGray3
+        backgroundColor = ColorScheme.shared.theme.viewBackground
         axis = .vertical
         setupHeader()
         setupDescription()
@@ -56,7 +56,7 @@ class MoreInfoTacOp: UIStackView {
     
     private func setupBackground() {
         addSubview(backGroundView)
-        backGroundView.backgroundColor = .systemGray3
+       // backGroundView.backgroundColor = .systemGray3
         backGroundView.translatesAutoresizingMaskIntoConstraints = false
         backGroundView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         backGroundView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -69,7 +69,7 @@ class MoreInfoTacOp: UIStackView {
         addArrangedSubview(header)
         header.addSubview(nameLabel)
         header.translatesAutoresizingMaskIntoConstraints = false
-        header.backgroundColor = .orange
+        header.backgroundColor = ColorScheme.shared.theme.cellHeader
         header.heightAnchor.constraint(equalToConstant: 40).isActive = true
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
@@ -87,7 +87,7 @@ class MoreInfoTacOp: UIStackView {
         descriptionLabel.topAnchor.constraint(equalTo: descriptionView.topAnchor, constant: 15).isActive = true
         descriptionLabel.bottomAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: -15).isActive = true
         addArrangedSubview(descriptionView)
-        descriptionView.backgroundColor = .systemGray3
+        //descriptionView.backgroundColor = .systemGray3
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -101,7 +101,7 @@ class MoreInfoTacOp: UIStackView {
         label.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
         label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
         addArrangedSubview(view)
-        view.backgroundColor = .systemGray3
+       // view.backgroundColor = .systemGray3
         view.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -116,7 +116,7 @@ class MoreInfoTacOp: UIStackView {
         label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
         label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
         addArrangedSubview(view)
-        view.backgroundColor = .systemGray3
+      //  view.backgroundColor = .systemGray3
         view.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -125,8 +125,9 @@ class MoreInfoTacOp: UIStackView {
         buttonView.addSubview(button)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 12
-        button.backgroundColor = .orange
+        button.backgroundColor = ColorScheme.shared.theme.buttonBackground
         button.setTitle("Done", for: .normal)
+        button.setTitleColor(ColorScheme.shared.theme.textNormal, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 15).isActive = true
         button.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -15).isActive = true
@@ -159,7 +160,7 @@ class UnitUniqueAtionView: UIView {
     
     func setupText(action: UnitUniqueActions) {
         nameLabel.text = action.name
-        coastLabel.text = String(action.cost)
+        coastLabel.text = "\(action.cost) AP"
         descriptionLabel.text = action.description
         
     }
@@ -176,7 +177,7 @@ class UnitUniqueAtionView: UIView {
         coastLabel.centerYAnchor.constraint(equalTo: header.centerYAnchor).isActive = true
         coastLabel.font = UIFont.boldSystemFont(ofSize: 20)
         addSubview(header)
-        header.backgroundColor = .orange
+        header.backgroundColor = ColorScheme.shared.theme.cellHeader
         header.translatesAutoresizingMaskIntoConstraints = false
         header.topAnchor.constraint(equalTo: topAnchor).isActive = true
         header.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -196,3 +197,4 @@ class UnitUniqueAtionView: UIView {
 
     }
 }
+

@@ -31,8 +31,9 @@ class PloyMoreInfoView: UIStackView {
 //MARK: - MethodsView
     
     private func settingview() {
-        layer.masksToBounds = true
+        layer.masksToBounds = false
         layer.cornerRadius = 12
+        layer.applySketchShadow()
         backgroundColor = .systemGray2
         axis = .vertical
     }
@@ -157,3 +158,5 @@ class PloyMoreInfoView: UIStackView {
     }
 
 }
+
+

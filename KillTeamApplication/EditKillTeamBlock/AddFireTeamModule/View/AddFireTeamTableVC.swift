@@ -11,14 +11,14 @@ class AddFireTeamTableVC: UITableViewController, AddFireTeamTableVCProtocol {
     
     var presenter: AddFireTeamPresenterProtocol?
     
-    var maxCountFIreTeamLabel = UILabel()
+    var maxCountFIreTeamLabel = NormalLabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.register(AddFireTeamCell.self, forCellReuseIdentifier: AddFireTeamCell.identifier)
-        tableView.allowsMultipleSelection = true
-        createBarlabel()
+       // tableView.allowsMultipleSelection = true
+        setupMaxCountFIreTeamLabel()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -37,14 +37,12 @@ class AddFireTeamTableVC: UITableViewController, AddFireTeamTableVCProtocol {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AddFireTeamCell.identifier, for: indexPath) as! AddFireTeamCell
+        guard let fireTeam = presenter?.model.currentFireTeam![indexPath.row] else { return UITableViewCell() }
         presenter?.store.multicastDelegate.addDelegate(cell)
-        if let ft = presenter?.model.currentFireTeam?[indexPath.row] {
-            cell.textLabel?.text = ft.name
-        }
+        cell.textLabel?.text = fireTeam.name
         cell.delegate = presenter as? AddFireTeamCellDelegate
-        let fireTeam = presenter?.model.currentFireTeam![indexPath.row]
         cell.fireTeam = fireTeam
-        cell.countFireTeam = presenter?.model.counterFireteam?[fireTeam!.name] ?? 0
+        cell.countFireTeam = presenter?.model.counterFireteam?[fireTeam.name] ?? 0
         return cell
     }
     

@@ -36,16 +36,26 @@ final class StoreMulticastDelegate<T> {
 }
 
 protocol StoreProtocol {
-    var multicastDelegate: StoreMulticastDelegate<StoreDelegate> {get set}
-    func addKillTeam(killTeam: KillTeam)
+    
+    var multicastDelegate: StoreMulticastDelegate<StoreDelegate> { get }
+    var loadedKillTeam: [KillTeam] { get }
+    var allFaction: [Faction] { get }
+    var keysForKillTeam: [String] { get }
+    
+    func updateCurrentKillTeam(killTeam: KillTeam)
     func addFireTeam(fireTeam: FireTeam)
-    func removeTeam(fireTeam: FireTeam)
+    func removeFireTeam(fireTeam: FireTeam)
     func addIndexOfChoosenUnit(index: IndexPath)
     func addCounterFireTeam(counter: [String: Int])
-    func updateWargear(indexPath: IndexPath, unit: Unit)
+    func updateUnitWargearInChoosenFireTeam(indexPath: IndexPath, unit: Unit)
     func updateChoosenUnit(unit: Unit)
-    var arrayKey: [String] { get set }
-
+    
+    func loadSavedKillTeam()
+    func removeKillTeam(indexPath: IndexPath)
+    func appendNewKillTeam(killTeam: KillTeam)
+    
+    func removeKey(indexPath: IndexPath)
+    func appendNewKey(key: String)
 }
 
 protocol StoreDelegate: AnyObject {
@@ -67,22 +77,86 @@ final class Store: StoreProtocol {
 
     var multicastDelegate = StoreMulticastDelegate<StoreDelegate>()
     
-    func addKillTeam(killTeam: KillTeam) {
+//MARK - RemoveAndAddKey
+    
+    func removeKey(indexPath: IndexPath) {
+        keysForKillTeam.remove(at: indexPath.row)
+    }
+    
+    func appendNewKey(key: String) {
+        keysForKillTeam.append(key)
+    }
+    
+//MARK - RemoveAndAddKey
+        
+    func removeKillTeam(indexPath: IndexPath) {
+        loadedKillTeam.remove(at: indexPath.row)
+    }
+    
+    func appendNewKillTeam(killTeam: KillTeam) {
+        loadedKillTeam.append(killTeam)
+    }
+    
+    
+//MARK: - JSON
+    
+    var allFaction: [Faction] = []
+    
+    func killTeamFromJson() -> [Faction] {
+        let path = Bundle.main.path(forResource: "AllFactionV1 ", ofType: "json")
+        let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
+        return try! JSONDecoder().decode([Faction].self, from: jsonData! as Data)
+    }
+
+//MARK: - SaveKillTeam
+    
+    private func saveMyKillTeam(killTeam: KillTeam) {
+        if let key = killTeam.id {
+            UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: key)
+        }
+    }
+    
+//MARK: - LoadKillTeam
+    
+    var loadedKillTeam: [KillTeam] = []
+    
+    var keysForKillTeam: [String] = []
+    
+    func loadSavedKillTeam() {
+        loadedKillTeam = []
+        if let keys = KeySaver.getKey() {
+            keysForKillTeam = keys
+        }
+        for key in keysForKillTeam {
+            if let killTeam = loadMyKillTeam(key: key) {
+                loadedKillTeam.append(killTeam)
+            }
+        }
+    }
+    
+    private func loadMyKillTeam(key: String) -> KillTeam? {
+        if let data = UserDefaults.standard.value(forKey: key) as? Data {
+            return try? PropertyListDecoder().decode(KillTeam.self, from: data)
+        } else { return nil }
+    }
+    
+//MARK: - UpdateKillTeamMethod
+    
+    func updateCurrentKillTeam(killTeam: KillTeam) {
         self.killTeam = killTeam
     }
     
     func addFireTeam(fireTeam: FireTeam) {
-        self.killTeam?.choosenFireTeam.append(fireTeam)
-        guard let counter = killTeam!.counterFT else {
-            return
-        }
-        if counter.contains(where: { (key, _) in
+        guard var killTeam = killTeam, let counter = killTeam.counterFT else { return }
+        killTeam.choosenFireTeam.append(fireTeam)
+        if counter.contains(where: { (key, value) in
             key == fireTeam.name
         }) {
-            killTeam?.counterFT?[fireTeam.name]! += 1
+            killTeam.counterFT?[fireTeam.name]! += 1
         } else{
-        self.killTeam?.counterFT?[fireTeam.name] = 1
+            killTeam.counterFT?[fireTeam.name] = 1
         }
+        self.killTeam = killTeam
     }
     
     func addCounterFireTeam(counter: [String: Int]) {
@@ -93,43 +167,14 @@ final class Store: StoreProtocol {
         self.killTeam?.indexOfChoosenUnit = index
     }
     
-    
-    
-    func NremoveTeam(fireTeam: FireTeam) {
-        var index = 0
-        if killTeam!.choosenFireTeam.contains(fireTeam) {
-            for team in killTeam!.choosenFireTeam {
-                if team == fireTeam {
-                    killTeam!.choosenFireTeam.remove(at: index)
-                    self.killTeam?.counterFT?[fireTeam.name]! -= 1
-                    break
-                }
-                index += 1
-            }
-            
-        }
-    }
-    
-    func removeTeam(fireTeam: FireTeam) {
-        guard var killTeam = killTeam else { return }
+    func removeFireTeam(fireTeam: FireTeam) {
+        guard let killTeam = killTeam else { return }
         if killTeam.choosenFireTeam.contains(fireTeam) {
-            for (index, team) in killTeam.choosenFireTeam.enumerated(){
-                if team == fireTeam {
-                    killTeam.choosenFireTeam[index].currentDataslates.forEach { unit in
-                        unit.equipment.forEach { equipment in
-                            killTeam.countEquipmentPoint += equipment.cost
-                        }
-                    }
-                    killTeam.choosenFireTeam.remove(at: index)
-                    killTeam.counterFT?[fireTeam.name]! -= 1
-                    break
-                }
-            }
-            self.killTeam = killTeam
+            self.killTeam = removeFireTeamAddEquipmentPoint(killTeam: killTeam, fireTeam: fireTeam)
         }
     }
     
-    func updateWargear(indexPath: IndexPath, unit: Unit) {
+    func updateUnitWargearInChoosenFireTeam(indexPath: IndexPath, unit: Unit) {
         killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
     }
 
@@ -137,26 +182,25 @@ final class Store: StoreProtocol {
     func updateChoosenUnit(unit: Unit) {
         killTeam?.choosenUnit = unit
     }
-
-    var arrayKey: [String] = []
     
-    private func saveMyKillTeam(killTeam: KillTeam) {
-        if let key = killTeam.id {
-            UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: key)
-            if !arrayKey.contains(key) {
-                arrayKey.append(key)
+    private func removeFireTeamAddEquipmentPoint(killTeam: KillTeam, fireTeam: FireTeam) -> KillTeam {
+        var killTeam = killTeam
+        for (index, team) in killTeam.choosenFireTeam.enumerated(){
+            if team == fireTeam {
+                killTeam.choosenFireTeam[index].currentDataslates.forEach { unit in
+                    unit.equipment.forEach { equipment in
+                        killTeam.countEquipmentPoint += equipment.cost
+                    }
+                }
+                killTeam.choosenFireTeam.remove(at: index)
+                killTeam.counterFT?[fireTeam.name]! -= 1
+                break
             }
-            KeySaver.saveKey(key: arrayKey)
         }
+        return killTeam
     }
     
-   // private func generateKey(name: String) -> String {
-   //     var key = ""
-   //     let random2 = Int.random(in: 0...100000)
-   //     key += String(random2)
-   //     key += name
-   //     let random = Int.random(in: 0...100000)
-   //     key += String(random)
-   //     return key
-   // }
+    
+    
+  
 }

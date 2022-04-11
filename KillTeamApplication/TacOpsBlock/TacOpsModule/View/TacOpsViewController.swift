@@ -12,12 +12,13 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
     var presenter: TacOpsPresenterProtocol?
     let editButton = UIBarButtonItem()
     let goToChoosenTacOpsButton = UIBarButtonItem()
-    lazy var customAlert = CustomAlert(alertView: moreInfoTacOpView, targetView: view)
-    let moreInfoTacOpView = MoreInfoTacOp()
+   // lazy var customAlert = CustomAlert(alertView: moreInfoTacOpView, targetView: self)
+    let customAlert = CustomAlert()
+    var moreInfoTacOpView = MoreInfoTacOp()
     var tacOpsCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .gray
+        collectionView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         return collectionView
     }()
     var selectedTapOp: TacOps?
@@ -30,63 +31,62 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
         moreInfoTacOpView.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func setCellColor(tacOp: TacOps, index: Int) {
+        guard let cell = tacOpsCollection.visibleCells[index] as? TacOpsCollectionCell else { return }
+        if cell.tacOp == tacOp {
+            cell.contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
+            
+        } else {
+            cell.contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
+            cell.layer.applySketchShadow()
+        }
+    }
+    
+    private func updateCellColor() {
+        guard let firstTacOp = presenter?.model.gameData.firstTacOp,
+              let secondTacOp = presenter?.model.gameData.secondTacOp,
+              let thirdTacOp = presenter?.model.gameData.thirdTacOp
+              else { return }
         for cell in tacOpsCollection.visibleCells {
             if let cell = cell as? TacOpsCollectionCell {
                 switch cell.index {
                 case 0:
-                    if cell.tacOp == presenter?.model.gameData.firstTacOp {
-                        cell.contentView.backgroundColor = .orange
-                    } else {
-                        cell.contentView.backgroundColor = .systemGray2
-                    }
+                    setCellColor(tacOp: firstTacOp, index: 0)
                 case 1:
-                    if cell.tacOp == presenter?.model.gameData.firstTacOp {
-                        cell.contentView.backgroundColor = .orange
-                    } else {
-                        cell.contentView.backgroundColor = .systemGray2
-                    }
+                    setCellColor(tacOp: firstTacOp, index: 1)
                 case 2:
-                    if cell.tacOp == presenter?.model.gameData.secondTacOp {
-                        cell.contentView.backgroundColor = .orange
-                    } else {
-                        cell.contentView.backgroundColor = .systemGray2
-                    }
+                    setCellColor(tacOp: secondTacOp, index: 2)
                 case 3:
-                    if cell.tacOp == presenter?.model.gameData.secondTacOp {
-                        cell.contentView.backgroundColor = .orange
-                    } else {
-                        cell.contentView.backgroundColor = .systemGray2
-                    }
+                   setCellColor(tacOp: secondTacOp, index: 3)
                 case 4:
-                    if cell.tacOp == presenter?.model.gameData.thirdTacOp {
-                        cell.contentView.backgroundColor = .orange
-                    } else {
-                        cell.contentView.backgroundColor = .systemGray2
-                    }
+                    setCellColor(tacOp: thirdTacOp, index: 4)
                 case 5:
-                    if cell.tacOp == presenter?.model.gameData.thirdTacOp {
-                        cell.contentView.backgroundColor = .orange
-                    } else {
-                        cell.contentView.backgroundColor = .systemGray2
-                    }
+                    setCellColor(tacOp: thirdTacOp, index: 5)
                 default:
                     break
                 }
             }
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        updateCellColor()
+    }
    
     func moreInfoAlert(tacOp: TacOps) {
         setupTextAlert(tacOp: tacOp)
-        customAlert.showAlert()
+        customAlert.showAlert(alertView: moreInfoTacOpView, targetView: self)
+        
+     //   customAlert.showAlert()
     }
     
     func hideUnfoAlert() {
         customAlert.dismissAlert()
-        moreInfoTacOpView.secondConitionView.removeFromSuperview()
-        moreInfoTacOpView.subView.removeFromSuperview()
-        moreInfoTacOpView.unitActionView.removeFromSuperview()
+        moreInfoTacOpView = MoreInfoTacOp()
+        moreInfoTacOpView.delegate = self
+     //   moreInfoTacOpView.secondConitionView.removeFromSuperview()
+     //   moreInfoTacOpView.subView.removeFromSuperview()
+     //   moreInfoTacOpView.unitActionView.removeFromSuperview()
     }
     
     func setupTextAlert(tacOp: TacOps) {

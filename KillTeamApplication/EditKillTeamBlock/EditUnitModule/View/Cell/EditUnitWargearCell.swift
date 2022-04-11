@@ -15,17 +15,13 @@ class EditUnitWargearCell: UITableViewCell {
     
     static let identifier = "EditUnitWargearCell"
     
-    var wargear: Weapon?
+    let nameWeaponLabel = NormalLabel()
     
-    var indexUnit: IndexPath?
+    var wargear: Weapon?
     
     var unit: Unit? {
         didSet{
-            if unit?.selectedRangeWeapon == wargear || unit?.selectedCloseWeapon == wargear {
-                contentView.backgroundColor = .orange
-            } else {
-                contentView.backgroundColor = .gray
-            }
+            checkSelectedState()
         }
     }
     
@@ -33,11 +29,8 @@ class EditUnitWargearCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        if unit?.selectedRangeWeapon == wargear || unit?.selectedCloseWeapon == wargear {
-            contentView.backgroundColor = .orange
-        } else {
-            contentView.backgroundColor = .gray
-        }
+        setupNameWeaponLabel()
+        checkSelectedState()
     }
     
     required init?(coder: NSCoder) {
@@ -45,16 +38,44 @@ class EditUnitWargearCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        delegate?.selectedWargear(wargear: wargear!, selected: selected)
+        guard let wargear = wargear else { return }
+        delegate?.selectedWargear(wargear: wargear, selected: selected)
+    }
+    
+    func setupText(weapon: Weapon) {
+        nameWeaponLabel.text = weapon.name
+    }
+    
+    private func checkSelectedState() {
+        if unit?.selectedRangeWeapon == wargear || unit?.selectedCloseWeapon == wargear || isAdditionalWeapon() {
+            contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
+        } else {
+            contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
+        }
+    }
+    
+    private func isAdditionalWeapon () -> Bool {
+        guard let additionalWeapon = unit?.additionalWeapon, let wargear = wargear else {
+            return false
+        }
+        return additionalWeapon.contains(wargear) ? true : false
+       
+    }
+    
+    private func setupNameWeaponLabel() {
+        contentView.addSubview(nameWeaponLabel)
+        NSLayoutConstraint.activate([
+            nameWeaponLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            nameWeaponLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            nameWeaponLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
+        ])
     }
     
 }
 
 extension EditUnitWargearCell: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam) {
-        indexUnit = killTeam.indexOfChoosenUnit
-        
-        guard let indexPath = indexUnit else { return }
-            unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        guard let indexPath = killTeam.indexOfChoosenUnit else { return }
+        unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
     }
 }

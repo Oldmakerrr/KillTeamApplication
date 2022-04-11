@@ -10,14 +10,16 @@ import UIKit
 
 class HeaderView: UIView {
     
-    var fontSize: CGFloat = 24
-    let nameLabel = UILabel()
-    let costLabel = UILabel()
+    let nameLabel = HeaderLabel()
+    let costLabel = HeaderLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .orange
+        backgroundColor = ColorScheme.shared.theme.cellHeader
+        nameLabel.numberOfLines = 1
+        nameLabel.adjustsFontSizeToFitWidth = true
+        costLabel.numberOfLines = 1
     }
     
     let imageView: UIImageView = {
@@ -34,32 +36,23 @@ class HeaderView: UIView {
     }
     
     func setupText(name: String, cost: String?) {
-        addSubview(nameLabel)
         addSubview(costLabel)
-      //  addSubview(imageView)
+        addSubview(nameLabel)
         
-        nameLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
         nameLabel.text = name
-        nameLabel.numberOfLines = 0
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
-        nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: costLabel.leadingAnchor, constant: 5).isActive = true
-        nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
-        
-        costLabel.font = UIFont.boldSystemFont(ofSize: fontSize)
         costLabel.text = cost ?? ""
-        costLabel.translatesAutoresizingMaskIntoConstraints = false
-        costLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
-        costLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
-        
-        
-   //     NSLayoutConstraint.activate([
-   //         imageView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-   //         imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-   //         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-   //         imageView.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: -5)
-   //     ])
+        NSLayoutConstraint.activate([
+            costLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            costLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            costLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+            //costLabel.widthAnchor.constraint(equalToConstant: 40),
+            
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: costLabel.leadingAnchor, constant: -10),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15)
+        ])
     }
 }
 

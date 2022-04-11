@@ -9,23 +9,14 @@ import UIKit
 
 class ChooseKillTeamTableViewCell: UITableViewCell {
     
+    
     static let identifier = "ChooseKillTeamTableViewCell"
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
-    }()
+    private let nameLabel = NormalLabel()
     
-    let subNameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.init(name: "Avenir", size: 16)
-        return label
-    }()
+    private let subNameLabel = NormalLabel()
     
-    let logoImage: UIImageView = {
+    private let logoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -33,9 +24,19 @@ class ChooseKillTeamTableViewCell: UITableViewCell {
     }()
     
     func setupText(killTeam: KillTeam) {
-        nameLabel.text = killTeam.killTeamName
-        subNameLabel.text = killTeam.factionName
-        logoImage.image = UIImage(named: killTeam.factionLogo)
+        if let customName = killTeam.userCustomName {
+            nameLabel.text = customName
+            subNameLabel.text = killTeam.killTeamName
+            DispatchQueue.main.async {
+                self.logoImage.image = UIImage(named: killTeam.factionLogo)
+            }
+        } else {
+            nameLabel.text = killTeam.killTeamName
+            subNameLabel.text = killTeam.factionName
+            DispatchQueue.main.async {
+                self.logoImage.image = UIImage(named: killTeam.factionLogo)
+            }
+        }
     }
     
     private func setupView() {
@@ -74,4 +75,9 @@ class ChooseKillTeamTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+enum KillTeamTableViewCell: String {
+    case ChooseKillTeamTableViewCell
+    case ChooseLoadedKillTeamCell
 }

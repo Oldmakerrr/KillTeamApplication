@@ -16,19 +16,14 @@ class EditUnitEquipmentCell: UITableViewCell {
 
     static let identifier = "EditUnitEquipmentCell"
 
-    var equipment: Equipment?
+    let costEquipmentLabel = NormalLabel()
+    let nameEquipmentLabel = NormalLabel()
     
-    var indexUnit: IndexPath?
+    var equipment: Equipment?
     
     var unit: Unit? {
         didSet{
-            if unit!.equipment.contains(where: { equip in
-                equip == equipment
-            }) {
-                contentView.backgroundColor = .orange
-            } else {
-                contentView.backgroundColor = .gray
-            }
+            checkSelectedState()
         }
     }
     
@@ -36,14 +31,9 @@ class EditUnitEquipmentCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        if ((unit?.equipment.contains(where: { equip in
-            equip == equipment
-        })) != nil) {
-            contentView.backgroundColor = .orange
-        } else {
-            contentView.backgroundColor = .gray
-        }
-
+        setupNameEquipmentLabel()
+        setupCostEquipmentLabel()
+        checkSelectedState()
     }
         
     required init?(coder: NSCoder) {
@@ -51,27 +41,47 @@ class EditUnitEquipmentCell: UITableViewCell {
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
-        delegate?.selectEquipment(equipment: equipment!, selected: selected)
+        guard let equipment = equipment  else { return }
+        delegate?.selectEquipment(equipment: equipment, selected: selected)
     }
     
-    func setupCostLabel(cost: Int) {
-        let label = UILabel()
-        contentView.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "[\(cost)EP]"
+    func setupText(equipment: Equipment) {
+        nameEquipmentLabel.text = equipment.name
+        costEquipmentLabel.text = "[\(equipment.cost)EP]"
+    }
+    
+    private func checkSelectedState() {
+        guard let equipments = unit?.equipment, let equipment = equipment else { return }
+        if equipments.contains(equipment) {
+            contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
+        } else {
+            contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
+        }
+    }
+    
+    private func setupNameEquipmentLabel() {
+        contentView.addSubview(nameEquipmentLabel)
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+            nameEquipmentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            nameEquipmentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            nameEquipmentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
         ])
-        
+    }
+    
+    private func setupCostEquipmentLabel() {
+        contentView.addSubview(costEquipmentLabel)
+        NSLayoutConstraint.activate([
+            costEquipmentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            costEquipmentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            costEquipmentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ])
     }
     
 }
 
 extension EditUnitEquipmentCell: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam) {
-        indexUnit = killTeam.indexOfChoosenUnit
-        guard let indexPath = indexUnit else { return }
-            unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        guard let indexPath = killTeam.indexOfChoosenUnit else { return }
+        unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
     }
 }
