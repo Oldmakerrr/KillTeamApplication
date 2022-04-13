@@ -10,4 +10,5 @@ import Foundation
 class MoreInfoUnitModel {
     var killTeam: KillTeam?
     var choosenUnit: Unit?
+    var indexPathOfChoosenUnit: IndexPath?
 }

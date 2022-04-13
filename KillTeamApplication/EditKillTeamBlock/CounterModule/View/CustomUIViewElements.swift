@@ -48,7 +48,6 @@ class ChangePointButton: UIButton {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = ColorScheme.shared.theme.buttonBackground
-        layer.applySketchShadow()
         layer.applyBorder()
         tintColor = ColorScheme.shared.theme.viewHeader
     }
@@ -69,7 +68,6 @@ class ChangeTurnButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = ColorScheme.shared.theme.buttonBackground
         setTitleColor(ColorScheme.shared.theme.textDark, for: .normal)
-        layer.applySketchShadow()
         layer.applyBorder()
         layer.applyCornerRadius()
         tintColor = ColorScheme.shared.theme.viewHeader
@@ -91,6 +89,7 @@ class AddButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = ColorScheme.shared.theme.cellBorder
         tintColor = ColorScheme.shared.theme.textDark
+        layer.applySketchShadow()
         setImage(UIImage(systemName: "plus"), for: .normal)
     }
     

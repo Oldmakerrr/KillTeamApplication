@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "40kart_gullimanvsabaddon.jpeg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "40kart_gullimanvsabaddon-1.jpeg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "40kart_gullimanvsabaddon-2.jpeg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

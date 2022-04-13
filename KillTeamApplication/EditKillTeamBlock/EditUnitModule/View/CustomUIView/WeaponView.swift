@@ -39,11 +39,11 @@ class WeaponView: UIStackView, WargearView {
         buttonView.addSubview(button)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 15),
-            button.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -15),
+            button.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: Constant.Size.Otstup.normal),
+            button.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -Constant.Size.Otstup.normal),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
-            button.widthAnchor.constraint(equalToConstant: 180),
-            button.heightAnchor.constraint(equalToConstant: 40)
+            button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
+            button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
         ])
         
     }
@@ -94,16 +94,16 @@ class WeaponView: UIStackView, WargearView {
     }
   
     private func setupHeader(name: String) {
-        let header = HeaderView()
-        header.setupText(name: name, cost: nil)
-        addArrangedSubview(header)
+        let view = HeaderView()
+        view.setupText(name: name)
+        addArrangedSubview(view)
     }
     
     private func setupCharacteristicView(attack: String, ballisticSkills: String, damage: String){
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(view)
-        view.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        view.heightAnchor.constraint(equalToConstant: Constant.Size.headerHeight).isActive = true
         view.backgroundColor = ColorScheme.shared.theme.subViewBackground
         let attackLabel = BoldLabel()
         let ballisticSkillsLabel = BoldLabel()
@@ -113,13 +113,13 @@ class WeaponView: UIStackView, WargearView {
         view.addSubview(damageLabel)
         NSLayoutConstraint.activate([
             attackLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            attackLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            attackLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             
             ballisticSkillsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             ballisticSkillsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             damageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            damageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            damageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
         ])
         
         attackLabel.text = attack
@@ -135,9 +135,9 @@ class WeaponView: UIStackView, WargearView {
         view.addSubview(label)
         label.text = text
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.large),
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal)
         ])
         var arrayOfButton = [UIButton]()
         for (index, rule) in rules.enumerated() {
@@ -148,9 +148,9 @@ class WeaponView: UIStackView, WargearView {
             view.addSubview(button)
             button.centerYAnchor.constraint(equalTo: label.centerYAnchor).isActive = true
             if index == 0 {
-                button.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
+                button.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: Constant.Size.Otstup.small).isActive = true
             } else {
-                button.leadingAnchor.constraint(equalTo: arrayOfButton[index-1].trailingAnchor, constant: 5).isActive = true
+                button.leadingAnchor.constraint(equalTo: arrayOfButton[index-1].trailingAnchor, constant: Constant.Size.Otstup.small).isActive = true
             }
         }
     }

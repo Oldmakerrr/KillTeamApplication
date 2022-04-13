@@ -11,48 +11,88 @@ import UIKit
 class HeaderView: UIView {
     
     let nameLabel = HeaderLabel()
-    let costLabel = HeaderLabel()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.translatesAutoresizingMaskIntoConstraints = false
+        configure()
+        setupLabel()
+    }
+    
+    private func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = ColorScheme.shared.theme.cellHeader
         nameLabel.numberOfLines = 1
         nameLabel.adjustsFontSizeToFitWidth = true
-        costLabel.numberOfLines = 1
+        nameLabel.textAlignment = .center
     }
-    
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "BallisticSkill")
-        return imageView
-    }()
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupText(name: String, cost: String?) {
-        addSubview(costLabel)
-        addSubview(nameLabel)
-        
+    func setupText(name: String) {
         nameLabel.text = name
-        costLabel.text = cost ?? ""
+        
+    }
+    
+    private func setupLabel() {
+        addSubview(nameLabel)
         NSLayoutConstraint.activate([
-            costLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            costLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            costLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
-            //costLabel.widthAnchor.constraint(equalToConstant: 40),
-            
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: costLabel.leadingAnchor, constant: -10),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15)
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
+            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.normal),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.normal)
         ])
     }
+}
+
+class HeaderViewWithInt: UIView {
+    
+    let costLabel = HeaderLabel()
+    let nameLabel = HeaderLabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+        setupLabel()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    private func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = ColorScheme.shared.theme.cellHeader
+        nameLabel.numberOfLines = 1
+        nameLabel.adjustsFontSizeToFitWidth = true
+        costLabel.numberOfLines = 1
+        costLabel.adjustsFontSizeToFitWidth = true
+    }
+    
+    func setupText(name: String, cost: String) {
+        nameLabel.text = name
+        costLabel.text = cost
+    }
+    
+    
+    private func setupLabel() {
+        addSubview(nameLabel)
+        addSubview(costLabel)
+        NSLayoutConstraint.activate([
+            costLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
+            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small),
+            costLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.large),
+            costLabel.widthAnchor.constraint(equalToConstant: 60)
+        ])
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
+            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small),
+            nameLabel.trailingAnchor.constraint(equalTo: costLabel.leadingAnchor, constant: -Constant.Size.Otstup.small),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.large)
+        ])
+    }
+    
 }
 

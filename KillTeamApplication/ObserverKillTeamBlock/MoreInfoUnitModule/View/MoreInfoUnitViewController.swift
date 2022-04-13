@@ -11,10 +11,14 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
     
     var presenter: MoreUnitInfoPresenterProtocol?
     
+    let currentWoundLabel = HeaderLabel()
+    let characteristicsView = CharacteristicsView()
+    
+    let stepper = UIStepper()
+    
     let scrollView = UIScrollView()
     let scrollViewContainer = UIStackView()
     
-    let characteristicsView = CharacteristicsView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,5 +27,9 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
         setupScrollView()
         setupScrollViewContainer()
         setupAdditionalView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter?.cleareIndex()
     }
 }

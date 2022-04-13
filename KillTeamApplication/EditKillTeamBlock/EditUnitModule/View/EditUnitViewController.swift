@@ -86,7 +86,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        40
+        Constant.Size.headerHeight
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,7 +120,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return Constant.Size.headerHeight
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -214,15 +214,14 @@ class viewForHeaderInTableView: UIView {
         addSubview(label)
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.large)
         ])
         
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         NSLayoutConstraint.activate([
-            //imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 20),
+            imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: Constant.Size.Otstup.large),
             imageView.topAnchor.constraint(equalTo: label.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)

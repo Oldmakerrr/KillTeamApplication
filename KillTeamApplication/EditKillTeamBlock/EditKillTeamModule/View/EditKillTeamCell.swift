@@ -11,10 +11,11 @@ class EditKillTeamCell: UITableViewCell {
 
     static let identifire = "EditKillTeamCell"
     
-    let view = UIStackView()
+    let stackView = UIStackView()
     
     func setupText(unit: Unit) {
-        addNameLabel(text: unit.customName ?? unit.name)
+        self.stackView.addArrangedSubview(addNameLabel(unit: unit))
+        
         if let rangeWeapon = unit.selectedRangeWeapon {
             addWeaponLabel(weaponName: rangeWeapon.name, text: "Ranged weapon")
         }
@@ -30,14 +31,14 @@ class EditKillTeamCell: UITableViewCell {
         }
     }
     
-    private func addNameLabel(text: String) {
-        let view = UIView()
-        view.backgroundColor = ColorScheme.shared.theme.cellHeader
-        let label = BoldLabel()
-        label.text = text
-        view.addView(top: 4, bottom: 4, leading: 10, trailing: 10, view: view, subView: label)
-        label.textAlignment = .center
-        self.view.addArrangedSubview(view)
+    func changeBackgroundAlpha() {
+        stackView.alpha = Constant.Size.notEnaibleAlpha
+    }
+    
+    func addNameLabel(unit: Unit) -> UIView {
+        let view = HeaderView()
+        view.setupText(name: unit.name)
+        return view
     }
     
     private func addWeaponLabel(weaponName: String, text: String) {
@@ -45,8 +46,13 @@ class EditKillTeamCell: UITableViewCell {
         view.backgroundColor = ColorScheme.shared.theme.cellBackground
         let label = BoldTextLabel()
         label.addText(bold: text, normal: weaponName)
-        view.addView(top: 4, bottom: 4, leading: 10, trailing: 10, view: view, subView: label)
-        self.view.addArrangedSubview(view)
+        view.addView(top: Constant.Size.Otstup.small,
+                     bottom: Constant.Size.Otstup.small,
+                     leading: Constant.Size.Otstup.normal,
+                     trailing: Constant.Size.Otstup.normal,
+                     view: view,
+                     subView: label)
+        self.stackView.addArrangedSubview(view)
     }
     
     private func addEquipmentLabel(array: [String]) {
@@ -55,23 +61,28 @@ class EditKillTeamCell: UITableViewCell {
         view.backgroundColor = ColorScheme.shared.theme.cellBackground
         let text = label.mergedString(array: array)
         label.addText(bold: "Equipment", normal: text)
-        view.addView(top: 4, bottom: 4, leading: 10, trailing: 10, view: view, subView: label)
-        self.view.addArrangedSubview(view)
+        view.addView(top: Constant.Size.Otstup.small,
+                     bottom: Constant.Size.Otstup.small,
+                     leading: Constant.Size.Otstup.normal,
+                     trailing: Constant.Size.Otstup.normal,
+                     view: view,
+                     subView: label)
+        self.stackView.addArrangedSubview(view)
     }
     
     private func configure() {
-        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        contentView.addSubview(view)
-        view.axis = .vertical
-        view.spacing = 1
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.masksToBounds = true
-        view.layer.cornerRadius = Constant.Size.cornerRadius
+        stackView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        contentView.addSubview(stackView)
+        stackView.axis = .vertical
+        stackView.spacing = 1
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.layer.masksToBounds = true
+        stackView.layer.cornerRadius = Constant.Size.cornerRadius
         NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-            view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
-            view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-            view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.small),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.small),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.small)
         ])
     }
     

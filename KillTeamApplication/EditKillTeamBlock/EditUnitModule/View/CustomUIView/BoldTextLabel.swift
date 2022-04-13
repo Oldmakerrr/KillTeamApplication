@@ -14,6 +14,7 @@ class BoldTextLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
+        textColor = ColorScheme.shared.theme.textNormal
         numberOfLines = 0
     }
     

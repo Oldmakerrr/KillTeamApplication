@@ -56,10 +56,16 @@ struct Ploy: Codable {
     let wargear: Weapon?
 }
 
+extension Ploy: Equatable {
+    static func == (lhs: Ploy, rhs: Ploy) -> Bool {
+        lhs.name == rhs.name
+    }
+}
+
 struct FireTeam: Codable {
     let name: String
     let archetype: [String]
-    let availableDataslates: [Unit]
+    var availableDataslates: [Unit]
     var currentDataslates: [Unit] = []
 }
 
@@ -102,7 +108,7 @@ struct Unit: Codable {
     let defense: Int
     let save: Int
     let wounds: Int
-    //var currentWounds: Int
+    var currentWounds: Int?
     var selectedRangeWeapon: Weapon?
     var selectedCloseWeapon: Weapon?
     let additionalWeapon: [Weapon]?
@@ -111,6 +117,39 @@ struct Unit: Codable {
     let abilities: [UnitAbilities]?
     let uniqueActions: [UnitUniqueActions]?
     let keyWords: [String]
+    
+   // init(name: String,
+   //      typeUnit: [String],
+   //      description: String,
+   //      portrait: String,
+   //      movement: Int,
+   //      actionPointLimit: Int,
+   //      groupActivation: Int,
+   //      defense: Int,
+   //      save: Int,
+   //      wounds: Int,
+   //      keyWords: [String],
+   //      abilities: [UnitAbilities],
+   //      uniqueActions: [UnitUniqueActions],
+   //      additionalWeapon: [Weapon],
+   //      availableWeapon: [Weapon]) {
+   //     self.name = name
+   //     self.typeUnit = typeUnit
+   //     self.description = description
+   //     self.portrait = portrait
+   //     self.movement = movement
+   //     self.actionPointLimit = actionPointLimit
+   //     self.groupActivation = groupActivation
+   //     self.defense = defense
+   //     self.save = save
+   //     self.wounds = wounds
+   //     self.currentWounds = wounds
+   //     self.keyWords = keyWords
+   //     self.abilities = abilities
+   //     self.uniqueActions = uniqueActions
+   //     self.additionalWeapon = additionalWeapon
+   //     self.availableWeapon = availableWeapon
+   // }
 }
 
 protocol AbilitiesProtocol {

@@ -21,22 +21,39 @@ extension CounterViewController {
         setupCurrentKillTeamView()
         setupLabels()
         setupButtons()
+        setupCollectionView()
         
     }
     
-    func setupLabels() {
+    private func setupLabels() {
         setupTurningPointLabel()
         setupCommandPointLabel()
         setupVictoryPointLabel()
     }
     
-    func setupButtons() {
+    private func setupButtons() {
         setupCommandPointAndVictoryPointButtons()
         setupChangeTurnButtons()
         setupAddButton()
     }
     
-    func setupCurrentKillTeamView() {
+    func enableButtons() {
+        plusCommandPoint.isEnabled = false
+        minusCommandPoint.isEnabled = false
+        plusVictoryPoint.isEnabled = false
+        minusVictoryPoint.isEnabled = false
+    }
+    
+    func setupBackgroundImage() {
+        let imageView = UIImageView()
+        view.addSubview(imageView)
+        imageView.alpha = 0.15
+        imageView.frame = view.bounds
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "mainBackgroundView")
+    }
+    
+    private func setupCurrentKillTeamView() {
         view.addSubview(currentKillTeamView)
         NSLayoutConstraint.activate([
             currentKillTeamView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constant.Size.screenWidth*0.025),
@@ -50,7 +67,7 @@ extension CounterViewController {
         currentKillTeamView.killTeamLogo.layer.masksToBounds = true
     }
     
-    func setupTurningPointLabel() {
+    private func setupTurningPointLabel() {
         turningPointLabel.text = "Turning Point = 0"
         view.addSubview(turningPointLabel)
         NSLayoutConstraint.activate([
@@ -61,7 +78,7 @@ extension CounterViewController {
         ])
     }
     
-    func setupCommandPointLabel() {
+    private func setupCommandPointLabel() {
         commandPointLabel.text = "Command Point = 0"
         view.addSubview(commandPointLabel)
         NSLayoutConstraint.activate([
@@ -72,7 +89,7 @@ extension CounterViewController {
         ])
     }
     
-    func setupVictoryPointLabel() {
+    private func setupVictoryPointLabel() {
         victoryPointLabel.text = "Victory Point = 0"
         view.addSubview(victoryPointLabel)
         NSLayoutConstraint.activate([
@@ -83,7 +100,17 @@ extension CounterViewController {
         ])
     }
     
-    func setupPlusAndMinusButtons(minusButton: ChangePointButton, plusButton: ChangePointButton, to view: UIView) {
+    private func setupCollectionView() {
+        view.addSubview(currentPloysCollectionView)
+        NSLayoutConstraint.activate([
+            currentPloysCollectionView.topAnchor.constraint(equalTo: victoryPointLabel.bottomAnchor, constant: Constant.Size.screenHeight * 0.05),
+            currentPloysCollectionView.bottomAnchor.constraint(equalTo: nextTurnButton.topAnchor, constant: -Constant.Size.screenHeight * 0.025),
+            currentPloysCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
+            currentPloysCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025)
+        ])
+    }
+    
+    private func setupPlusAndMinusButtons(minusButton: ChangePointButton, plusButton: ChangePointButton, to view: UIView) {
         self.view.addSubview(plusButton)
         self.view.addSubview(minusButton)
         plusButton.setupImage(imageName: "plus")
@@ -108,12 +135,12 @@ extension CounterViewController {
         minusButton.layer.applyCornerRadiusRound(view: minusButton)
     }
     
-    func setupCommandPointAndVictoryPointButtons() {
+    private func setupCommandPointAndVictoryPointButtons() {
         setupPlusAndMinusButtons(minusButton: minusCommandPoint, plusButton: plusCommandPoint, to: commandPointLabel)
         setupPlusAndMinusButtons(minusButton: minusVictoryPoint, plusButton: plusVictoryPoint, to: victoryPointLabel)
     }
     
-    func setupChangeTurnButtons() {
+    private func setupChangeTurnButtons() {
         view.addSubview(nextTurnButton)
         view.addSubview(endGameButton)
         nextTurnButton.setTitle("Start Game", for: .normal)
@@ -136,7 +163,7 @@ extension CounterViewController {
         endGameButton.isHidden = true
     }
     
-    func setupAddButton() {
+    private func setupAddButton() {
         view.addSubview(addKillTeamButton)
         addKillTeamButton.addTarget(self, action: #selector(addKillTeam), for: .touchUpInside)
         NSLayoutConstraint.activate([
@@ -150,25 +177,6 @@ extension CounterViewController {
         addKillTeamButton.layer.applyCornerRadiusRound(view: addKillTeamButton)
     }
     
-//MARK: - NeedChange
-  
-    
-    func setupCurrentStrategicPloyLabel() {
-        view.addSubview(currentStrategicPloyLabel)
-        currentStrategicPloyLabel.translatesAutoresizingMaskIntoConstraints = false
-        currentStrategicPloyLabel.font = UIFont.systemFont(ofSize: 20)
-        currentStrategicPloyLabel.topAnchor.constraint(equalTo: victoryPointLabel.bottomAnchor, constant: 60).isActive = true
-        currentStrategicPloyLabel.leadingAnchor.constraint(equalTo: minusCommandPoint.leadingAnchor).isActive = true
-    }
-    
-    func setupCurrentStrategicPloyButton() {
-        view.addSubview(currentStrategicPloyButton)
-        currentStrategicPloyButton.translatesAutoresizingMaskIntoConstraints = false
-        currentStrategicPloyButton.centerYAnchor.constraint(equalTo: currentStrategicPloyLabel.centerYAnchor).isActive = true
-        currentStrategicPloyButton.leadingAnchor.constraint(equalTo: currentStrategicPloyLabel.trailingAnchor, constant: 10).isActive = true
-        currentStrategicPloyButton.addTarget(self, action: #selector(pressCurrentStrategicPloyButton), for: .touchUpInside)
-        currentStrategicPloyButton.setTitleColor(.black, for: .normal)
-    }
 }
 
 extension CounterViewController: PloyViewDelegate {

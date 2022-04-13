@@ -64,7 +64,7 @@ class UniqueActionView: UIStackView {
     }
     
     private func setupHeader(action: UnitUniqueActions) {
-        let header = HeaderView()
+        let header = HeaderViewWithInt()
         header.setupText(name: action.name, cost: "\(action.cost) AP")
         addArrangedSubview(header)
     }
@@ -73,17 +73,10 @@ class UniqueActionView: UIStackView {
         let view = WeaponView()
         let backgroundView = UIView()
         view.setupText(wargear: weapon, delegate: delegate)
-       // if let subWeapon = weapon.secondProfile {
-       //     for weapon in subWeapon {
-       //         view.setupText(wargear: weapon, delegate: delegate)
-       //     }
-       // }
         addView(view: backgroundView, subView: view)
         addArrangedSubview(backgroundView)
         view.layer.borderWidth = Constant.Size.borderWidht
         view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
-       // view.setupText(wargear: weapon, delegate: delegate)
-        
     }
 }
 

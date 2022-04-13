@@ -18,10 +18,10 @@ class PloysTableViewCell: UITableViewCell {
         ployView.layer.applyCornerRadius()
         ployView.layer.masksToBounds = true
         NSLayoutConstraint.activate([
-            ployView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.top),
-            ployView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.botton),
-            ployView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.leading),
-            ployView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.trailing)
+            ployView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.small),
+            ployView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
+            ployView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.small),
+            ployView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.small)
         ])
     }
     

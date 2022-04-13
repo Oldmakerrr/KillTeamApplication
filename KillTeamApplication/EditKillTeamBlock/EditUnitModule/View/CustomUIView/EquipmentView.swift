@@ -76,7 +76,7 @@ class EquipmentView: UIStackView, WargearView {
     }
     
     private func setupHeader(equipment: Equipment) {
-        let header = HeaderView()
+        let header = HeaderViewWithInt()
         header.setupText(name: equipment.name, cost: "[\(equipment.cost)EP]")
         addArrangedSubview(header)
     }
@@ -91,9 +91,9 @@ class EquipmentView: UIStackView, WargearView {
         let view = UniqueActionView()
         let backgroundView = UIView()
         view.setupText(action: action, delegate: delegate)
-        addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: backgroundView, subView: view)
+        addView(view: backgroundView, subView: view)
         addArrangedSubview(backgroundView)
-        view.backgroundColor = ColorScheme.shared.theme.subViewBackground
+        view.backgroundColor = ColorScheme.shared.theme.viewBackground
         view.layer.borderWidth = Constant.Size.borderWidht
         view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
     }
@@ -102,14 +102,9 @@ class EquipmentView: UIStackView, WargearView {
         let view = WeaponView()
         let backgroundView = UIView()
         view.setupText(wargear: weapon, delegate: delegate)
-       // if let subProfiles = weapon.secondProfile {
-       //     for profile in subProfiles {
-       //         view.setupText(weapon: profile, delegate: delegate)
-       //     }
-       // }
         addArrangedSubview(backgroundView)
-        addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: backgroundView, subView: view)
-        view.backgroundColor = ColorScheme.shared.theme.subViewBackground
+        addView(view: backgroundView, subView: view)
+        view.backgroundColor = ColorScheme.shared.theme.viewBackground
         view.layer.borderWidth = Constant.Size.borderWidht
         view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
     }
@@ -121,11 +116,11 @@ class EquipmentView: UIStackView, WargearView {
         addArrangedSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
-            button.widthAnchor.constraint(equalToConstant: 180),
-            button.heightAnchor.constraint(equalToConstant: 40)
+            button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
+            button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
         ])
         
     }
@@ -144,14 +139,14 @@ extension UIStackView {
             label.text = text
             labels.append(label)
             if index == 0 {
-                label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal).isActive = true
             } else {
-                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: 10).isActive = true
+                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: Constant.Size.Otstup.normal).isActive = true
             }
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
             if index+1 == subText.count {
-                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
             }
         }
     }
@@ -162,7 +157,7 @@ extension UIStackView {
         addArrangedSubview(view)
         view.addSubview(label)
         label.text = text
-        addView(top: 10, bottom: 10, leading: 10, trailing: 10, view: view, subView: label)
+        addView(view: view, subView: label)
     }
 
     
@@ -170,10 +165,10 @@ extension UIStackView {
 
 extension UIView {
     
-    func addView(top: CGFloat = 10,
-                 bottom: CGFloat = 10,
-                 leading: CGFloat = 10,
-                 trailing: CGFloat = 10,
+    func addView(top: CGFloat = Constant.Size.Otstup.normal,
+                 bottom: CGFloat = Constant.Size.Otstup.normal,
+                 leading: CGFloat = Constant.Size.Otstup.normal,
+                 trailing: CGFloat = Constant.Size.Otstup.normal,
                  view: UIView, subView:
                     UIView) {
         subView.translatesAutoresizingMaskIntoConstraints = false

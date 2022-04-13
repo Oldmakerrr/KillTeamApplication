@@ -39,7 +39,7 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return Constant.Size.killTeamCellHeight
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

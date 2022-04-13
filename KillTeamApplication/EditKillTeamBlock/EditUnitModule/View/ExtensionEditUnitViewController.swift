@@ -20,9 +20,9 @@ extension EditUnitViewController {
         guard let navigationBar = navigationController?.navigationBar,
               let countOfEquipmentPoint = presenter?.model.killTeam?.countEquipmentPoint  else { return }
         navigationBar.addSubview(countOfEquipmentPointLabel)
-        countOfEquipmentPointLabel.text = "Count of Equipment Point = \(countOfEquipmentPoint)"
+        countOfEquipmentPointLabel.text = "EP = \(countOfEquipmentPoint)"
         NSLayoutConstraint.activate([
-            countOfEquipmentPointLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -15),
+            countOfEquipmentPointLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: Constant.Size.Otstup.large),
             countOfEquipmentPointLabel.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor)
         ])
     }

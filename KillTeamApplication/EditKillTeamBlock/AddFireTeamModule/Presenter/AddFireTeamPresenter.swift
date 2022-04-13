@@ -31,6 +31,21 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
         self.store = store
         store.multicastDelegate.addDelegate(self)
     }
+    
+    func addCurrentWound(fireTeam: FireTeam) -> FireTeam {
+        var fireTeam = fireTeam
+        var availableDataslates = fireTeam.availableDataslates
+        var currentDataslates = fireTeam.currentDataslates
+        for (index, unit) in availableDataslates.enumerated() {
+            availableDataslates[index].currentWounds = unit.wounds
+        }
+        for (index, unit) in currentDataslates.enumerated() {
+            currentDataslates[index].currentWounds = unit.wounds
+        }
+        fireTeam.availableDataslates = availableDataslates
+        fireTeam.currentDataslates = currentDataslates
+        return fireTeam
+    }
 }
 
 extension AddFireTeamPresenter: StoreDelegate {
@@ -47,6 +62,8 @@ extension AddFireTeamPresenter: AddFireTeamCellDelegate {
     func didCompletePlusFireTeam(_ cell: AddFireTeamCell, fireTeam: FireTeam) {
         guard let maxCountOfFireTeam = model.maxCountOfFireTeam, let currentCointOFFireTeam = model.currentCointOFFireTeam else { return }
         if currentCointOFFireTeam < maxCountOfFireTeam {
+            var fireTeam = fireTeam
+            fireTeam = addCurrentWound(fireTeam: fireTeam)
             store.addFireTeam(fireTeam: fireTeam)
         }
     }

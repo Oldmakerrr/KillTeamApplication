@@ -84,11 +84,11 @@ class WeaponRuleView: UIView {
     private func setupButton(topView: UIView) {
         addSubview(doneButton)
         NSLayoutConstraint.activate([
-            doneButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 10),
+            doneButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Constant.Size.Otstup.normal),
             doneButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            doneButton.widthAnchor.constraint(equalToConstant: 120),
-            doneButton.heightAnchor.constraint(equalToConstant: 40),
-            doneButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            doneButton.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
+            doneButton.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height),
+            doneButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.normal)
         ])
     }
     
@@ -98,7 +98,7 @@ class WeaponRuleView: UIView {
         titleLabel.text = title
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10)
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.normal)
         ])
     }
     
@@ -106,9 +106,9 @@ class WeaponRuleView: UIView {
         addSubview(messageLabel)
         messageLabel.text = message
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constant.Size.Otstup.normal),
+            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.normal),
+            messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.normal),
         ])
     }
     
@@ -121,12 +121,12 @@ class WeaponRuleView: UIView {
             label.text = text
             labels.append(label)
             if index == 0 {
-                label.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 10).isActive = true
+                label.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: Constant.Size.Otstup.normal).isActive = true
             } else {
-                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: 10).isActive = true
+                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: Constant.Size.Otstup.normal).isActive = true
             }
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.large).isActive = true
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
             if index+1 == subText.count {
                 setupButton(topView: labels[index])
             }

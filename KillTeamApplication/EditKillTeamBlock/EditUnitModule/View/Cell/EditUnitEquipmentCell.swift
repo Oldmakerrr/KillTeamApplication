@@ -62,18 +62,18 @@ class EditUnitEquipmentCell: UITableViewCell {
     private func setupNameEquipmentLabel() {
         contentView.addSubview(nameEquipmentLabel)
         NSLayoutConstraint.activate([
-            nameEquipmentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            nameEquipmentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            nameEquipmentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
+            nameEquipmentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.small),
+            nameEquipmentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
+            nameEquipmentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.large)
         ])
     }
     
     private func setupCostEquipmentLabel() {
         contentView.addSubview(costEquipmentLabel)
         NSLayoutConstraint.activate([
-            costEquipmentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            costEquipmentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            costEquipmentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+            costEquipmentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.small),
+            costEquipmentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
+            costEquipmentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.large)
         ])
     }
     

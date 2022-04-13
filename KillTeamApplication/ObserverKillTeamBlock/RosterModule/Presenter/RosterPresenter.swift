@@ -21,7 +21,7 @@ protocol RosterPresenterProtocol: AnyObject {
     var view: RosterTableViewControllerProtocol? { get }
     var store: StoreProtocol { get }
     var model: RosterModel { get }
-    func goToMoreInfoUnit(unit: Unit)
+    func goToMoreInfoUnit(indexPath: IndexPath)
 }
 
 class RosterPresenter: RosterPresenterProtocol {
@@ -43,9 +43,10 @@ class RosterPresenter: RosterPresenterProtocol {
         store.multicastDelegate.addDelegate(self)
     }
     
-    func goToMoreInfoUnit(unit: Unit) {
+    func goToMoreInfoUnit(indexPath: IndexPath) {
         delegate?.didComplete(self)
-        store.updateChoosenUnit(unit: unit)
+       // store.updateChoosenUnit(unit: unit)
+        store.addIndexOfChoosenUnit(index: indexPath)
     }
 
 }

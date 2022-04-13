@@ -15,8 +15,8 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     let currentKillTeamView = CurrentKillTeamView()
     
     let addKillTeamButton = AddButton()
-    let currentStrategicPloyLabel = UILabel()
-    let currentStrategicPloyButton = UIButton()
+    
+    let currentStrategicPloyLabel = CounterLabel()
 
     let turningPointLabel = CounterLabel()
     let commandPointLabel = CounterLabel()
@@ -30,13 +30,18 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     let nextTurnButton = ChangeTurnButton()
     let endGameButton = ChangeTurnButton()
     
+    let currentPloysCollectionView = CurrentPloysCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        setupBackgroundImage()
         setupSubView()
+        enableButtons()
+        currentPloysCollectionView.dataSource = self
+        currentPloysCollectionView.selectCellDelegate = self
         
-        setupCurrentStrategicPloyLabel()
-        setupCurrentStrategicPloyButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,10 +49,10 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         if let killTeam = presenter?.model.killTeam {
             currentKillTeamView.setupText(killTeam: killTeam)
         }
+        currentPloysCollectionView.reloadData()
     }
     
-    @objc func pressCurrentStrategicPloyButton() {
-        guard let ploy = presenter?.model.gameData.currentStrategicPloy else { return }
+    func showAlert(ploy: Ploy) {
         let view = PloyView()
         view.setupPloy(ploy: ploy)
         view.setupButton(delegate: self)
@@ -70,9 +75,33 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         }
     }
     
-    @objc func showChooseKillTeamTableViewController() {
-        presenter?.showChooseKillTeamTableViewController()
+}
+
+extension CounterViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter?.model.gameData.currentStrategicPloys.count ?? 0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CurrentPloysCollectionViewCell.identifier, for: indexPath) as! CurrentPloysCollectionViewCell
+        guard let ploy = presenter?.model.gameData.currentStrategicPloys[indexPath.item] else {
+            return UICollectionViewCell()
+        }
+        
+        cell.setupText(ploy: ploy)
+        return cell
+    }
+    
+}
+
+extension CounterViewController: CurrentPloysCollectionViewProtocol {
+    func didSelectCell(_ CurrentPloysCollectionView: CurrentPloysCollectionView, indexPath: IndexPath) {
+        guard let ploy = presenter?.model.gameData.currentStrategicPloys[indexPath.item] else {
+            return }
+        showAlert(ploy: ploy)
+    }
+    
     
 }
 

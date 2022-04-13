@@ -47,3 +47,38 @@ class WeaponRuleButton: UIButton {
         setAttributedTitle(underlineAttriString, for: .normal)
     }
 }
+
+protocol TextButtonProtocol: AnyObject {
+    func didComplete(TextButton: TextButton)
+}
+
+class TextButton: UIButton {
+     
+    weak var delegate: TextButtonProtocol?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configure() {
+        titleLabel?.textColor = ColorScheme.shared.theme.textHyperlink
+        titleLabel?.font = Constant.Font.systemFont
+        translatesAutoresizingMaskIntoConstraints = false
+        addTarget(self, action: #selector(actionForButton), for: .touchUpInside)
+    }
+    
+    @objc private func actionForButton() {
+        delegate?.didComplete(TextButton: self)
+    }
+    
+    func setupText(text: String) {
+        let underlineAttriString = NSAttributedString(string: text,
+                                                      attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        setAttributedTitle(underlineAttriString, for: .normal)
+    }
+}

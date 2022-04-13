@@ -14,7 +14,7 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(RosterTableViewCell.self, forCellReuseIdentifier: RosterTableViewCell.identifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,15 +37,15 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row].name
+        let cell = RosterTableViewCell()
+        guard let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]  else { return UITableViewCell() }
+        cell.setupText(unit: unit)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] {
-            presenter?.goToMoreInfoUnit(unit: unit)
-        }
+        presenter?.goToMoreInfoUnit(indexPath: indexPath)
+        
     }
 }
 

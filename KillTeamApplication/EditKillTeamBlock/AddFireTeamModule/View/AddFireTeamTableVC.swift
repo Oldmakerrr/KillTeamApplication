@@ -17,7 +17,6 @@ class AddFireTeamTableVC: UITableViewController, AddFireTeamTableVCProtocol {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.register(AddFireTeamCell.self, forCellReuseIdentifier: AddFireTeamCell.identifier)
-       // tableView.allowsMultipleSelection = true
         setupMaxCountFIreTeamLabel()
     }
     
@@ -47,6 +46,6 @@ class AddFireTeamTableVC: UITableViewController, AddFireTeamTableVCProtocol {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return Constant.Size.headerHeight
     }
 }

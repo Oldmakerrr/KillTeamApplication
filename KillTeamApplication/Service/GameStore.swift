@@ -63,7 +63,7 @@ struct GameData {
     var countCommandPoint = 0
     var countVictoryPoint = 0
     var countTurningPoint = 0
-    var currentStrategicPloy: Ploy?
+    var currentStrategicPloys = [Ploy]()
     var firstTacOp: TacOps?
     var secondTacOp: TacOps?
     var thirdTacOp: TacOps?

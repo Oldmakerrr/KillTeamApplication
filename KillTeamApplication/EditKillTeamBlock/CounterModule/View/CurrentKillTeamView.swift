@@ -50,7 +50,7 @@ class CurrentKillTeamView: UIView {
         backgroundColor = ColorScheme.shared.theme.viewBackground
         layer.applySketchShadow()
         layer.applyCornerRadius()
-        
+        alpha = 0.8
     }
     
     private func setupView() {
@@ -68,14 +68,14 @@ class CurrentKillTeamView: UIView {
         NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: killTeamLogo.trailingAnchor, constant: Constant.Size.screenWidth * 0.036),
             nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.screenWidth * 0.036),
-            nameLabel.topAnchor.constraint(equalTo: killTeamLogo.topAnchor, constant: Constant.Size.screenHeight * 0.012),
+            nameLabel.topAnchor.constraint(equalTo: killTeamLogo.topAnchor, constant: Constant.Size.screenHeight * 0.013),
             nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: killTeamLogo.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
             factionNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             factionNameLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-            factionNameLabel.bottomAnchor.constraint(equalTo: killTeamLogo.bottomAnchor, constant: -Constant.Size.screenHeight * 0.012),
+            factionNameLabel.bottomAnchor.constraint(equalTo: killTeamLogo.bottomAnchor, constant: -Constant.Size.screenHeight * 0.013),
             factionNameLabel.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor)
         ])
     }
@@ -88,9 +88,9 @@ class CurrentKillTeamView: UIView {
         killTeamLogo.image = UIImage(named: "KILL_TEAM")
         killTeamLogo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            killTeamLogo.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 15),
-            killTeamLogo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            killTeamLogo.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -15),
+            killTeamLogo.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: Constant.Size.Otstup.normal),
+            killTeamLogo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.normal),
+            killTeamLogo.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.Otstup.normal),
             killTeamLogo.widthAnchor.constraint(equalTo: killTeamLogo.heightAnchor),
             killTeamLogo.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
@@ -134,12 +134,5 @@ extension CALayer {
         shadowOpacity = alpha
         shadowOffset = CGSize(width: x, height: y)
         shadowRadius = blur / 2.0
-        // if spread == 0 {
-        //   shadowPath = nil
-        // } else {
-        //   let dx = -spread
-        //   let rect = bounds.insetBy(dx: dx, dy: dx)
-        //   shadowPath = UIBezierPath(rect: rect).cgPath
-        // }
     }
 }

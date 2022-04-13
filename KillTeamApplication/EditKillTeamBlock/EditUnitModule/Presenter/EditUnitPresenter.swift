@@ -27,7 +27,7 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
     
     var model = ChoosenUnit() {
         didSet {
-            view?.countOfEquipmentPointLabel.text = "Count of Equipment Point = \(model.killTeam?.countEquipmentPoint ?? 0)"
+            view?.countOfEquipmentPointLabel.text = "EP = \(model.killTeam?.countEquipmentPoint ?? 0)"
         }
     }
     

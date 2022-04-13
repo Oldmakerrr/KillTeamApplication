@@ -22,9 +22,9 @@ protocol CounterViewProtocol: AnyObject {
     var nextTurnButton: ChangeTurnButton { get }
     var endGameButton: ChangeTurnButton { get }
     
-    var currentStrategicPloyLabel: UILabel { get }
-    var currentStrategicPloyButton: UIButton { get }
+    var currentStrategicPloyLabel: CounterLabel { get }
     
+    var currentPloysCollectionView: CurrentPloysCollectionView { get }
 }
 
 protocol CounterPresenterProtocol: AnyObject {
@@ -77,6 +77,17 @@ class CounterPresenter: CounterPresenterProtocol {
         delegate?.didComplete(self, sender: "loaded")
      }
     
+    private func updateCurrentWound() {
+        guard var killTeam = model.killTeam else { return }
+        for (i, fireTeam) in killTeam.choosenFireTeam.enumerated() {
+            for (j, unit) in fireTeam.currentDataslates.enumerated() {
+                killTeam.choosenFireTeam[i].currentDataslates[j].currentWounds = unit.wounds
+            }
+        }
+        model.killTeam = killTeam
+        store.updateCurrentKillTeam(killTeam: killTeam)
+    }
+    
     func updateTextLabel() {
         view?.commandPointLabel.text = "Command Point = \(model.gameData.countCommandPoint)"
         view?.victoryPointLabel.text = "Victory Point = \(model.gameData.countVictoryPoint)"
@@ -101,12 +112,10 @@ class CounterPresenter: CounterPresenterProtocol {
             view?.minusVictoryPoint.isEnabled = true
         }
         
-        if let ploy = model.gameData.currentStrategicPloy {
+        if !model.gameData.currentStrategicPloys.isEmpty {
             view?.currentStrategicPloyLabel.text = "Strategic Ploy:"
-            view?.currentStrategicPloyButton.setTitle("\(ploy.name)", for: .normal)
         } else {
             view?.currentStrategicPloyLabel.text = ""
-            view?.currentStrategicPloyButton.setTitle("", for: .normal)
         }
     }
     
@@ -148,22 +157,26 @@ class CounterPresenter: CounterPresenterProtocol {
                 }
             case view.nextTurnButton:
                 if model.gameData.countTurningPoint == 0 {
+                    self.updateCurrentWound()
                     model.gameData.countTurningPoint += 1
                     model.gameData.countCommandPoint += 3
                 } else {
-                    model.gameData.currentStrategicPloy = nil
+                    model.gameData.currentStrategicPloys = []
+                    view.currentPloysCollectionView.reloadData()
                     model.gameData.countTurningPoint += 1
                     model.gameData.countCommandPoint += 1
                 }
             case view.endGameButton:
+                self.updateCurrentWound()
                 model.gameData.countCommandPoint = 0
                 model.gameData.countTurningPoint = 0
                 model.gameData.countVictoryPoint = 0
-                model.gameData.currentStrategicPloy = nil
+                model.gameData.currentStrategicPloys = []
                 model.gameData.firstTacOp = nil
                 model.gameData.secondTacOp = nil
                 model.gameData.thirdTacOp = nil
                 gameStore.updateGameData(gameData: model.gameData)
+                view.currentPloysCollectionView.reloadData()
             default:
                 return
             }

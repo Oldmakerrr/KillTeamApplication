@@ -10,39 +10,64 @@ import UIKit
 
 extension MoreInfoUnitViewController {
     
+    @objc private func stepperAction() {
+        guard var unit = presenter?.model.choosenUnit,
+              let indexPath = presenter?.model.indexPathOfChoosenUnit,
+              var killTeam = presenter?.model.killTeam else { return }
+        unit.currentWounds = Int(stepper.value)
+        currentWoundLabel.text = "Current wound: \(Int(stepper.value))"
+        presenter?.model.choosenUnit? = unit
+        killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
+        presenter?.store.updateCurrentKillTeam(killTeam: killTeam)
+        presenter?.model.killTeam = killTeam
+    }
+    
     func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
     }
     
     func setupScrollViewContainer() {
         scrollView.addSubview(scrollViewContainer)
         scrollViewContainer.axis = .vertical
-        scrollViewContainer.spacing = 10
+        scrollViewContainer.spacing = 5
         scrollViewContainer.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         scrollViewContainer.translatesAutoresizingMaskIntoConstraints = false
-        scrollViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        scrollViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        scrollViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        scrollViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        scrollViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            scrollViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        
     }
     
     func setupAdditionalView() {
         guard let unit = presenter?.model.choosenUnit else { return }
-        addHeaderView(text: "Characteristics")
-        characteristicsView.setupText(unit: unit)
-        scrollViewContainer.addArrangedSubview(characteristicsView)
+        addUnitCharacteristicsView(unit: unit)
+        characteristicsView.layoutIfNeeded()
+        let width = characteristicsView.frame.size.width
+        characteristicsView.setupText(unit: unit, widthSuperView: width)
+        addCurrentWoundView(unit: unit)
+        addDescriptionView(text: unit.description)
         if let rangeWeapon = unit.selectedRangeWeapon {
-            addWeaponView(weapon: rangeWeapon, title: "Wargear (Range)")
+            addHeaderView(text: "Wargear (Range)")
+            addWeaponView(weapon: rangeWeapon)
+            setupAdditionalWeapon(unit: unit, type: "range")
         }
      
         if let closeWeapon = unit.selectedCloseWeapon {
-            addWeaponView(weapon: closeWeapon, title: "Wargear (Close)")
+            addHeaderView(text: "Wargear (Melee)")
+            addWeaponView(weapon: closeWeapon)
+            setupAdditionalWeapon(unit: unit, type: "close")
         }
         
         if !unit.equipment.isEmpty {
@@ -57,22 +82,48 @@ extension MoreInfoUnitViewController {
         addKeywordView()
     }
     
-    private func addWeaponView(weapon: Weapon, title: String) {
-        addHeaderView(text: title)
-        let view = WeaponView()
-        view.layer.masksToBounds = true
-        view.layer.cornerRadius = 12
-        view.setupText(wargear: weapon, delegate: self)
-        scrollViewContainer.addArrangedSubview(view)
-        if let subProfiles = weapon.secondProfile {
-            for weapon in subProfiles {
-                let subView = WeaponView()
-                subView.layer.masksToBounds = true
-                subView.layer.cornerRadius = 12
-                subView.setupText(wargear: weapon, delegate: self)
-                scrollViewContainer.addArrangedSubview(subView)
+    private func setupAdditionalWeapon(unit: Unit, type: String) {
+        if let additionalWeapon = unit.additionalWeapon {
+            additionalWeapon.forEach { weapon in
+                if weapon.type == type {
+                    addWeaponView(weapon: weapon)
+                }
             }
         }
+    }
+    
+    private func addWeaponView(weapon: Weapon) {
+        let view = WeaponView()
+        view.layer.applyCornerRadius()
+        view.layer.masksToBounds = true
+        view.setupText(wargear: weapon, delegate: self)
+        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
+    }
+    
+    private func addCurrentWoundView(unit: Unit) {
+        let view = UIView()
+        currentWoundLabel.text = "Current wound: \(unit.currentWounds ?? unit.wounds)"
+        currentWoundLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        stepper.addTarget(self, action: #selector(stepperAction), for: .valueChanged)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = ColorScheme.shared.theme.viewBackground
+        view.layer.applyCornerRadius()
+        view.layer.masksToBounds = true
+        stepper.translatesAutoresizingMaskIntoConstraints = false
+        stepper.minimumValue = 0
+        stepper.maximumValue = Double(unit.wounds)
+        stepper.value = Double(unit.currentWounds ?? unit.wounds)
+        stepper.stepValue = 1
+        view.addSubview(currentWoundLabel)
+        view.addSubview(stepper)
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalToConstant: Constant.Size.headerHeight),
+            currentWoundLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            currentWoundLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            stepper.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stepper.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
+        ])
+        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
     }
     
     private func addKeywordView() {
@@ -94,7 +145,7 @@ extension MoreInfoUnitViewController {
         let allKeywords = NSAttributedString(string: keywords)
         keywordsString.append(allKeywords)
         view.label.attributedText = keywordsString
-        scrollViewContainer.addArrangedSubview(view)
+        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
     }
     
     private func addUniqueActionsView(uniqueActions: [UnitUniqueActions]) {
@@ -102,10 +153,10 @@ extension MoreInfoUnitViewController {
         for uniqueAction in uniqueActions {
             let view = UniqueActionView()
             view.setupTextForUnit(action: uniqueAction, delegate: self)
-            view.backgroundColor = .systemGray2
+            view.backgroundColor = ColorScheme.shared.theme.viewBackground
+            view.layer.applyCornerRadius()
             view.layer.masksToBounds = true
-            view.layer.cornerRadius = 12
-            scrollViewContainer.addArrangedSubview(view)
+            scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
         }
     }
     
@@ -113,34 +164,84 @@ extension MoreInfoUnitViewController {
         addHeaderView(text: "Abilities")
         for ability in abilities {
             let view = AbilitieView()
-            view.backgroundColor = .systemGray2
+            view.backgroundColor = ColorScheme.shared.theme.viewBackground
+            view.layer.applyCornerRadius()
             view.layer.masksToBounds = true
-            view.layer.cornerRadius = 12
             view.setupText(abilitie: ability)
-            scrollViewContainer.addArrangedSubview(view)
+            scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
         }
+    }
+    
+    private func addDescriptionView(text: String) {
+        let view = TextView()
+        view.addView()
+        view.label.text = text
+        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
+    }
+    
+    private func addBackgroundView(contentView: UIView) -> UIView {
+        let backgroundView = UIView()
+        backgroundView.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: Constant.Size.Otstup.small),
+            contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -Constant.Size.Otstup.small)
+        ])
+        return backgroundView
+    }
+    
+    private func addUnitCharacteristicsView (unit: Unit) {
+        addHeaderView(text: unit.name)
+        let contentView = UIView()
+        contentView.backgroundColor = ColorScheme.shared.theme.viewBackground
+        contentView.layer.applyCornerRadius()
+        contentView.layer.masksToBounds = true
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: unit.portrait)
+        imageView.contentMode = .scaleToFill
+        imageView.backgroundColor = .white
+        imageView.layer.applyCornerRadius()
+        imageView.layer.masksToBounds = true
+        contentView.addSubview(imageView)
+        contentView.addSubview(characteristicsView)
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.normal),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.normal),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.normal),
+            imageView.heightAnchor.constraint(equalToConstant: Constant.Size.PortraitUnit.height),
+            imageView.widthAnchor.constraint(equalToConstant: Constant.Size.PortraitUnit.width),
+            imageView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            characteristicsView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            characteristicsView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            characteristicsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: contentView))
     }
     
     private func addEquipmentView(equipments: [Equipment]) {
         addHeaderView(text: "Equipment")
         for equipment in equipments {
             let view = EquipmentView()
+            view.layer.applyCornerRadius()
             view.layer.masksToBounds = true
-            view.layer.cornerRadius = 12
             view.setupText(wargear: equipment, delegate: self)
-            scrollViewContainer.addArrangedSubview(view)
+            scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
         }
     }
     
     private func addHeaderView(text: String) {
         let view = HeaderView()
-        view.setupText(name: text, cost: nil)
-       // view.nameLabel.text = text
-       // view.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        view.setupText(name: text)
         view.backgroundColor = ColorScheme.shared.theme.viewHeader
-        view.nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
         scrollViewContainer.addArrangedSubview(view)
     }
+   
 }
 
 
@@ -151,3 +252,4 @@ extension MoreInfoUnitViewController: WeaponRuleButtonProtocol {
     
     
 }
+

@@ -17,6 +17,7 @@ protocol MoreUnitInfoPresenterProtocol: AnyObject {
     var view: MoreInfoUnitViewControllerProtocol? { get }
     var store: StoreProtocol { get set }
     var model: MoreInfoUnitModel { get }
+    func cleareIndex()
 }
 
 class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
@@ -33,12 +34,18 @@ class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
         store.multicastDelegate.addDelegate(self)
     }
     
+    func cleareIndex() {
+        model.killTeam?.indexOfChoosenUnit = nil
+        store.updateCurrentKillTeam(killTeam: model.killTeam!)
+    }
     
 }
 
 extension MoreUnitInfoPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam) {
+        guard let indexPath = killTeam.indexOfChoosenUnit else { return }
         model.killTeam = killTeam
-        model.choosenUnit = killTeam.choosenUnit
+        model.indexPathOfChoosenUnit = indexPath
+        model.choosenUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
     }
 }

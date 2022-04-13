@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PloysViewControllerProtocol: AnyObject {
     var presenter: PloysPresenterProtocol? { get }
@@ -28,7 +29,13 @@ class PloysPresenter: PloysPresenterProtocol {
     
     var gameStore: GameStoreProtocol
     
-    let model = PloysModel()
+    var model = PloysModel() //{
+    //    didSet {
+    //        if let view = view as? UIViewController {
+    //            view.title = "Command Point = \(model.gameData.countCommandPoint)"
+    //        }
+    //    }
+    //}
    
     var router: PloysRouterProtocol
     
@@ -39,7 +46,7 @@ class PloysPresenter: PloysPresenterProtocol {
         self.router = router
         gameStore.multicastDelegate.addDelegate(self)
         store.multicastDelegate.addDelegate(self)
-       // model.tacticalPloy.append(model.reRoll)
+        //model.tacticalPloy.append(model.reRoll)
     }
 }
 

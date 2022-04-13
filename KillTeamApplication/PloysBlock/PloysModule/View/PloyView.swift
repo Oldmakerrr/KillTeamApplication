@@ -89,7 +89,7 @@ class PloyView: UIStackView {
     }
     
     private func setupHeader(name: String, cost: Int) {
-        let header = HeaderView()
+        let header = HeaderViewWithInt()
         header.setupText(name: name, cost: "\(cost) CP")
         addArrangedSubview(header)
     }
@@ -101,8 +101,8 @@ class PloyView: UIStackView {
         self.delegate = delegate
         view.addSubview(button)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
             button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
@@ -130,16 +130,16 @@ extension UIView {
             label.numberOfLines = 0
             label.text = text
             NSLayoutConstraint.activate([
-                label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.subTextLeading),
-                label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.trailing)
+                label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.large),
+                label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal)
             ])
             if index == 0 {
-                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.top).isActive = true
+                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal).isActive = true
             } else {
-                label.topAnchor.constraint(equalTo: arrayLabels[index-1].bottomAnchor, constant: Constant.Size.Otstup.top).isActive = true
+                label.topAnchor.constraint(equalTo: arrayLabels[index-1].bottomAnchor, constant: Constant.Size.Otstup.normal).isActive = true
             }
             if index+1 == subTexts.count {
-                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.botton).isActive = true
+                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
             }
             
         }
