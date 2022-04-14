@@ -48,7 +48,7 @@ class Constant {
     class Size {
         
        
-        static let notEnaibleAlpha: CGFloat = 0.3
+        static let notEnaibleAlpha: CGFloat = 0.4
         static let screenHeight = UIScreen.main.bounds.size.height
         static let screenWidth = UIScreen.main.bounds.size.width
 
@@ -56,6 +56,7 @@ class Constant {
         static let cornerRadius: CGFloat = 12
         
         static let headerHeight: CGFloat = 40
+        static let cellHeight: CGFloat = 40
         
         static let killTeamCellHeight: CGFloat = 60
         

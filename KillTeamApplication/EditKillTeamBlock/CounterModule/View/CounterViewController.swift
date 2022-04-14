@@ -41,14 +41,11 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         enableButtons()
         currentPloysCollectionView.dataSource = self
         currentPloysCollectionView.selectCellDelegate = self
-        
+        currentKillTeamView.delegate = presenter as? CurrentKillTeamViewProtocol
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
-        if let killTeam = presenter?.model.killTeam {
-            currentKillTeamView.setupText(killTeam: killTeam)
-        }
         currentPloysCollectionView.reloadData()
     }
     

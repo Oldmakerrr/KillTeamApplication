@@ -87,8 +87,8 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
 }
 
 extension EditUnitPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam) {
-        guard let indexPath = killTeam.indexOfChoosenUnit else { return }
+    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+        guard let killTeam = killTeam, let indexPath = killTeam.indexOfChoosenUnit else { return }
         model.killTeam = killTeam
         model.indexPathUnit = indexPath
         if !killTeam.choosenFireTeam.isEmpty {
@@ -106,7 +106,8 @@ extension EditUnitPresenter: StoreDelegate {
 
 extension EditUnitPresenter: EditUnitCellDelegate {
     func selectedWargear(wargear: Weapon, selected: Bool) {
-        guard var unit = model.currentUnit, let indexPath = model.indexPathUnit  else { return }
+        guard var unit = model.currentUnit,
+              let indexPath = model.indexPathUnit  else { return }
         if let additionalWeapon = unit.additionalWeapon {
             guard !additionalWeapon.contains(wargear) else { return }
         }
@@ -126,18 +127,21 @@ extension EditUnitPresenter: EditUnitCellDelegate {
 
 extension EditUnitPresenter: EditUnitEquipmentCellDelegate {
     func selectEquipment(equipment: Equipment, selected: Bool) {
-        guard var unit = model.currentUnit, let indexPath = model.indexPathUnit  else { return }
+        guard var unit = model.currentUnit,
+              let indexPath = model.indexPathUnit,
+              var killTeam = model.killTeam else { return }
         if selected {
             if unit.equipment.contains(equipment) {
-                model.killTeam?.countEquipmentPoint += equipment.cost
+                killTeam.countEquipmentPoint += equipment.cost
                 unit.equipment.removeAll(where: { equip in
                     equip == equipment
                 })
             } else {
                 unit.equipment.append(equipment)
-                model.killTeam?.countEquipmentPoint -= equipment.cost
+                killTeam.countEquipmentPoint -= equipment.cost
             }
-            store.updateCurrentKillTeam(killTeam: model.killTeam!)
+            store.updateCurrentKillTeam(killTeam: killTeam)
+            model.killTeam = killTeam
             store.updateUnitWargearInChoosenFireTeam(indexPath: indexPath, unit: unit)
         }
     }

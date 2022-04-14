@@ -22,7 +22,7 @@ extension EditUnitViewController {
         navigationBar.addSubview(countOfEquipmentPointLabel)
         countOfEquipmentPointLabel.text = "EP = \(countOfEquipmentPoint)"
         NSLayoutConstraint.activate([
-            countOfEquipmentPointLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: Constant.Size.Otstup.large),
+            countOfEquipmentPointLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large),
             countOfEquipmentPointLabel.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor)
         ])
     }

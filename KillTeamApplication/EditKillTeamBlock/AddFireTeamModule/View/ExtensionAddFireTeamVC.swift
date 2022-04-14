@@ -15,7 +15,7 @@ extension AddFireTeamTableVC {
         navigationBar.addSubview(maxCountFIreTeamLabel)
         NSLayoutConstraint.activate([
             maxCountFIreTeamLabel.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
-            maxCountFIreTeamLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: Constant.Size.Otstup.large)
+            maxCountFIreTeamLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large)
         ])
     }
 

@@ -32,7 +32,7 @@ class MainTabbarRouter: MainTabbarRouterProtocol {
     lazy var ploysNavigationController = ploysRouter.ploysNavigationCOntroller
     lazy var tacOpsNavigationController = tacOpsRouter.tacOpsNavigationController
     
-    init(builder: BuilderProtocol, window: UIWindow) {
+    init(builder: BuilderProtocol, window: UIWindow, complition: ()-> ()) {
         self.builder = builder
         self.window = window
         editKillTeamNavigationController.tabBarItem.title = "Counter"
@@ -40,6 +40,7 @@ class MainTabbarRouter: MainTabbarRouterProtocol {
         ploysNavigationController.tabBarItem.title = "Ploys"
         tacOpsNavigationController.tabBarItem.title = "TacOps"
         rootViewController.viewControllers = [editKillTeamNavigationController, observerKillTeamNavigationController, ploysNavigationController, tacOpsNavigationController]
+        complition()
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
     }

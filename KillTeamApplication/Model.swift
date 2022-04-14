@@ -29,6 +29,14 @@ struct KillTeam: Codable {
     var countEquipmentPoint: Int
     let tacOps: [TacOps]?
     var indexOfChoosenUnit: IndexPath?
+    
+    mutating func updateCurrentWounds() {
+        for (i, fireTeam) in choosenFireTeam.enumerated() {
+            for (j, unit) in fireTeam.currentDataslates.enumerated() {
+                choosenFireTeam[i].currentDataslates[j].currentWounds = unit.wounds
+            }
+        }
+    }
  }
 
 //extension KillTeam: Equatable {

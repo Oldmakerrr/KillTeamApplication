@@ -49,7 +49,8 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
 }
 
 extension AddFireTeamPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam) {
+    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+        guard let killTeam = killTeam else { return }
         model.killTeam = killTeam
         model.currentFireTeam = killTeam.fireTeam
         model.counterFireteam = killTeam.counterFT

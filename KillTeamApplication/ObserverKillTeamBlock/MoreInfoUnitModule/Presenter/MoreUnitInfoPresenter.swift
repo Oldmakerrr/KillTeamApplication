@@ -42,8 +42,8 @@ class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
 }
 
 extension MoreUnitInfoPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam) {
-        guard let indexPath = killTeam.indexOfChoosenUnit else { return }
+    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+        guard let killTeam = killTeam, let indexPath = killTeam.indexOfChoosenUnit else { return }
         model.killTeam = killTeam
         model.indexPathOfChoosenUnit = indexPath
         model.choosenUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]

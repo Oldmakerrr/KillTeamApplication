@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol CurrentKillTeamViewProtocol: AnyObject {
+    func didComplete(_ currentKillTeamView: CurrentKillTeamView)
+}
+
 class CurrentKillTeamView: UIView {
+    
+    weak var delegate: CurrentKillTeamViewProtocol?
     
     let nameLabel = HeaderLabel()
     let factionNameLabel: UILabel = {
@@ -20,27 +26,38 @@ class CurrentKillTeamView: UIView {
         return label
     }()
     
+    private func addGestureRecognizer() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func tapAction() {
+        delegate?.didComplete(self)
+    }
+    
     let killTeamLogo = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        addGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupText(killTeam: KillTeam) {
+    func setupText(killTeam: KillTeam?) {
         DispatchQueue.main.async {
-            self.killTeamLogo.image = UIImage(named: killTeam.factionLogo)
+            self.killTeamLogo.image = UIImage(named: killTeam?.factionLogo ?? "KILL_TEAM")
         }
-        if let customName = killTeam.userCustomName {
+        if let customName = killTeam?.userCustomName {
             nameLabel.text = customName
-            factionNameLabel.text = killTeam.killTeamName            
+            factionNameLabel.text = killTeam?.killTeamName
         } else {
-            nameLabel.text = killTeam.killTeamName
-            factionNameLabel.text = killTeam.factionName
+            nameLabel.text = killTeam?.killTeamName ?? "Choose Kill Team"
+            factionNameLabel.text = killTeam?.factionName ?? ""
         }
     }
     

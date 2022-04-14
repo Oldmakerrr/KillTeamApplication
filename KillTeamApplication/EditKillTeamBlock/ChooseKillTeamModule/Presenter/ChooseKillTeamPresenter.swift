@@ -20,7 +20,7 @@ protocol ChooseKillTeamPresenterProtocol: AnyObject {
 }
 
 protocol ChooseKillTeamPresenterDelegate: AnyObject {
-    func didComplete(presenter: ChooseKillTeamPresenterProtocol, sender: String)
+    func didComplete(presenter: ChooseKillTeamPresenterProtocol)
 }
 
 class ChooseKillTeamPresenter: ChooseKillTeamPresenterProtocol {
@@ -39,8 +39,7 @@ class ChooseKillTeamPresenter: ChooseKillTeamPresenterProtocol {
     
     func goToEditKillTeamViewController(killTeam: KillTeam) {
         guard let key = killTeam.id else { return }
-        let sender = "forward"
-        delegate?.didComplete(presenter: self, sender: sender)
+        delegate?.didComplete(presenter: self)
         store.updateCurrentKillTeam(killTeam: killTeam)
         store.appendNewKillTeam(killTeam: killTeam)
         store.appendNewKey(key: key)

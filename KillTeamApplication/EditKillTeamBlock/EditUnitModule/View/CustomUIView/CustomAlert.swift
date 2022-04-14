@@ -25,11 +25,26 @@ class CustomAlert {
     private var targetView: UIView?
     private var alertView: UIView?
     
-   // init(alertView: UIView, targetView: UIViewController) {
-   //     self.targetView = targetView.view
-   //     self.alertView = alertView
-   //     self.viewController = targetView
-   // }
+    
+    
+    init() {
+        addGesture()
+    }
+    
+    private func addGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(gestureAction))
+        tapGesture.numberOfTouchesRequired = 1
+        tapGesture.state = .began
+        backgrowndView.addGestureRecognizer(tapGesture)
+        
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(gestureAction))
+        swipeGesture.maximumNumberOfTouches = 1
+        backgrowndView.addGestureRecognizer(swipeGesture)
+    }
+    
+    @objc private func gestureAction() {
+        self.dismissAlert()
+    }
     
     func initAlert(alertView: UIView, targetView: UIViewController) {
         self.targetView = targetView.view
@@ -78,14 +93,17 @@ class CustomAlert {
               let alertView = self.alertView else { return }
         UIView.animate(withDuration: 0.25, animations: {
             alertView.translatesAutoresizingMaskIntoConstraints = true
-            alertView.center = CGPoint(x: UIScreen.main.bounds.width/2, y: targetView.frame.height*3)
+            alertView.center = CGPoint(x: UIScreen.main.bounds.width/2, y: targetView.frame.height*1.5)
                         
         }, completion: { done in
             if done {
-                alertView.removeFromSuperview()
-                self.backgrowndView.removeFromSuperview()
                 UIView.animate(withDuration: 0.25, animations: {
                     self.backgrowndView.alpha = 0
+                }, completion: { done in
+                    if done {
+                        self.backgrowndView.removeFromSuperview()
+                        alertView.removeFromSuperview()
+                    }
                 })
             }
         })

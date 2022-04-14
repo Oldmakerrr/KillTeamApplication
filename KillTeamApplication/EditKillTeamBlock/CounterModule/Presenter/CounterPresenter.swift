@@ -39,7 +39,7 @@ protocol CounterPresenterProtocol: AnyObject {
 }
 
 protocol CounterPresenterDelegate: AnyObject {
-    func didComplete(_ presenter: CounterPresenterProtocol, sender: String)
+    func didComplete(_ presenter: CounterPresenterProtocol, sender: NavigationFromCounterModule)
 }
 
 class CounterPresenter: CounterPresenterProtocol {
@@ -67,26 +67,31 @@ class CounterPresenter: CounterPresenterProtocol {
         self.gameStore = gameStore
         self.gameStore.multicastDelegate.addDelegate(self)
         self.store.multicastDelegate.addDelegate(self)
+       // if let lastUsedKillTeam = store.lastUsedKillTeam {
+       //     if model.killTeam == nil {
+       //         model.killTeam = lastUsedKillTeam
+       //     }
+       // }
     }
     
     @objc func showChooseKillTeamTableViewController() {
-        delegate?.didComplete(self, sender: "new")
+        delegate?.didComplete(self, sender: .createNewKillTeam)
      }
     
     @objc func showChooseLoadedKillTeamTableViewController() {
-        delegate?.didComplete(self, sender: "loaded")
+        delegate?.didComplete(self, sender: .loadKillTeam)
      }
     
-    private func updateCurrentWound() {
-        guard var killTeam = model.killTeam else { return }
-        for (i, fireTeam) in killTeam.choosenFireTeam.enumerated() {
-            for (j, unit) in fireTeam.currentDataslates.enumerated() {
-                killTeam.choosenFireTeam[i].currentDataslates[j].currentWounds = unit.wounds
-            }
-        }
-        model.killTeam = killTeam
-        store.updateCurrentKillTeam(killTeam: killTeam)
-    }
+   // private func updateCurrentWound() {
+   //     guard var killTeam = model.killTeam else { return }
+   //     for (i, fireTeam) in killTeam.choosenFireTeam.enumerated() {
+   //         for (j, unit) in fireTeam.currentDataslates.enumerated() {
+   //             killTeam.choosenFireTeam[i].currentDataslates[j].currentWounds = unit.wounds
+   //         }
+   //     }
+   //     model.killTeam = killTeam
+   //     store.updateCurrentKillTeam(killTeam: killTeam)
+   // }
     
     func updateTextLabel() {
         view?.commandPointLabel.text = "Command Point = \(model.gameData.countCommandPoint)"
@@ -157,7 +162,10 @@ class CounterPresenter: CounterPresenterProtocol {
                 }
             case view.nextTurnButton:
                 if model.gameData.countTurningPoint == 0 {
-                    self.updateCurrentWound()
+                    if var killTeam = model.killTeam {
+                        killTeam.updateCurrentWounds()
+                        store.updateCurrentKillTeam(killTeam: killTeam)
+                    }
                     model.gameData.countTurningPoint += 1
                     model.gameData.countCommandPoint += 3
                 } else {
@@ -167,7 +175,10 @@ class CounterPresenter: CounterPresenterProtocol {
                     model.gameData.countCommandPoint += 1
                 }
             case view.endGameButton:
-                self.updateCurrentWound()
+                if var killTeam = model.killTeam {
+                    killTeam.updateCurrentWounds()
+                    store.updateCurrentKillTeam(killTeam: killTeam)
+                }
                 model.gameData.countCommandPoint = 0
                 model.gameData.countTurningPoint = 0
                 model.gameData.countVictoryPoint = 0
@@ -194,7 +205,18 @@ extension CounterPresenter: GameStoreDelegate {
 }
 
 extension CounterPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam) {
+    func didUpdate(_ store: Store, killTeam: KillTeam?) {
         model.killTeam = killTeam
+        view?.currentKillTeamView.setupText(killTeam: killTeam)
     }
+}
+
+extension CounterPresenter: CurrentKillTeamViewProtocol {
+    func didComplete(_ currentKillTeamView: CurrentKillTeamView) {
+        guard let killTeam = model.killTeam else { return }
+        delegate?.didComplete(self, sender: .editCurrentKillTeam)
+        store.updateCurrentKillTeam(killTeam: killTeam)
+    }
+    
+    
 }

@@ -44,7 +44,8 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
     }
     
     func chooseKillTeam(killTeam: KillTeam) {
-        let killTeam = self.updateCurrentWound(killTeam: killTeam)
+        var killTeam = killTeam
+        killTeam.updateCurrentWounds()
         delegate?.didComplete(self)
         store.updateCurrentKillTeam(killTeam: killTeam)
     }
@@ -65,16 +66,6 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
         removeSwipe.backgroundColor = .red
         removeSwipe.image = UIImage(systemName: "minus.square.fill")
         return removeSwipe
-    }
-    
-    private func updateCurrentWound(killTeam: KillTeam) -> KillTeam {
-        var killTeam = killTeam
-        for (i, fireTeam) in killTeam.choosenFireTeam.enumerated() {
-            for (j, unit) in fireTeam.currentDataslates.enumerated() {
-                killTeam.choosenFireTeam[i].currentDataslates[j].currentWounds = unit.wounds
-            }
-        }
-        return killTeam
     }
     
 }

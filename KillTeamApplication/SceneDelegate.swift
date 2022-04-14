@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         let gameStore = GameStore()
         let builder = ModuleBuilder(store: store, gameStore: gameStore)
-        _ = MainTabbarRouter(builder: builder, window: window!)
+        _ = MainTabbarRouter(builder: builder, window: window!, complition: store.loadLastUsedKillTeam)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

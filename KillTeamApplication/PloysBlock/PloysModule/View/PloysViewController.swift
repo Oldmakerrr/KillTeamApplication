@@ -15,7 +15,6 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.dataSource = self
         tableView.delegate = self
         setupTableView()
@@ -23,7 +22,6 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //title = "Command Point = \(presenter?.model.gameData.countCommandPoint ?? 0)"
         tableView.reloadData()
     }
     
@@ -57,16 +55,28 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
 extension PloysViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        guard let strategicPloy = presenter?.model.strategicPloy,
+              let tacticalPloy = presenter?.model.tacticalPloy else { return 0 }
+        if strategicPloy.isEmpty && tacticalPloy.isEmpty {
+            return 0
+        } else {
+            return 2
+        }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = TableHeaderView()
         switch section {
         case 0:
-            return "Strategic Ploy"
+            view.label.text = "Strategic Ploy"
         default:
-            return "Tactical Ploy"
+            view.label.text = "Tactical Ploy"
         }
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return Constant.Size.headerHeight
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

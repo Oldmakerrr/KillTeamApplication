@@ -39,6 +39,7 @@ protocol StoreProtocol {
     
     var multicastDelegate: StoreMulticastDelegate<StoreDelegate> { get }
     var loadedKillTeam: [KillTeam] { get }
+    var lastUsedKillTeam: KillTeam? { get }
     var allFaction: [Faction] { get }
     var keysForKillTeam: [String] { get }
     
@@ -59,7 +60,7 @@ protocol StoreProtocol {
 }
 
 protocol StoreDelegate: AnyObject {
-    func didUpdate(_ store: Store, killTeam: KillTeam)
+    func didUpdate(_ store: Store, killTeam: KillTeam?)
 }
 
 final class Store: StoreProtocol {
@@ -68,9 +69,9 @@ final class Store: StoreProtocol {
         didSet {
             if let killTeam = killTeam {
                 saveMyKillTeam(killTeam: killTeam)
-                multicastDelegate.invoke { presenter in
-                    presenter.didUpdate(self, killTeam: killTeam)
-                }
+            }
+            multicastDelegate.invoke { presenter in
+                presenter.didUpdate(self, killTeam: killTeam)
             }
         }
     }
@@ -90,6 +91,10 @@ final class Store: StoreProtocol {
 //MARK - RemoveAndAddKey
         
     func removeKillTeam(indexPath: IndexPath) {
+        if loadedKillTeam[indexPath.row].id == self.killTeam!.id {
+            self.killTeam = nil
+            UserDefaults.standard.removeObject(forKey: lastUsedKillTeamKey)
+        }
         loadedKillTeam.remove(at: indexPath.row)
     }
     
@@ -113,6 +118,7 @@ final class Store: StoreProtocol {
     private func saveMyKillTeam(killTeam: KillTeam) {
         if let key = killTeam.id {
             UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: key)
+            UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: lastUsedKillTeamKey)
         }
     }
     
@@ -120,7 +126,17 @@ final class Store: StoreProtocol {
     
     var loadedKillTeam: [KillTeam] = []
     
+    var lastUsedKillTeam: KillTeam?
+    let lastUsedKillTeamKey = "lastUsedKillTeamKey"
+    
     var keysForKillTeam: [String] = []
+    
+    func loadLastUsedKillTeam() {
+        if var killTeam = loadMyKillTeam(key: lastUsedKillTeamKey) {
+            killTeam.updateCurrentWounds()
+            self.killTeam = killTeam
+        }
+    }
     
     func loadSavedKillTeam() {
         loadedKillTeam = []

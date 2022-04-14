@@ -100,8 +100,9 @@ protocol AddFireTeamCellDelegate: AnyObject {
  }
 
  extension AddFireTeamCell: StoreDelegate {
-     func didUpdate(_ store: Store, killTeam: KillTeam) {
-         if let key = killTeam.counterFT?[fireTeam!.name] {
+     func didUpdate(_ store: Store, killTeam: KillTeam?) {
+        guard let killTeam = killTeam else { return }
+        if let key = killTeam.counterFT?[fireTeam!.name] {
              countFireTeam = key
          }
      }

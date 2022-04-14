@@ -46,6 +46,6 @@ class AddFireTeamTableVC: UITableViewController, AddFireTeamTableVCProtocol {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constant.Size.headerHeight
+        return Constant.Size.cellHeight
     }
 }

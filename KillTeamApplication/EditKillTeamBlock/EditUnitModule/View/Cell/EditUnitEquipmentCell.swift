@@ -80,8 +80,8 @@ class EditUnitEquipmentCell: UITableViewCell {
 }
 
 extension EditUnitEquipmentCell: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam) {
-        guard let indexPath = killTeam.indexOfChoosenUnit else { return }
+    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+        guard let killTeam = killTeam, let indexPath = killTeam.indexOfChoosenUnit else { return }
         unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
     }
 }

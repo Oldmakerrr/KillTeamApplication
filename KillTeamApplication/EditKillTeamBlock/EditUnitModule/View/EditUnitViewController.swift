@@ -42,10 +42,6 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     func dismissAlert() {
         delegate?.didComplete(self)
     }
-    
-    
-    
-    
 
 // MARK: - TableView DataSource
 
@@ -68,7 +64,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = viewForHeaderInTableView()
+        let view = TableHeaderView()
         switch section {
         case 0:
             view.label.text = presenter?.model.headerForRow[0]
@@ -120,7 +116,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constant.Size.headerHeight
+        return Constant.Size.cellHeight
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -195,7 +191,7 @@ extension UIViewController {
 }
 
 
-class viewForHeaderInTableView: UIView {
+class TableHeaderView: UIView {
     
     let label = HeaderLabel()
     let imageView = UIImageView()
@@ -203,6 +199,10 @@ class viewForHeaderInTableView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = ColorScheme.shared.theme.viewHeader
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 1
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         setupSubview()
     }
     
@@ -212,19 +212,19 @@ class viewForHeaderInTableView: UIView {
     
     private func setupSubview() {
         addSubview(label)
+        addSubview(imageView)
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.large)
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.large),
+            label.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -Constant.Size.Otstup.large)
         ])
-        
-        addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: Constant.Size.Otstup.large),
+            imageView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Constant.Size.Otstup.large),
             imageView.topAnchor.constraint(equalTo: label.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+           // imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
         ])
     }
 }

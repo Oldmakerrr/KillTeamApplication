@@ -32,16 +32,17 @@ class EeditKillTeamRouter: EditKillTeamRouterProtocol {
         
     }
     
-    func showEditKillTeamController(sender: String) {
+    func showEditKillTeamController() {
          let editKillTeamTableViewController = builder.createEditKillTeamModule(router: self)
-            switch sender {
-            case "forward":
-                editKillTeamNavigationController.pushViewController(editKillTeamTableViewController as! UITableViewController, animated: true)
-            case "back":
-                editKillTeamNavigationController.popViewController(animated: true)
-            default :
-                return
-            }
+            editKillTeamNavigationController.pushViewController(editKillTeamTableViewController as! UITableViewController, animated: true)
+            //switch sender {
+            //case "forward":
+            //    editKillTeamNavigationController.pushViewController(editKillTeamTableViewController as! UITableViewController, animated: true)
+            //case "back":
+               // editKillTeamNavigationController.popViewController(animated: true)
+            //default :
+            //    return
+            //}
     }
     
     func showAddFireTeamController() {
@@ -62,21 +63,27 @@ class EeditKillTeamRouter: EditKillTeamRouterProtocol {
 
 
 extension EeditKillTeamRouter: CounterPresenterDelegate {
-    func didComplete(_ presenter: CounterPresenterProtocol, sender: String) {
+    func didComplete(_ presenter: CounterPresenterProtocol, sender: NavigationFromCounterModule) {
         switch sender {
-        case "new":
+        case .createNewKillTeam:
             showChooseKillTeamTableViewController()
-        case "loaded":
+        case .loadKillTeam:
             showChooseLoadedKillTeamController()
-        default:
-            return
+        case .editCurrentKillTeam:
+            showEditKillTeamController()
         }
     }
 }
 
+enum NavigationFromCounterModule {
+    case createNewKillTeam
+    case loadKillTeam
+    case editCurrentKillTeam
+}
+
 extension EeditKillTeamRouter: ChooseKillTeamPresenterDelegate {
-    func didComplete(presenter: ChooseKillTeamPresenterProtocol, sender: String) {
-        showEditKillTeamController(sender: sender)
+    func didComplete(presenter: ChooseKillTeamPresenterProtocol) {
+        showEditKillTeamController()
     }
 }
 
@@ -93,6 +100,6 @@ extension EeditKillTeamRouter: EditKillTeamPresenterDelegate {
 
 extension EeditKillTeamRouter: ChooseLoadedKillTeamPresenterDelegate {
     func didComplete(_ presenter: ChooseLoadedKillTeamPresenterProtocol) {
-        showEditKillTeamController(sender: "forward")
+        showEditKillTeamController()
     }
 }

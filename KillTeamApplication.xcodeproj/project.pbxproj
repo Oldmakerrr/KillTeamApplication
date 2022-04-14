@@ -93,6 +93,7 @@
 		18E9089F2805406D0077516B /* CurrentPloysCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */; };
 		18E908A1280570B50077516B /* RosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A0280570B50077516B /* RosterTableViewCell.swift */; };
 		18E908A32806F6CC0077516B /* CharacteristicLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A22806F6CB0077516B /* CharacteristicLabelView.swift */; };
+		18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A42807FB990077516B /* LabelWithImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -184,6 +185,7 @@
 		18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPloysCollectionViewCell.swift; sourceTree = "<group>"; };
 		18E908A0280570B50077516B /* RosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewCell.swift; sourceTree = "<group>"; };
 		18E908A22806F6CB0077516B /* CharacteristicLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacteristicLabelView.swift; sourceTree = "<group>"; };
+		18E908A42807FB990077516B /* LabelWithImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -509,6 +511,7 @@
 			children = (
 				18A521AF27C18566003A29DA /* EditKillTeamTableViewController.swift */,
 				18A521AD27C18538003A29DA /* EditKillTeamCell.swift */,
+				18E908A42807FB990077516B /* LabelWithImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -847,6 +850,7 @@
 				18A5216727C17E72003A29DA /* KillTeamObserverRouter.swift in Sources */,
 				1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */,
 				18A5218027C1825D003A29DA /* Model.swift in Sources */,
+				18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */,
 				1892484A27F09BAF00F1996C /* Constant.swift in Sources */,
 				18A521BE27C18AE1003A29DA /* EditUnitEquipmentCell.swift in Sources */,
 				18D3B95927C1901400B74C2D /* PloysPresenter.swift in Sources */,
