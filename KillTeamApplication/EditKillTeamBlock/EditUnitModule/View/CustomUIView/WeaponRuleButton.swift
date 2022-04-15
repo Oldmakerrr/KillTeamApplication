@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-protocol WeaponRuleButtonProtocol: AnyObject {
+protocol WeaponRuleButtonDelegate: AnyObject {
     func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule)
 }
 
 class WeaponRuleButton: UIButton {
      
-    weak var delegate: WeaponRuleButtonProtocol?
+    weak var delegate: WeaponRuleButtonDelegate?
     
     private var weaponRule: WeaponSpecialRule?
     

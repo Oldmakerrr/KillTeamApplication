@@ -10,21 +10,17 @@ import UIKit
 
 protocol TacOpsViewControllerProtocol: AnyObject {
     var presenter: TacOpsPresenterProtocol? { get }
-    var goToChoosenTacOpsButton: UIBarButtonItem { get }
     var tacOpsCollection: UICollectionView { get }
 }
 
 protocol TacOpsPresenterProtocol: AnyObject {
     init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol)
     var view: TacOpsViewControllerProtocol? { get }
-    var store: StoreProtocol { get }
-    var gameStore: GameStoreProtocol { get }
-    var router: TacOpsRouterProtocol { get }
     var model: TacOpsModel { get }
+    
     func pickTacOps(sender: TypeOfTacOps)
     func mixDeck()
     func mixDeckWithSpecialTacOps()
-    func selectTacOp(tacOp: TacOps, indexPath: IndexPath)
     func goToChoosenTacOps()
 }
 
@@ -44,13 +40,7 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     var router: TacOpsRouterProtocol
     
-    var model = TacOpsModel() {
-        didSet {
-            if model.gameData.firstTacOp != nil && model.gameData.secondTacOp != nil && model.gameData.thirdTacOp != nil {
-                view?.goToChoosenTacOpsButton.isEnabled = true
-            }
-        }
-    }
+    var model = TacOpsModel()
     
     private var selectedTacOp: TacOps?
     
@@ -63,12 +53,7 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
         store.multicastDelegate.addDelegate(self)
         model.customTacOps = model.seekAndDestroy
     }
-    
-    private func enableButton() {
-        if model.gameData.firstTacOp != nil && model.gameData.secondTacOp != nil && model.gameData.thirdTacOp != nil {
-            view?.goToChoosenTacOpsButton.isEnabled = true
-        }
-    }
+   
     
     func mixDeck() {
         var currentDeck = model.customTacOps
@@ -119,35 +104,6 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
         }
         
     }
-    
-    
-    
-    func selectTacOp(tacOp: TacOps, indexPath: IndexPath) {
-        switch indexPath.item {
-        case 0,1:
-            model.gameData.firstTacOp = tacOp
-            selectedTacOp = tacOp
-        case 2,3:
-            model.gameData.secondTacOp = tacOp
-            selectedTacOp = tacOp
-        case 4,5:
-            model.gameData.thirdTacOp = tacOp
-            selectedTacOp = tacOp
-        default:
-            return
-        }
-        gameStore.updateGameData(gameData: model.gameData)
-    }
-    
-    private func selectCell(tacOp: TacOps?, cell: TacOpsCollectionCell, collectionView: UICollectionView, index: Int) {
-        if cell.tacOp == tacOp {
-            cell.contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
-            cell.contentView.layer.applyCornerRadius()
-            cell.contentView.layer.applySketchShadow(color: .black, alpha: 0, x: 0, y: 0, blur: 0)
-            collectionView.visibleCells[index].contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
-            collectionView.visibleCells[index].contentView.layer.applyCornerRadius()
-        }
-    }
 }
 
 extension TacOpsPresenter: StoreDelegate {
@@ -167,34 +123,20 @@ extension TacOpsPresenter: GameStoreDelegate {
 }
 
 extension TacOpsPresenter: TacOpsCollectionCellDelegate {
-    func didSelect(_ cell: TacOpsCollectionCell) {
-        guard let indexCell = cell.index,
-              let collectionView = view?.tacOpsCollection
-               else { return }
-        let firstTacOp = model.gameData.firstTacOp
-        let secondTacOp = model.gameData.secondTacOp
-        let thirdTacOp = model.gameData.thirdTacOp
-        switch indexCell{
-        case 0:
-            selectCell(tacOp: firstTacOp, cell: cell, collectionView: collectionView, index: 1)
-           
-        case 1:
-            selectCell(tacOp: firstTacOp, cell: cell, collectionView: collectionView, index: 0)
-           
-        case 2:
-            selectCell(tacOp: secondTacOp, cell: cell, collectionView: collectionView, index: 3)
-          
-        case 3:
-            selectCell(tacOp: secondTacOp, cell: cell, collectionView: collectionView, index: 2)
-        case 4:
-            selectCell(tacOp: thirdTacOp, cell: cell, collectionView: collectionView, index: 5)
-           
-        case 5:
-            selectCell(tacOp: thirdTacOp, cell: cell, collectionView: collectionView, index: 4)
-           
-        default:
-            break
-        }
     
+    func didSelect(_ cell: TacOpsCollectionCell) {
+        
+        switch cell.index {
+        case 0, 1:
+            model.gameData.firstTacOp = cell.tacOp
+        case 2, 3:
+            model.gameData.secondTacOp = cell.tacOp
+        case 4, 5:
+            model.gameData.thirdTacOp = cell.tacOp
+        default:
+            return
+        }
+        gameStore.updateGameData(gameData: model.gameData)
+        view?.tacOpsCollection.reloadData()
     }
 }

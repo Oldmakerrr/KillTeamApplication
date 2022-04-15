@@ -19,6 +19,8 @@ class ChoosenTacOpsCell: UICollectionViewCell, ReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        tacOpView.backgroundColor = .none
+        contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
         setupView()
         translatesAutoresizingMaskIntoConstraints = false
         setupProgressTacOplabel()
@@ -46,21 +48,5 @@ class ChoosenTacOpsCell: UICollectionViewCell, ReusableView {
         ProgressTacOplabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
         ProgressTacOplabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
         //ProgressTacOplabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
-    }
-}
-
-class ProgressTacOpView: UIView {
-    
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupLabel() {
     }
 }

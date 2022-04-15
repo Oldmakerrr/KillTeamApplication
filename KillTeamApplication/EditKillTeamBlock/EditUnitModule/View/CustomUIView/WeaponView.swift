@@ -49,7 +49,7 @@ class WeaponView: UIStackView, WargearView {
     }
     
     
-     func setupText(wargear: WeaponProtocol, delegate: WeaponRuleButtonProtocol?) {
+     func setupText(wargear: WeaponProtocol, delegate: WeaponRuleButtonDelegate?) {
         if wargear.profileName != nil {
             setupHeader(name: "\(wargear.name) (\(wargear.profileName!))")
         } else {
@@ -127,7 +127,7 @@ class WeaponView: UIStackView, WargearView {
         damageLabel.text = damage
     }
     
-    private func setupSpecialRule(rules: [WeaponSpecialRule], text: String, delegate: WeaponRuleButtonProtocol?) {
+    private func setupSpecialRule(rules: [WeaponSpecialRule], text: String, delegate: WeaponRuleButtonDelegate?) {
         let view = UIView()
         let label = BoldLabel()
         view.backgroundColor = ColorScheme.shared.theme.subViewBackground

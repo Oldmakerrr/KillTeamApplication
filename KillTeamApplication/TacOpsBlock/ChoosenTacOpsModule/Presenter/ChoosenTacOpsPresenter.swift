@@ -14,21 +14,26 @@ protocol ChoosenTacOpsViewControllerProtocol: AnyObject {
 protocol ChoosenTacOpsPresenterProtocol: AnyObject {
     init(view: ChoosenTacOpsViewControllerProtocol, gameStore: GameStoreProtocol)
     var view: ChoosenTacOpsViewControllerProtocol? { get }
-    var gameSore: GameStoreProtocol { get }
+    var gameStore: GameStoreProtocol { get }
     var model: ChoosenTacOpsModel { get }
+    
+    func updateGameData()
 }
 
 class ChoosenTacOpsPresenter: ChoosenTacOpsPresenterProtocol {
     weak var view: ChoosenTacOpsViewControllerProtocol?
     var model = ChoosenTacOpsModel()
-    var gameSore: GameStoreProtocol
+    var gameStore: GameStoreProtocol
     
     required init(view: ChoosenTacOpsViewControllerProtocol, gameStore: GameStoreProtocol) {
         self.view = view
-        self.gameSore = gameStore
-        gameSore.multicastDelegate.addDelegate(self)
+        self.gameStore = gameStore
+        gameStore.multicastDelegate.addDelegate(self)
     }
     
+    func updateGameData() {
+        gameStore.updateGameData(gameData: model.gameData)
+    }
 }
 
 

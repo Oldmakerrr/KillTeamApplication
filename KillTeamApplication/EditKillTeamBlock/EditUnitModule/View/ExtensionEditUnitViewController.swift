@@ -49,7 +49,7 @@ extension EditUnitViewController {
     }
     
     func setupWargearView<T: WargearView>(view: T, wargear: T.Wargear, delegate: T.Delegate) {
-        view.setupText(wargear: wargear, delegate: delegate as? WeaponRuleButtonProtocol)
+        view.setupText(wargear: wargear, delegate: delegate as? WeaponRuleButtonDelegate)
         view.setupButton()
         view.setDelegate(delegate: delegate)
         guard let view = view as? UIView else { return }

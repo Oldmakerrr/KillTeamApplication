@@ -81,11 +81,11 @@ class CharacteristicsView: UIStackView {
         view.addSubview(secondLabel)
         NSLayoutConstraint.activate([
             firstLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            firstLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            firstLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -widthSuperView/2),
+            firstLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025),
+            firstLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -widthSuperView/2 - Constant.Size.screenWidth * 0.013),
             secondLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            secondLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: widthSuperView/2 + 5),
-            secondLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            secondLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: widthSuperView/2 + Constant.Size.screenWidth * 0.013),
+            secondLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
             view.heightAnchor.constraint(equalToConstant: Constant.Size.headerHeight)
         ])
         addArrangedSubview(view)

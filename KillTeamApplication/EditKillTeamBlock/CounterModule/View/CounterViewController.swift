@@ -51,7 +51,7 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
     func showAlert(ploy: Ploy) {
         let view = PloyView()
-        view.setupPloy(ploy: ploy)
+        view.setupPloy(ploy: ploy, delegate: self)
         view.setupButton(delegate: self)
         view.layer.applyCornerRadius()
         view.layer.masksToBounds = true
@@ -102,4 +102,12 @@ extension CounterViewController: CurrentPloysCollectionViewProtocol {
     
 }
 
+extension CounterViewController: WeaponRuleButtonDelegate {
+    func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
+        print("adfdf")
+    }
+    
+    
+    
+}
 

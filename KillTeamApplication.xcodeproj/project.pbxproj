@@ -94,6 +94,7 @@
 		18E908A1280570B50077516B /* RosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A0280570B50077516B /* RosterTableViewCell.swift */; };
 		18E908A32806F6CC0077516B /* CharacteristicLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A22806F6CB0077516B /* CharacteristicLabelView.swift */; };
 		18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A42807FB990077516B /* LabelWithImageView.swift */; };
+		18E908A728094A700077516B /* ExtensionTacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A628094A700077516B /* ExtensionTacOpsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -186,6 +187,7 @@
 		18E908A0280570B50077516B /* RosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewCell.swift; sourceTree = "<group>"; };
 		18E908A22806F6CB0077516B /* CharacteristicLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacteristicLabelView.swift; sourceTree = "<group>"; };
 		18E908A42807FB990077516B /* LabelWithImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithImageView.swift; sourceTree = "<group>"; };
+		18E908A628094A700077516B /* ExtensionTacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTacOpsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -718,8 +720,9 @@
 			isa = PBXGroup;
 			children = (
 				18D3B96927C190D700B74C2D /* TacOpsViewController.swift */,
-				1857E36927C4E6D100FEFA76 /* MoreInfoTacOpView.swift */,
-				18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */,
+				18E908A628094A700077516B /* ExtensionTacOpsViewController.swift */,
+				18E908A828094C350077516B /* Cell */,
+				18E908A928094C3E0077516B /* CustomView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -748,6 +751,22 @@
 				18D3B97127C1916600B74C2D /* WeaponGreenskin.swift */,
 			);
 			path = Greenskin;
+			sourceTree = "<group>";
+		};
+		18E908A828094C350077516B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E908A928094C3E0077516B /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				1857E36927C4E6D100FEFA76 /* MoreInfoTacOpView.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -829,6 +848,7 @@
 				18E9089B280471550077516B /* CustomUIViewElements.swift in Sources */,
 				18A5216427C17E3B003A29DA /* EditKillTeamRouter.swift in Sources */,
 				18A5216927C17E89003A29DA /* MainTabBarController.swift in Sources */,
+				18E908A728094A700077516B /* ExtensionTacOpsViewController.swift in Sources */,
 				18A5216B27C17EB9003A29DA /* MainTabBarRouter.swift in Sources */,
 				18A5216F27C17EF0003A29DA /* TacOpsRouter.swift in Sources */,
 				1857E36A27C4E6D100FEFA76 /* MoreInfoTacOpView.swift in Sources */,

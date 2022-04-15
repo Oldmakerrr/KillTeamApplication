@@ -95,11 +95,11 @@ extension PloysViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
-            cell.ployView.setupPloy(ploy: strategicPloy)
+            cell.ployView.setupPloy(ploy: strategicPloy, delegate: self)
             return cell
         default:
             let tacticalPloy = presenter!.model.tacticalPloy[indexPath.row]
-            cell.ployView.setupPloy(ploy: tacticalPloy)
+            cell.ployView.setupPloy(ploy: tacticalPloy, delegate: self)
             return cell
         }
     }
@@ -134,4 +134,15 @@ extension PloysViewController: UITabBarControllerDelegate {
         guard let nav = viewController as? UINavigationController else { return }
         nav.popToRootViewController(animated: true)
     }
+    
+}
+
+extension PloysViewController: WeaponRuleButtonDelegate {
+    
+    func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
+        moreInfoWeaponRuleAlert(weaponRule: weaponRule)
+    }
+    
+    
+    
 }

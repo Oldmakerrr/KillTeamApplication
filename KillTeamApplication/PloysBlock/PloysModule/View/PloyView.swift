@@ -29,7 +29,7 @@ class PloyView: UIStackView {
         delegate?.didComplete(self)
     }
     
-    func setupPloy(ploy: Ploy) {
+    func setupPloy(ploy: Ploy, delegate: WeaponRuleButtonDelegate) {
         setupHeader(name: ploy.name, cost: ploy.cost)
         setupDescription(description: ploy.description)
         
@@ -42,7 +42,7 @@ class PloyView: UIStackView {
         }
         
         if let action = ploy.abilities {
-            setupUniqueAction(action: action)
+            setupUniqueAction(action: action, delegate: delegate)
         }
         
         if let weapon = ploy.wargear {
@@ -59,13 +59,14 @@ class PloyView: UIStackView {
         addArrangedSubview(backgroundView)
     }
     
-    private func setupUniqueAction(action: UnitUniqueActions) {
+    private func setupUniqueAction(action: UnitUniqueActions, delegate: WeaponRuleButtonDelegate) {
         let backgroundView = UIView()
-        let view = UnitUniqueAtionView()
+        //let view = UnitUniqueAtionView()
+        let view = UniqueActionView()
         view.backgroundColor = ColorScheme.shared.theme.subViewBackground
         backgroundView.addView(view: backgroundView, subView: view)
         view.layer.applyBorder()
-        view.setupText(action: action)
+        view.setupText(action: action, delegate: delegate)
         addArrangedSubview(backgroundView)
     }
     

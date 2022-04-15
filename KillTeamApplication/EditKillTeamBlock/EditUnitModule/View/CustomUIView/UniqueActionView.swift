@@ -25,7 +25,7 @@ class UniqueActionView: UIStackView {
         backgroundColor = ColorScheme.shared.theme.subViewBackground
     }
     
-    func setupTextForUnit(action: UnitUniqueActions, delegate: WeaponRuleButtonProtocol) {
+    func setupTextForUnit(action: UnitUniqueActions, delegate: WeaponRuleButtonDelegate) {
         setupActionText(uniqueAction: action)
         if let subText = action.subText {
             addSubTextView(subText: subText)
@@ -39,7 +39,7 @@ class UniqueActionView: UIStackView {
     }
     
     
-    func setupText(action: UnitUniqueActions, delegate: WeaponRuleButtonProtocol) {
+    func setupText(action: UnitUniqueActions, delegate: WeaponRuleButtonDelegate) {
         setupHeader(action: action)
         addTextView(text: action.description)
         if let subText = action.subText {
@@ -69,7 +69,7 @@ class UniqueActionView: UIStackView {
         addArrangedSubview(header)
     }
     
-    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonProtocol) {
+    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate) {
         let view = WeaponView()
         let backgroundView = UIView()
         view.setupText(wargear: weapon, delegate: delegate)

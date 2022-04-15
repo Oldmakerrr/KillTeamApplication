@@ -18,7 +18,7 @@ class TacOpsModel {
     var customTacOps: [TacOps] = []
     var tacOpsKillTeam: [TacOps]?
     
-    var firstTacOp: TacOps?
-    var secondTacOp: TacOps?
-    var thirdTacOp: TacOps?
+   // var firstTacOp: TacOps?
+   // var secondTacOp: TacOps?
+   // var thirdTacOp: TacOps?
 }

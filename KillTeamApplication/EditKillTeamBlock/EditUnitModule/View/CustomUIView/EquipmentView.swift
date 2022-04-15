@@ -11,7 +11,7 @@ import UIKit
 protocol WargearView {
     associatedtype Wargear
     associatedtype Delegate
-    func setupText(wargear: Wargear, delegate: WeaponRuleButtonProtocol?)
+    func setupText(wargear: Wargear, delegate: WeaponRuleButtonDelegate?)
     func setupButton()
     func setDelegate(delegate: Delegate)
 }
@@ -42,7 +42,7 @@ class EquipmentView: UIStackView, WargearView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupText(wargear: Equipment, delegate: WeaponRuleButtonProtocol?) {
+    func setupText(wargear: Equipment, delegate: WeaponRuleButtonDelegate?) {
         
         setupHeader(equipment: wargear)
         addTextView(text: wargear.description)
@@ -87,7 +87,7 @@ class EquipmentView: UIStackView, WargearView {
         addArrangedSubview(view)
     }
  
-    private func setupUniqueActionView(action: UnitUniqueActions, delegate: WeaponRuleButtonProtocol) {
+    private func setupUniqueActionView(action: UnitUniqueActions, delegate: WeaponRuleButtonDelegate) {
         let view = UniqueActionView()
         let backgroundView = UIView()
         view.setupText(action: action, delegate: delegate)
@@ -98,7 +98,7 @@ class EquipmentView: UIStackView, WargearView {
         view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
     }
     
-    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonProtocol) {
+    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate) {
         let view = WeaponView()
         let backgroundView = UIView()
         view.setupText(wargear: weapon, delegate: delegate)

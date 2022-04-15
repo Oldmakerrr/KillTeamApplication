@@ -152,7 +152,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     
 }
 
-extension EditUnitViewController: WeaponRuleButtonProtocol {
+extension EditUnitViewController: WeaponRuleButtonDelegate {
     func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
         moreInfoWeaponRuleAlert(weaponRule: weaponRule)
     }

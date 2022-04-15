@@ -245,7 +245,7 @@ extension MoreInfoUnitViewController {
 }
 
 
-extension MoreInfoUnitViewController: WeaponRuleButtonProtocol {
+extension MoreInfoUnitViewController: WeaponRuleButtonDelegate {
     func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
         moreInfoWeaponRuleAlert(weaponRule: weaponRule)
     }
