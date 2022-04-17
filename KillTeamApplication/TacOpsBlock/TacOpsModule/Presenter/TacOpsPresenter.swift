@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol TacOpsViewControllerProtocol: AnyObject {
+    var goToChoosenTacOpsButton: UIBarButtonItem { get }
     var presenter: TacOpsPresenterProtocol? { get }
     var tacOpsCollection: UICollectionView { get }
 }
@@ -18,7 +19,7 @@ protocol TacOpsPresenterProtocol: AnyObject {
     var view: TacOpsViewControllerProtocol? { get }
     var model: TacOpsModel { get }
     
-    func pickTacOps(sender: TypeOfTacOps)
+    func pickTacOps(sender: TypeOfTacOps, collectionView: UICollectionView)
     func mixDeck()
     func mixDeckWithSpecialTacOps()
     func goToChoosenTacOps()
@@ -51,9 +52,27 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
         self.router = router
         gameStore.multicastDelegate.addDelegate(self)
         store.multicastDelegate.addDelegate(self)
+        //model.customTacOps = model.seekAndDestroy
+        loadTacOps(tacOps: gameStore.tacOps)
         model.customTacOps = model.seekAndDestroy
     }
    
+    func loadTacOps(tacOps: [TacOps]) {
+        tacOps.forEach { tacOp in
+            switch tacOp.type {
+            case .seekAndDestroy:
+                model.seekAndDestroy.append(tacOp)
+            case .security:
+                model.security.append(tacOp)
+            case .infiltration:
+                model.infiltration.append(tacOp)
+            case .recon:
+                model.recon.append(tacOp)
+            case .factionTacOp:
+                return
+            }
+        }
+    }
     
     func mixDeck() {
         var currentDeck = model.customTacOps
@@ -64,6 +83,7 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
             newDeck.append(random)
             currentDeck.remove(at: i)
         }
+        clearChoosenTacOps()
         model.customTacOps = newDeck
     }
     
@@ -74,7 +94,7 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     func mixDeckWithSpecialTacOps() {
         var currentDeck = model.customTacOps
-        if let killTeamTacOps = model.tacOpsKillTeam {
+        if let killTeamTacOps = model.factionTacOps {
             killTeamTacOps.forEach { tacOp in
                 currentDeck.append(tacOp)
             }
@@ -86,12 +106,13 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
             newDeck.append(random)
             currentDeck.remove(at: i)
         }
+        clearChoosenTacOps()
         model.customTacOps = newDeck
     }
    
-    func pickTacOps(sender: TypeOfTacOps) {
+    func pickTacOps(sender: TypeOfTacOps, collectionView: UICollectionView) {
         switch sender {
-        case .seekandDestroy:
+        case .seekAndDestroy:
             model.customTacOps = model.seekAndDestroy
         case .security:
             model.customTacOps = model.security
@@ -99,17 +120,39 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
             model.customTacOps = model.recon
         case .infiltration:
             model.customTacOps = model.infiltration
-        case .special:
+        case .factionTacOp:
             return
         }
-        
+        clearChoosenTacOps()
+        collectionView.reloadData()
+    }
+    
+    func checkSelectTacOp()-> Bool {
+        if model.gameData.firstTacOp != nil && model.gameData.secondTacOp != nil && model.gameData.thirdTacOp != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    private func clearChoosenTacOps() {
+        model.gameData.firstTacOp = nil
+        model.gameData.secondTacOp = nil
+        model.gameData.thirdTacOp = nil
+        view?.goToChoosenTacOpsButton.isEnabled = checkSelectTacOp()
     }
 }
 
 extension TacOpsPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
         if let tacOps = killTeam?.tacOps {
-            model.tacOpsKillTeam = tacOps
+            model.factionTacOps = tacOps
+        } else {
+            guard let view = view as? UIViewController else { return }
+            model.factionTacOps = nil
+            clearChoosenTacOps()
+            model.customTacOps = model.seekAndDestroy
+            view.navigationItem.title = "Seek & Destroy"
         }
     }
 }
@@ -138,5 +181,6 @@ extension TacOpsPresenter: TacOpsCollectionCellDelegate {
         }
         gameStore.updateGameData(gameData: model.gameData)
         view?.tacOpsCollection.reloadData()
+        view?.goToChoosenTacOpsButton.isEnabled = checkSelectTacOp()
     }
 }

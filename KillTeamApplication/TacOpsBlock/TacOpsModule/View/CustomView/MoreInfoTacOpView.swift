@@ -46,7 +46,7 @@ class MoreInfoTacOp: UIStackView {
         delegate?.didComplete(self)
     }
     
-    private func setupButton() {
+    func setupButton() {
         let view = UIView()
         addArrangedSubview(view)
         view.addSubview(button)
@@ -58,8 +58,6 @@ class MoreInfoTacOp: UIStackView {
             button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
             button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
         ])
-        
-        
     }
     
     private func setHeader(title: String) {
@@ -83,11 +81,13 @@ class MoreInfoTacOp: UIStackView {
         }
         
         if let uniquiAction = tacOp.uniquiAction {
+            let view = UIView()
             let actionView = UniqueActionView()
+            actionView.layer.applyBorder()
             actionView.setupText(action: uniquiAction, delegate: delegate)
-            addArrangedSubview(actionView)
+            addView(view: view, subView: actionView)
+            addArrangedSubview(view)
         }
-        setupButton()
     }
     
 }

@@ -28,8 +28,14 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
         return presenter?.model.killTeam?.choosenFireTeam.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return presenter?.model.killTeam?.choosenFireTeam[section].name
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = TableHeaderView()
+        view.label.text = presenter?.model.killTeam?.choosenFireTeam[section].name
+        return view
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return Constant.Size.headerHeight
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,8 +43,9 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = RosterTableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: RosterTableViewCell.identifier, for: indexPath) as! RosterTableViewCell
         guard let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]  else { return UITableViewCell() }
+        cell.updateCell()
         cell.setupText(unit: unit)
         return cell
     }

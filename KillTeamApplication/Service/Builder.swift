@@ -61,7 +61,7 @@ class ModuleBuilder: BuilderProtocol {
     }
     
     func createAddFireTeamModule(router: EditKillTeamRouterProtocol) -> AddFireTeamTableVCProtocol {
-        let view = AddFireTeamTableVC()
+        let view = AddFireTeamViewController()
         let presenter = AddFireTeamPresenter(view: view, store: store)
         view.presenter = presenter
         return view

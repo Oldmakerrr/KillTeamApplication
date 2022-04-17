@@ -14,7 +14,13 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.gray
-        tableView.register(ChooseKillTeamTableViewCell.self, forCellReuseIdentifier: KillTeamTableViewCell.ChooseKillTeamTableViewCell.rawValue)
+        tableView.register(ChooseKillTeamCell.self, forCellReuseIdentifier: KillTeamTableViewCell.ChooseKillTeamCell.rawValue)
+    }
+    
+    func addFireTeam(killTeam: KillTeam) -> KillTeam {
+        var killTeam = killTeam
+        killTeam.choosenFireTeam = killTeam.fireTeam
+        return killTeam
     }
     
 
@@ -29,7 +35,7 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: KillTeamTableViewCell.ChooseKillTeamTableViewCell.rawValue, for: indexPath) as! ChooseKillTeamTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: KillTeamTableViewCell.ChooseKillTeamCell.rawValue, for: indexPath) as! ChooseKillTeamCell
         guard let killTeam = presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row] else { return cell }
         cell.setupText(killTeam: killTeam)
         return cell
@@ -48,6 +54,9 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
         let uuid = UUID().uuidString
         killTeam.id = uuid
         killTeam.counterFT = [:]
+        if killTeam.countOfFireTeam == 1 && killTeam.killTeamName != "Space Marines" {
+            killTeam = addFireTeam(killTeam: killTeam)
+        }
         self.dismiss(animated: true, completion: nil)
         presenter?.goToEditKillTeamViewController(killTeam: killTeam)
     }

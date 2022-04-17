@@ -11,12 +11,12 @@ class TacOpsModel {
     
     var gameData = GameData()
     
-    let seekAndDestroy: [TacOps] = [headhunter, challenge, rout, execution, deadlyMarksman, robAndRansack]
-    let security: [TacOps] = [seizeGround, holdTheLine, protectAssets, damageLimitation, plantBanner, centralControl]
-    let infiltration: [TacOps] = []
-    let recon: [TacOps] = []
+    var seekAndDestroy: [TacOps] = []
+    var security: [TacOps] = []
+    var infiltration: [TacOps] = []
+    var recon: [TacOps] = []
     var customTacOps: [TacOps] = []
-    var tacOpsKillTeam: [TacOps]?
+    var factionTacOps: [TacOps]?
     
    // var firstTacOp: TacOps?
    // var secondTacOp: TacOps?

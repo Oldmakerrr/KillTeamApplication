@@ -39,13 +39,17 @@ class Constant {
         static let sizeNormalFont: CGFloat = 16
         static let sizeBigFont: CGFloat = 18
         static let sizeHeaderFont: CGFloat = 20
-        static let systemFont: UIFont = UIFont.systemFont(ofSize: sizeNormalFont)
-        static let boldFont = UIFont.boldSystemFont(ofSize: sizeBigFont)
-        static let headerFont = UIFont.boldSystemFont(ofSize: sizeHeaderFont)
+        static let normal: UIFont = UIFont.systemFont(ofSize: sizeNormalFont)
+        static let bold = UIFont.boldSystemFont(ofSize: sizeNormalFont)
+        static let bigBold = UIFont.boldSystemFont(ofSize: sizeBigFont)
+        static let header = UIFont.boldSystemFont(ofSize: sizeBigFont)
         
     }
     
     class Size {
+        
+        
+        
         
        
         static let notEnaibleAlpha: CGFloat = 0.4
@@ -61,8 +65,8 @@ class Constant {
         static let killTeamCellHeight: CGFloat = 60
         
         class NormalButton {
-            static let width: CGFloat = 110
-            static let height: CGFloat = 40
+            static let width: CGFloat = 100
+            static let height: CGFloat = 30
         }
         
         class Otstup {

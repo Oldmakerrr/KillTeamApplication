@@ -12,9 +12,11 @@ protocol EditUnitEquipmentCellDelegate: AnyObject {
     func selectEquipment(equipment: Equipment, selected: Bool)
 }
 
-class EditUnitEquipmentCell: UITableViewCell {
+class EditUnitEquipmentCell: UITableViewCell, ReusableView {
 
-    static let identifier = "EditUnitEquipmentCell"
+    static var identifier: String {
+        String(describing: self)
+    }
 
     let costEquipmentLabel = NormalLabel()
     let nameEquipmentLabel = NormalLabel()

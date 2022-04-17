@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     var presenter: PloysPresenterProtocol?
@@ -19,6 +20,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         tableView.delegate = self
         setupTableView()
         tabBarController?.delegate = self
+        navigationItem.title = "Ploys"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,18 +93,23 @@ extension PloysViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = PloysTableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: PloysTableViewCell.identifier, for: indexPath) as! PloysTableViewCell
+        cell.updateCell()
         switch indexPath.section {
         case 0:
             let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
-            cell.ployView.setupPloy(ploy: strategicPloy, delegate: self)
+            cell.setupPloy(ploy: strategicPloy, delegate: self)
             return cell
         default:
             let tacticalPloy = presenter!.model.tacticalPloy[indexPath.row]
-            cell.ployView.setupPloy(ploy: tacticalPloy, delegate: self)
+            cell.setupPloy(ploy: tacticalPloy, delegate: self)
             return cell
         }
     }
+    
+}
+
+extension PloysViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
@@ -124,10 +131,6 @@ extension PloysViewController: UITableViewDataSource {
     
 }
 
-extension PloysViewController: UITableViewDelegate {
-    
-}
-
 extension PloysViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
@@ -143,6 +146,7 @@ extension PloysViewController: WeaponRuleButtonDelegate {
         moreInfoWeaponRuleAlert(weaponRule: weaponRule)
     }
     
-    
-    
 }
+
+ 
+ 

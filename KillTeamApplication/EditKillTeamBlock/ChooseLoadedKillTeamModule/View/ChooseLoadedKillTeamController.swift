@@ -14,7 +14,7 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        tableView.register(ChooseKillTeamTableViewCell.self, forCellReuseIdentifier: KillTeamTableViewCell.ChooseLoadedKillTeamCell.rawValue)
+        tableView.register(ChooseKillTeamCell.self, forCellReuseIdentifier: KillTeamTableViewCell.ChooseLoadedKillTeamCell.rawValue)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +33,7 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let killTeam = presenter?.model.loadedKillTeam[indexPath.row] else { return UITableViewCell() }
-        let cell = tableView.dequeueReusableCell(withIdentifier: KillTeamTableViewCell.ChooseLoadedKillTeamCell.rawValue, for: indexPath) as! ChooseKillTeamTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: KillTeamTableViewCell.ChooseLoadedKillTeamCell.rawValue, for: indexPath) as! ChooseKillTeamCell
         cell.setupText(killTeam: killTeam)
         return cell
     }

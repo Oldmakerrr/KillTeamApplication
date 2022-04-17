@@ -48,17 +48,17 @@ class ChoosenTacOpsViewController: UIViewController, ChoosenTacOpsViewController
         case 0:
         if tacOp.secondCondition == nil {
             cell.ProgressTacOplabel.text = "Tac Op complete"
-            tacOp.progreesTacOp += 2
+            tacOp.progreesTacOp? += 2
             presenter?.model.gameData.countVictoryPoint += tacOp.victoryPointForfirstCondition
             cell.alpha = 0.6
         } else {
             cell.ProgressTacOplabel.text = "First part of Tac Op complete"
-            tacOp.progreesTacOp += 1
+            tacOp.progreesTacOp? += 1
             presenter?.model.gameData.countVictoryPoint += tacOp.victoryPointForfirstCondition
         }
         case 1:
             cell.ProgressTacOplabel.text = "Tac Op complete"
-            tacOp.progreesTacOp += 1
+            tacOp.progreesTacOp? += 1
             presenter?.model.gameData.countVictoryPoint += tacOp.victoryPointSecondCondition!
             cell.alpha = 0.6
         default:
@@ -100,7 +100,7 @@ extension ChoosenTacOpsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosenTacOpsCell.identifier, for: indexPath) as! ChoosenTacOpsCell
-        //let cell = ChoosenTacOpsCell()
+        cell.updateCell()
         switch indexPath.item {
         case 0:
             if let tacOp = presenter?.model.gameData.firstTacOp {

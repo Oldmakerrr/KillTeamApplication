@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         }
         let gameStore = GameStore()
+        gameStore.parseTacOps()
         let builder = ModuleBuilder(store: store, gameStore: gameStore)
         _ = MainTabbarRouter(builder: builder, window: window!, complition: store.loadLastUsedKillTeam)
     }

@@ -13,7 +13,6 @@
 		1810011C27EB633B00A18B1B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810011B27EB633B00A18B1B /* HeaderView.swift */; };
 		18103AA127F5F9F400DBD2C4 /* ErrorLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18103AA027F5F9F400DBD2C4 /* ErrorLayer.swift */; };
 		18339DAC27C21BED00EBCC35 /* TacOpsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */; };
-		1850BFA227E6871E00BBE41A /* AllFactionV1 .json in Resources */ = {isa = PBXBuildFile; fileRef = 1850BFA127E6871E00BBE41A /* AllFactionV1 .json */; };
 		1857E36A27C4E6D100FEFA76 /* MoreInfoTacOpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36927C4E6D100FEFA76 /* MoreInfoTacOpView.swift */; };
 		1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */; };
 		1857E37327C574E600FEFA76 /* ChoosenTacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */; };
@@ -40,20 +39,20 @@
 		18A5217627C181CB003A29DA /* AddFireTeamPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217527C181CB003A29DA /* AddFireTeamPresenter.swift */; };
 		18A5217827C181E8003A29DA /* AddFireTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217727C181E8003A29DA /* AddFireTeamModel.swift */; };
 		18A5217A27C18209003A29DA /* AddFireTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217927C18209003A29DA /* AddFireTeamCell.swift */; };
-		18A5217C27C18222003A29DA /* AddFireTeamTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217B27C18222003A29DA /* AddFireTeamTableVC.swift */; };
-		18A5217E27C18237003A29DA /* ExtensionAddFireTeamVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217D27C18237003A29DA /* ExtensionAddFireTeamVC.swift */; };
+		18A5217C27C18222003A29DA /* AddFireTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217B27C18222003A29DA /* AddFireTeamViewController.swift */; };
+		18A5217E27C18237003A29DA /* ExtensionAddFireTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217D27C18237003A29DA /* ExtensionAddFireTeam.swift */; };
 		18A5218027C1825D003A29DA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217F27C1825D003A29DA /* Model.swift */; };
 		18A5218627C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5218527C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift */; };
 		18A5218827C18301003A29DA /* ChooseLoadedKillTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5218727C18301003A29DA /* ChooseLoadedKillTeamModel.swift */; };
 		18A5218A27C18321003A29DA /* ChooseLoadedKillTeamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5218927C18321003A29DA /* ChooseLoadedKillTeamController.swift */; };
 		18A5219027C18380003A29DA /* ChooseKillTeamPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5218F27C18380003A29DA /* ChooseKillTeamPresenter.swift */; };
 		18A5219227C1839B003A29DA /* ChooseKillTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5219127C1839B003A29DA /* ChooseKillTeamModel.swift */; };
-		18A5219427C183C6003A29DA /* ChooseKillTeamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5219327C183C6003A29DA /* ChooseKillTeamTableViewCell.swift */; };
+		18A5219427C183C6003A29DA /* ChooseKillTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5219327C183C6003A29DA /* ChooseKillTeamCell.swift */; };
 		18A5219627C183DB003A29DA /* ChooseKillTeamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5219527C183DB003A29DA /* ChooseKillTeamTableViewController.swift */; };
 		18A5219C27C18421003A29DA /* CounterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5219B27C18421003A29DA /* CounterPresenter.swift */; };
 		18A5219E27C1843B003A29DA /* CounterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5219D27C1843B003A29DA /* CounterModel.swift */; };
 		18A521A027C18467003A29DA /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5219F27C18467003A29DA /* CounterViewController.swift */; };
-		18A521A227C18486003A29DA /* CounterViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521A127C18486003A29DA /* CounterViewExtention.swift */; };
+		18A521A227C18486003A29DA /* ExtentionCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521A127C18486003A29DA /* ExtentionCounter.swift */; };
 		18A521A427C1849F003A29DA /* CurrentKillTeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521A327C1849F003A29DA /* CurrentKillTeamView.swift */; };
 		18A521AA27C18509003A29DA /* EditKillTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521A927C18509003A29DA /* EditKillTeamModel.swift */; };
 		18A521AC27C18520003A29DA /* EditKillTeamPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521AB27C18520003A29DA /* EditKillTeamPresenter.swift */; };
@@ -73,7 +72,7 @@
 		18D3B94827C18F4000B74C2D /* MoreInfoUnitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94727C18F4000B74C2D /* MoreInfoUnitModel.swift */; };
 		18D3B94A27C18F5400B74C2D /* MoreUnitInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94927C18F5400B74C2D /* MoreUnitInfoPresenter.swift */; };
 		18D3B94C27C18F7200B74C2D /* MoreInfoUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94B27C18F7200B74C2D /* MoreInfoUnitViewController.swift */; };
-		18D3B94E27C18F8500B74C2D /* MethodUIExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94D27C18F8500B74C2D /* MethodUIExtention.swift */; };
+		18D3B94E27C18F8500B74C2D /* ExtentionMoreInfoUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94D27C18F8500B74C2D /* ExtentionMoreInfoUnit.swift */; };
 		18D3B95027C18FA100B74C2D /* AdditionalVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94F27C18FA100B74C2D /* AdditionalVIew.swift */; };
 		18D3B95727C18FFE00B74C2D /* PloysModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B95627C18FFE00B74C2D /* PloysModel.swift */; };
 		18D3B95927C1901400B74C2D /* PloysPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B95827C1901400B74C2D /* PloysPresenter.swift */; };
@@ -83,18 +82,24 @@
 		18D3B96627C190AE00B74C2D /* TacOpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B96527C190AE00B74C2D /* TacOpsModel.swift */; };
 		18D3B96827C190C100B74C2D /* TacOpsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B96727C190C100B74C2D /* TacOpsPresenter.swift */; };
 		18D3B96A27C190D700B74C2D /* TacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B96927C190D700B74C2D /* TacOpsViewController.swift */; };
-		18D3B96E27C1913E00B74C2D /* GreenskinKillTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B96D27C1913E00B74C2D /* GreenskinKillTeam.swift */; };
-		18D3B97027C1915300B74C2D /* UnitGreenskin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B96F27C1915300B74C2D /* UnitGreenskin.swift */; };
-		18D3B97227C1916600B74C2D /* WeaponGreenskin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B97127C1916600B74C2D /* WeaponGreenskin.swift */; };
 		18E908972802BEE80077516B /* PloyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908962802BEE80077516B /* PloyView.swift */; };
-		18E90899280318C60077516B /* ExtensionEditUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E90898280318C60077516B /* ExtensionEditUnitViewController.swift */; };
+		18E90899280318C60077516B /* ExtensionEditUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E90898280318C60077516B /* ExtensionEditUnit.swift */; };
 		18E9089B280471550077516B /* CustomUIViewElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9089A280471550077516B /* CustomUIViewElements.swift */; };
 		18E9089D28053DF70077516B /* CurrentPloysCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9089C28053DF70077516B /* CurrentPloysCollectionView.swift */; };
 		18E9089F2805406D0077516B /* CurrentPloysCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */; };
 		18E908A1280570B50077516B /* RosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A0280570B50077516B /* RosterTableViewCell.swift */; };
-		18E908A32806F6CC0077516B /* CharacteristicLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A22806F6CB0077516B /* CharacteristicLabelView.swift */; };
 		18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A42807FB990077516B /* LabelWithImageView.swift */; };
-		18E908A728094A700077516B /* ExtensionTacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A628094A700077516B /* ExtensionTacOpsViewController.swift */; };
+		18E908A728094A700077516B /* ExtensionTacOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A628094A700077516B /* ExtensionTacOps.swift */; };
+		18E908AF280BCF8F0077516B /* PloysCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908AE280BCF8E0077516B /* PloysCollectionViewController.swift */; };
+		18E908B1280BD0FE0077516B /* PloysCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908B0280BD0FE0077516B /* PloysCollectionViewCell.swift */; };
+		18E908BF280BE5D20077516B /* NormalLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908BE280BE5D20077516B /* NormalLabel.swift */; };
+		18E908C1280BE5F20077516B /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908C0280BE5F20077516B /* HeaderLabel.swift */; };
+		18E908C3280BE6100077516B /* BigLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908C2280BE6100077516B /* BigLabel.swift */; };
+		18E908C5280BE6450077516B /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908C4280BE6450077516B /* DoneButton.swift */; };
+		18E908C9280BE6930077516B /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908C8280BE6930077516B /* AddButton.swift */; };
+		18E908CF280BE8B80077516B /* WeaponRuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908CE280BE8B70077516B /* WeaponRuleView.swift */; };
+		18E908D5280BEB7A0077516B /* AllFactionV1 .json in Resources */ = {isa = PBXBuildFile; fileRef = 18E908D4280BEB7A0077516B /* AllFactionV1 .json */; };
+		18E908D7280BEB830077516B /* TacOps.json in Resources */ = {isa = PBXBuildFile; fileRef = 18E908D6280BEB830077516B /* TacOps.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,7 +109,6 @@
 		1810011B27EB633B00A18B1B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		18103AA027F5F9F400DBD2C4 /* ErrorLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLayer.swift; sourceTree = "<group>"; };
 		18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsCollectionCell.swift; sourceTree = "<group>"; };
-		1850BFA127E6871E00BBE41A /* AllFactionV1 .json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "AllFactionV1 .json"; path = "../../../Downloads/AllFactionV1 .json"; sourceTree = "<group>"; };
 		1857E36927C4E6D100FEFA76 /* MoreInfoTacOpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoTacOpView.swift; sourceTree = "<group>"; };
 		1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsModel.swift; sourceTree = "<group>"; };
 		1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsViewController.swift; sourceTree = "<group>"; };
@@ -133,20 +137,20 @@
 		18A5217527C181CB003A29DA /* AddFireTeamPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamPresenter.swift; sourceTree = "<group>"; };
 		18A5217727C181E8003A29DA /* AddFireTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamModel.swift; sourceTree = "<group>"; };
 		18A5217927C18209003A29DA /* AddFireTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamCell.swift; sourceTree = "<group>"; };
-		18A5217B27C18222003A29DA /* AddFireTeamTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamTableVC.swift; sourceTree = "<group>"; };
-		18A5217D27C18237003A29DA /* ExtensionAddFireTeamVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAddFireTeamVC.swift; sourceTree = "<group>"; };
+		18A5217B27C18222003A29DA /* AddFireTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamViewController.swift; sourceTree = "<group>"; };
+		18A5217D27C18237003A29DA /* ExtensionAddFireTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAddFireTeam.swift; sourceTree = "<group>"; };
 		18A5217F27C1825D003A29DA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		18A5218527C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLoadedKillTeamPresenter.swift; sourceTree = "<group>"; };
 		18A5218727C18301003A29DA /* ChooseLoadedKillTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLoadedKillTeamModel.swift; sourceTree = "<group>"; };
 		18A5218927C18321003A29DA /* ChooseLoadedKillTeamController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLoadedKillTeamController.swift; sourceTree = "<group>"; };
 		18A5218F27C18380003A29DA /* ChooseKillTeamPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseKillTeamPresenter.swift; sourceTree = "<group>"; };
 		18A5219127C1839B003A29DA /* ChooseKillTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseKillTeamModel.swift; sourceTree = "<group>"; };
-		18A5219327C183C6003A29DA /* ChooseKillTeamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseKillTeamTableViewCell.swift; sourceTree = "<group>"; };
+		18A5219327C183C6003A29DA /* ChooseKillTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseKillTeamCell.swift; sourceTree = "<group>"; };
 		18A5219527C183DB003A29DA /* ChooseKillTeamTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseKillTeamTableViewController.swift; sourceTree = "<group>"; };
 		18A5219B27C18421003A29DA /* CounterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterPresenter.swift; sourceTree = "<group>"; };
 		18A5219D27C1843B003A29DA /* CounterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterModel.swift; sourceTree = "<group>"; };
 		18A5219F27C18467003A29DA /* CounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewController.swift; sourceTree = "<group>"; };
-		18A521A127C18486003A29DA /* CounterViewExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterViewExtention.swift; sourceTree = "<group>"; };
+		18A521A127C18486003A29DA /* ExtentionCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionCounter.swift; sourceTree = "<group>"; };
 		18A521A327C1849F003A29DA /* CurrentKillTeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentKillTeamView.swift; sourceTree = "<group>"; };
 		18A521A927C18509003A29DA /* EditKillTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditKillTeamModel.swift; sourceTree = "<group>"; };
 		18A521AB27C18520003A29DA /* EditKillTeamPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditKillTeamPresenter.swift; sourceTree = "<group>"; };
@@ -166,7 +170,7 @@
 		18D3B94727C18F4000B74C2D /* MoreInfoUnitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoUnitModel.swift; sourceTree = "<group>"; };
 		18D3B94927C18F5400B74C2D /* MoreUnitInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreUnitInfoPresenter.swift; sourceTree = "<group>"; };
 		18D3B94B27C18F7200B74C2D /* MoreInfoUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoUnitViewController.swift; sourceTree = "<group>"; };
-		18D3B94D27C18F8500B74C2D /* MethodUIExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodUIExtention.swift; sourceTree = "<group>"; };
+		18D3B94D27C18F8500B74C2D /* ExtentionMoreInfoUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionMoreInfoUnit.swift; sourceTree = "<group>"; };
 		18D3B94F27C18FA100B74C2D /* AdditionalVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalVIew.swift; sourceTree = "<group>"; };
 		18D3B95627C18FFE00B74C2D /* PloysModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PloysModel.swift; sourceTree = "<group>"; };
 		18D3B95827C1901400B74C2D /* PloysPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PloysPresenter.swift; sourceTree = "<group>"; };
@@ -176,18 +180,24 @@
 		18D3B96527C190AE00B74C2D /* TacOpsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsModel.swift; sourceTree = "<group>"; };
 		18D3B96727C190C100B74C2D /* TacOpsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsPresenter.swift; sourceTree = "<group>"; };
 		18D3B96927C190D700B74C2D /* TacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsViewController.swift; sourceTree = "<group>"; };
-		18D3B96D27C1913E00B74C2D /* GreenskinKillTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenskinKillTeam.swift; sourceTree = "<group>"; };
-		18D3B96F27C1915300B74C2D /* UnitGreenskin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitGreenskin.swift; sourceTree = "<group>"; };
-		18D3B97127C1916600B74C2D /* WeaponGreenskin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponGreenskin.swift; sourceTree = "<group>"; };
 		18E908962802BEE80077516B /* PloyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PloyView.swift; sourceTree = "<group>"; };
-		18E90898280318C60077516B /* ExtensionEditUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionEditUnitViewController.swift; sourceTree = "<group>"; };
+		18E90898280318C60077516B /* ExtensionEditUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionEditUnit.swift; sourceTree = "<group>"; };
 		18E9089A280471550077516B /* CustomUIViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIViewElements.swift; sourceTree = "<group>"; };
 		18E9089C28053DF70077516B /* CurrentPloysCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPloysCollectionView.swift; sourceTree = "<group>"; };
 		18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPloysCollectionViewCell.swift; sourceTree = "<group>"; };
 		18E908A0280570B50077516B /* RosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewCell.swift; sourceTree = "<group>"; };
-		18E908A22806F6CB0077516B /* CharacteristicLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacteristicLabelView.swift; sourceTree = "<group>"; };
 		18E908A42807FB990077516B /* LabelWithImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithImageView.swift; sourceTree = "<group>"; };
-		18E908A628094A700077516B /* ExtensionTacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTacOpsViewController.swift; sourceTree = "<group>"; };
+		18E908A628094A700077516B /* ExtensionTacOps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTacOps.swift; sourceTree = "<group>"; };
+		18E908AE280BCF8E0077516B /* PloysCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PloysCollectionViewController.swift; sourceTree = "<group>"; };
+		18E908B0280BD0FE0077516B /* PloysCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PloysCollectionViewCell.swift; sourceTree = "<group>"; };
+		18E908BE280BE5D20077516B /* NormalLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalLabel.swift; sourceTree = "<group>"; };
+		18E908C0280BE5F20077516B /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
+		18E908C2280BE6100077516B /* BigLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigLabel.swift; sourceTree = "<group>"; };
+		18E908C4280BE6450077516B /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
+		18E908C8280BE6930077516B /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
+		18E908CE280BE8B70077516B /* WeaponRuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponRuleView.swift; sourceTree = "<group>"; };
+		18E908D4280BEB7A0077516B /* AllFactionV1 .json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "AllFactionV1 .json"; path = "../../../Downloads/AllFactionV1 .json"; sourceTree = "<group>"; };
+		18E908D6280BEB830077516B /* TacOps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TacOps.json; path = ../../../Desktop/TacOps.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,22 +211,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		18503FD627EB857400B62DB1 /* CustomUIView */ = {
-			isa = PBXGroup;
-			children = (
-				18A521BF27C18AFF003A29DA /* WeaponView.swift */,
-				18A521C327C18BB6003A29DA /* EquipmentView.swift */,
-				1892482727EF1BC300F1996C /* WeaponRuleAlertController.swift */,
-				1810011B27EB633B00A18B1B /* HeaderView.swift */,
-				1810011927EB5DCA00A18B1B /* UniqueActionView.swift */,
-				1810011727EB5C6300A18B1B /* AbilitieView.swift */,
-				1810011527E9E5CF00A18B1B /* BoldTextLabel.swift */,
-				1892482527EF06E800F1996C /* WeaponRuleButton.swift */,
-				18A521C127C18B5E003A29DA /* CustomAlert.swift */,
-			);
-			path = CustomUIView;
-			sourceTree = "<group>";
-		};
 		18503FD727EB859300B62DB1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,7 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */,
-				1857E37627C57BF600FEFA76 /* ChoosenTacOpsCell.swift */,
+				18E908B7280BE1740077516B /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -264,7 +258,10 @@
 		1892484B27F1F18E00F1996C /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
-				1892484C27F1F1AD00F1996C /* BoldLabel.swift */,
+				18E908CD280BE8890077516B /* Alert */,
+				18E908CC280BE7E90077516B /* View */,
+				18E908C6280BE6610077516B /* Label */,
+				18E908C7280BE66B0077516B /* Button */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -288,12 +285,12 @@
 		18A5214727C17D5B003A29DA /* KillTeamApplication */ = {
 			isa = PBXGroup;
 			children = (
-				18D3B96B27C1911900B74C2D /* KillTeamTest */,
 				18A5214827C17D5B003A29DA /* AppDelegate.swift */,
 				18A5214A27C17D5B003A29DA /* SceneDelegate.swift */,
-				18A5217F27C1825D003A29DA /* Model.swift */,
 				1892484927F09BAF00F1996C /* Constant.swift */,
-				1850BFA127E6871E00BBE41A /* AllFactionV1 .json */,
+				18E908D6280BEB830077516B /* TacOps.json */,
+				18E908D4280BEB7A0077516B /* AllFactionV1 .json */,
+				18E908D3280BE9AC0077516B /* Model */,
 				1892484B27F1F18E00F1996C /* CustomUI */,
 				18A5216227C17E0C003A29DA /* Service */,
 				18D3B96027C1908500B74C2D /* TacOpsBlock */,
@@ -367,9 +364,9 @@
 		18A5217327C181B2003A29DA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				18A5217B27C18222003A29DA /* AddFireTeamTableVC.swift */,
-				18A5217927C18209003A29DA /* AddFireTeamCell.swift */,
-				18A5217D27C18237003A29DA /* ExtensionAddFireTeamVC.swift */,
+				18A5217B27C18222003A29DA /* AddFireTeamViewController.swift */,
+				18A5217D27C18237003A29DA /* ExtensionAddFireTeam.swift */,
+				18E908B8280BE2510077516B /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -438,7 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				18A5219527C183DB003A29DA /* ChooseKillTeamTableViewController.swift */,
-				18A5219327C183C6003A29DA /* ChooseKillTeamTableViewCell.swift */,
+				18E908BB280BE4340077516B /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -473,11 +470,8 @@
 			isa = PBXGroup;
 			children = (
 				18A5219F27C18467003A29DA /* CounterViewController.swift */,
-				18E9089C28053DF70077516B /* CurrentPloysCollectionView.swift */,
-				18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */,
-				18E9089A280471550077516B /* CustomUIViewElements.swift */,
-				18A521A127C18486003A29DA /* CounterViewExtention.swift */,
-				18A521A327C1849F003A29DA /* CurrentKillTeamView.swift */,
+				18A521A127C18486003A29DA /* ExtentionCounter.swift */,
+				18E908BC280BE57B0077516B /* CustomView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -512,8 +506,8 @@
 			isa = PBXGroup;
 			children = (
 				18A521AF27C18566003A29DA /* EditKillTeamTableViewController.swift */,
-				18A521AD27C18538003A29DA /* EditKillTeamCell.swift */,
-				18E908A42807FB990077516B /* LabelWithImageView.swift */,
+				18E908BA280BE39A0077516B /* Cell */,
+				18E908B9280BE38C0077516B /* CustomView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -548,9 +542,8 @@
 			isa = PBXGroup;
 			children = (
 				18A521B927C18A90003A29DA /* EditUnitViewController.swift */,
-				18E90898280318C60077516B /* ExtensionEditUnitViewController.swift */,
+				18E90898280318C60077516B /* ExtensionEditUnit.swift */,
 				18503FD727EB859300B62DB1 /* Cell */,
-				18503FD627EB857400B62DB1 /* CustomUIView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -604,7 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				18D3B94327C18EF100B74C2D /* RosterTableViewController.swift */,
-				18E908A0280570B50077516B /* RosterTableViewCell.swift */,
+				18E908B3280BE0690077516B /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -629,9 +622,8 @@
 			isa = PBXGroup;
 			children = (
 				18D3B94B27C18F7200B74C2D /* MoreInfoUnitViewController.swift */,
-				18D3B94D27C18F8500B74C2D /* MethodUIExtention.swift */,
-				18D3B94F27C18FA100B74C2D /* AdditionalVIew.swift */,
-				18E908A22806F6CB0077516B /* CharacteristicLabelView.swift */,
+				18D3B94D27C18F8500B74C2D /* ExtentionMoreInfoUnit.swift */,
+				18E908B4280BE0DD0077516B /* CustomView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -674,9 +666,10 @@
 			isa = PBXGroup;
 			children = (
 				18D3B95A27C1903200B74C2D /* PloysViewController.swift */,
-				18D3B95C27C1905400B74C2D /* PloysTableViewCell.swift */,
-				18E908962802BEE80077516B /* PloyView.swift */,
 				18D3B95E27C1906700B74C2D /* ExtentionPloysView.swift */,
+				18E908B5280BE1260077516B /* Cell */,
+				18E908B6280BE1310077516B /* CustomView */,
+				18E908B2280BD32F0077516B /* PloysCollectionView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -720,7 +713,7 @@
 			isa = PBXGroup;
 			children = (
 				18D3B96927C190D700B74C2D /* TacOpsViewController.swift */,
-				18E908A628094A700077516B /* ExtensionTacOpsViewController.swift */,
+				18E908A628094A700077516B /* ExtensionTacOps.swift */,
 				18E908A828094C350077516B /* Cell */,
 				18E908A928094C3E0077516B /* CustomView */,
 			);
@@ -733,24 +726,6 @@
 				18D3B96527C190AE00B74C2D /* TacOpsModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		18D3B96B27C1911900B74C2D /* KillTeamTest */ = {
-			isa = PBXGroup;
-			children = (
-				18D3B96C27C1912000B74C2D /* Greenskin */,
-			);
-			path = KillTeamTest;
-			sourceTree = "<group>";
-		};
-		18D3B96C27C1912000B74C2D /* Greenskin */ = {
-			isa = PBXGroup;
-			children = (
-				18D3B96D27C1913E00B74C2D /* GreenskinKillTeam.swift */,
-				18D3B96F27C1915300B74C2D /* UnitGreenskin.swift */,
-				18D3B97127C1916600B74C2D /* WeaponGreenskin.swift */,
-			);
-			path = Greenskin;
 			sourceTree = "<group>";
 		};
 		18E908A828094C350077516B /* Cell */ = {
@@ -767,6 +742,158 @@
 				1857E36927C4E6D100FEFA76 /* MoreInfoTacOpView.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		18E908B2280BD32F0077516B /* PloysCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				18E908AE280BCF8E0077516B /* PloysCollectionViewController.swift */,
+				18E908B0280BD0FE0077516B /* PloysCollectionViewCell.swift */,
+			);
+			path = PloysCollectionView;
+			sourceTree = "<group>";
+		};
+		18E908B3280BE0690077516B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18E908A0280570B50077516B /* RosterTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E908B4280BE0DD0077516B /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				18D3B94F27C18FA100B74C2D /* AdditionalVIew.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		18E908B5280BE1260077516B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18D3B95C27C1905400B74C2D /* PloysTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E908B6280BE1310077516B /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				18E908962802BEE80077516B /* PloyView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		18E908B7280BE1740077516B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1857E37627C57BF600FEFA76 /* ChoosenTacOpsCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E908B8280BE2510077516B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18A5217927C18209003A29DA /* AddFireTeamCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E908B9280BE38C0077516B /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				18E908A42807FB990077516B /* LabelWithImageView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		18E908BA280BE39A0077516B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18A521AD27C18538003A29DA /* EditKillTeamCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E908BB280BE4340077516B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18A5219327C183C6003A29DA /* ChooseKillTeamCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E908BC280BE57B0077516B /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				18E9089C28053DF70077516B /* CurrentPloysCollectionView.swift */,
+				18E908BD280BE58D0077516B /* Cell */,
+				18E9089A280471550077516B /* CustomUIViewElements.swift */,
+				18A521A327C1849F003A29DA /* CurrentKillTeamView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		18E908BD280BE58D0077516B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		18E908C6280BE6610077516B /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				1892484C27F1F1AD00F1996C /* BoldLabel.swift */,
+				18E908BE280BE5D20077516B /* NormalLabel.swift */,
+				18E908C0280BE5F20077516B /* HeaderLabel.swift */,
+				1810011527E9E5CF00A18B1B /* BoldTextLabel.swift */,
+				18E908C2280BE6100077516B /* BigLabel.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		18E908C7280BE66B0077516B /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				18E908C4280BE6450077516B /* DoneButton.swift */,
+				1892482527EF06E800F1996C /* WeaponRuleButton.swift */,
+				18E908C8280BE6930077516B /* AddButton.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		18E908CC280BE7E90077516B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1810011B27EB633B00A18B1B /* HeaderView.swift */,
+				18A521BF27C18AFF003A29DA /* WeaponView.swift */,
+				18A521C327C18BB6003A29DA /* EquipmentView.swift */,
+				1810011927EB5DCA00A18B1B /* UniqueActionView.swift */,
+				1810011727EB5C6300A18B1B /* AbilitieView.swift */,
+				18E908CE280BE8B70077516B /* WeaponRuleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18E908CD280BE8890077516B /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				1892482727EF1BC300F1996C /* WeaponRuleAlertController.swift */,
+				18A521C127C18B5E003A29DA /* CustomAlert.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		18E908D3280BE9AC0077516B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18A5217F27C1825D003A29DA /* Model.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -827,8 +954,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				18A5215527C17D5C003A29DA /* LaunchScreen.storyboard in Resources */,
+				18E908D7280BEB830077516B /* TacOps.json in Resources */,
+				18E908D5280BEB7A0077516B /* AllFactionV1 .json in Resources */,
 				18A5215227C17D5C003A29DA /* Assets.xcassets in Resources */,
-				1850BFA227E6871E00BBE41A /* AllFactionV1 .json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,15 +968,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				18A5217827C181E8003A29DA /* AddFireTeamModel.swift in Sources */,
-				18D3B96E27C1913E00B74C2D /* GreenskinKillTeam.swift in Sources */,
 				18D3B94C27C18F7200B74C2D /* MoreInfoUnitViewController.swift in Sources */,
 				1857E37727C57BF600FEFA76 /* ChoosenTacOpsCell.swift in Sources */,
 				18A5218627C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift in Sources */,
-				18D3B97227C1916600B74C2D /* WeaponGreenskin.swift in Sources */,
 				18E9089B280471550077516B /* CustomUIViewElements.swift in Sources */,
 				18A5216427C17E3B003A29DA /* EditKillTeamRouter.swift in Sources */,
 				18A5216927C17E89003A29DA /* MainTabBarController.swift in Sources */,
-				18E908A728094A700077516B /* ExtensionTacOpsViewController.swift in Sources */,
+				18E908A728094A700077516B /* ExtensionTacOps.swift in Sources */,
 				18A5216B27C17EB9003A29DA /* MainTabBarRouter.swift in Sources */,
 				18A5216F27C17EF0003A29DA /* TacOpsRouter.swift in Sources */,
 				1857E36A27C4E6D100FEFA76 /* MoreInfoTacOpView.swift in Sources */,
@@ -861,13 +987,14 @@
 				18E9089F2805406D0077516B /* CurrentPloysCollectionViewCell.swift in Sources */,
 				18A521A427C1849F003A29DA /* CurrentKillTeamView.swift in Sources */,
 				1892482827EF1BC300F1996C /* WeaponRuleAlertController.swift in Sources */,
-				18D3B94E27C18F8500B74C2D /* MethodUIExtention.swift in Sources */,
+				18D3B94E27C18F8500B74C2D /* ExtentionMoreInfoUnit.swift in Sources */,
 				18D3B95F27C1906700B74C2D /* ExtentionPloysView.swift in Sources */,
 				18A5219C27C18421003A29DA /* CounterPresenter.swift in Sources */,
 				18A521B027C18566003A29DA /* EditKillTeamTableViewController.swift in Sources */,
-				18A5219427C183C6003A29DA /* ChooseKillTeamTableViewCell.swift in Sources */,
+				18A5219427C183C6003A29DA /* ChooseKillTeamCell.swift in Sources */,
 				18E9089D28053DF70077516B /* CurrentPloysCollectionView.swift in Sources */,
 				18A5216727C17E72003A29DA /* KillTeamObserverRouter.swift in Sources */,
+				18E908C1280BE5F20077516B /* HeaderLabel.swift in Sources */,
 				1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */,
 				18A5218027C1825D003A29DA /* Model.swift in Sources */,
 				18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */,
@@ -876,30 +1003,36 @@
 				18D3B95927C1901400B74C2D /* PloysPresenter.swift in Sources */,
 				18A5214B27C17D5B003A29DA /* SceneDelegate.swift in Sources */,
 				18D3B95727C18FFE00B74C2D /* PloysModel.swift in Sources */,
-				18A5217C27C18222003A29DA /* AddFireTeamTableVC.swift in Sources */,
+				18A5217C27C18222003A29DA /* AddFireTeamViewController.swift in Sources */,
 				18E908A1280570B50077516B /* RosterTableViewCell.swift in Sources */,
+				18E908B1280BD0FE0077516B /* PloysCollectionViewCell.swift in Sources */,
 				18A521B827C18A5C003A29DA /* EditUnitPresenter.swift in Sources */,
-				18E90899280318C60077516B /* ExtensionEditUnitViewController.swift in Sources */,
+				18E90899280318C60077516B /* ExtensionEditUnit.swift in Sources */,
 				1892484D27F1F1AD00F1996C /* BoldLabel.swift in Sources */,
 				18D3B95027C18FA100B74C2D /* AdditionalVIew.swift in Sources */,
 				18A521C427C18BB6003A29DA /* EquipmentView.swift in Sources */,
 				18A521BC27C18ABC003A29DA /* EditUnitWargearCell.swift in Sources */,
-				18A521A227C18486003A29DA /* CounterViewExtention.swift in Sources */,
+				18E908C3280BE6100077516B /* BigLabel.swift in Sources */,
+				18A521A227C18486003A29DA /* ExtentionCounter.swift in Sources */,
 				18339DAC27C21BED00EBCC35 /* TacOpsCollectionCell.swift in Sources */,
+				18E908C9280BE6930077516B /* AddButton.swift in Sources */,
 				1810011827EB5C6300A18B1B /* AbilitieView.swift in Sources */,
+				18E908CF280BE8B80077516B /* WeaponRuleView.swift in Sources */,
 				18A5219227C1839B003A29DA /* ChooseKillTeamModel.swift in Sources */,
 				18D3B95B27C1903200B74C2D /* PloysViewController.swift in Sources */,
 				18A5217627C181CB003A29DA /* AddFireTeamPresenter.swift in Sources */,
 				1810011A27EB5DCA00A18B1B /* UniqueActionView.swift in Sources */,
+				18E908AF280BCF8F0077516B /* PloysCollectionViewController.swift in Sources */,
 				18D3B94827C18F4000B74C2D /* MoreInfoUnitModel.swift in Sources */,
 				18D3B96A27C190D700B74C2D /* TacOpsViewController.swift in Sources */,
 				18D3B96827C190C100B74C2D /* TacOpsPresenter.swift in Sources */,
 				18103AA127F5F9F400DBD2C4 /* ErrorLayer.swift in Sources */,
 				18A521AA27C18509003A29DA /* EditKillTeamModel.swift in Sources */,
 				18A5219027C18380003A29DA /* ChooseKillTeamPresenter.swift in Sources */,
-				18A5217E27C18237003A29DA /* ExtensionAddFireTeamVC.swift in Sources */,
+				18A5217E27C18237003A29DA /* ExtensionAddFireTeam.swift in Sources */,
 				1810011627E9E5CF00A18B1B /* BoldTextLabel.swift in Sources */,
 				1857E37927C6341E00FEFA76 /* GameStore.swift in Sources */,
+				18E908C5280BE6450077516B /* DoneButton.swift in Sources */,
 				18D3B96627C190AE00B74C2D /* TacOpsModel.swift in Sources */,
 				1892482627EF06E800F1996C /* WeaponRuleButton.swift in Sources */,
 				18A5216127C17DF7003A29DA /* Store.swift in Sources */,
@@ -908,9 +1041,8 @@
 				18A521BA27C18A90003A29DA /* EditUnitViewController.swift in Sources */,
 				1810011C27EB633B00A18B1B /* HeaderView.swift in Sources */,
 				18A5218827C18301003A29DA /* ChooseLoadedKillTeamModel.swift in Sources */,
+				18E908BF280BE5D20077516B /* NormalLabel.swift in Sources */,
 				18D3B94A27C18F5400B74C2D /* MoreUnitInfoPresenter.swift in Sources */,
-				18E908A32806F6CC0077516B /* CharacteristicLabelView.swift in Sources */,
-				18D3B97027C1915300B74C2D /* UnitGreenskin.swift in Sources */,
 				18D3B95D27C1905400B74C2D /* PloysTableViewCell.swift in Sources */,
 				18A5217A27C18209003A29DA /* AddFireTeamCell.swift in Sources */,
 				18D3B94227C18ECB00B74C2D /* RosterModel.swift in Sources */,

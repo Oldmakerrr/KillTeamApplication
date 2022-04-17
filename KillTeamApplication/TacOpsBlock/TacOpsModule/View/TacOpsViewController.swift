@@ -26,12 +26,17 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Seek & Destroy"
         setupTacOpsCollection()
         moreInfoTacOpView.delegate = self
-        
+        goToChoosenTacOpsButton.isEnabled = false
         setupButton()
         setupGoToChoosenTacOpsButton()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tacOpsCollection.reloadData()
     }
     
     
@@ -86,19 +91,19 @@ extension TacOpsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let widht = itemWidht(itemsInRow: 2, spacing: 10)
-        let height = itemHeight(itemsInRow: 3, spacing: 60)
+        let height = itemHeight(itemsInRow: 3, spacing: Constant.Size.screenHeight * 0.057)
         return CGSize(width: widht, height: height)
     }
     
     func itemWidht(itemsInRow: CGFloat, spacing: CGFloat) -> CGFloat {
         let totalSpacing = 2 * spacing + (itemsInRow - 1) * spacing
-        let widhtScreen = view.frame.size.width
+        let widhtScreen = Constant.Size.screenWidth
         return (widhtScreen - totalSpacing) / itemsInRow
     }
     
     func itemHeight(itemsInRow: CGFloat, spacing: CGFloat) -> CGFloat {
         let totalSpacing = 2 * spacing + (itemsInRow - 1) * spacing
-        let heightScreen = view.frame.size.height
+        let heightScreen = Constant.Size.screenHeight
         return (heightScreen - totalSpacing) / itemsInRow
     }
 

@@ -91,9 +91,11 @@ final class Store: StoreProtocol {
 //MARK - RemoveAndAddKey
         
     func removeKillTeam(indexPath: IndexPath) {
-        if loadedKillTeam[indexPath.row].id == self.killTeam!.id {
-            self.killTeam = nil
-            UserDefaults.standard.removeObject(forKey: lastUsedKillTeamKey)
+        if let killTeam = killTeam {
+            if loadedKillTeam[indexPath.row].id == killTeam.id {
+                self.killTeam = nil
+                UserDefaults.standard.removeObject(forKey: lastUsedKillTeamKey)
+            }
         }
         loadedKillTeam.remove(at: indexPath.row)
     }

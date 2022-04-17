@@ -11,7 +11,7 @@ class ChoosenTacOpsModel {
     
     var gameData = GameData()
     
-    var firstTacOp: TacOps = headhunter
-    var secondTacOp: TacOps = headhunter
-    var thirdTacOp: TacOps = headhunter
+    var firstTacOp: TacOps?
+    var secondTacOp: TacOps?
+    var thirdTacOp: TacOps?
 }

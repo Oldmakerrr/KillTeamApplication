@@ -68,13 +68,10 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         switch section {
         case 0:
             view.label.text = presenter?.model.headerForRow[0]
-            view.imageView.image = UIImage(named: presenter?.model.headerForRow[0] ?? "")
         case 1:
             view.label.text = presenter?.model.headerForRow[1]
-            view.imageView.image = UIImage(named: presenter?.model.headerForRow[1] ?? "")
         case 2:
             view.label.text = presenter?.model.headerForRow[2]
-            view.imageView.image = UIImage(named: presenter?.model.headerForRow[2] ?? "")
         default:
             view.label.text = ""
         }
@@ -190,8 +187,13 @@ extension UIViewController {
     
 }
 
+enum IdentifierTableHeaderView: String {
+    case editKillTeamTableView
+}
 
 class TableHeaderView: UIView {
+    
+    static let identifier: IdentifierTableHeaderView = .editKillTeamTableView
     
     let label = HeaderLabel()
     let imageView = UIImageView()

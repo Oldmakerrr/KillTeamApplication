@@ -23,7 +23,7 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        title = presenter?.model.choosenUnit?.name
+        navigationItem.title = presenter?.model.choosenUnit?.customName ?? ""
         setupScrollView()
         setupScrollViewContainer()
         setupAdditionalView()

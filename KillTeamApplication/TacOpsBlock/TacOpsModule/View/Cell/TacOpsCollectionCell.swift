@@ -30,7 +30,8 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
     }
     
     let button = DoneButton()
-    let nameLabel = HeaderLabel()
+    let nameLabel = BoldLabel()
+    let imageView = UIImageView()
     
     var tacOp: TacOps?
     var index: Int?
@@ -42,11 +43,13 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         layer.masksToBounds = true
         setupLabel()
         setupButton()
+        setupImageView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     func setupColor(tacOp: TacOps?) {
         if self.tacOp == tacOp {
@@ -68,8 +71,29 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
             nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.normal),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.normal),
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.normal),
+            nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor),
+            nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20)
         ])
         
+    }
+    
+    private func setupImageView() {
+        contentView.addSubview(imageView)
+        imageView.image = UIImage(named: "KILL_TEAM")
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            imageView.bottomAnchor.constraint(equalTo: button.topAnchor),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+            imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 10),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+           // imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+           // imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+           // imageView.heightAnchor.constraint(equalToConstant: 100),
+           // imageView.widthAnchor.constraint(equalToConstant: 100)
+        
+        ])
     }
     
     @objc func buttonAction() {

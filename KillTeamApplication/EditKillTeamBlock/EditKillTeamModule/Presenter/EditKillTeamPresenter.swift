@@ -17,12 +17,10 @@ protocol EditKillTeamPresenterProtocol: AnyObject {
     var model: ChosenKillTeam { get }
     var store: StoreProtocol { get }
     init (view: EditKillTeamProtocol, store: StoreProtocol)
+    
     func addFireTeamAction()
-    
     func renameKillTeamAlertController()
-    
     func goToEditUnitVC(indexPath: IndexPath)
-    func goToAddFireTeam()
     func changeUnitAction(indexPath: IndexPath)-> UIContextualAction
     func removeUnitAction(indexPath: IndexPath) -> UIContextualAction
     func renameUnitAction(indexPath: IndexPath) -> UIContextualAction
@@ -197,10 +195,11 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
                     }
                     alert.addAction(action)
                 }
+                let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alert.addAction(actionCancel)
+                view.present(alert, animated: true, completion: nil)
             }
-            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            alert.addAction(actionCancel)
-            view.present(alert, animated: true, completion: nil)
+            
         }
         return action
     }
@@ -230,20 +229,29 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     
 //MARK: UIAlertController
     
-    func showAddUnitOrFireTeamAlertController() {
-        guard let view = view as? UITableViewController else { return }
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    func addActionToAlert(alert: UIAlertController, view: UITableViewController) {
         let goToAddFireTeamAction = UIAlertAction(title: "Add Fire Team", style: .default) { _ in
             self.goToAddFireTeam()
         }
-        alert.addAction(goToAddFireTeamAction)
-        //if !killTeam.choosenFireTeam.isEmpty {
         let addUnitToFireTeamAction = addUnitToFireTeamAlertAction()
-        alert.addAction(addUnitToFireTeamAction)
-        //}
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(goToAddFireTeamAction)
+        alert.addAction(addUnitToFireTeamAction)
         alert.addAction(cancelAction)
         view.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAddUnitOrFireTeamAlertController() {
+        guard let view = view as? UITableViewController, let killTeam = model.killTeam else { return }
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        if killTeam.countOfFireTeam != 1 {
+            addActionToAlert(alert: alert, view: view)
+        } else if killTeam.fireTeam.count > 1 {
+            addActionToAlert(alert: alert, view: view)
+        } else {
+            addUnit(index: 0)
+        }
+        
     }
     
     

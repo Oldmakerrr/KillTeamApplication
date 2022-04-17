@@ -47,6 +47,11 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
         currentPloysCollectionView.reloadData()
+        setupAddButton()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        addKillTeamButton.removeFromSuperview()
     }
     
     func showAlert(ploy: Ploy) {

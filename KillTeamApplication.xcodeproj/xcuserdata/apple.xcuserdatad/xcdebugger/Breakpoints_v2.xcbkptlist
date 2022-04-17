@@ -3,4 +3,73 @@
    uuid = "820EF772-AA02-4B53-BE04-2C4881EBA0F2"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "51A50E1F-E736-40F0-9021-9C2252A42B4A"
+            shouldBeEnabled = "No"
+            nameForDebugger = "ShadowAddButton"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KillTeamApplication/EditKillTeamBlock/CounterModule/View/CustomUIViewElements.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "configure()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C3B63F4-65E7-4A4F-9329-CA4C9255D207"
+            shouldBeEnabled = "No"
+            nameForDebugger = "SetupAddButton"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KillTeamApplication/EditKillTeamBlock/EditKillTeamModule/View/EditKillTeamTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "setupAddButton()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F02A9B3D-E211-404C-83B5-EFFC80AAE627"
+            shouldBeEnabled = "No"
+            nameForDebugger = "CounterAddButton"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KillTeamApplication/EditKillTeamBlock/CounterModule/View/CounterViewExtention.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "setupAddButton()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D0CC4CC4-5367-4A5A-AFC7-9A3EDA6422D2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KillTeamApplication/Service/GameStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "gameData"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

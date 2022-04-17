@@ -50,27 +50,23 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         var countCloseWeapon = 0
         weapons.forEach { weapon in
             switch weapon.type {
-            case "range":
+            case .range:
                 countRangeWeapon += 1
                 model.rangeWeapon.append(weapon)
-            case "close":
+            case .close:
                 countCloseWeapon += 1
                 model.closeWeapon.append(weapon)
-            default:
-                break
             }
         }
         if let additionalWeapon = model.currentUnit?.additionalWeapon {
             additionalWeapon.forEach { weapon in
                 switch weapon.type {
-                case "range":
+                case .range:
                     countRangeWeapon += 1
                     model.rangeWeapon.append(weapon)
-                case "close":
+                case .close:
                     countCloseWeapon += 1
                     model.closeWeapon.append(weapon)
-                default:
-                    break
                 }
             }
         }
@@ -113,12 +109,10 @@ extension EditUnitPresenter: EditUnitCellDelegate {
         }
         if selected {
             switch wargear.type {
-            case "close":
+            case .close:
                 unit.selectedCloseWeapon = wargear
-            case "range":
+            case .range:
                 unit.selectedRangeWeapon = wargear
-            default:
-                return
             }
             store.updateUnitWargearInChoosenFireTeam(indexPath: indexPath, unit: unit)
         }
