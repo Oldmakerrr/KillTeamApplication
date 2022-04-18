@@ -14,6 +14,11 @@ protocol TacOpDelegate: AnyObject {
 
 class TacOpView: UIStackView {
     
+    
+    @objc private func buttonAction() {
+        delegate?.didComplete(self)
+    }
+    
     weak var delegate: TacOpDelegate?
     
     let button = DoneButton()
@@ -28,15 +33,11 @@ class TacOpView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func hideAlertVew() {
-        delegate?.didComplete(self)
-    }
-    
     func setupButton() {
         let view = UIView()
         addArrangedSubview(view)
         view.addSubview(button)
-        button.addTarget(self, action: #selector(hideAlertVew), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal),
             button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal),

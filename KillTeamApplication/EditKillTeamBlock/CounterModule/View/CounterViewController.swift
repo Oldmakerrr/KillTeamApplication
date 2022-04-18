@@ -11,7 +11,7 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
     var presenter: CounterPresenterProtocol?
     
-    let customAlert = CustomAlert()
+    let customAlert = CustomScrollAlert()
     let currentKillTeamView = CurrentKillTeamView()
     
     let addKillTeamButton = AddButton()
@@ -60,7 +60,7 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         view.setupButton(delegate: self)
         view.layer.applyCornerRadius()
         view.layer.masksToBounds = true
-        customAlert.showAlert(alertView: view, targetView: self)
+        customAlert.showAlert(alertView: view, targetViewController: self)
     }
     
     @objc func dismissAlert() {

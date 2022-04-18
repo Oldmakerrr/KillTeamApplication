@@ -45,7 +45,7 @@ class EditKillTeamCell: UITableViewCell, ReusableView {
     
     func addNameLabel(unit: Unit) -> UIView {
         let view = HeaderView()
-        view.setupText(name: unit.name)
+        view.setupText(name: unit.customName ?? unit.name)
         return view
     }
     

@@ -14,7 +14,7 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
     let editButton = UIBarButtonItem()
     let goToChoosenTacOpsButton = UIBarButtonItem()
    
-    let customAlert = CustomAlert()
+    let customAlert = CustomScrollAlert()
     var moreInfoTacOpView = TacOpView()
     
     let tacOpsCollection: UICollectionView = {

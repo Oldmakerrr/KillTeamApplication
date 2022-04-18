@@ -20,7 +20,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     
     var countOfEquipmentPointLabel = NormalLabel()
     
-    let customAlert = CustomAlert()
+    let customAlert = CustomScrollAlert()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,14 +33,17 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         countOfEquipmentPointLabel.removeFromSuperview()
         presenter?.cleareIndex()
     }
+
     
     func showAlert(alertView: UIView) {
-        customAlert.showAlert(alertView: alertView, targetView: self)
+        tableView.isScrollEnabled = false
+        customAlert.showAlert(alertView: alertView, targetViewController: self)
         delegate = customAlert
     }
     
     func dismissAlert() {
         delegate?.didComplete(self)
+        tableView.isScrollEnabled = true
     }
 
 // MARK: - TableView DataSource

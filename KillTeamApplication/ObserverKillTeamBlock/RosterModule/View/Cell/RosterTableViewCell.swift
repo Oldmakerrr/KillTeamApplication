@@ -25,7 +25,7 @@ class RosterTableViewCell: EditKillTeamCell {
         guard let currentWounds = unit.currentWounds  else { return UIView() }
         let header = HeaderImageView()
         let image = unitStatusImage(currentWounds: currentWounds, maxWounds: unit.wounds)
-        header.setupText(name: unit.name, cost: "W = \(currentWounds)", image: image)
+        header.setupText(name: unit.customName ?? unit.name, cost: "W = \(currentWounds)", image: image)
         return header
     }
     

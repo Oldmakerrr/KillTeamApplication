@@ -83,7 +83,7 @@ extension TacOpsViewController {
         moreInfoTacOpView.delegate = self
         moreInfoTacOpView.setupText(tacOp: tacOp, delegate: self)
         moreInfoTacOpView.setupButton()
-        customAlert.showAlert(alertView: moreInfoTacOpView, targetView: self)
+        customAlert.showAlert(alertView: moreInfoTacOpView, targetViewController: self)
     }
     
     func dismissAlert() {
