@@ -148,7 +148,7 @@ extension MoreInfoUnitViewController {
         scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
     }
     
-    private func addUniqueActionsView(uniqueActions: [UnitUniqueActions]) {
+    private func addUniqueActionsView(uniqueActions: [UnitUniqueAction]) {
         addHeaderView(text: "Unique Actions")
         for uniqueAction in uniqueActions {
             let view = UniqueActionView()
@@ -160,7 +160,7 @@ extension MoreInfoUnitViewController {
         }
     }
     
-    private func addAbilitiesView (abilities: [UnitAbilities]) {
+    private func addAbilitiesView (abilities: [UnitAbilitie]) {
         addHeaderView(text: "Abilities")
         for ability in abilities {
             let view = AbilitieView()

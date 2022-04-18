@@ -25,7 +25,7 @@ class UniqueActionView: UIStackView {
         backgroundColor = ColorScheme.shared.theme.subViewBackground
     }
     
-    func setupTextForUnit(action: UnitUniqueActions, delegate: WeaponRuleButtonDelegate) {
+    func setupTextForUnit(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
         setupActionText(uniqueAction: action)
         if let subText = action.subText {
             addSubTextView(subText: subText)
@@ -39,7 +39,7 @@ class UniqueActionView: UIStackView {
     }
     
     
-    func setupText(action: UnitUniqueActions, delegate: WeaponRuleButtonDelegate) {
+    func setupText(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
         setupHeader(action: action)
         addTextView(text: action.description)
         if let subText = action.subText {
@@ -53,7 +53,7 @@ class UniqueActionView: UIStackView {
         }
     }
     
-    private func setupActionText(uniqueAction: UnitUniqueActions) {
+    private func setupActionText(uniqueAction: UnitUniqueAction) {
         let view = UIView()
         let label = BoldTextLabel()
         label.addText(bold: "\(uniqueAction.name) (\(uniqueAction.cost)AP)", normal: uniqueAction.description)
@@ -63,7 +63,7 @@ class UniqueActionView: UIStackView {
         addView(view: view, subView: label)
     }
     
-    private func setupHeader(action: UnitUniqueActions) {
+    private func setupHeader(action: UnitUniqueAction) {
         let header = HeaderIntView()
        // let header = HeaderViewWithInt()
         header.setupText(name: action.name, cost: "\(action.cost) AP")

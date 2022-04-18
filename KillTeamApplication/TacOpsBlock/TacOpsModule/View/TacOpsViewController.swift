@@ -15,7 +15,7 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
     let goToChoosenTacOpsButton = UIBarButtonItem()
    
     let customAlert = CustomAlert()
-    var moreInfoTacOpView = MoreInfoTacOp()
+    var moreInfoTacOpView = TacOpView()
     
     let tacOpsCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -51,11 +51,11 @@ extension TacOpsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TacOpsCollectionCell.identifier, for: indexPath) as! TacOpsCollectionCell
-        cell.tacOp = presenter?.model.customTacOps[indexPath.item]
+        cell.tacOp = presenter?.model.currentDeck[indexPath.item]
         cell.index = Int(indexPath.row)
         cell.delegate = presenter as? TacOpsCollectionCellDelegate
         cell.buttonDelegate = self
-        cell.setupText(tacOps: presenter!.model.customTacOps[indexPath.item])
+        cell.setupText(tacOps: presenter!.model.currentDeck[indexPath.item])
         switch indexPath.item {
         case 0, 1:
             cell.setupColor(tacOp: presenter?.model.gameData.firstTacOp)
@@ -117,8 +117,8 @@ extension TacOpsViewController: TacOpsCollectionCellButtonDelegate {
     }
 }
 
-extension TacOpsViewController: MoreInfoTacOpDelegate {
-    func didComplete(_ view: MoreInfoTacOp) {
+extension TacOpsViewController: TacOpDelegate {
+    func didComplete(_ view: TacOpView) {
         dismissAlert()
     }
 }

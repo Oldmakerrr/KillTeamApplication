@@ -11,14 +11,14 @@ class TacOpsModel {
     
     var gameData = GameData()
     
-    var seekAndDestroy: [TacOps] = []
-    var security: [TacOps] = []
-    var infiltration: [TacOps] = []
-    var recon: [TacOps] = []
-    var customTacOps: [TacOps] = []
-    var factionTacOps: [TacOps]?
+    var killTeam: KillTeam?
     
-   // var firstTacOp: TacOps?
-   // var secondTacOp: TacOps?
-   // var thirdTacOp: TacOps?
+    var seekAndDestroyDeck: [TacOp] = []
+    var securityDeck: [TacOp] = []
+    var infiltrationDeck: [TacOp] = []
+    var reconDeck: [TacOp] = []
+    var currentDeck: [TacOp] = []
+    var factionDeck: [TacOp]?
+    var currentTypeDeck: TypeOfTacOp = .seekAndDestroy
+    
 }

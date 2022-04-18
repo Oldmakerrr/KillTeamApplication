@@ -13,16 +13,9 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.gray
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.register(ChooseKillTeamCell.self, forCellReuseIdentifier: KillTeamTableViewCell.ChooseKillTeamCell.rawValue)
     }
-    
-    func addFireTeam(killTeam: KillTeam) -> KillTeam {
-        var killTeam = killTeam
-        killTeam.choosenFireTeam = killTeam.fireTeam
-        return killTeam
-    }
-    
 
     // MARK: - Table view data source
 
@@ -51,12 +44,7 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard var killTeam = (presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row]) else { return }
-        let uuid = UUID().uuidString
-        killTeam.id = uuid
-        killTeam.counterFT = [:]
-        if killTeam.countOfFireTeam == 1 && killTeam.killTeamName != "Space Marines" {
-            killTeam = addFireTeam(killTeam: killTeam)
-        }
+        killTeam.prepareKillTeam()
         self.dismiss(animated: true, completion: nil)
         presenter?.goToEditKillTeamViewController(killTeam: killTeam)
     }

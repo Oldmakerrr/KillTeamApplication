@@ -37,12 +37,7 @@ protocol EditKillTeamPresenterDelegate: AnyObject {
 
 class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     
-    var model = ChosenKillTeam() {
-        didSet {
-            guard let view = view as? UITableViewController else { return }
-            view.title = model.killTeam?.userCustomName ?? model.killTeam?.killTeamName
-        }
-    }
+    var model = ChosenKillTeam() 
     weak var view: EditKillTeamProtocol?
     weak var delegate: EditKillTeamPresenterDelegate?
     var store: StoreProtocol

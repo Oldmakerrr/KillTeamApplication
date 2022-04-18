@@ -10,6 +10,7 @@ import UIKit
 class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtocol {
     
     var presenter: EditKillTeamPresenterProtocol?
+    
     let addUnitOrFireTeamButton = AddButton()
     let customTitleView = LabelWithImageView()
     
@@ -28,7 +29,6 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        navigationItem.rightBarButtonItems?.removeAll()
         addUnitOrFireTeamButton.removeFromSuperview()
     }
     

@@ -34,7 +34,7 @@ final class GameStoreMulticastDelegate<T> {
 
 protocol GameStoreProtocol: AnyObject {
     var multicastDelegate: GameStoreMulticastDelegate<GameStoreDelegate> { get }
-    var tacOps: [TacOps] { get }
+    var tacOps: [TacOp] { get }
     func updateGameData(gameData: GameData)
     func parseTacOps()
 }
@@ -59,12 +59,12 @@ final class GameStore: GameStoreProtocol {
         self.gameData = gameData
     }
     
-    var tacOps = [TacOps]()
+    var tacOps = [TacOp]()
     
     func parseTacOps() {
         let path = Bundle.main.path(forResource: "TacOps", ofType: "json")
         let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
-        tacOps = try! JSONDecoder().decode([TacOps].self, from: jsonData! as Data)
+        tacOps = try! JSONDecoder().decode([TacOp].self, from: jsonData! as Data)
     }
 }
 
@@ -74,7 +74,7 @@ struct GameData {
     var countVictoryPoint = 0
     var countTurningPoint = 0
     var currentStrategicPloys = [Ploy]()
-    var firstTacOp: TacOps?
-    var secondTacOp: TacOps?
-    var thirdTacOp: TacOps?
+    var firstTacOp: TacOp?
+    var secondTacOp: TacOp?
+    var thirdTacOp: TacOp?
 }

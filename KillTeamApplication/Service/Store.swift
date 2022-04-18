@@ -165,20 +165,20 @@ final class Store: StoreProtocol {
     }
     
     func addFireTeam(fireTeam: FireTeam) {
-        guard var killTeam = killTeam, let counter = killTeam.counterFT else { return }
+        guard var killTeam = killTeam, let counter = killTeam.counterFireTeam else { return }
         killTeam.choosenFireTeam.append(fireTeam)
         if counter.contains(where: { (key, value) in
             key == fireTeam.name
         }) {
-            killTeam.counterFT?[fireTeam.name]! += 1
+            killTeam.counterFireTeam?[fireTeam.name]! += 1
         } else{
-            killTeam.counterFT?[fireTeam.name] = 1
+            killTeam.counterFireTeam?[fireTeam.name] = 1
         }
         self.killTeam = killTeam
     }
     
     func addCounterFireTeam(counter: [String: Int]) {
-        self.killTeam?.counterFT = counter
+        self.killTeam?.counterFireTeam = counter
     }
     
     func addIndexOfChoosenUnit(index: IndexPath) {
@@ -211,7 +211,7 @@ final class Store: StoreProtocol {
                     }
                 }
                 killTeam.choosenFireTeam.remove(at: index)
-                killTeam.counterFT?[fireTeam.name]! -= 1
+                killTeam.counterFireTeam?[fireTeam.name]! -= 1
                 break
             }
         }

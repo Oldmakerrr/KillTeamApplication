@@ -52,11 +52,14 @@ extension TacOpsViewController {
             self.changeTacOpsAlert()
             self.tacOpsCollection.reloadData()
         }
-        let mixDeckAction = UIAlertAction(title: "Mix deck", style: .default) { _ in
+        var title = "Mix deck"
+        if presenter!.model.factionDeck != nil {
+            title = "Mix deck without Facton Tac Ops"
+        }
+        let mixDeckAction = UIAlertAction(title: title, style: .default) { _ in
             self.presenter?.mixDeck()
             self.tacOpsCollection.reloadData()
         }
-        
         let mixDeckWithSpecialTacOpsAction = UIAlertAction(title: "Mix deck with Faction Tac Ops", style: .default) { _ in
             self.presenter?.mixDeckWithSpecialTacOps()
             self.tacOpsCollection.reloadData()
@@ -64,7 +67,7 @@ extension TacOpsViewController {
         let cancle = UIAlertAction(title: "Cancle", style: .cancel) { _ in }
         editAlertController.addAction(changeType)
         editAlertController.addAction(mixDeckAction)
-        if presenter!.model.factionTacOps != nil {
+        if presenter!.model.factionDeck != nil {
             editAlertController.addAction(mixDeckWithSpecialTacOpsAction)
         }
         editAlertController.addAction(cancle)
@@ -73,8 +76,8 @@ extension TacOpsViewController {
     
 //MARK: - Show/Dismiss Alert
     
-    func showAlert(tacOp: TacOps) {
-        moreInfoTacOpView = MoreInfoTacOp()
+    func showAlert(tacOp: TacOp) {
+        moreInfoTacOpView = TacOpView()
         moreInfoTacOpView.layer.applyCornerRadius()
         moreInfoTacOpView.layer.masksToBounds = true
         moreInfoTacOpView.delegate = self

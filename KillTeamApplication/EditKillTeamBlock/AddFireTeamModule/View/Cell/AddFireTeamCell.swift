@@ -91,11 +91,13 @@ protocol AddFireTeamCellDelegate: AnyObject {
      
      
      @objc func addFireTeam() {
-         delegate?.didCompletePlusFireTeam(self, fireTeam: fireTeam!)
+        guard let fireTeam = fireTeam else { return }
+        delegate?.didCompletePlusFireTeam(self, fireTeam: fireTeam)
      }
      
      @objc func removeFireTeam() {
-         delegate?.didCompleteMinusFireTeam(self, fireTeam: fireTeam!)
+        guard let fireTeam = fireTeam else { return }
+        delegate?.didCompleteMinusFireTeam(self, fireTeam: fireTeam)
      }
      
      
@@ -103,8 +105,8 @@ protocol AddFireTeamCellDelegate: AnyObject {
 
  extension AddFireTeamCell: StoreDelegate {
      func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        guard let killTeam = killTeam else { return }
-        if let key = killTeam.counterFT?[fireTeam!.name] {
+        guard let killTeam = killTeam, let fireTeam = fireTeam else { return }
+        if let key = killTeam.counterFireTeam?[fireTeam.name] {
              countFireTeam = key
          }
      }

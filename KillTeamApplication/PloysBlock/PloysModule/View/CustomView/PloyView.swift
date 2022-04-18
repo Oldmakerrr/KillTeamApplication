@@ -59,7 +59,7 @@ class PloyView: UIStackView {
         addArrangedSubview(backgroundView)
     }
     
-    private func setupUniqueAction(action: UnitUniqueActions, delegate: WeaponRuleButtonDelegate) {
+    private func setupUniqueAction(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
         let backgroundView = UIView()
         //let view = UnitUniqueAtionView()
         let view = UniqueActionView()
@@ -70,7 +70,7 @@ class PloyView: UIStackView {
         addArrangedSubview(backgroundView)
     }
     
-    private func setupAbilitiesView(abilities: UnitAbilities) {
+    private func setupAbilitiesView(abilities: UnitAbilitie) {
         let view = AbilitieView()
         view.setupText(abilitie: abilities)
         addArrangedSubview(view)

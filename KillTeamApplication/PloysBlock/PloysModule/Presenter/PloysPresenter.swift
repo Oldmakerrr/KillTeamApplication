@@ -57,12 +57,10 @@ extension PloysPresenter: StoreDelegate {
         guard let killTeam = killTeam else { return }
         killTeam.ploys.forEach({ ploy in
             switch ploy.type {
-            case "strategic":
+            case .strategic:
                 model.strategicPloy.append(ploy)
-            case "tactical":
+            case .tactical:
                 model.tacticalPloy.append(ploy)
-            default:
-                break
             }
         })
         //model.tacticalPloy.append(model.reRoll)

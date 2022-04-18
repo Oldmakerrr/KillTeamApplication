@@ -53,7 +53,7 @@ extension AddFireTeamPresenter: StoreDelegate {
         guard let killTeam = killTeam else { return }
         model.killTeam = killTeam
         model.currentFireTeam = killTeam.fireTeam
-        model.counterFireteam = killTeam.counterFT
+        model.counterFireteam = killTeam.counterFireTeam
         model.maxCountOfFireTeam = killTeam.countOfFireTeam
         model.currentCointOFFireTeam = killTeam.choosenFireTeam.count
     }

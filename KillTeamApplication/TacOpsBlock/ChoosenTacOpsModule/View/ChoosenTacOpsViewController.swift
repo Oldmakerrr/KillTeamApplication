@@ -42,7 +42,7 @@ class ChoosenTacOpsViewController: UIViewController, ChoosenTacOpsViewController
         ])
     }
     
-    func progressTacOp(cell: ChoosenTacOpsCell, tacOp: TacOps) -> TacOps {
+    func progressTacOp(cell: ChoosenTacOpsCell, tacOp: TacOp) -> TacOp {
         var tacOp = tacOp
         switch tacOp.progreesTacOp {
         case 0:

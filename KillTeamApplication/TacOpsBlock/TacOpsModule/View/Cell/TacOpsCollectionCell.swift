@@ -33,7 +33,7 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
     let nameLabel = BoldLabel()
     let imageView = UIImageView()
     
-    var tacOp: TacOps?
+    var tacOp: TacOp?
     var index: Int?
     
     override init(frame: CGRect) {
@@ -51,7 +51,7 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
     }
     
     
-    func setupColor(tacOp: TacOps?) {
+    func setupColor(tacOp: TacOp?) {
         if self.tacOp == tacOp {
             contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
         } else {
@@ -59,7 +59,7 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         }
     }
     
-    func setupText(tacOps: TacOps) {
+    func setupText(tacOps: TacOp) {
         nameLabel.text = tacOps.name
     }
     

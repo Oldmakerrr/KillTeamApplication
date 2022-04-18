@@ -82,13 +82,13 @@ class EquipmentView: UIStackView, WargearView {
         addArrangedSubview(header)
     }
  
-    private func setupAbilitie(abilitie: UnitAbilities) {
+    private func setupAbilitie(abilitie: UnitAbilitie) {
         let view = AbilitieView()
         view.setupText(abilitie: abilitie)
         addArrangedSubview(view)
     }
  
-    private func setupUniqueActionView(action: UnitUniqueActions, delegate: WeaponRuleButtonDelegate) {
+    private func setupUniqueActionView(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
         let view = UniqueActionView()
         let backgroundView = UIView()
         view.setupText(action: action, delegate: delegate)

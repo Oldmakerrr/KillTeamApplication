@@ -15,11 +15,11 @@ class ChoosenTacOpsCell: UICollectionViewCell, ReusableView {
     }
     
     let ProgressTacOplabel = UILabel()
-    var tacOpView = MoreInfoTacOp()
+    var tacOpView = TacOpView()
     
     func updateCell() {
         tacOpView.removeFromSuperview()
-        tacOpView = MoreInfoTacOp()
+        tacOpView = TacOpView()
         setupView()
     }
     

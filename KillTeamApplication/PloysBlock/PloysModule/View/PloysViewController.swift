@@ -37,7 +37,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
                 self.present(alertController, animated: true, completion: nil)
             } else {
                 self.presenter!.model.gameData.countCommandPoint -= ploy.cost
-                if ploy.type == "strategic" {
+                if ploy.type == .strategic {
                     self.presenter?.model.gameData.currentStrategicPloys.append(ploy)
                 }
                 self.presenter?.gameStore.updateGameData(gameData: self.presenter!.model.gameData)
