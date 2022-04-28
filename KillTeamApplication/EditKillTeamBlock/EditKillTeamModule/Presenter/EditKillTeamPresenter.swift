@@ -113,6 +113,8 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         if let availableUnit = model.killTeam?.choosenFireTeam[indexPath.section].availableDataslates {
             for unit in availableUnit {
                 let action = UIAlertAction(title: unit.name, style: .default) { _ in
+                    var unit = unit
+                    unit.updateCurrentWounds()
                     self.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
                     view.tableView.reloadData()
                     self.store.updateCurrentKillTeam(killTeam: self.model.killTeam!)
@@ -128,11 +130,11 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     func renameUnit(indexPath: IndexPath) {
         guard let view = view as? UITableViewController else { return }
         let alert = UIAlertController(title: "Rename", message: "Input new name for this unit", preferredStyle: .alert)
-        let actionRename = UIAlertAction(title: "Rename", style: .default) { action in
+        let actionRename = UIAlertAction(title: "Rename", style: .default) { [self] action in
             let textField = alert.textFields?.first
             if let newName = textField?.text {
-                self.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row].customName = newName
-                self.store.updateCurrentKillTeam(killTeam: self.model.killTeam!)
+                model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row].customName = newName
+                store.updateCurrentKillTeam(killTeam: model.killTeam!)
                 view.tableView.reloadData()
             }
         }
@@ -152,7 +154,8 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     private func addUnit(index: Int) {
         guard let view = view as? UITableViewController else { return }
         if model.killTeam?.choosenFireTeam[index].availableDataslates.count == 1 {
-            if let unit = model.killTeam?.choosenFireTeam[index].availableDataslates.first {
+            if var unit = model.killTeam?.choosenFireTeam[index].availableDataslates.first {
+                unit.updateCurrentWounds()
                 self.model.killTeam?.choosenFireTeam[index].currentDataslates.insert(unit, at: 0)
                 view.tableView.reloadData()
                 self.store.updateCurrentKillTeam(killTeam: self.model.killTeam!)
@@ -161,6 +164,8 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
             let alert = UIAlertController(title: "Add unit", message: nil, preferredStyle: .actionSheet)
             self.model.killTeam?.choosenFireTeam[index].availableDataslates.forEach { unit in
                 let action = UIAlertAction(title: unit.name, style: .default) { _ in
+                    var unit = unit
+                    unit.updateCurrentWounds()
                     self.model.killTeam?.choosenFireTeam[index].currentDataslates.insert(unit, at: 0)
                     view.tableView.reloadData()
                     self.store.updateCurrentKillTeam(killTeam: self.model.killTeam!)

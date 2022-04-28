@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ChoosenTacOpsViewControllerProtocol: AnyObject {
     var presenter: ChoosenTacOpsPresenterProtocol? { get }
+    var choosenTacOpsCollectionView: UICollectionView { get }
 }
 
 protocol ChoosenTacOpsPresenterProtocol: AnyObject {
@@ -42,6 +44,44 @@ extension ChoosenTacOpsPresenter: GameStoreDelegate {
         if let gameData = gameData {
             model.gameData = gameData
         }
+    }
+    
+    private func addVictoryPoint(isSelect: Bool, victoryPoint: Int?) {
+        guard model.gameData.countTurningPoint != 0, let victoryPoint = victoryPoint else { return }
+        if isSelect {
+            if model.gameData.countVictoryPoint > 0 {
+                model.gameData.countVictoryPoint -= victoryPoint
+            }
+        } else {
+            model.gameData.countVictoryPoint += victoryPoint
+        }
+    }
+    
+    func changeConditionState(isSelect: Bool) -> Bool {
+       return isSelect ?  false : true
+    }
+}
+
+extension ChoosenTacOpsPresenter: ChoosenTacOpViewDelegate {
+    
+    func didSelectConditionView(_ tacOpView: ChoosenTacOpView, isSelect: Bool, indexPath: IndexPath?, numberOfCondition: Int) {
+        
+            switch indexPath?.item {
+            case 0:
+                model.gameData.firstTacOp?.isCompleteSubConditions![numberOfCondition] = changeConditionState(isSelect: isSelect)
+                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.firstTacOp?.victoryPointForfirstCondition)
+            case 1:
+                model.gameData.secondTacOp?.isCompleteSubConditions![numberOfCondition] = changeConditionState(isSelect: isSelect)
+                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.secondTacOp?.victoryPointForfirstCondition)
+            case 2:
+                model.gameData.thirdTacOp?.isCompleteSubConditions![numberOfCondition] = changeConditionState(isSelect: isSelect)
+                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.thirdTacOp?.victoryPointForfirstCondition)
+            default:
+                return
+            }
+        
+        updateGameData()
+        view?.choosenTacOpsCollectionView.reloadData()
     }
     
     

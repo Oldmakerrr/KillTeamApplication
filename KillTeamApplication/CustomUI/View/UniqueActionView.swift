@@ -28,7 +28,7 @@ class UniqueActionView: UIStackView {
     func setupTextForUnit(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
         setupActionText(uniqueAction: action)
         if let subText = action.subText {
-            addSubTextView(subText: subText)
+            addSubTextPointView(subText: subText)
         }
         if let wargear = action.wargear {
             setupWeaponView(weapon: wargear, delegate: delegate)
@@ -43,7 +43,7 @@ class UniqueActionView: UIStackView {
         setupHeader(action: action)
         addTextView(text: action.description)
         if let subText = action.subText {
-            addSubTextView(subText: subText)
+            addSubTextPointView(subText: subText)
         }
         if let wargear = action.wargear {
             setupWeaponView(weapon: wargear, delegate: delegate)
@@ -65,7 +65,6 @@ class UniqueActionView: UIStackView {
     
     private func setupHeader(action: UnitUniqueAction) {
         let header = HeaderIntView()
-       // let header = HeaderViewWithInt()
         header.setupText(name: action.name, cost: "\(action.cost) AP")
         addArrangedSubview(header)
     }

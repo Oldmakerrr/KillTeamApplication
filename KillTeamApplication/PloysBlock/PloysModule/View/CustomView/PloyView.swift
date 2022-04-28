@@ -34,7 +34,7 @@ class PloyView: UIStackView {
         setupDescription(description: ploy.description)
         
         if let subText = ploy.subText {
-            setupSubText(subText: subText)
+            addSubTextPointView(subText: subText)
         }
         
         if let abilitie = ploy.passiveAbilities {
@@ -48,6 +48,13 @@ class PloyView: UIStackView {
         if let weapon = ploy.wargear {
             setupWeponView(weapon: weapon)
         }
+    }
+    
+    func setupView() {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: Constant.Size.Otstup.normal).isActive = true
+        addArrangedSubview(view)
     }
     
     private func setupWeponView(weapon: Weapon) {
@@ -76,10 +83,10 @@ class PloyView: UIStackView {
         addArrangedSubview(view)
     }
     
-    private func setupSubText(subText: [String]) {
-        let view = addArrayLabels(subTexts: subText)
-        addArrangedSubview(view)
-    }
+  //  private func setupSubText(subText: [String]) {
+  //      let view = addArrayLabels(subTexts: subText)
+  //      addArrangedSubview(view)
+  //  }
     
     private func setupDescription(description: String) {
         let view = UIView()
@@ -91,7 +98,6 @@ class PloyView: UIStackView {
     
     private func setupHeader(name: String, cost: Int) {
         let header = HeaderIntView()
-        //let header = HeaderViewWithInt()
         header.setupText(name: name, cost: "\(cost) CP")
         addArrangedSubview(header)
     }

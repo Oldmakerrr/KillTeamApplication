@@ -8,16 +8,15 @@
 import Foundation
 import UIKit
 
-protocol TacOpsRouterProtocol: Router {
-    var tacOpsNavigationController: UINavigationController { get }
+protocol TacOpsRouterProtocol {
+    var tacOpsNavigationController: TacOpsNavigationController? { get }
 }
 
 class TacOpsRouter: TacOpsRouterProtocol {
     
     var builder: BuilderProtocol
     
-    lazy var tacOpsNavigationController = UINavigationController(rootViewController: tacOpsModule as! UIViewController)
-    lazy var tacOpsModule = builder.createTacOpsModule(router: self)
+    var tacOpsNavigationController: TacOpsNavigationController?
     
     init(builder: BuilderProtocol) {
         self.builder = builder
@@ -25,7 +24,7 @@ class TacOpsRouter: TacOpsRouterProtocol {
     
     func showChossenTacOpsModule() {
         let view = builder.createChoosenTacOpsModule(router: self)
-        tacOpsNavigationController.pushViewController(view as! UIViewController, animated: true)
+        tacOpsNavigationController?.pushViewController(view as! UIViewController, animated: true)
     }
 }
 

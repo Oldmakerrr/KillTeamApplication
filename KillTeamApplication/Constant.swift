@@ -40,6 +40,7 @@ class Constant {
         static let sizeBigFont: CGFloat = 18
         static let sizeHeaderFont: CGFloat = 20
         static let normal: UIFont = UIFont.systemFont(ofSize: sizeNormalFont)
+        static let italic: UIFont = UIFont.italicSystemFont(ofSize: sizeNormalFont)
         static let bold = UIFont.boldSystemFont(ofSize: sizeNormalFont)
         static let bigBold = UIFont.boldSystemFont(ofSize: sizeBigFont)
         static let header = UIFont.boldSystemFont(ofSize: sizeBigFont)
@@ -57,12 +58,14 @@ class Constant {
         static let screenWidth = UIScreen.main.bounds.size.width
 
         static let borderWidht: CGFloat = 2
-        static let cornerRadius: CGFloat = 12
+        static let cornerRadius: CGFloat = 10
         
         static let headerHeight: CGFloat = 40
         static let cellHeight: CGFloat = 40
         
         static let killTeamCellHeight: CGFloat = 60
+        
+        static let imagePointSize: CGFloat = 8
         
         class NormalButton {
             static let width: CGFloat = 100
@@ -95,6 +98,7 @@ class Constant {
 
 protocol ColorTheme {
     
+    var psychicPowerViewHeader: UIColor { get }
     var cellBackground: UIColor { get }
     var cellBorder: UIColor { get }
     var cellHeader: UIColor { get }
@@ -112,14 +116,18 @@ protocol ColorTheme {
     var textHeader: UIColor { get }
     var textHyperlink: UIColor { get }
     var textButton: UIColor { get }
+    var textWhite: UIColor { get }
     var shadow: UIColor { get }
     var textDark: UIColor { get }
+    var navigationBar: UIColor { get }
 }
 
 struct ClassicTheme: ColorTheme {
     
+    var textWhite = #colorLiteral(red: 0.9959705472, green: 0.9961406589, blue: 0.9959598184, alpha: 1)
+    var psychicPowerViewHeader = #colorLiteral(red: 0.09526111931, green: 0.289956063, blue: 0.5891153812, alpha: 1)
+    var navigationBar = #colorLiteral(red: 0.6480363777, green: 0.706360088, blue: 0.7908885807, alpha: 1)
     var shadow = #colorLiteral(red: 0.1607843137, green: 0.1058823529, blue: 0.2352941176, alpha: 1)
-    
     let cellBackground = #colorLiteral(red: 0.9058823529, green: 0.8980392157, blue: 0.8784313725, alpha: 1)
     let cellBorder = #colorLiteral(red: 0.9607843137, green: 0.7960784314, blue: 0.6549019608, alpha: 1)
     let cellHeader = #colorLiteral(red: 0.9607843137, green: 0.7960784314, blue: 0.6549019608, alpha: 1)
@@ -147,6 +155,10 @@ struct ClassicTheme: ColorTheme {
 }
 
 struct DarkTheme: ColorTheme {
+    
+    var textWhite = #colorLiteral(red: 0.9959705472, green: 0.9961406589, blue: 0.9959598184, alpha: 1)
+    var psychicPowerViewHeader = #colorLiteral(red: 0.09526111931, green: 0.289956063, blue: 0.5891153812, alpha: 1)
+    var navigationBar = #colorLiteral(red: 0.2549019754, green: 0.3274728666, blue: 0.3019607961, alpha: 1)
     
     var shadow = #colorLiteral(red: 0.1607843137, green: 0.1058823529, blue: 0.2352941176, alpha: 1)
     

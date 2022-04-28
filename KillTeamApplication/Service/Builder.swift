@@ -19,6 +19,8 @@ protocol BuilderProtocol {
     func createMoreInfooUnitModule(router: KillTeamObserverRouterProtocol) -> MoreInfoUnitViewControllerProtocol
     
     func createPloysModule(router: PloysRouterProtocol) -> PloysViewControllerProtocol
+    func createPsychicPowerModule(router: PloysRouterProtocol) -> PsychicPowerViewControllerProtocol
+    func createKillTeamAbilitieModule(router: PloysRouterProtocol) -> KillTeamAbilitieViewControllerProtocol
     
     func createTacOpsModule(router: TacOpsRouterProtocol) -> TacOpsViewControllerProtocol
     func createChoosenTacOpsModule(router: TacOpsRouterProtocol) -> ChoosenTacOpsViewControllerProtocol
@@ -105,6 +107,21 @@ class ModuleBuilder: BuilderProtocol {
     func createPloysModule(router: PloysRouterProtocol) -> PloysViewControllerProtocol {
         let view = PloysViewController()
         let presenter = PloysPresenter(view: view, store: store, gameStore: gameStore, router: router)
+        presenter.delegate = router as? PloysPresenterDelegate
+        view.presenter = presenter
+        return view
+    }
+    
+    func createPsychicPowerModule(router: PloysRouterProtocol) -> PsychicPowerViewControllerProtocol {
+        let view = PsychicPowerViewController()
+        let presenter = PsychicPowerPresenter(view: view, store: store)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createKillTeamAbilitieModule(router: PloysRouterProtocol) -> KillTeamAbilitieViewControllerProtocol {
+        let view = KillTeamAbilitieViewController()
+        let presenter = KillTeamAbilitiePresenter(view: view, store: store)
         view.presenter = presenter
         return view
     }

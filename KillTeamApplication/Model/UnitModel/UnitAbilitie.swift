@@ -13,7 +13,7 @@ protocol UnitAbilitieProtocol {
     var subText: [String]? { get }
 }
 
-struct UnitUniqueAction: Codable, UnitAbilitieProtocol {
+struct UnitUniqueAction: Codable {
     let name: String
     let cost: Int
     let description: String

@@ -14,45 +14,68 @@ class ChoosenTacOpsCell: UICollectionViewCell, ReusableView {
         String(describing: self)
     }
     
-    let ProgressTacOplabel = UILabel()
-    var tacOpView = TacOpView()
+    let scrollView = UIScrollView()
+    
+    var tacOpView = ChoosenTacOpView()
+    
+    let header = HeaderView()
     
     func updateCell() {
         tacOpView.removeFromSuperview()
-        tacOpView = TacOpView()
+        tacOpView = ChoosenTacOpView()
+        tacOpView.backgroundColor = .none
         setupView()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tacOpView.backgroundColor = .none
+        layer.applyCornerRadius()
+        layer.masksToBounds = true
         contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
+        setupScrollView()
         setupView()
-        translatesAutoresizingMaskIntoConstraints = false
-        setupProgressTacOplabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView() {
-        addSubview(tacOpView)
-        tacOpView.translatesAutoresizingMaskIntoConstraints = false
-        tacOpView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        tacOpView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        tacOpView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+    func setupText(tacOp: TacOp, delegate: WeaponRuleButtonDelegate, conditionViewDelegate: ChoosenTacOpViewDelegate) {
+        header.setupText(name: tacOp.name)
+        tacOpView.conditionViewDelegate = conditionViewDelegate
+        tacOpView.setupText(tacOp: tacOp, delegate: delegate)
     }
     
-    func setupProgressTacOplabel() {
-        addSubview(ProgressTacOplabel)
-        ProgressTacOplabel.translatesAutoresizingMaskIntoConstraints = false
-        ProgressTacOplabel.textAlignment = .center
-        ProgressTacOplabel.font = UIFont.boldSystemFont(ofSize: 20)
-        ProgressTacOplabel.text = "Tap to card if you complete Tac Op"
-        ProgressTacOplabel.topAnchor.constraint(equalTo: tacOpView.bottomAnchor, constant: 10).isActive = true
-        ProgressTacOplabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15).isActive = true
-        ProgressTacOplabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15).isActive = true
-        //ProgressTacOplabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+    func setupScrollView() {
+        addSubview(header)
+        addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            header.topAnchor.constraint(equalTo: topAnchor),
+            header.leadingAnchor.constraint(equalTo: leadingAnchor),
+            header.trailingAnchor.constraint(equalTo: trailingAnchor),
+            header.bottomAnchor.constraint(equalTo: scrollView.topAnchor)
+        ])
+        
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: header.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+    }
+    
+    func setupView() {
+        scrollView.addSubview(tacOpView)
+        NSLayoutConstraint.activate([
+            tacOpView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            tacOpView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            tacOpView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            tacOpView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            tacOpView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        
     }
 }

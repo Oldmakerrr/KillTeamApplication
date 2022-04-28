@@ -11,7 +11,6 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
 
     var presenter: TacOpsPresenterProtocol?
     
-    let editButton = UIBarButtonItem()
     let goToChoosenTacOpsButton = UIBarButtonItem()
    
     let customAlert = CustomScrollAlert()
@@ -21,6 +20,7 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
@@ -29,14 +29,16 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
         navigationItem.title = "Seek & Destroy"
         setupTacOpsCollection()
         moreInfoTacOpView.delegate = self
-        goToChoosenTacOpsButton.isEnabled = false
-        setupButton()
+        setupRightBarButton()
         setupGoToChoosenTacOpsButton()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tacOpsCollection.reloadData()
+        if let bool = presenter?.checkSelectTacOp {
+            goToChoosenTacOpsButton.isEnabled = bool()
+        }
     }
     
     
@@ -91,7 +93,7 @@ extension TacOpsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let widht = itemWidht(itemsInRow: 2, spacing: 10)
-        let height = itemHeight(itemsInRow: 3, spacing: Constant.Size.screenHeight * 0.057)
+        let height = itemHeight(itemsInRow: 3, spacing: 10)
         return CGSize(width: widht, height: height)
     }
     
@@ -102,8 +104,9 @@ extension TacOpsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func itemHeight(itemsInRow: CGFloat, spacing: CGFloat) -> CGFloat {
+        let safeArea = view.safeAreaLayoutGuide
         let totalSpacing = 2 * spacing + (itemsInRow - 1) * spacing
-        let heightScreen = Constant.Size.screenHeight
+        let heightScreen = safeArea.layoutFrame.size.height
         return (heightScreen - totalSpacing) / itemsInRow
     }
 

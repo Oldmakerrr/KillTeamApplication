@@ -59,8 +59,9 @@ extension EditUnitViewController {
     
     func addWeaponAction(wargear: [Weapon], indexPtah: IndexPath) -> UISwipeActionsConfiguration {
         let action = UIContextualAction(style: .normal, title: "More info") { _, _, complition in
+            let weapon = wargear[indexPtah.row]
             let view = WeaponView()
-            self.setupWargearView(view: view, wargear: wargear[indexPtah.row], delegate: self)
+            self.setupWargearView(view: view, wargear: weapon, delegate: self)
             self.showAlert(alertView: view)
         complition(true)
         }

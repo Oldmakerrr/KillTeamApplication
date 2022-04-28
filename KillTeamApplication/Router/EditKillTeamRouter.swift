@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-protocol EditKillTeamRouterProtocol: Router {
-    var editKillTeamNavigationController: UINavigationController { get }
+protocol EditKillTeamRouterProtocol {
+    var editKillTeamNavigationController: EditKillTeamNavigationController? { get }
 
 }
 
@@ -17,9 +17,7 @@ class EeditKillTeamRouter: EditKillTeamRouterProtocol {
     
     var builder: BuilderProtocol
     
-    lazy var editKillTeamNavigationController = UINavigationController(rootViewController: counterModule as! UIViewController)
-    lazy var counterModule = builder.createCounterModule(router: self)
-    
+    var editKillTeamNavigationController: EditKillTeamNavigationController?
     
     init (builder: BuilderProtocol) {
         self.builder = builder
@@ -28,13 +26,13 @@ class EeditKillTeamRouter: EditKillTeamRouterProtocol {
     
     func showChooseKillTeamTableViewController() {
         let chooseKillTeamTableViewController = builder.createChooseKillTeamModule(router: self)
-        editKillTeamNavigationController.present(chooseKillTeamTableViewController as! UIViewController, animated: true, completion: nil)
+        editKillTeamNavigationController?.present(chooseKillTeamTableViewController as! UIViewController, animated: true, completion: nil)
         
     }
     
     func showEditKillTeamController() {
          let editKillTeamTableViewController = builder.createEditKillTeamModule(router: self)
-            editKillTeamNavigationController.pushViewController(editKillTeamTableViewController as! UITableViewController, animated: true)
+            editKillTeamNavigationController?.pushViewController(editKillTeamTableViewController as! UITableViewController, animated: true)
             //switch sender {
             //case "forward":
             //    editKillTeamNavigationController.pushViewController(editKillTeamTableViewController as! UITableViewController, animated: true)
@@ -47,17 +45,17 @@ class EeditKillTeamRouter: EditKillTeamRouterProtocol {
     
     func showAddFireTeamController() {
         let addFireTeamVC = builder.createAddFireTeamModule(router: self)
-        editKillTeamNavigationController.pushViewController(addFireTeamVC as! UIViewController, animated: true)
+        editKillTeamNavigationController?.pushViewController(addFireTeamVC as! UIViewController, animated: true)
     }
     
     func showEditUnitController() {
          let editUnitVC = builder.createEditUnitModule(router: self)
-        editKillTeamNavigationController.pushViewController(editUnitVC as! UIViewController, animated: true)
+        editKillTeamNavigationController?.pushViewController(editUnitVC as! UIViewController, animated: true)
     }
     
     func showChooseLoadedKillTeamController() {
         let view = builder.createChooseLoadedKillTeamModule(router: self)
-        editKillTeamNavigationController.present(view as! UIViewController, animated: true, completion: nil)
+        editKillTeamNavigationController?.present(view as! UIViewController, animated: true, completion: nil)
     }
 }
 

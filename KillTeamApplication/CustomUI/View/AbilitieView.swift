@@ -20,10 +20,10 @@ class AbilitieView: UIStackView {
     }
     
     
-    func setupText(abilitie: UnitAbilitie) {
+    func setupText(abilitie: UnitAbilitieProtocol) {
         setupAbilitie(abilitie: abilitie)
         if let subText = abilitie.subText {
-            addSubTextView(subText: subText)
+            addSubTextPointView(subText: subText)
         }
     }
     
@@ -33,7 +33,7 @@ class AbilitieView: UIStackView {
     }
     
     
-    private func setupAbilitie(abilitie: UnitAbilitie) {
+    private func setupAbilitie(abilitie: UnitAbilitieProtocol) {
         let view = UIView()
         let label = BoldTextLabel()
         addArrangedSubview(view)

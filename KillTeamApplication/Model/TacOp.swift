@@ -16,11 +16,13 @@ struct TacOp: Codable {
     let firstCondition: String
     let victoryPointForfirstCondition: Int
     let secondCondition: String?
-    let subCondition: [String]?
     let victoryPointSecondCondition: Int?
+    let subConditionTitle: String?
+    let subCondition: [String]?
+    let victoryPointSubCondition: [Int]?
+    var isCompleteSubConditions: [Bool]?
     let abilitie: UnitAbilitie?
     let uniquiAction: UnitUniqueAction?
-    var progreesTacOp: Int?
 }
 
 extension TacOp: Equatable {

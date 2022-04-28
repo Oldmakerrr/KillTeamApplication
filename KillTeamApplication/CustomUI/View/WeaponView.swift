@@ -16,13 +16,10 @@ class WeaponView: UIStackView, WargearView {
     
     typealias Delegate = WeaponViewProtocol
     
-    func setDelegate(delegate: Delegate) {
-        self.delegate = delegate
-    }
-    
     weak var delegate: WeaponViewProtocol?
     
     private let button = DoneButton()
+    let header = HeaderView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +28,10 @@ class WeaponView: UIStackView, WargearView {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setDelegate(delegate: Delegate) {
+        self.delegate = delegate
     }
     
     func setupButton() {
@@ -92,9 +93,8 @@ class WeaponView: UIStackView, WargearView {
     }
   
     private func setupHeader(name: String) {
-        let view = HeaderView()
-        view.setupText(name: name)
-        addArrangedSubview(view)
+        header.setupText(name: name)
+        addArrangedSubview(header)
     }
     
     private func setupCharacteristicView(attack: String, ballisticSkills: String, damage: String){

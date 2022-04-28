@@ -14,6 +14,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     let tableView = UITableView()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -21,10 +22,43 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         setupTableView()
         tabBarController?.delegate = self
         navigationItem.title = "Ploys"
+        setupKillTeamAbilitieButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
+        shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
+    }
+    
+    func setupKillTeamAbilitieButton() {
+        guard presenter?.model.killTeam?.abilitiesOfKillTeam != nil else { return }
+        let killTeamAbilitieBarButtonItem = UIBarButtonItem(image: UIImage(named: "killTeamViewController"),
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(goToKillTeamAbilitieButtonAction))
+        navigationItem.leftBarButtonItem = killTeamAbilitieBarButtonItem
+    }
+    
+    @objc private func goToKillTeamAbilitieButtonAction() {
+        presenter?.goToKillTeamAbilitieViewController()
+    }
+    
+    func setupPsychicPowerButton() {
+        let psychicPowerButton = UIBarButtonItem(image: UIImage(systemName: "flame.fill"), style: .done, target: self, action: #selector(psychicPowerButtonAction))
+        navigationItem.rightBarButtonItem = psychicPowerButton
+    }
+    
+    @objc func psychicPowerButtonAction() {
+        presenter?.goToPsychicPowerViewController()
+    }
+    
+    private func shouldPsychicPowerButton(shouldShow: Bool) {
+        if shouldShow {
+            setupPsychicPowerButton()
+        } else {
+            navigationItem.rightBarButtonItem = nil
+        }
     }
     
     func usePloyAlert(ploy: Ploy, question: String, succes: String) {

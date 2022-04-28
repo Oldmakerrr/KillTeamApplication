@@ -32,10 +32,14 @@ class CustomScrollAlert {
     }
     
     func showAlert(alertView: UIView, targetViewController: UIViewController) {
+        let safeArea = targetViewController.view.safeAreaLayoutGuide
+        let heightScreen = safeArea.layoutFrame.size.height
+        
         self.targetViewController = targetViewController
         guard let targetView = targetViewController.view else { return }
         
         scrollView = UIScrollView()
+        scrollView.layer.applyCornerRadius()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         backgrowndView.frame = targetView.bounds
@@ -43,7 +47,7 @@ class CustomScrollAlert {
         
         setupAlertViewToScrollView(alertView)
         
-        setupScrollViewToTargetView(targetView: targetView)
+        setupScrollViewToTargetView(targetView: targetView, heightScreen: heightScreen)
         
         UIView.animate(withDuration: 0.25, animations: { [self] in
             backgrowndView.alpha = backgroundAlphaTo
@@ -98,12 +102,13 @@ class CustomScrollAlert {
         ])
     }
     
-    private func setupScrollViewToTargetView(targetView: UIView) {
+    private func setupScrollViewToTargetView(targetView: UIView, heightScreen: CGFloat) {
+        
         targetView.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            scrollView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 30),
+            scrollView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40),
             scrollView.centerXAnchor.constraint(equalTo: targetView.centerXAnchor),
-            scrollView.heightAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.height - 200),
+            scrollView.heightAnchor.constraint(lessThanOrEqualToConstant: heightScreen - 100),
             scrollView.bottomAnchor.constraint(greaterThanOrEqualTo: targetView.topAnchor, constant: -UIScreen.main.bounds.height)
         ])
     }

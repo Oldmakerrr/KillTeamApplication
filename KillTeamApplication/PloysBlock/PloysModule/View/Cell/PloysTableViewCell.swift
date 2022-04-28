@@ -17,6 +17,7 @@ class PloysTableViewCell: UITableViewCell, ReusableView {
     
     func setupPloy(ploy: Ploy, delegate: WeaponRuleButtonDelegate) {
         ployView.setupPloy(ploy: ploy, delegate: delegate)
+        ployView.setupView()
     }
     
     func updateCell() {

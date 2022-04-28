@@ -46,15 +46,15 @@ class EquipmentView: UIStackView, WargearView {
         
         setupHeader(equipment: wargear)
         addTextView(text: wargear.description)
-        if let body = wargear.body {
-            addTextView(text: body)
-        }
         if let subText = wargear.subText {
-            addSubTextView(subText: subText)
+            addSubTextPointView(subText: subText)
         }
         if let uniqueAction = wargear.unitAction {
             guard let delegate = delegate else { return }
             setupUniqueActionView(action: uniqueAction, delegate: delegate)
+        }
+        if let body = wargear.body {
+            addTextView(text: body)
         }
         if let abilitie = wargear.uniqueAction {
             setupAbilitie(abilitie: abilitie)
@@ -77,7 +77,6 @@ class EquipmentView: UIStackView, WargearView {
     
     private func setupHeader(equipment: Equipment) {
         let header = HeaderIntView()
-        //let header = HeaderViewWithInt()
         header.setupText(name: equipment.name, cost: "[\(equipment.cost)EP]")
         addArrangedSubview(header)
     }
@@ -152,6 +151,41 @@ extension UIStackView {
         }
     }
     
+    func addSubTextPointView(subText: [String]) {
+        var labels = [UILabel]()
+        let view = UIView()
+        addArrangedSubview(view)
+        for (index, text) in subText.enumerated() {
+            let imageView = UIImageView()
+            imageView.image = UIImage(systemName: "circle.fill")
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.tintColor = .black
+            let label = NormalLabel()
+            view.addSubview(label)
+            view.addSubview(imageView)
+            label.text = text
+            labels.append(label)
+            if index == 0 {
+                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+            } else {
+                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+            }
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.Size.Otstup.small).isActive = true
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+            if index+1 == subText.count {
+                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+            }
+            
+            NSLayoutConstraint.activate([
+                imageView.topAnchor.constraint(equalTo: label.topAnchor, constant: label.font.pointSize/2 - 2),
+                imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.normal),
+                imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -Constant.Size.Otstup.small),
+                imageView.heightAnchor.constraint(equalToConstant: Constant.Size.imagePointSize),
+                imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+            ])
+        }
+    }
+    
     func addTextView(text: String) {
         let label = NormalLabel()
         let view = UIView()
@@ -161,6 +195,19 @@ extension UIStackView {
         addView(view: view, subView: label)
     }
 
+    func setupHeader(title: String) {
+        let header = HeaderView()
+        header.setupText(name: title)
+        addArrangedSubview(header)
+    }
+    
+    func setupTextView(text: String) {
+        let view = UIView()
+        let label = NormalLabel()
+        label.text = text
+        view.addView(view: view, subView: label)
+        addArrangedSubview(view)
+    }
     
 }
 

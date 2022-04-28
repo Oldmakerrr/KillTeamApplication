@@ -24,14 +24,14 @@ class ChoosenTacOpsViewController: UIViewController, ChoosenTacOpsViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTacOpsCollection()
+        choosenTacOpsCollectionView.dataSource = self
+        choosenTacOpsCollectionView.delegate = self
     }
     
     func setupTacOpsCollection() {
         view.addSubview(choosenTacOpsCollectionView)
         choosenTacOpsCollectionView.isPagingEnabled = true
         choosenTacOpsCollectionView.indicatorStyle = .black
-        choosenTacOpsCollectionView.dataSource = self
-        choosenTacOpsCollectionView.delegate = self
         choosenTacOpsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         choosenTacOpsCollectionView.register(ChoosenTacOpsCell.self, forCellWithReuseIdentifier: ChoosenTacOpsCell.identifier)
         NSLayoutConstraint.activate([
@@ -42,51 +42,9 @@ class ChoosenTacOpsViewController: UIViewController, ChoosenTacOpsViewController
         ])
     }
     
-    func progressTacOp(cell: ChoosenTacOpsCell, tacOp: TacOp) -> TacOp {
-        var tacOp = tacOp
-        switch tacOp.progreesTacOp {
-        case 0:
-        if tacOp.secondCondition == nil {
-            cell.ProgressTacOplabel.text = "Tac Op complete"
-            tacOp.progreesTacOp? += 2
-            presenter?.model.gameData.countVictoryPoint += tacOp.victoryPointForfirstCondition
-            cell.alpha = 0.6
-        } else {
-            cell.ProgressTacOplabel.text = "First part of Tac Op complete"
-            tacOp.progreesTacOp? += 1
-            presenter?.model.gameData.countVictoryPoint += tacOp.victoryPointForfirstCondition
-        }
-        case 1:
-            cell.ProgressTacOplabel.text = "Tac Op complete"
-            tacOp.progreesTacOp? += 1
-            presenter?.model.gameData.countVictoryPoint += tacOp.victoryPointSecondCondition!
-            cell.alpha = 0.6
-        default:
-            break
-        }
-        return tacOp
-    }
-    
-    func someMethod(cell: ChoosenTacOpsCell, indexPath: IndexPath) {
-        switch indexPath.item {
-        case 0:
-            if let firstTacOp = presenter?.model.firstTacOp {
-                let tacOp = progressTacOp(cell: cell, tacOp: firstTacOp)
-                presenter?.model.firstTacOp = tacOp
-            }
-        case 1:
-            if let firstTacOp = presenter?.model.secondTacOp {
-                let tacOp = progressTacOp(cell: cell, tacOp: firstTacOp)
-                presenter?.model.secondTacOp = tacOp
-            }
-        case 2:
-            if let firstTacOp = presenter?.model.thirdTacOp {
-                let tacOp = progressTacOp(cell: cell, tacOp: firstTacOp)
-                presenter?.model.thirdTacOp = tacOp
-            }
-        default:
-        break
-        }
+    private func setupCell(cell: ChoosenTacOpsCell, tacOp: TacOp, indexPath: IndexPath) {
+        cell.setupText(tacOp: tacOp, delegate: self, conditionViewDelegate: presenter as! ChoosenTacOpViewDelegate)
+        cell.tacOpView.indexPath = indexPath
     }
     
 }
@@ -99,38 +57,24 @@ extension ChoosenTacOpsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let firstTacOp = presenter?.model.gameData.firstTacOp,
+              let secondTacOp = presenter?.model.gameData.secondTacOp,
+              let thirdTacOp = presenter?.model.gameData.thirdTacOp else {
+            return UICollectionViewCell()
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosenTacOpsCell.identifier, for: indexPath) as! ChoosenTacOpsCell
         cell.updateCell()
         switch indexPath.item {
         case 0:
-            if let tacOp = presenter?.model.gameData.firstTacOp {
-                cell.tacOpView.setupText(tacOp: tacOp, delegate: self)
-            }
+            setupCell(cell: cell, tacOp: firstTacOp, indexPath: indexPath)
         case 1:
-            if let tacOp = presenter?.model.gameData.secondTacOp {
-                cell.tacOpView.setupText(tacOp: tacOp, delegate: self)
-            }
+            setupCell(cell: cell, tacOp: secondTacOp, indexPath: indexPath)
         case 2:
-            if let tacOp = presenter?.model.gameData.thirdTacOp {
-                cell.tacOpView.setupText(tacOp: tacOp, delegate: self)
-            }
+            setupCell(cell: cell, tacOp: thirdTacOp, indexPath: indexPath)
         default:
             return cell
         }
         return cell
-    }
-}
-
-//MARK: - UICollectionViewDelegate
-
-extension ChoosenTacOpsViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? ChoosenTacOpsCell {
-            someMethod(cell: cell, indexPath: indexPath)
-            presenter?.updateGameData()
-        }
-        
     }
 }
 
@@ -139,20 +83,20 @@ extension ChoosenTacOpsViewController: UICollectionViewDelegate {
 extension ChoosenTacOpsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 5, bottom: 20, right: 5)
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let widht = itemWidht(itemsInRow: 1, spacing: 5)
-        let height = itemHeight(itemsInRow: 1, spacing: 120)
+        let widht = itemWidht(itemsInRow: 1, spacing: 10)
+        let height = itemHeight(itemsInRow: 1, spacing: 10)
         return CGSize(width: widht, height: height)
     }
     
@@ -163,8 +107,9 @@ extension ChoosenTacOpsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func itemHeight(itemsInRow: CGFloat, spacing: CGFloat) -> CGFloat {
+        let safeArea = view.safeAreaLayoutGuide
         let totalSpacing = 2 * spacing + (itemsInRow - 1) * spacing
-        let heightScreen = view.frame.size.height
+        let heightScreen = safeArea.layoutFrame.size.height
         return (heightScreen - totalSpacing) / itemsInRow
     }
 }

@@ -29,7 +29,7 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         String(describing: self)
     }
     
-    let button = DoneButton()
+    let button = InfoButton()
     let nameLabel = BoldLabel()
     let imageView = UIImageView()
     
@@ -41,6 +41,8 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         layer.applySketchShadow()
         layer.applyCornerRadius()
         layer.masksToBounds = true
+        nameLabel.font = UIFont.boldSystemFont(ofSize: Constant.Size.screenHeight * 0.018)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         setupLabel()
         setupButton()
         setupImageView()
@@ -64,36 +66,44 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
     }
     
     private func setupLabel() {
+        contentView.addSubview(imageView)
         contentView.addSubview(nameLabel)
         nameLabel.textAlignment = .center
         nameLabel.numberOfLines = 0
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.normal),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.normal),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.normal),
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.normal),
-            nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor),
-            nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20)
+            nameLabel.heightAnchor.constraint(equalToConstant: Constant.Size.screenHeight * 0.050),
+            nameLabel.bottomAnchor.constraint(greaterThanOrEqualTo: imageView.topAnchor)
+            //   nameLabel.bottomAnchor.constraint(equalTo: imageView.topAnchor)
+           // nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20)
         ])
         
     }
     
     private func setupImageView() {
-        contentView.addSubview(imageView)
         imageView.image = UIImage(named: "KILL_TEAM")
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            imageView.bottomAnchor.constraint(equalTo: button.topAnchor),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-            imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 10),
+          //  imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: -Constant.Size.screenHeight * 0.0115),
+            imageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor),
+            imageView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10),
+            imageView.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 10),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            
+           // imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 10),
+           // imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
            // imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
            // imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
            // imageView.heightAnchor.constraint(equalToConstant: 100),
            // imageView.widthAnchor.constraint(equalToConstant: 100)
         
         ])
+        
+        
     }
     
     @objc func buttonAction() {
@@ -102,14 +112,14 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
     
     private func setupButton() {
         contentView.addSubview(button)
-        button.setTitle("More Info", for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor, constant: Constant.Size.Otstup.normal),
-            button.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.Otstup.normal),
-            button.centerXAnchor.constraint(equalTo: centerXAnchor),
-            button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
-            button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
+            button.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor),
+            button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
+            button.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor),
+            button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.small),
+            button.widthAnchor.constraint(equalToConstant: 30),
+            button.heightAnchor.constraint(equalTo: button.widthAnchor)
         ])
     }
     

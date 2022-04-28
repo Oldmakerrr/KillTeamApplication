@@ -25,6 +25,7 @@ class TacOpView: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = ColorScheme.shared.theme.cellBackground
         axis = .vertical
     }
@@ -49,37 +50,34 @@ class TacOpView: UIStackView {
     
     func setupText(tacOp: TacOp, delegate: WeaponRuleButtonDelegate) {
         
-        setHeader(title: tacOp.name)
         let descriptionLabel = NormalLabel()
-        setupSubView(text: tacOp.description, trailingSpace: Constant.Size.Otstup.normal, label: descriptionLabel)
+        addTextView(text: tacOp.description, trailingSpace: Constant.Size.Otstup.normal, label: descriptionLabel)
         
         if let subDescription = tacOp.subDescription {
             let label = NormalLabel()
-            setupSubView(text: subDescription, trailingSpace: Constant.Size.Otstup.normal, label: label)
+            addTextView(text: subDescription, trailingSpace: Constant.Size.Otstup.normal, label: label)
         }
-        let firstConditionLabel = NormalLabel()
-        setupSubView(text: tacOp.firstCondition, trailingSpace: Constant.Size.Otstup.large, label: firstConditionLabel)
+        
+        addConditionTextView(text: tacOp.firstCondition, trailingSpace: Constant.Size.Otstup.large)
         
         if let secondCondition = tacOp.secondCondition {
-            let label = NormalLabel()
-            setupSubView(text: secondCondition, trailingSpace: Constant.Size.Otstup.large, label: label)
+            addConditionTextView(text: secondCondition, trailingSpace: Constant.Size.Otstup.large)
+        }
+        
+        if let subConditionTitle = tacOp.subConditionTitle {
+            let label = BoldLabel()
+            addTextView(text: subConditionTitle, trailingSpace: Constant.Size.Otstup.large, label: label)
         }
         
         if let subCondition = tacOp.subCondition {
-            for (index, text) in subCondition.enumerated() {
-                if index == 0 {
-                    let label = BoldLabel()
-                    setupSubView(text: text, trailingSpace: Constant.Size.Otstup.large, label: label)
-                } else {
-                    let label = NormalLabel()
-                    setupSubView(text: text, trailingSpace: 25, label: label)
-                }
+            subCondition.forEach { text in
+                addConditionTextView(text: text, trailingSpace: 25)
             }
         }
         
         if let subText = tacOp.subText {
             let label = NormalLabel()
-            setupSubView(text: subText, trailingSpace: Constant.Size.Otstup.normal, label: label)
+            addTextView(text: subText, trailingSpace: Constant.Size.Otstup.normal, label: label)
         }
         
         if let uniquiAction = tacOp.uniquiAction {
@@ -98,17 +96,16 @@ class TacOpView: UIStackView {
         }
     }
     
-    private func setHeader(title: String) {
+    func setHeader(title: String) {
         let view = HeaderView()
         view.setupText(name: title)
         addArrangedSubview(view)
     }
     
-    private func setupSubView(text: String, trailingSpace: CGFloat, label: UILabel) {
+    private func addTextView(text: String, trailingSpace: CGFloat, label: UILabel) {
         let view = UIView()
         let label = label
         view.addSubview(label)
-        view.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
         label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingSpace).isActive = true
         label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
@@ -118,4 +115,31 @@ class TacOpView: UIStackView {
         
     }
     
+    func addConditionTextView(text: String, trailingSpace: CGFloat) {
+        let view = UIView()
+        let label = NormalLabel()
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "circle.fill")
+        imageView.tintColor = .black
+        view.addSubview(label)
+        view.addSubview(imageView)
+        label.text = text
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.Size.Otstup.small),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.small),
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.small)
+        ])
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingSpace),
+            imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -Constant.Size.Otstup.small),
+            imageView.topAnchor.constraint(equalTo: label.topAnchor, constant: label.font.pointSize/2 - 2),
+            imageView.heightAnchor.constraint(equalToConstant: Constant.Size.imagePointSize),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+        ])
+        addArrangedSubview(view)
+    }
+    
 }
+

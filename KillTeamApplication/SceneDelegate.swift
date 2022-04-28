@@ -16,6 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
+        UINavigationBar.appearance().barStyle = .black
+        UINavigationBar.appearance().tintColor = .orange
+        let gameStore = GameStore()
         let store = Store()
         DispatchQueue.global(qos: .utility).async {
             store.loadSavedKillTeam()
@@ -24,10 +27,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 store.keysForKillTeam = keys
             }
         }
-        let gameStore = GameStore()
         gameStore.parseTacOps()
         let builder = ModuleBuilder(store: store, gameStore: gameStore)
-        _ = MainTabbarRouter(builder: builder, window: window!, complition: store.loadLastUsedKillTeam)
+        let router = MainRouter(builder: builder)
+        let rootViewController = MainTabBarController(mainRouter: router, builder: builder, complition: store.loadLastUsedKillTeam)
+        window?.rootViewController = rootViewController
+        window?.makeKeyAndVisible()
+        //_ = MainTabbarRouter(builder: builder, window: window!, complition: store.loadLastUsedKillTeam)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

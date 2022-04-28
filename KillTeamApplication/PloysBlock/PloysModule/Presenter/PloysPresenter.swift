@@ -19,9 +19,23 @@ protocol PloysPresenterProtocol: AnyObject {
     var store: StoreProtocol { get }
     var model: PloysModel { get }
     var router: PloysRouterProtocol { get }
+    
+    func goToPsychicPowerViewController()
+    func goToKillTeamAbilitieViewController() 
+}
+
+protocol PloysPresenterDelegate: AnyObject {
+    func didComplete(_ presenter: PloysPresenter, sender: GoFromPloysModule)
+}
+
+enum GoFromPloysModule {
+    case psychicPowerModule
+    case killTeamAbilitieModule
 }
 
 class PloysPresenter: PloysPresenterProtocol {
+    
+    weak var delegate: PloysPresenterDelegate?
     
     weak var view: PloysViewControllerProtocol?
     
@@ -48,6 +62,18 @@ class PloysPresenter: PloysPresenterProtocol {
         store.multicastDelegate.addDelegate(self)
         //model.tacticalPloy.append(model.reRoll)
     }
+    
+    func goToPsychicPowerViewController() {
+        guard let killTeam = model.killTeam else { return }
+        delegate?.didComplete(self, sender: .psychicPowerModule)
+        store.updateCurrentKillTeam(killTeam: killTeam)
+    }
+    
+    func goToKillTeamAbilitieViewController() {
+        guard let killTeam = model.killTeam else { return }
+        delegate?.didComplete(self, sender: .killTeamAbilitieModule)
+        store.updateCurrentKillTeam(killTeam: killTeam)
+    }
 }
 
 extension PloysPresenter: StoreDelegate {
@@ -55,6 +81,7 @@ extension PloysPresenter: StoreDelegate {
         model.strategicPloy = []
         model.tacticalPloy = []
         guard let killTeam = killTeam else { return }
+        model.killTeam = killTeam
         killTeam.ploys.forEach({ ploy in
             switch ploy.type {
             case .strategic:
@@ -63,7 +90,6 @@ extension PloysPresenter: StoreDelegate {
                 model.tacticalPloy.append(ploy)
             }
         })
-        //model.tacticalPloy.append(model.reRoll)
     }
 }
 

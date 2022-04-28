@@ -8,23 +8,24 @@
 import Foundation
 import UIKit
 
-protocol KillTeamObserverRouterProtocol: Router {
-    var observerKillTeamNavigationController: UINavigationController { get }
+protocol KillTeamObserverRouterProtocol {
+    var observerKillTeamNavigationController: KillTeamObserverNavigationController? { get }
     
 }
 
 class KillTeamObserverRouter: KillTeamObserverRouterProtocol {
-    var builder: BuilderProtocol
     
-    lazy var observerKillTeamNavigationController = UINavigationController(rootViewController: rosterModule as! UIViewController)
-    lazy var rosterModule = builder.createRosterModule(router: self)
+    var builder: BuilderProtocol
+
+    var observerKillTeamNavigationController: KillTeamObserverNavigationController?
+    
     init(builder: BuilderProtocol) {
         self.builder = builder
     }
     
     func showMoreUnitInfoController() {
         let view = builder.createMoreInfooUnitModule(router: self)
-        observerKillTeamNavigationController.pushViewController(view as! UIViewController, animated: true)
+        observerKillTeamNavigationController?.pushViewController(view as! UIViewController, animated: true)
     }
 }
 

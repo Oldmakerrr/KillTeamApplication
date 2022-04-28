@@ -213,10 +213,13 @@ extension CounterPresenter: StoreDelegate {
 
 extension CounterPresenter: CurrentKillTeamViewProtocol {
     func didComplete(_ currentKillTeamView: CurrentKillTeamView) {
-        guard let killTeam = model.killTeam else { return }
+        guard let killTeam = model.killTeam else {
+            addKillTeam()
+            return
+        }
         delegate?.didComplete(self, sender: .editCurrentKillTeam)
         store.updateCurrentKillTeam(killTeam: killTeam)
-    }
-    
+    } 
+
     
 }

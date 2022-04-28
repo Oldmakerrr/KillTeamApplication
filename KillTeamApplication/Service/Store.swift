@@ -57,6 +57,9 @@ protocol StoreProtocol {
     
     func removeKey(indexPath: IndexPath)
     func appendNewKey(key: String)
+    
+    func updateLastChoosenPsychicDisciplines(psychicDisciplines: String)
+    func getLastChoosenPsychicDisciplines() -> String?
 }
 
 protocol StoreDelegate: AnyObject {
@@ -74,6 +77,16 @@ final class Store: StoreProtocol {
                 presenter.didUpdate(self, killTeam: killTeam)
             }
         }
+    }
+    
+    var lastChoosenPsychicDisciplines: String?
+    
+    func updateLastChoosenPsychicDisciplines(psychicDisciplines: String) {
+        lastChoosenPsychicDisciplines = psychicDisciplines
+    }
+    
+    func getLastChoosenPsychicDisciplines() -> String? {
+        return lastChoosenPsychicDisciplines
     }
 
     var multicastDelegate = StoreMulticastDelegate<StoreDelegate>()

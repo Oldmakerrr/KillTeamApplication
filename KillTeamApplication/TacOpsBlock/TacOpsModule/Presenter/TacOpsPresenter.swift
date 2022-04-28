@@ -23,6 +23,7 @@ protocol TacOpsPresenterProtocol: AnyObject {
     func mixDeck()
     func mixDeckWithSpecialTacOps()
     func goToChoosenTacOps()
+    func checkSelectTacOp() -> Bool
 }
 
 protocol TacOpsPresenterDelegate: AnyObject {
@@ -76,6 +77,21 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     }
     
 //MARK: - Methods work with deck
+    
+    private func prepareTacOp(tacOp: TacOp) -> TacOp {
+        var tacOp = tacOp
+        tacOp.isCompleteSubConditions = []
+        tacOp.isCompleteSubConditions?.append(false)
+        if tacOp.secondCondition != nil {
+            tacOp.isCompleteSubConditions?.append(false)
+        }
+        if let subCondition = tacOp.subCondition {
+            subCondition.forEach({ _ in
+                tacOp.isCompleteSubConditions?.append(false)
+            })
+        }
+        return tacOp
+    }
     
     func mixDeck() {
         clearCurrentDeck()
@@ -131,7 +147,7 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
         collectionView.reloadData()
     }
     
-    func checkSelectTacOp()-> Bool {
+    func checkSelectTacOp() -> Bool {
         if  model.gameData.firstTacOp != nil &&
             model.gameData.secondTacOp != nil &&
             model.gameData.thirdTacOp != nil {
@@ -212,14 +228,14 @@ extension TacOpsPresenter: GameStoreDelegate {
 extension TacOpsPresenter: TacOpsCollectionCellDelegate {
     
     func didSelect(_ cell: TacOpsCollectionCell) {
-        
+        guard let tacOp = cell.tacOp else { return }
         switch cell.index {
         case 0, 1:
-            model.gameData.firstTacOp = cell.tacOp
+            model.gameData.firstTacOp = prepareTacOp(tacOp: tacOp)
         case 2, 3:
-            model.gameData.secondTacOp = cell.tacOp
+            model.gameData.secondTacOp = prepareTacOp(tacOp: tacOp)
         case 4, 5:
-            model.gameData.thirdTacOp = cell.tacOp
+            model.gameData.thirdTacOp = prepareTacOp(tacOp: tacOp)
         default:
             return
         }

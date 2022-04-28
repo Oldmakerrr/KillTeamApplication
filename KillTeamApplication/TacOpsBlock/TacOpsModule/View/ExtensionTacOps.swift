@@ -26,16 +26,26 @@ extension TacOpsViewController {
         ])
     }
     
-    func setupButton() {
-        navigationItem.rightBarButtonItem = editButton
-        editButton.image = UIImage(systemName: "plus")
-        editButton.target = self
-        editButton.action = #selector(edit)
+    func setupRightBarButton() {
+        let changeTacOpsTypeButton = UIBarButtonItem(image: UIImage(named: "change"),
+                                                     style: .done,
+                                                     target: self,
+                                                     action: #selector(changeTacOpsType))
+        let mixDeckButton = UIBarButtonItem(image: UIImage(systemName: "arrow.2.circlepath"),
+                                            style: .done,
+                                            target: self,
+                                            action: #selector(mixDeck))
+        navigationItem.rightBarButtonItems = [mixDeckButton, changeTacOpsTypeButton]
+    }
+    
+    @objc private func changeTacOpsType() {
+        self.changeTacOpsAlert()
+        self.tacOpsCollection.reloadData()
     }
     
     func setupGoToChoosenTacOpsButton() {
         navigationItem.leftBarButtonItem = goToChoosenTacOpsButton
-        goToChoosenTacOpsButton.image = UIImage(systemName: "square.and.arrow.up")
+        goToChoosenTacOpsButton.image = UIImage(systemName: "checkmark.rectangle.portrait.fill")
         goToChoosenTacOpsButton.target = self
         goToChoosenTacOpsButton.action = #selector(goToChoosenTacOpsView)
     }
@@ -46,32 +56,31 @@ extension TacOpsViewController {
         presenter?.goToChoosenTacOps()
     }
     
-    @objc private func edit() {
-        let editAlertController = UIAlertController()
-        let changeType = UIAlertAction(title: "Change type", style: .default) { _ in
-            self.changeTacOpsAlert()
-            self.tacOpsCollection.reloadData()
-        }
-        var title = "Mix deck"
-        if presenter!.model.factionDeck != nil {
-            title = "Mix deck without Facton Tac Ops"
-        }
-        let mixDeckAction = UIAlertAction(title: title, style: .default) { _ in
+    @objc private func mixDeck() {
+        guard let presenter = presenter else { return }
+        if presenter.model.factionDeck == nil {
             self.presenter?.mixDeck()
             self.tacOpsCollection.reloadData()
+        } else {
+            presentAlert()
         }
-        let mixDeckWithSpecialTacOpsAction = UIAlertAction(title: "Mix deck with Faction Tac Ops", style: .default) { _ in
+    }
+    
+    private func presentAlert() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let actoinWithFactionTacOp = UIAlertAction(title: "Mix deck with Faction Tac Ops", style: .default) { _ in
             self.presenter?.mixDeckWithSpecialTacOps()
             self.tacOpsCollection.reloadData()
         }
-        let cancle = UIAlertAction(title: "Cancle", style: .cancel) { _ in }
-        editAlertController.addAction(changeType)
-        editAlertController.addAction(mixDeckAction)
-        if presenter!.model.factionDeck != nil {
-            editAlertController.addAction(mixDeckWithSpecialTacOpsAction)
+        let actionWithoutFactionTacOp = UIAlertAction(title: "Mix deck without Facton Tac Ops", style: .default) { _ in
+            self.presenter?.mixDeck()
+            self.tacOpsCollection.reloadData()
         }
-        editAlertController.addAction(cancle)
-        present(editAlertController, animated: true, completion: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(actoinWithFactionTacOp)
+        alert.addAction(actionWithoutFactionTacOp)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     
 //MARK: - Show/Dismiss Alert
@@ -81,6 +90,7 @@ extension TacOpsViewController {
         moreInfoTacOpView.layer.applyCornerRadius()
         moreInfoTacOpView.layer.masksToBounds = true
         moreInfoTacOpView.delegate = self
+        moreInfoTacOpView.setHeader(title: tacOp.name)
         moreInfoTacOpView.setupText(tacOp: tacOp, delegate: self)
         moreInfoTacOpView.setupButton()
         customAlert.showAlert(alertView: moreInfoTacOpView, targetViewController: self)
@@ -95,7 +105,7 @@ extension TacOpsViewController {
 //MARK: - EditTacOpsDeck
     
     private func changeTacOpsAlert() {
-        let alertController = UIAlertController(title: nil, message: "Choose tacops type", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Choose Tac Ops type", message: nil, preferredStyle: .actionSheet)
         let seekAndDestroy = UIAlertAction(title: "Seek & Destroy", style: .default) {[self] _ in
             presenter?.pickTacOps(sender: .seekAndDestroy, collectionView: tacOpsCollection)
             navigationItem.title = "Seek & Destroy"

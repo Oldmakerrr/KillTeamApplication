@@ -28,6 +28,10 @@ struct Unit: Codable {
     let abilities: [UnitAbilitie]?
     let uniqueActions: [UnitUniqueAction]?
     let keyWords: [String]
+    
+    mutating func updateCurrentWounds() {
+        currentWounds = wounds
+    }
 }
 
 enum UnitType: String, Codable {
