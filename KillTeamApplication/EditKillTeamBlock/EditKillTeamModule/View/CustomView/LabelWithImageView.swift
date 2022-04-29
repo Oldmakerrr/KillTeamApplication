@@ -11,7 +11,7 @@ import UIKit
 
 class LabelWithImageView: UIView {
     
-    private let label = NormalLabel()
+    let label = BoldLabel()
     private let imageView = UIImageView()
     
     override init(frame: CGRect) {

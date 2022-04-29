@@ -51,10 +51,10 @@ class WeaponView: UIStackView, WargearView {
     
     
      func setupText(wargear: WeaponProtocol, delegate: WeaponRuleButtonDelegate?) {
-        if wargear.profileName != nil {
-            setupHeader(name: "\(wargear.name) (\(wargear.profileName!))")
+        if let profileName = wargear.profileName {
+            setupHeader(title: "\(wargear.name) (\(profileName))")
         } else {
-            setupHeader(name: wargear.name)
+            setupHeader(title: wargear.name)
         }
         switch wargear.type {
         case .range:

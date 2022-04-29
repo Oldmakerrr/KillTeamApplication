@@ -9,7 +9,7 @@ import UIKit
 
 protocol EditUnitViewControllerProtocol: AnyObject {
     var presenter: EditUnitPresenterProtocol? { get }
-    var countOfEquipmentPointLabel: NormalLabel { get }
+    var countOfEquipmentPointLabel: BoldLabel { get }
 }
 
 protocol EditUnitPresenterProtocol: AnyObject {

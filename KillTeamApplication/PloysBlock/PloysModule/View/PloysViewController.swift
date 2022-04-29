@@ -22,21 +22,24 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         setupTableView()
         tabBarController?.delegate = self
         navigationItem.title = "Ploys"
-        setupKillTeamAbilitieButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
         shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
+        setupKillTeamAbilitieButton()
     }
     
     func setupKillTeamAbilitieButton() {
-        guard presenter?.model.killTeam?.abilitiesOfKillTeam != nil else { return }
-        let killTeamAbilitieBarButtonItem = UIBarButtonItem(image: UIImage(named: "killTeamViewController"),
+        guard presenter?.model.killTeam?.abilitiesOfKillTeam != nil else {
+            navigationItem.leftBarButtonItem = nil
+            return }
+        let killTeamAbilitieBarButtonItem = UIBarButtonItem(image: nil,
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(goToKillTeamAbilitieButtonAction))
+        killTeamAbilitieBarButtonItem.title = "Abilitie"
         navigationItem.leftBarButtonItem = killTeamAbilitieBarButtonItem
     }
     

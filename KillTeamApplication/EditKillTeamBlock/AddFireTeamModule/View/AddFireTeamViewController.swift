@@ -11,7 +11,7 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
     
     var presenter: AddFireTeamPresenterProtocol?
     
-    var maxCountFIreTeamLabel = NormalLabel()
+    var maxCountFIreTeamLabel = BoldLabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,6 +12,7 @@ extension AddFireTeamViewController {
     func setupMaxCountFIreTeamLabel() {
         guard let navigationBar = navigationController?.navigationBar else { return }
         maxCountFIreTeamLabel.text = "Max FT: \(presenter?.model.maxCountOfFireTeam ?? 0)"
+        maxCountFIreTeamLabel.textColor = .white
         navigationBar.addSubview(maxCountFIreTeamLabel)
         NSLayoutConstraint.activate([
             maxCountFIreTeamLabel.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),

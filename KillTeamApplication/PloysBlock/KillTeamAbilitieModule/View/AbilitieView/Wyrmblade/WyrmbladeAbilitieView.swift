@@ -9,10 +9,14 @@ import UIKit
 
 class WyrmbladeAbilitieView: KillTeamAbilitieView {
     
-    func setupAbilitie(abilitie: WyrmbladeAbilitie) {
-        abilitie.rules.forEach { rule in
-            setupRule(rule: rule)
+    func setupFirstRule(abilitie: WyrmbladeAbilitie) {
+        if let firstRule = abilitie.rules.first {
+            setupRule(rule: firstRule)
         }
+    }
+    
+    func setupSecondRule(abilitie: WyrmbladeAbilitie) {
+        setupRule(rule: abilitie.rules[1])
     }
     
     private func setupRule(rule: WyrmbladeAbilitie.Rule) {

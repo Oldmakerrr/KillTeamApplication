@@ -98,6 +98,7 @@ extension EditKillTeamTableViewController {
     
     func setupTitleView(name: String?) {
         customTitleView.setupText(text: name)
+        customTitleView.label.textColor = .white
         let image = UIImage(systemName: "square.and.pencil")
         customTitleView.setupImage(image: image)
         navigationItem.titleView = customTitleView

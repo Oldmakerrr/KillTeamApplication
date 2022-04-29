@@ -18,7 +18,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     
     var presenter: EditUnitPresenterProtocol?
     
-    var countOfEquipmentPointLabel = NormalLabel()
+    var countOfEquipmentPointLabel = BoldLabel()
     
     let customAlert = CustomScrollAlert()
 

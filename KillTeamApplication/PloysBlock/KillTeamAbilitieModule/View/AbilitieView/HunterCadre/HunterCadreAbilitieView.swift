@@ -9,22 +9,15 @@ import UIKit
 
 class HunterCadreAbilitieView: KillTeamAbilitieView {
     
-    func setupAbilitie(abilitie: HunterCadreAbilitie) {
+    func setupDroneRule(abilitie: HunterCadreAbilitie) {
         setupHeader(title: abilitie.title)
-        setupDroneRule(rule: abilitie.rule)
-        setupUniqueAction(action: abilitie.uniqueAction)
-        abilitie.abilities.forEach { text in
-            setupAbiliteRule(abilitie: text)
-        }
-    }
-    
-    func setupDroneRule(rule: HunterCadreAbilitie.DronesRule) {
+        let rule = abilitie.rule
         addTextView(text: rule.text)
         addSubTextPointView(subText: rule.dronesList)
         addTextView(text: rule.postText)
     }
     
-    private func setupUniqueAction(action: HunterCadreAbilitie.UniqueAction) {
+    func setupUniqueAction(action: HunterCadreAbilitie.UniqueAction) {
         let backgroundView = UIView()
         let contentView = UIStackView()
         backgroundView.addView(view: backgroundView, subView: contentView)
@@ -45,7 +38,7 @@ class HunterCadreAbilitieView: KillTeamAbilitieView {
         
     }
     
-    private func setupAbiliteRule(abilitie: HunterCadreAbilitie.Abilitie) {
+    func setupAbiliteRule(abilitie: HunterCadreAbilitie.Abilitie) {
         setupHeader(title: abilitie.name)
         if let subText = abilitie.subText {
             addSubTextPointView(subText: subText)

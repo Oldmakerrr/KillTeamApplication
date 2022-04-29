@@ -21,6 +21,7 @@ extension EditUnitViewController {
               let countOfEquipmentPoint = presenter?.model.killTeam?.countEquipmentPoint  else { return }
         navigationBar.addSubview(countOfEquipmentPointLabel)
         countOfEquipmentPointLabel.text = "EP = \(countOfEquipmentPoint)"
+        countOfEquipmentPointLabel.textColor = .white
         NSLayoutConstraint.activate([
             countOfEquipmentPointLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large),
             countOfEquipmentPointLabel.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor)
