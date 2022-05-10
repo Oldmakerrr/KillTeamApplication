@@ -7,10 +7,23 @@
 
 import UIKit
 
-
 class AllegoryTableViewController: UITableViewController {
     
     var allegory: [VoidDancerTroupeAbilitie.Allegory]?
+    let gameStore: GameStoreProtocol
+    var gameData = GameData()
+    
+    init(gameStore: GameStoreProtocol) {
+        self.gameStore = gameStore
+        super.init(style: .plain)
+       // gameStore.multicastDelegate.addDelegate(self)
+        guard let gameData = gameStore.getGameDate() else { return }
+        self.gameData = gameData
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,11 +50,31 @@ class AllegoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cost = allegory?[indexPath.row] else { return }
-        print("chaosBlessing - \(cost.name)")
+        guard let allegory = allegory?[indexPath.row] else { return }
+        gameData.currentAbilitie = allegory.name
+        gameStore.updateGameData(gameData: gameData)
+        self.showAlert()
+    
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: "Allegory successfuly used", message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Done", style: .cancel, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }
 
+//extension AllegoryTableViewController: GameStoreDelegate {
+//    func didUpdate(_ gameStore: GameStore, gameData: GameData?) {
+//        <#code#>
+//    }
+//
+//
+//}
+//
 class AllegoryTableViewCell: KillTeamAbilitieTableViewCell<AllegoryView> {
     
     func setupText(allegory: VoidDancerTroupeAbilitie.Allegory) {
@@ -49,4 +82,5 @@ class AllegoryTableViewCell: KillTeamAbilitieTableViewCell<AllegoryView> {
     }
     
 }
+
 

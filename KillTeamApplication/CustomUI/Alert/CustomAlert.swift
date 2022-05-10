@@ -16,7 +16,7 @@ class CustomScrollAlert {
     let screenCenter = CGPoint(x: UIScreen.main.bounds.width/2,
                                y: UIScreen.main.bounds.height/2)
     
-    var targetViewController: UIViewController?
+    weak var targetViewController: UIViewController?
     
     private let backgrowndView: UIView = {
         let backgrounView = UIView()

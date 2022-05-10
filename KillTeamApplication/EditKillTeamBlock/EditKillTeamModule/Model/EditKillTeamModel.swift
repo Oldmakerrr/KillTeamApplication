@@ -10,7 +10,6 @@ import Foundation
 
 struct ChosenKillTeam {
     var killTeam: KillTeam?
-    var choosenUnits: [Unit] = []
 }
 
 enum GoFromEditKillTeam {

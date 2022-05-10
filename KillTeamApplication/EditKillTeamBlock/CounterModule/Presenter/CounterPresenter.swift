@@ -11,31 +11,29 @@ protocol CounterViewProtocol: AnyObject {
     
     var currentKillTeamView: CurrentKillTeamView { get }
     
+    var commandPoint: CounterPointView { get }
+    var victoryPoint: CounterPointView { get }
+    var killTeamAbilitiePoint: CounterPointView? { get }
+    
     var turningPointLabel: CounterLabel { get }
-    var commandPointLabel: CounterLabel { get }
-    var victoryPointLabel: CounterLabel { get }
-
-    var plusCommandPoint: ChangePointButton { get }
-    var minusCommandPoint: ChangePointButton { get }
-    var plusVictoryPoint: ChangePointButton { get }
-    var minusVictoryPoint: ChangePointButton { get }
+    var currentAbilitieView: ViewWithLabel { get }
+    
     var nextTurnButton: ChangeTurnButton { get }
     var endGameButton: ChangeTurnButton { get }
-    
-    var currentStrategicPloyLabel: CounterLabel { get }
     
     var currentPloysCollectionView: CurrentPloysCollectionView { get }
 }
 
 protocol CounterPresenterProtocol: AnyObject {
-    init (view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol)
+    init (view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol)
     var model: CounterModel {get set}
     var store: StoreProtocol {get}
     var gameStore: GameStoreProtocol { get }
-    func showChooseKillTeamTableViewController()
-    func showChooseLoadedKillTeamTableViewController()
+    
+    func showKillTeamAbilitieViewController()
     func buttonAction(sender: UIButton)
     func addKillTeam()
+    
 }
 
 protocol CounterPresenterDelegate: AnyObject {
@@ -44,11 +42,13 @@ protocol CounterPresenterDelegate: AnyObject {
 
 class CounterPresenter: CounterPresenterProtocol {
     
-    var router: EditKillTeamRouterProtocol
+    let router: EditKillTeamRouterProtocol
     
-    var store: StoreProtocol
+    let store: StoreProtocol
     
-    var gameStore: GameStoreProtocol
+    let storage: StorageProtocol
+    
+    let gameStore: GameStoreProtocol
     
     weak var view: CounterViewProtocol?
     
@@ -60,18 +60,14 @@ class CounterPresenter: CounterPresenterProtocol {
         }
     }
     
-    required init(view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol) {
+    required init(view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol) {
         self.view = view
         self.router = router
         self.store = store
+        self.storage = storage
         self.gameStore = gameStore
         self.gameStore.multicastDelegate.addDelegate(self)
         self.store.multicastDelegate.addDelegate(self)
-       // if let lastUsedKillTeam = store.lastUsedKillTeam {
-       //     if model.killTeam == nil {
-       //         model.killTeam = lastUsedKillTeam
-       //     }
-       // }
     }
     
     @objc func showChooseKillTeamTableViewController() {
@@ -82,50 +78,68 @@ class CounterPresenter: CounterPresenterProtocol {
         delegate?.didComplete(self, sender: .loadKillTeam)
      }
     
-   // private func updateCurrentWound() {
-   //     guard var killTeam = model.killTeam else { return }
-   //     for (i, fireTeam) in killTeam.choosenFireTeam.enumerated() {
-   //         for (j, unit) in fireTeam.currentDataslates.enumerated() {
-   //             killTeam.choosenFireTeam[i].currentDataslates[j].currentWounds = unit.wounds
-   //         }
-   //     }
-   //     model.killTeam = killTeam
-   //     store.updateCurrentKillTeam(killTeam: killTeam)
-   // }
+    func showKillTeamAbilitieViewController() {
+        delegate?.didComplete(self, sender: .killTeamAbilitie)
+    }
+    
+    private func createTitleForAbilitieView() -> String {
+        var title = String()
+        if model.killTeam?.abilitiesOfKillTeam is HunterCladeAbilitie {
+            title = ""
+        }
+        if model.killTeam?.abilitiesOfKillTeam is VoidDancerTroupeAbilitie {
+            title = "Choosen Allegory:"
+        }
+        return title
+    }
     
     func updateTextLabel() {
-        view?.commandPointLabel.text = "Command Point = \(model.gameData.countCommandPoint)"
-        view?.victoryPointLabel.text = "Victory Point = \(model.gameData.countVictoryPoint)"
-        view?.turningPointLabel.text = "Turning Point = \(model.gameData.countTurningPoint)"
+        view?.turningPointLabel.text = "Turning point \(model.gameData.countTurningPoint)"
+        view?.commandPoint.label.text = "Command Point = \(model.gameData.countCommandPoint)"
+        view?.victoryPoint.label.text = "Victory Point = \(model.gameData.countVictoryPoint)"
+        view?.killTeamAbilitiePoint?.label.text = "\(view?.killTeamAbilitiePoint?.title ?? "") = \(model.gameData.countKillTeamAbilitiePoint ?? 0)"
+        if let abilitieName = model.gameData.currentAbilitie {
+            view?.currentAbilitieView.setupText(text: "\(createTitleForAbilitieView()) \(abilitieName)")
+        }
         if model.gameData.countTurningPoint > 0 {
             view?.endGameButton.isHidden = false
+            view?.commandPoint.minusButton.isEnabled = true
+            view?.commandPoint.plusButton.isEnabled = true
+            view?.victoryPoint.minusButton.isEnabled = true
+            view?.victoryPoint.plusButton.isEnabled = true
+            view?.killTeamAbilitiePoint?.plusButton.isEnabled = true
+            view?.killTeamAbilitiePoint?.minusButton.isEnabled = true
         } else {
             view?.endGameButton.isHidden = true
+            view?.commandPoint.minusButton.isEnabled = false
+            view?.commandPoint.plusButton.isEnabled = false
+            view?.victoryPoint.minusButton.isEnabled = false
+            view?.victoryPoint.plusButton.isEnabled = false
+            view?.killTeamAbilitiePoint?.plusButton.isEnabled = false
+            view?.killTeamAbilitiePoint?.minusButton.isEnabled = false
         }
         
         if model.gameData.countTurningPoint == 0 {
             view?.nextTurnButton.setTitle("Start Game", for: .normal)
-            view?.plusCommandPoint.isEnabled = false
-            view?.plusVictoryPoint.isEnabled = false
-            view?.minusCommandPoint.isEnabled = false
-            view?.minusVictoryPoint.isEnabled = false
         } else {
             view?.nextTurnButton.setTitle("Next Turn", for: .normal)
-            view?.plusCommandPoint.isEnabled = true
-            view?.plusVictoryPoint.isEnabled = true
-            view?.minusCommandPoint.isEnabled = true
-            view?.minusVictoryPoint.isEnabled = true
-        }
-        
-        if !model.gameData.currentStrategicPloys.isEmpty {
-            view?.currentStrategicPloyLabel.text = "Strategic Ploy:"
-        } else {
-            view?.currentStrategicPloyLabel.text = ""
         }
     }
     
+    private func plusActOfFaithPointPerTurn() {
+        guard var point = model.gameData.countKillTeamAbilitiePoint else { return }
+        point += 3
+        model.gameData.countKillTeamAbilitiePoint = point
+    }
+    
+    private func actOfFaithPointEndGame() {
+        guard var point = model.gameData.countKillTeamAbilitiePoint else { return }
+        point = 0
+        model.gameData.countKillTeamAbilitiePoint = point
+    }
+    
     func addKillTeam() {
-        if !store.loadedKillTeam.isEmpty {
+        if !storage.isLoadedKillTeamEmpty() {
             let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose an existing.", preferredStyle: .actionSheet)
             let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
                 self.showChooseKillTeamTableViewController()
@@ -145,55 +159,110 @@ class CounterPresenter: CounterPresenterProtocol {
         }
     }
     
+//MARK: - TurningPointButtonAction
+    
     func buttonAction(sender: UIButton) {
-        if let view = view {
-            switch sender {
-            case view.plusCommandPoint:
-                model.gameData.countCommandPoint += 1
-            case view.minusCommandPoint:
-                if model.gameData.countCommandPoint > 0 {
-                    model.gameData.countCommandPoint -= 1
-                }
-            case view.plusVictoryPoint:
-                model.gameData.countVictoryPoint += 1
-            case view.minusVictoryPoint:
-                if model.gameData.countVictoryPoint > 0 {
-                    model.gameData.countVictoryPoint -= 1
-                }
-            case view.nextTurnButton:
-                if model.gameData.countTurningPoint == 0 {
-                    if var killTeam = model.killTeam {
-                        killTeam.updateCurrentWounds()
-                        store.updateCurrentKillTeam(killTeam: killTeam)
-                    }
-                    model.gameData.countTurningPoint += 1
-                    model.gameData.countCommandPoint += 3
-                } else {
-                    model.gameData.currentStrategicPloys = []
-                    view.currentPloysCollectionView.reloadData()
-                    model.gameData.countTurningPoint += 1
-                    model.gameData.countCommandPoint += 1
-                }
-            case view.endGameButton:
-                if var killTeam = model.killTeam {
-                    killTeam.updateCurrentWounds()
-                    store.updateCurrentKillTeam(killTeam: killTeam)
-                }
-                model.gameData.countCommandPoint = 0
-                model.gameData.countTurningPoint = 0
-                model.gameData.countVictoryPoint = 0
-                model.gameData.currentStrategicPloys = []
-                model.gameData.firstTacOp = nil
-                model.gameData.secondTacOp = nil
-                model.gameData.thirdTacOp = nil
-                gameStore.updateGameData(gameData: model.gameData)
-                view.currentPloysCollectionView.reloadData()
-            default:
-                return
+        guard let view = view else { return }
+        switch sender {
+        case view.nextTurnButton:
+            nextTurnButtonAction(view: view)
+        case view.endGameButton:
+            endGameButtonAction(view: view)
+        default:
+            return
+        }
+        gameStore.updateGameData(gameData: model.gameData)
+    }
+    
+    private func nextTurnButtonAction(view: CounterViewProtocol) {
+        if model.gameData.countTurningPoint == 0 {
+            plusActOfFaithPointPerTurn()
+            if var killTeam = model.killTeam {
+                killTeam.updateCurrentWounds()
+                store.updateCurrentKillTeam(killTeam: killTeam)
             }
-            gameStore.updateGameData(gameData: model.gameData)
+            model.gameData.countTurningPoint += 1
+            model.gameData.countCommandPoint += 3
+        } else {
+            plusActOfFaithPointPerTurn()
+            model.gameData.currentStrategicPloys = []
+            view.currentPloysCollectionView.reloadData()
+            model.gameData.countTurningPoint += 1
+            model.gameData.countCommandPoint += 1
         }
     }
+    
+    private func endGameButtonAction(view: CounterViewProtocol) {
+        if var killTeam = model.killTeam {
+            killTeam.updateCurrentWounds()
+            store.updateCurrentKillTeam(killTeam: killTeam)
+        }
+        actOfFaithPointEndGame()
+        model.gameData.countCommandPoint = 0
+        model.gameData.countTurningPoint = 0
+        model.gameData.countVictoryPoint = 0
+        model.gameData.currentStrategicPloys = []
+        model.gameData.firstTacOp = nil
+        model.gameData.secondTacOp = nil
+        model.gameData.thirdTacOp = nil
+        gameStore.updateGameData(gameData: model.gameData)
+        view.currentPloysCollectionView.reloadData()
+    }
+    
+    private func isExistKillTeamAbilitie(killTeam: KillTeam?) {
+        guard let abilitie = killTeam?.abilitiesOfKillTeam else {
+            model.gameData.countKillTeamAbilitiePoint = nil
+            return }
+        novitiateAbilitie(abilite: abilitie)
+        gameStore.updateGameData(gameData: model.gameData)
+    }
+    
+    private func novitiateAbilitie(abilite: KillTeamAbilitie) {
+        guard abilite is NovitiateAbilitie else { return }
+        if model.gameData.countKillTeamAbilitiePoint == nil {
+            model.gameData.countKillTeamAbilitiePoint = 0
+        }
+    }
+    
+}
+
+extension CounterPresenter: CounterPointViewDelegate {
+    func didComplete(_ counterPointView: CounterPointView, sender: UIButton) {
+        switch counterPointView {
+        case view?.commandPoint:
+            switch sender {
+            case counterPointView.plusButton:
+                model.gameData.countCommandPoint += 1
+            case counterPointView.minusButton:
+                model.gameData.countCommandPoint = model.gameData.countCommandPoint > 0 ? model.gameData.countCommandPoint - 1 : 0
+            default:
+                break
+            }
+        case view?.victoryPoint:
+            switch sender {
+            case counterPointView.plusButton:
+                model.gameData.countVictoryPoint += 1
+            case counterPointView.minusButton:
+                model.gameData.countVictoryPoint = model.gameData.countVictoryPoint > 0 ? model.gameData.countVictoryPoint - 1 : 0
+            default:
+                break
+            }
+        case view?.killTeamAbilitiePoint:
+            guard var abilitiePoint = model.gameData.countKillTeamAbilitiePoint else { return }
+            switch sender {
+            case counterPointView.plusButton:
+                abilitiePoint += 1
+            case counterPointView.minusButton:
+                abilitiePoint = abilitiePoint > 0 ? abilitiePoint - 1 : 0
+            default:
+                break
+            }
+            model.gameData.countKillTeamAbilitiePoint = abilitiePoint
+        default:
+            break
+        }
+    }
+    
 }
 
 extension CounterPresenter: GameStoreDelegate {
@@ -206,8 +275,14 @@ extension CounterPresenter: GameStoreDelegate {
 
 extension CounterPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
+        if killTeam?.killTeamName != model.killTeam?.killTeamName {
+            model.gameData.currentAbilitie = nil
+            gameStore.updateGameData(gameData: model.gameData)
+        }
         model.killTeam = killTeam
+        isExistKillTeamAbilitie(killTeam: killTeam)
         view?.currentKillTeamView.setupText(killTeam: killTeam)
+       
     }
 }
 

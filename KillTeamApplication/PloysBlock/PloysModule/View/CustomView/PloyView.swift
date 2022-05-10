@@ -16,9 +16,12 @@ class PloyView: UIStackView {
     
     weak var delegate: PloyViewDelegate?
     
+    let weaponView = WeaponView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init(coder: NSCoder) {
@@ -29,7 +32,7 @@ class PloyView: UIStackView {
         delegate?.didComplete(self)
     }
     
-    func setupPloy(ploy: Ploy, delegate: WeaponRuleButtonDelegate) {
+    func setupPloy(ploy: Ploy, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         setupHeader(name: ploy.name, cost: ploy.cost)
         setupDescription(description: ploy.description)
         
@@ -42,11 +45,11 @@ class PloyView: UIStackView {
         }
         
         if let action = ploy.abilities {
-            setupUniqueAction(action: action, delegate: delegate)
+            setupUniqueAction(action: action, delegate: delegate, viewWidth: viewWidth)
         }
         
         if let weapon = ploy.wargear {
-            setupWeponView(weapon: weapon)
+            setupWeponView(weapon: weapon, viewWidth: viewWidth, delegate: delegate)
         }
     }
     
@@ -57,23 +60,23 @@ class PloyView: UIStackView {
         addArrangedSubview(view)
     }
     
-    private func setupWeponView(weapon: Weapon) {
+    private func setupWeponView(weapon: Weapon, viewWidth: CGFloat, delegate: WeaponRuleButtonDelegate) {
         let backgroundView = UIView()
-        let view = WeaponView()
-        addView(view: backgroundView, subView: view)
-        view.setupText(wargear: weapon, delegate: nil)
-        view.layer.applyBorder()
+    
+        addView(view: backgroundView, subView: weaponView)
         addArrangedSubview(backgroundView)
+        weaponView.setupText(wargear: weapon, delegate: delegate, viewWidth: viewWidth)
+        weaponView.layer.applyBorder()
     }
     
-    private func setupUniqueAction(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
+    private func setupUniqueAction(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         let backgroundView = UIView()
         //let view = UnitUniqueAtionView()
         let view = UniqueActionView()
         view.backgroundColor = ColorScheme.shared.theme.subViewBackground
         addView(view: backgroundView, subView: view)
         view.layer.applyBorder()
-        view.setupText(action: action, delegate: delegate)
+        view.setupText(action: action, delegate: delegate, viewWidth: viewWidth)
         addArrangedSubview(backgroundView)
     }
     

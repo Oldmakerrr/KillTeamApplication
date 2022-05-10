@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol KillTeamObserverRouterProtocol {
+protocol KillTeamObserverRouterProtocol: RouterProtocol {
     var observerKillTeamNavigationController: KillTeamObserverNavigationController? { get }
     
 }

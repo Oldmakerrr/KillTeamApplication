@@ -74,7 +74,12 @@ extension MoreInfoUnitViewController {
             addEquipmentView(equipments: unit.equipment)
         }
         if let abilities = unit.abilities {
-            addAbilitiesView(abilities: abilities)
+            addAbilitiesView(abilities: abilities, additionalAbilitie: unit.additionalAbilitie)
+        } else {
+            if let chaosBlessing = unit.additionalAbilitie as? UnitAbilitie {
+                addHeaderView(text: "Abilities")
+                setupChaosBlessing(chaosBlessing: chaosBlessing)
+            }
         }
         if let uniqueActions = unit.uniqueActions {
             addUniqueActionsView(uniqueActions: uniqueActions)
@@ -94,10 +99,13 @@ extension MoreInfoUnitViewController {
     
     private func addWeaponView(weapon: Weapon) {
         let view = WeaponView()
+        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
         view.layer.applyCornerRadius()
         view.layer.masksToBounds = true
-        view.setupText(wargear: weapon, delegate: self)
-        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
+        
+        view.setupText(wargear: weapon, delegate: self, viewWidth: view.getViewWidth())
+        
+        
     }
     
     private func addCurrentWoundView(unit: Unit) {
@@ -152,15 +160,15 @@ extension MoreInfoUnitViewController {
         addHeaderView(text: "Unique Actions")
         for uniqueAction in uniqueActions {
             let view = UniqueActionView()
-            view.setupTextForUnit(action: uniqueAction, delegate: self)
             view.backgroundColor = ColorScheme.shared.theme.viewBackground
             view.layer.applyCornerRadius()
             view.layer.masksToBounds = true
             scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
+            view.setupTextForUnit(action: uniqueAction, delegate: self, viewWidth: view.getViewWidth())
         }
     }
     
-    private func addAbilitiesView (abilities: [UnitAbilitie]) {
+    private func addAbilitiesView (abilities: [UnitAbilitie], additionalAbilitie: UnitAbilitieProtocol?) {
         addHeaderView(text: "Abilities")
         for ability in abilities {
             let view = AbilitieView()
@@ -170,6 +178,18 @@ extension MoreInfoUnitViewController {
             view.setupText(abilitie: ability)
             scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
         }
+        if let chaosBlessing = additionalAbilitie {
+            setupChaosBlessing(chaosBlessing: chaosBlessing)
+        }
+    }
+    
+    private func setupChaosBlessing(chaosBlessing: UnitAbilitieProtocol) {
+        let view = AbilitieView()
+        view.backgroundColor = ColorScheme.shared.theme.viewBackground
+        view.layer.applyCornerRadius()
+        view.layer.masksToBounds = true
+        view.setupText(abilitie: chaosBlessing)
+        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
     }
     
     private func addDescriptionView(text: String) {
@@ -228,10 +248,11 @@ extension MoreInfoUnitViewController {
         addHeaderView(text: "Equipment")
         for equipment in equipments {
             let view = EquipmentView()
+            scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
             view.layer.applyCornerRadius()
             view.layer.masksToBounds = true
-            view.setupText(wargear: equipment, delegate: self)
-            scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
+            view.setupText(wargear: equipment, delegate: self, viewWidth: view.getViewWidth())
+            
         }
     }
     
@@ -253,3 +274,10 @@ extension MoreInfoUnitViewController: WeaponRuleButtonDelegate {
     
 }
 
+extension UIView {
+    
+    func getViewWidth() -> CGFloat {
+        layoutIfNeeded()
+        return frame.size.width
+    }
+}

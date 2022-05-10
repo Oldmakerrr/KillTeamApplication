@@ -8,16 +8,18 @@
 import Foundation
 import UIKit
 
-protocol  CurrentPloysCollectionViewProtocol: AnyObject {
+protocol  CurrentPloysCollectionViewDelegate: AnyObject {
     func didSelectCell(_ CurrentPloysCollectionView: CurrentPloysCollectionView, indexPath: IndexPath)
 }
 
 class CurrentPloysCollectionView: UICollectionView {
     
-    weak var selectCellDelegate: CurrentPloysCollectionViewProtocol?
+    weak var selectCellDelegate: CurrentPloysCollectionViewDelegate?
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
+        //let layout = UICollectionViewFlowLayout()
+        //layout.scrollDirection = .horizontal
+        super.init(frame: .zero, collectionViewLayout: layout)
         configure()
         register(CurrentPloysCollectionViewCell.self, forCellWithReuseIdentifier: CurrentPloysCollectionViewCell.identifier)
     }
@@ -45,7 +47,11 @@ extension CurrentPloysCollectionView: UICollectionViewDelegate {
 extension CurrentPloysCollectionView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width/2 - 5, height: 40)
+        if collectionView.numberOfItems(inSection: 0) == 1 {
+            return CGSize(width: collectionView.frame.width - 60, height: 40)
+        } else {
+            return CGSize(width: collectionView.frame.width/2 - 5, height: 40)
+        }
     }
     
 }

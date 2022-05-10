@@ -22,8 +22,6 @@ struct KillTeam: Codable {
     let factionLogo: String
     let fireTeam: [FireTeam]
     var choosenFireTeam: [FireTeam] = []
-    var counterFireTeam: [String: Int]?
-    var choosenUnit: Unit?
     let ploys: [Ploy]
     let psychicPower: [PsychicPower]?
     let psychicPowerDescription: [String]?
@@ -31,7 +29,6 @@ struct KillTeam: Codable {
     let equipment: [Equipment]
     var countEquipmentPoint: Int
     let tacOps: [TacOp]?
-    var indexOfChoosenUnit: IndexPath?
     
     enum CodingKeys: String, CodingKey {
         case killTeamName = "killTeamName"
@@ -42,8 +39,6 @@ struct KillTeam: Codable {
         case factionLogo = "factionLogo"
         case fireTeam = "fireTeam"
         case choosenFireTeam = "choosenFireTeam"
-        case counterFireTeam = "counterFireTeam"
-        case choosenUnit = "choosenUnit"
         case ploys = "ploys"
         case psychicPower = "psychicPower"
         case psychicPowerDescription = "psychicPowerDescription"
@@ -100,10 +95,6 @@ struct KillTeam: Codable {
         self.fireTeam = try fireTeam.decode([FireTeam].self, forKey: .fireTeam)
         let choosenFireTeam = try decoder.container(keyedBy: CodingKeys.self)
         self.choosenFireTeam = try choosenFireTeam.decode([FireTeam].self, forKey: .choosenFireTeam)
-        let counterFireTeam = try decoder.container(keyedBy: CodingKeys.self)
-        self.counterFireTeam = try? counterFireTeam.decode([String:Int].self, forKey: .counterFireTeam)
-        let choosenUnit = try decoder.container(keyedBy: CodingKeys.self)
-        self.choosenUnit = try? choosenUnit.decode(Unit.self, forKey: .choosenUnit)
         let ploys = try decoder.container(keyedBy: CodingKeys.self)
         self.ploys = try ploys.decode([Ploy].self, forKey: .ploys)
         let psychicPower = try decoder.container(keyedBy: CodingKeys.self)
@@ -116,8 +107,6 @@ struct KillTeam: Codable {
         self.countEquipmentPoint = try countEquipmentPoint.decode(Int.self, forKey: .countEquipmentPoint)
         let tacOps = try decoder.container(keyedBy: CodingKeys.self)
         self.tacOps = try? tacOps.decode([TacOp].self, forKey: .tacOps)
-        let indexOfChoosenUnit = try decoder.container(keyedBy: CodingKeys.self)
-        self.indexOfChoosenUnit = try? indexOfChoosenUnit.decode(IndexPath.self, forKey: .indexOfChoosenUnit)
     }
     
     
@@ -166,10 +155,6 @@ struct KillTeam: Codable {
         try? fireTeam.encode(self.fireTeam, forKey: .fireTeam)
         var choosenFireTeam = encoder.container(keyedBy: CodingKeys.self)
         try? choosenFireTeam.encode(self.choosenFireTeam, forKey: .choosenFireTeam)
-        var counterFireTeam = encoder.container(keyedBy: CodingKeys.self)
-        try? counterFireTeam.encode(self.counterFireTeam, forKey: .counterFireTeam)
-        var choosenUnit = encoder.container(keyedBy: CodingKeys.self)
-        try? choosenUnit.encode(self.choosenUnit, forKey: .choosenUnit)
         var ploys = encoder.container(keyedBy: CodingKeys.self)
         try? ploys.encode(self.ploys, forKey: .ploys)
         var psychicPower = encoder.container(keyedBy: CodingKeys.self)
@@ -182,8 +167,6 @@ struct KillTeam: Codable {
         try? countEquipmentPoint.encode(self.countEquipmentPoint, forKey: .countEquipmentPoint)
         var tacOps = encoder.container(keyedBy: CodingKeys.self)
         try? tacOps.encode(self.tacOps, forKey: .tacOps)
-        var indexOfChoosenUnit = encoder.container(keyedBy: CodingKeys.self)
-        try? indexOfChoosenUnit.encode(self.indexOfChoosenUnit, forKey: .indexOfChoosenUnit)
     }
     
     mutating func updateCurrentWounds() {
@@ -192,15 +175,6 @@ struct KillTeam: Codable {
                 choosenFireTeam[i].currentDataslates[j].currentWounds = unit.wounds
             }
         }
-    }
-    
-    mutating func initCounterFireTeam() {
-        counterFireTeam = [:]
-    }
-    
-    mutating func createId() {
-        let uuid = UUID().uuidString
-        id = uuid
     }
 
     mutating func addDefaultFireTeam() {
@@ -212,8 +186,8 @@ struct KillTeam: Codable {
     
     mutating func prepareKillTeam() {
         addDefaultFireTeam()
-        initCounterFireTeam()
-        createId()
+        id = UUID().uuidString
+        
     }
     
  }

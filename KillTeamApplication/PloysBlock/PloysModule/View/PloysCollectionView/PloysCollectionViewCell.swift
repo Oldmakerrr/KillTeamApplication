@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+/*
 class PloysCollectionViewCell: UICollectionViewCell, ReusableView {
     
     static var identifier: String {
@@ -59,3 +60,4 @@ class PloysCollectionViewCell: UICollectionViewCell, ReusableView {
     }
 
 }
+*/

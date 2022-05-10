@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol VoidDancerTroupeAbilitieViewDelegate: AnyObject {
+    func didComplete(_ voidDancerTroupeAbilitieView: VoidDancerTroupeAbilitieView)
+}
+
 class VoidDancerTroupeAbilitieView: KillTeamAbilitieView {
+    
+    weak var delegate: VoidDancerTroupeAbilitieViewDelegate?
     
     var allegory: [VoidDancerTroupeAbilitie.Allegory]?
     
@@ -28,10 +34,7 @@ class VoidDancerTroupeAbilitieView: KillTeamAbilitieView {
     }
     
     @objc override func buttonAction() {
-        guard let viewController = viewController else { return }
-        let tableViewController = AllegoryTableViewController()
-        tableViewController.allegory = allegory
-        viewController.present(tableViewController, animated: true, completion: nil)
+        delegate?.didComplete(self)
     }
     
 }

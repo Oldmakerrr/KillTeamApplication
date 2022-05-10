@@ -7,15 +7,18 @@
 
 import UIKit
 
+protocol HunterCladeAbilitieViewDelegate: AnyObject {
+    func didComplete(_ hunterCladeAbilitieView: HunterCladeAbilitieView)
+}
+
 class HunterCladeAbilitieView: KillTeamAbilitieView {
+    
+    weak var delegate: HunterCladeAbilitieViewDelegate?
     
     var imperative: [HunterCladeAbilitie.Imperative]?
     
     @objc override func buttonAction() {
-        guard let viewController = viewController else { return }
-        let tableViewController = ImperativeTableViewController()
-        tableViewController.imperative = imperative
-        viewController.present(tableViewController, animated: true, completion: nil)
+        delegate?.didComplete(self)
     }
     
     func setupAbilitie(abilitie: HunterCladeAbilitie, viewController: UIViewController) {

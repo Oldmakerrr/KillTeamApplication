@@ -99,9 +99,10 @@ extension PsychicPowerViewController {
                                    trailing: Constant.Size.Otstup.small,
                                    view: backgroundView,
                                    subView: view)
-            view.setupText(psychicPower: psychicPower, delegate: self)
+            
             currentPsychicPowerView.append(backgroundView)
             contentView.addArrangedSubview(backgroundView)
+            view.setupText(psychicPower: psychicPower, delegate: self, viewWidth: view.getViewWidth())
         }
     }
     

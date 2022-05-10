@@ -26,16 +26,6 @@ class CurrentKillTeamView: UIView {
         return label
     }()
     
-    private func addGestureRecognizer() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc func tapAction() {
-        delegate?.didComplete(self)
-    }
-    
     let killTeamLogo = UIImageView()
 
     override init(frame: CGRect) {
@@ -46,6 +36,16 @@ class CurrentKillTeamView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func addGestureRecognizer() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func tapAction() {
+        delegate?.didComplete(self)
     }
     
     func setupText(killTeam: KillTeam?) {
@@ -73,7 +73,6 @@ class CurrentKillTeamView: UIView {
     private func setupView() {
         setupImageView()
         setupLabel()
-        
     }
     
     private func setupLabel() {
@@ -115,41 +114,4 @@ class CurrentKillTeamView: UIView {
     }
     
     
-}
-
-extension CALayer {
-    
-    func applyBorder(widht: CGFloat = Constant.Size.borderWidht,
-                     color: CGColor = ColorScheme.shared.theme.cellBorder.cgColor) {
-        
-        borderWidth = widht
-        borderColor = color
-    }
-    
-    func applyCornerRadius(radius: CGFloat = Constant.Size.cornerRadius) {
-        masksToBounds = false
-        cornerRadius = radius
-    }
-    
-    func applyCornerRadiusRound(view: UIView) {
-        layoutIfNeeded()
-        let widthView = view.frame.size.width
-        masksToBounds = false
-        cornerRadius = widthView/2
-    }
-    
-    func applySketchShadow(
-        color: UIColor = ColorScheme.shared.theme.shadow,
-        alpha: Float = 1,
-        x: CGFloat = 0,
-        y: CGFloat = 1,
-        blur: CGFloat = 4
-    )
-    {
-        masksToBounds = false
-        shadowColor = color.cgColor
-        shadowOpacity = alpha
-        shadowOffset = CGSize(width: x, height: y)
-        shadowRadius = blur / 2.0
-    }
 }

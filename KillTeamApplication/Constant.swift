@@ -48,11 +48,7 @@ class Constant {
     }
     
     class Size {
-        
-        
-        
-        
-       
+
         static let notEnaibleAlpha: CGFloat = 0.4
         static let screenHeight = UIScreen.main.bounds.size.height
         static let screenWidth = UIScreen.main.bounds.size.width
@@ -92,9 +88,6 @@ class Constant {
         }
     }
 }
-
-
-
 
 protocol ColorTheme {
     

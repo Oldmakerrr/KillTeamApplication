@@ -8,9 +8,9 @@
 import Foundation
 
 struct AddFireTeamModel {
-    var currentFireTeam: [FireTeam]?
-    var counterFireteam: [String: Int]?
+  //  var currentFireTeam: [FireTeam]?
+    var counterFireteam = [String: Int]()
     var killTeam: KillTeam?
-    var maxCountOfFireTeam: Int?
-    var currentCointOFFireTeam: Int?
+   // var maxCountOfFireTeam: Int?
+   // var currentCointOFFireTeam: Int?
 }

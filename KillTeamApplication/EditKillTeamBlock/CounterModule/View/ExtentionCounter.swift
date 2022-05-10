@@ -9,39 +9,57 @@ import Foundation
 import UIKit
 
 extension CounterViewController {
-    
-//MARK: - SetupViewMethods
-    
-    func configure() {
-        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        navigationController?.navigationBar.isHidden = true
-    }
-    
-    func setupSubView() {
-        setupCurrentKillTeamView()
-        setupLabels()
-        setupButtons()
-        setupCollectionView()
         
+//MARK: - ConfigureAbilitieView
+    
+    func setupTextToAbilitieView() {
+        guard let abilitie = presenter?.model.killTeam?.abilitiesOfKillTeam else {
+            currentAbilitieView.isHidden = true
+            return }
+        configureAbilitieView()
+        
+        if abilitie is HunterCladeAbilitie {
+            if let currentAbilitie = presenter?.model.gameData.currentAbilitie {
+                setupTextToAbilitieView(title: currentAbilitie)
+                return
+            } else {
+                setupTextToAbilitieView(title: "Choose Imperative")
+                return
+            }
+        }
+        
+        if abilitie is VoidDancerTroupeAbilitie {
+            if let currentAbilitie = presenter?.model.gameData.currentAbilitie {
+                let title = "Choosen Allegory: \(currentAbilitie)"
+                setupTextToAbilitieView(title: title)
+                return
+            } else {
+                setupTextToAbilitieView(title: "Choose Allegory")
+                return
+            }
+        }
+        currentAbilitieView.isHidden = true
     }
     
-    private func setupLabels() {
-        setupTurningPointLabel()
-        setupCommandPointLabel()
-        setupVictoryPointLabel()
+    private func configureAbilitieView() {
+        currentAbilitieView.layer.applyCornerRadius()
+        currentAbilitieView.backgroundColor = ColorScheme.shared.theme.viewBackground
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(abilitieViewAction))
+        gesture.numberOfTouchesRequired = 1
+        currentAbilitieView.addGestureRecognizer(gesture)
     }
     
-    private func setupButtons() {
-        setupCommandPointAndVictoryPointButtons()
-        setupChangeTurnButtons()
+    private func setupTextToAbilitieView(title: String) {
+        currentAbilitieView.isHidden = false
+        currentAbilitieView.setupText(text: title)
     }
     
-    func enableButtons() {
-        plusCommandPoint.isEnabled = false
-        minusCommandPoint.isEnabled = false
-        plusVictoryPoint.isEnabled = false
-        minusVictoryPoint.isEnabled = false
+    @objc private func abilitieViewAction() {
+        presenter?.showKillTeamAbilitieViewController()
     }
+    
+//MARK: - PrepareViewController
     
     func setupBackgroundImage() {
         let imageView = UIImageView()
@@ -50,6 +68,51 @@ extension CounterViewController {
         imageView.frame = view.bounds
         imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(named: "mainBackgroundView")
+    }
+    
+    func setupDelegates() {
+        currentPloysCollectionView.dataSource = self
+        currentPloysCollectionView.selectCellDelegate = self
+        currentKillTeamView.delegate = presenter as? CurrentKillTeamViewProtocol
+        commandPoint.delegate = presenter as? CounterPointViewDelegate
+        victoryPoint.delegate = presenter as? CounterPointViewDelegate
+    }
+    
+    func fillCounterStackView() {
+        if presenter?.model.killTeam?.abilitiesOfKillTeam is NovitiateAbilitie {
+            guard killTeamAbilitiePoint == nil else { return }
+            killTeamAbilitiePoint = CounterPointView(title: "Act of Faith")
+            if presenter?.model.gameData.countTurningPoint == 0 {
+                killTeamAbilitiePoint?.minusButton.isEnabled = false
+                killTeamAbilitiePoint?.plusButton.isEnabled = false
+            }
+            killTeamAbilitiePoint?.delegate = presenter as? CounterPointViewDelegate
+            if let actOfFaithPoint = killTeamAbilitiePoint {
+                counterLabelsStackView.addArrangedSubview(actOfFaithPoint)
+            }
+        } else {
+            if let actOfFaithPoint = killTeamAbilitiePoint {
+                actOfFaithPoint.removeFromSuperview()
+                killTeamAbilitiePoint = nil
+            }
+        }
+        let count = CGFloat(counterLabelsStackView.arrangedSubviews.count)
+        counterLabelsStackView.spacing = Constant.Size.screenHeight * 0.1 / count
+    }
+    
+    func configure() {
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+//MARK: SetupSubView
+    
+    func setupSubView() {
+        setupCurrentKillTeamView()
+        setupStackView()
+        setupAbilitieView()
+        setupChangeTurnButtons()
+        setupCollectionView()
     }
     
     private func setupCurrentKillTeamView() {
@@ -66,77 +129,29 @@ extension CounterViewController {
         currentKillTeamView.killTeamLogo.layer.masksToBounds = true
     }
     
-    private func setupTurningPointLabel() {
-        turningPointLabel.text = "Turning Point = 0"
-        view.addSubview(turningPointLabel)
+    private func setupStackView() {
+        counterLabelsStackView.addArrangedSubview(turningPointLabel)
+        turningPointLabel.text = "Turning point 0"
+        counterLabelsStackView.addArrangedSubview(commandPoint)
+        counterLabelsStackView.addArrangedSubview(victoryPoint)
+        view.addSubview(counterLabelsStackView)
         NSLayoutConstraint.activate([
-            turningPointLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025),
-            turningPointLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
-            turningPointLabel.topAnchor.constraint(equalTo: currentKillTeamView.bottomAnchor, constant: Constant.Size.screenHeight * 0.055),
-            turningPointLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+            counterLabelsStackView.topAnchor.constraint(equalTo: currentKillTeamView.bottomAnchor, constant: 30),
+            counterLabelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.1),
+            counterLabelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.1),
+            counterLabelsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.screenHeight/2 - 20)
         ])
     }
     
-    private func setupCommandPointLabel() {
-        commandPointLabel.text = "Command Point = 0"
-        view.addSubview(commandPointLabel)
+    private func setupAbilitieView() {
+        view.addSubview(currentAbilitieView)
         NSLayoutConstraint.activate([
-            commandPointLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025),
-            commandPointLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
-            commandPointLabel.topAnchor.constraint(equalTo: turningPointLabel.bottomAnchor, constant: Constant.Size.screenHeight * 0.055),
-            commandPointLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
+            currentAbilitieView.topAnchor.constraint(equalTo: counterLabelsStackView.bottomAnchor, constant: 20),
+            currentAbilitieView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor),
+            currentAbilitieView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+            currentAbilitieView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+            currentAbilitieView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-    }
-    
-    private func setupVictoryPointLabel() {
-        victoryPointLabel.text = "Victory Point = 0"
-        view.addSubview(victoryPointLabel)
-        NSLayoutConstraint.activate([
-            victoryPointLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025),
-            victoryPointLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
-            victoryPointLabel.topAnchor.constraint(equalTo: commandPointLabel.bottomAnchor, constant: Constant.Size.screenHeight * 0.055),
-            victoryPointLabel.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
-        ])
-    }
-    
-    private func setupCollectionView() {
-        view.addSubview(currentPloysCollectionView)
-        NSLayoutConstraint.activate([
-            currentPloysCollectionView.topAnchor.constraint(equalTo: victoryPointLabel.bottomAnchor, constant: Constant.Size.screenHeight * 0.05),
-            currentPloysCollectionView.bottomAnchor.constraint(equalTo: nextTurnButton.topAnchor, constant: -Constant.Size.screenHeight * 0.025),
-            currentPloysCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
-            currentPloysCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025)
-        ])
-    }
-    
-    private func setupPlusAndMinusButtons(minusButton: ChangePointButton, plusButton: ChangePointButton, to view: UIView) {
-        self.view.addSubview(plusButton)
-        self.view.addSubview(minusButton)
-        plusButton.setupImage(imageName: "plus")
-        plusButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        minusButton.setupImage(imageName: "minus")
-        minusButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        NSLayoutConstraint.activate([
-            plusButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            plusButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.1),
-            plusButton.leadingAnchor.constraint(greaterThanOrEqualTo: self.view.leadingAnchor),
-            plusButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.3),
-            plusButton.widthAnchor.constraint(equalTo: plusButton.heightAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            minusButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            minusButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constant.Size.screenWidth * 0.1),
-            minusButton.trailingAnchor.constraint(lessThanOrEqualTo: self.view.trailingAnchor),
-            minusButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.3),
-            minusButton.widthAnchor.constraint(equalTo: minusButton.heightAnchor)
-        ])
-        plusButton.layer.applyCornerRadiusRound(view: plusButton)
-        minusButton.layer.applyCornerRadiusRound(view: minusButton)
-    }
-    
-    private func setupCommandPointAndVictoryPointButtons() {
-        setupPlusAndMinusButtons(minusButton: minusCommandPoint, plusButton: plusCommandPoint, to: commandPointLabel)
-        setupPlusAndMinusButtons(minusButton: minusVictoryPoint, plusButton: plusVictoryPoint, to: victoryPointLabel)
     }
     
     private func setupChangeTurnButtons() {
@@ -147,9 +162,9 @@ extension CounterViewController {
         nextTurnButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         endGameButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            endGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.Size.screenHeight * 0.1),
+            endGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.Size.screenHeight * 0.05),
             endGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            endGameButton.widthAnchor.constraint(equalToConstant: Constant.Size.screenWidth * 0.4),
+            endGameButton.widthAnchor.constraint(equalToConstant: Constant.Size.screenWidth * 0.3),
             endGameButton.heightAnchor.constraint(equalTo: endGameButton.widthAnchor, multiplier: 0.3),
             endGameButton.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
             
@@ -162,12 +177,22 @@ extension CounterViewController {
         endGameButton.isHidden = true
     }
     
+    private func setupCollectionView() {
+        view.addSubview(currentPloysCollectionView)
+        NSLayoutConstraint.activate([
+            currentPloysCollectionView.topAnchor.constraint(equalTo: currentAbilitieView.bottomAnchor, constant: Constant.Size.screenHeight * 0.025),
+            currentPloysCollectionView.bottomAnchor.constraint(equalTo: nextTurnButton.topAnchor, constant: -Constant.Size.screenHeight * 0.025),
+            currentPloysCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
+            currentPloysCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025)
+        ])
+    }
+    
+//MARK: ButtonConfigure
+    
     func setupAddButton() {
         guard let tabBarController = tabBarController, let tabBarView = tabBarController.view  else { return }
         addKillTeamButton.setupButton(tabBarController: tabBarController, tabBarView: tabBarView)
         addKillTeamButton.addTarget(self, action: #selector(addKillTeam), for: .touchUpInside)
-        
-        
     }
     
 }
@@ -177,3 +202,5 @@ extension CounterViewController: PloyViewDelegate {
         dismissAlert()
     }
 }
+
+

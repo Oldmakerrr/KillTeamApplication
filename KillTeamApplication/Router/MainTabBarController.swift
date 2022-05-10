@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
-class MainRouter {
+protocol RouterProtocol { }
+
+class MainRouter: RouterProtocol {
     
     let editKillTeamRouter: EeditKillTeamRouter
     let killTeamObserverRouter: KillTeamObserverRouter

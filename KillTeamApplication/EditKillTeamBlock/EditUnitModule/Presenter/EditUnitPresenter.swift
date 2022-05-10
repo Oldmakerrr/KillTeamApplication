@@ -10,6 +10,8 @@ import UIKit
 protocol EditUnitViewControllerProtocol: AnyObject {
     var presenter: EditUnitPresenterProtocol? { get }
     var countOfEquipmentPointLabel: BoldLabel { get }
+    var chaosBlessingButton: UIBarButtonItem? { get }
+    func showChooseAbilitieAlert(title: String)
 }
 
 protocol EditUnitPresenterProtocol: AnyObject {
@@ -17,17 +19,26 @@ protocol EditUnitPresenterProtocol: AnyObject {
     var model: ChoosenUnit { get }
     var store: StoreProtocol { get }
     init (view: EditUnitViewControllerProtocol, store: StoreProtocol)
-    func cleareIndex()
+    
+    func goToAbilitieKillTeamViewController()
+    func setImage() -> String?
+    func selectCell(wargear: Wargear)
+}
+
+protocol EditUnitPresenterDelegate: AnyObject {
+    func didComplete(_ editUnitPresenter: EditUnitPresenter)
 }
 
 class EditUnitPresenter: EditUnitPresenterProtocol {
     
+    weak var delegate: EditUnitPresenterDelegate?
     
     weak var view: EditUnitViewControllerProtocol?
     
     var model = ChoosenUnit() {
         didSet {
             view?.countOfEquipmentPointLabel.text = "EP = \(model.killTeam?.countEquipmentPoint ?? 0)"
+            updateButtonImage(imageName: setImage())
         }
     }
     
@@ -37,94 +48,80 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         self.view = view
         self.store = store
         self.store.multicastDelegate.addDelegate(self)
-        
+        self.model.indexPathUnit = store.indexOfChoosenUnit
+        prepareModel()
+        prepeareWargear(store: store)
     }
     
-    func cleareIndex() {
-        model.killTeam?.indexOfChoosenUnit = nil
-        store.updateCurrentKillTeam(killTeam: model.killTeam!)
-    }
-    
-    private func sortirateWEapon(weapons: [Weapon]) {
-        var countRangeWeapon = 0
-        var countCloseWeapon = 0
-        weapons.forEach { weapon in
-            switch weapon.type {
-            case .range:
-                countRangeWeapon += 1
-                model.rangeWeapon.append(weapon)
-            case .close:
-                countCloseWeapon += 1
-                model.closeWeapon.append(weapon)
-            }
-        }
-        if let additionalWeapon = model.currentUnit?.additionalWeapon {
-            additionalWeapon.forEach { weapon in
-                switch weapon.type {
-                case .range:
-                    countRangeWeapon += 1
-                    model.rangeWeapon.append(weapon)
-                case .close:
-                    countCloseWeapon += 1
-                    model.closeWeapon.append(weapon)
-                }
-            }
-        }
-        if countRangeWeapon != 0 {
-            model.numberOfRow.append(countRangeWeapon)
-            model.headerForRow.append("Range Weapon")
-        }
-        if countCloseWeapon != 0 {
-            model.numberOfRow.append(countCloseWeapon)
-            model.headerForRow.append("Close Weapon")
-        }
-    }
-    
-}
-
-extension EditUnitPresenter: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        guard let killTeam = killTeam, let indexPath = killTeam.indexOfChoosenUnit else { return }
+    private func prepareModel() {
+        guard let killTeam = store.getKillTeam(), let indexPath = store.indexOfChoosenUnit else { return }
         model.killTeam = killTeam
         model.indexPathUnit = indexPath
         if !killTeam.choosenFireTeam.isEmpty {
             model.currentUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
         }
-        if let availableWeapon = model.currentUnit?.availableWeapon {
-            sortirateWEapon(weapons: availableWeapon)
-        }
-        if !killTeam.equipment.isEmpty {
-            model.numberOfRow.append(killTeam.equipment.count)
-            model.headerForRow.append("Equipment")
-        }
     }
-}
-
-extension EditUnitPresenter: EditUnitCellDelegate {
-    func selectedWargear(wargear: Weapon, selected: Bool) {
-        guard var unit = model.currentUnit,
-              let indexPath = model.indexPathUnit  else { return }
-        if let additionalWeapon = unit.additionalWeapon {
-            guard !additionalWeapon.contains(wargear) else { return }
+    
+    private func prepeareWargear(store: StoreProtocol) {
+        guard let killTeam = store.getKillTeam(),
+              let indexPath = store.indexOfChoosenUnit else { return }
+        let unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        if let weapon = unit.availableWeapon {
+            sortSeapon(weapons: weapon)
         }
-        if selected {
-            switch wargear.type {
-            case .close:
-                unit.selectedCloseWeapon = wargear
+        model.wargear.append(killTeam.equipment)
+        model.headerForRow.append("Equipment")
+    }
+    
+    private func sortSeapon(weapons: [Weapon]) {
+        var rangeWeapon = [Weapon]()
+        var meleeWeapon = [Weapon]()
+        weapons.forEach { weapon in
+            switch weapon.type {
             case .range:
-                unit.selectedRangeWeapon = wargear
+                rangeWeapon.append(weapon)
+            case .close:
+                meleeWeapon.append(weapon)
             }
-            store.updateUnitWargearInChoosenFireTeam(indexPath: indexPath, unit: unit)
+        }
+        if !rangeWeapon.isEmpty {
+            model.headerForRow.append("Range Weapon")
+            model.wargear.append(rangeWeapon)
+        }
+        if !meleeWeapon.isEmpty {
+            model.wargear.append(meleeWeapon)
+            model.headerForRow.append("Melee Weapon")
         }
     }
-}
-
-extension EditUnitPresenter: EditUnitEquipmentCellDelegate {
-    func selectEquipment(equipment: Equipment, selected: Bool) {
+    
+    
+    func goToAbilitieKillTeamViewController() {
+        delegate?.didComplete(self)
+    }
+    
+    func setImage() -> String? {
+        guard let chaosBlessing = model.currentUnit?.additionalAbilitie else { return nil }
+        let chaosBlessingName = chaosBlessing.name
+        return chaosBlessingName.components(separatedBy: " ").first
+    }
+    
+    private func updateButtonImage(imageName: String?) {
+        guard let button = view?.chaosBlessingButton, let imageName = imageName else { return }
+        button.image = UIImage(named: imageName)
+    }
+    
+    func selectCell(wargear: Wargear) {
         guard var unit = model.currentUnit,
-              let indexPath = model.indexPathUnit,
               var killTeam = model.killTeam else { return }
-        if selected {
+        if let weapon = wargear as? Weapon {
+            switch weapon.type {
+            case .range:
+                unit.selectedRangeWeapon = weapon
+            case .close:
+                unit.selectedCloseWeapon = weapon
+            }
+        }
+        if let equipment = wargear as? Equipment {
             if unit.equipment.contains(equipment) {
                 killTeam.countEquipmentPoint += equipment.cost
                 unit.equipment.removeAll(where: { equip in
@@ -134,10 +131,62 @@ extension EditUnitPresenter: EditUnitEquipmentCellDelegate {
                 unit.equipment.append(equipment)
                 killTeam.countEquipmentPoint -= equipment.cost
             }
-            store.updateCurrentKillTeam(killTeam: killTeam)
-            model.killTeam = killTeam
-            store.updateUnitWargearInChoosenFireTeam(indexPath: indexPath, unit: unit)
         }
+        updateUnitWargear(unit: unit, killTeam: killTeam)
+    }
+    
+    private func updateUnitWargear(unit: Unit, killTeam: KillTeam) {
+        guard let indexPath = model.indexPathUnit else { return }
+        var killTeam = killTeam
+        killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
+        store.updateCurrentKillTeam(killTeam: killTeam)
+    }
+    
+    private func addAdditionalAbilitie(abilitie: UnitAbilitieProtocol) {
+        guard var unit = model.currentUnit,
+              let indexPath = model.indexPathUnit else { return }
+        unit.additionalAbilitie = abilitie
+        model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
+        if let killTeam = model.killTeam {
+            store.updateCurrentKillTeam(killTeam: killTeam)
+        }
+    }
+    
+}
+
+extension EditUnitPresenter: StoreDelegate {
+    func didUpdate(_ store: Store, killTeam: KillTeam?) {
+        guard let killTeam = killTeam, let indexPath = store.indexOfChoosenUnit else { return }
+        model.killTeam = killTeam
+        if !killTeam.choosenFireTeam.isEmpty {
+            model.currentUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        }
+    }
+}
+
+//MARK: - KillTeamAbilitieViewControllerDelegate
+
+extension EditUnitPresenter: ChaosBlessingTableViewControllerDelegate {
+    func didSelect(_ chaosBlessingTableViewController: ChaosBlessingTableViewController, chaosBlessing: UnitAbilitie) {
+        addAdditionalAbilitie(abilitie: chaosBlessing)
+        chaosBlessingTableViewController.dismiss(animated: true) { [self] in
+            if let nameOfMarkOfChaos = chaosBlessing.name.components(separatedBy: " ").first {
+                view?.showChooseAbilitieAlert(title: "Mark of \(nameOfMarkOfChaos) choosen")
+            }
+        }
+    }
+    
+    
+}
+
+extension EditUnitPresenter: BoonOfTzeenchTableViewControllerDelegate {
+    func didComplete(_ boonOfTzeenchTableViewController: BoonOfTzeenchTableViewController, boonOfTzeentch: WarpcovenAbilitie.BoonsOfTzeentch) {
+        addAdditionalAbilitie(abilitie: boonOfTzeentch)
+        boonOfTzeenchTableViewController.dismiss(animated: true) {  [self] in
+            view?.showChooseAbilitieAlert(title: "\(boonOfTzeentch.name) choosen")
+            
+        }
+        
     }
     
     

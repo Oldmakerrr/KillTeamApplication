@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="800"
+   height="800"
+   viewBox="0 0 211.66666 211.66667"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="Star of Chaos.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-99.999711"
+     inkscape:cy="408.57146"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:pagecheckerboard="true"
+     units="px" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(6.0476956,-45.267863)">
+    <path
+       inkscape:connector-curvature="0"
+       id="path1025"
+       d="M 99.7856,45.267863 79.857401,65.196002 h 9.612044 V 126.19557 L 54.163232,90.889322 60.960066,84.092902 H 32.777407 l -0.12479,-0.12478 0.125219,28.307458 6.796405,-6.79638 35.305785,35.30579 H 13.88049 l -4.3e-4,-9.6116 -19.9277556,19.92777 19.9281856,19.9282 v -9.61204 h 61.000406 l -35.306216,35.30625 -6.797273,-6.79729 5.29e-4,28.18268 -0.125219,0.12524 28.307449,-0.12566 -6.795974,-6.79598 35.305354,-35.30537 v 60.99958 h -9.612145 l 19.928199,19.92776 19.92818,-19.92776 h -9.61203 v -61.00045 l 35.30577,35.30624 -6.79638,6.7964 28.30745,0.12524 -0.12523,-0.1248 5.3e-4,-28.18267 -6.79686,6.79684 -35.3062,-35.30625 h 60.99996 v 9.61204 l 19.92818,-19.9282 -19.92776,-19.92777 -5.3e-4,9.6116 H 124.6916 l 35.30578,-35.30579 6.79598,6.79597 0.12523,-28.307048 -0.12523,0.12478 h -28.18222 l 6.79683,6.79686 -35.30622,35.306668 V 65.196002 h 9.61203 z"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.23102918" />
+  </g>
+</svg>

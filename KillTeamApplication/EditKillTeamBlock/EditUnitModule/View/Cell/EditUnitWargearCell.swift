@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol EditUnitCellDelegate: AnyObject {
-    func selectedWargear(wargear: Weapon, selected: Bool)
-}
-
 class EditUnitWargearCell: UITableViewCell, ReusableView {
     
     static var identifier: String {
@@ -26,22 +22,14 @@ class EditUnitWargearCell: UITableViewCell, ReusableView {
             checkSelectedState()
         }
     }
-    
-    weak var delegate: EditUnitCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setupNameWeaponLabel()
-        checkSelectedState()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        guard let wargear = wargear else { return }
-        delegate?.selectedWargear(wargear: wargear, selected: selected)
     }
     
     func setupText(weapon: Weapon) {
@@ -73,11 +61,4 @@ class EditUnitWargearCell: UITableViewCell, ReusableView {
         ])
     }
     
-}
-
-extension EditUnitWargearCell: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        guard let killTeam = killTeam, let indexPath = killTeam.indexOfChoosenUnit else { return }
-        unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
-    }
 }

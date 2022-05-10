@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-protocol WeaponViewProtocol: AnyObject {
+protocol WeaponViewDelegate: AnyObject {
     func didComplete(_ weaponView: WeaponView)
 }
 
 class WeaponView: UIStackView, WargearView {
     
-    typealias Delegate = WeaponViewProtocol
+    typealias Delegate = WeaponViewDelegate
     
-    weak var delegate: WeaponViewProtocol?
+    weak var delegate: WeaponViewDelegate?
     
     private let button = DoneButton()
     let header = HeaderView()
@@ -50,7 +50,7 @@ class WeaponView: UIStackView, WargearView {
     }
     
     
-     func setupText(wargear: WeaponProtocol, delegate: WeaponRuleButtonDelegate?) {
+     func setupText(wargear: WeaponProtocol, delegate: WeaponRuleButtonDelegate?, viewWidth: CGFloat) {
         if let profileName = wargear.profileName {
             setupHeader(title: "\(wargear.name) (\(profileName))")
         } else {
@@ -67,15 +67,15 @@ class WeaponView: UIStackView, WargearView {
                                     damage: "D = \(wargear.damage)/\(wargear.critDamage)")
         }
         if let specialRule = wargear.specialRule {
-            setupSpecialRule(rules: specialRule, text: "Special rule:", delegate: delegate)
+            setupSpecialRule(rules: specialRule, text: "Special rule:", delegate: delegate, viewWidth: viewWidth)
         }
         
         if let critSpecialRule = wargear.criticalHitspecialRule {
-            setupSpecialRule(rules: critSpecialRule, text: "!:", delegate: delegate)
+            setupSpecialRule(rules: critSpecialRule, text: "!:", delegate: delegate, viewWidth: viewWidth)
         }
         if let weapon = wargear as? Weapon, let subWeapon = weapon.secondProfile   {
             for weapon in subWeapon {
-                setupText(wargear: weapon, delegate: delegate)
+                setupText(wargear: weapon, delegate: delegate, viewWidth: viewWidth)
             }
         }
     }
@@ -125,32 +125,68 @@ class WeaponView: UIStackView, WargearView {
         damageLabel.text = damage
     }
     
-    private func setupSpecialRule(rules: [WeaponSpecialRule], text: String, delegate: WeaponRuleButtonDelegate?) {
+    private func setupSpecialRule(rules: [WeaponSpecialRule], text: String, delegate: WeaponRuleButtonDelegate?, viewWidth: CGFloat) {
         let view = UIView()
-        let label = BigLabel()
         view.backgroundColor = ColorScheme.shared.theme.subViewBackground
-        addArrangedSubview(view)
-        view.addSubview(label)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let label = BigLabel()
         label.text = text
+        
+        var availableSpace: CGFloat = viewWidth
+        var arrayOfView = [[UIView]]()
+        
+        var numberOfRow = 0
+        var numberViewInRow = 0
+        
+        view.addSubview(label)
+        arrayOfView.append([label])
+        
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.small),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.large),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.small)
+            label.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -Constant.Size.Otstup.small),
         ])
-        var arrayOfButton = [UIButton]()
-        for (index, rule) in rules.enumerated() {
+        availableSpace -= label.getViewWidth()
+        availableSpace -= Constant.Size.Otstup.large
+        
+        for rule in rules {
             let button = WeaponRuleButton()
+            view.addSubview(button)
             button.delegate = delegate
             button.setupText(weaponRule: rule)
-            arrayOfButton.append(button)
-            view.addSubview(button)
-            button.centerYAnchor.constraint(equalTo: label.centerYAnchor).isActive = true
-            if index == 0 {
-                button.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: Constant.Size.Otstup.small).isActive = true
+            
+            NSLayoutConstraint.activate([
+                button.centerYAnchor.constraint(equalTo: arrayOfView[numberOfRow][numberViewInRow].centerYAnchor),
+                button.leadingAnchor.constraint(equalTo: arrayOfView[numberOfRow][numberViewInRow].trailingAnchor, constant: Constant.Size.Otstup.small)
+            ])
+           
+            if button.getViewWidth() > availableSpace {
+                
+                availableSpace = viewWidth
+                numberViewInRow = 0
+                numberOfRow += 1
+                
+                button.removeFromSuperview()
+                view.addSubview(button)
+                arrayOfView.append([button])
+               
+                NSLayoutConstraint.activate([
+                    button.topAnchor.constraint(equalTo: arrayOfView[numberOfRow-1][numberViewInRow].bottomAnchor),
+                    button.leadingAnchor.constraint(equalTo: arrayOfView[numberOfRow-1][numberViewInRow].leadingAnchor),
+                    button.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -Constant.Size.Otstup.small)
+                ])
+               
+                availableSpace -= button.getViewWidth()
+                availableSpace -= Constant.Size.Otstup.large
             } else {
-                button.leadingAnchor.constraint(equalTo: arrayOfButton[index-1].trailingAnchor, constant: Constant.Size.Otstup.small).isActive = true
+                availableSpace -= button.getViewWidth()
+                availableSpace -= Constant.Size.Otstup.small
+                arrayOfView[numberOfRow].append(button)
+                numberViewInRow += 1
             }
-        }
+         }
+        addArrangedSubview(view)
+        
     }
 
 }

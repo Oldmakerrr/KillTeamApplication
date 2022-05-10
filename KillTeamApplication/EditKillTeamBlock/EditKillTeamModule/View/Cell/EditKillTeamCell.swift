@@ -15,6 +15,15 @@ class EditKillTeamCell: UITableViewCell, ReusableView {
 
     var stackView = UIStackView()
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func updateCell() {
         stackView.removeFromSuperview()
         stackView = UIStackView()
@@ -82,114 +91,6 @@ class EditKillTeamCell: UITableViewCell, ReusableView {
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.small),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.small)
         ])
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        setupStackView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
-
-
-class EditKillTeamCell2: UITableViewCell {
-
-    static let identifire = "EditKillTeamCell"
-    
-    var header = HeaderView()
-    let weaponMeleeLabel = BoldTextLabel()
-    let weaponRangeLabel = BoldTextLabel()
-    let equipmentLabel = BoldTextLabel()
-    
-    func setupText(unit: Unit) {
-        setupTextHeader(unit: unit)
-        if let rangeWeapon = unit.selectedRangeWeapon {
-            weaponRangeLabel.addText(bold: "Ranged weapon", normal: rangeWeapon.name)
-        } else {
-            weaponRangeLabel.text = ""
-        }
-        if let meleeWeapon = unit.selectedCloseWeapon {
-            weaponMeleeLabel.addText(bold: "Melee weapon", normal: meleeWeapon.name)
-        } else {
-            weaponMeleeLabel.text = ""
-        }
-        if !unit.equipment.isEmpty {
-            var text = [String]()
-            unit.equipment.forEach { equipment in
-                text.append(equipment.name)
-            }
-            let finalText = equipmentLabel.mergedString(array: text)
-            equipmentLabel.addText(bold: "Equipment", normal: finalText)
-        } else {
-            equipmentLabel.text = ""
-        }
-    }
-    
-    func setupTextHeader(unit: Unit) {
-        header.setupText(name: unit.customName ?? unit.name)
-    }
-    
-    func setupHeader() {
-        contentView.addSubview(header)
-        NSLayoutConstraint.activate([
-            header.topAnchor.constraint(equalTo: contentView.topAnchor),
-            header.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            header.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            header.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor),
-        ])
-    }
-    
-    private func setupAllLabels() {
-        
-        contentView.addSubview(weaponRangeLabel)
-        contentView.addSubview(weaponMeleeLabel)
-        contentView.addSubview(equipmentLabel)
-        
-        
-        NSLayoutConstraint.activate([
-            weaponRangeLabel.topAnchor.constraint(greaterThanOrEqualTo: header.bottomAnchor,constant: Constant.Size.Otstup.small),
-            weaponRangeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: Constant.Size.Otstup.normal),
-            weaponRangeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -Constant.Size.Otstup.normal),
-         
-        ])
-        
-        NSLayoutConstraint.activate([
-            weaponMeleeLabel.topAnchor.constraint(greaterThanOrEqualTo: weaponRangeLabel.bottomAnchor,constant: Constant.Size.Otstup.small),
-            weaponMeleeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: Constant.Size.Otstup.normal),
-            weaponMeleeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -Constant.Size.Otstup.normal),
-        
-        ])
-        
-        NSLayoutConstraint.activate([
-            equipmentLabel.topAnchor.constraint(equalTo: weaponMeleeLabel.bottomAnchor,constant: Constant.Size.Otstup.small),
-            equipmentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: Constant.Size.Otstup.normal),
-            equipmentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -Constant.Size.Otstup.normal),
-            equipmentLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -Constant.Size.Otstup.small),
-        ])
-    }
-    
-    func configure() {
-        contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
-        layer.applyCornerRadius()
-        layer.masksToBounds = true
-        setupHeader()
-        setupAllLabels()
-
-    }
-    
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configure()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }

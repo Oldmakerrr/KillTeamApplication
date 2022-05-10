@@ -11,11 +11,6 @@ struct LegionaryAbilitie: Codable, KillTeamAbilitie {
     
     let chaosBlessing: UnitAbilitie
     let favouredOfTheDarkGods: UnitAbilitie
-    let chaosBlessings: [ChaosBlessing]
+    let chaosBlessings: [UnitAbilitie]
     
-    struct ChaosBlessing: Codable, UnitAbilitieProtocol {
-        let name: String
-        let description: String
-        let subText: [String]?
-    }
 }

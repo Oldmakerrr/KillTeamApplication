@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol PloysRouterProtocol {
+protocol PloysRouterProtocol: RouterProtocol {
     var ploysNavigationController: PloyNavigationController? { get }
 }
 

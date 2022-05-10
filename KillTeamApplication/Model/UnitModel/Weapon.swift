@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol Wargear {
+    var name: String { get }
+}
+
 protocol WeaponProtocol {
     var name: String { get }
     var profileName: String? { get }
@@ -19,7 +23,7 @@ protocol WeaponProtocol {
     var criticalHitspecialRule: [WeaponSpecialRule]? { get }
 }
 
-struct Weapon: Codable, WeaponProtocol {
+struct Weapon: Codable, WeaponProtocol, Wargear {
     let name: String
     let profileName: String?
     let type: WeaponType

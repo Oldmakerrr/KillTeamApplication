@@ -55,8 +55,8 @@ class PathfinderAbilitieView: KillTeamAbilitieView {
         let view = UniqueActionView()
         view.layer.applyBorder()
         backgroundView.addView(view: backgroundView, subView: view)
-        view.setupText(action: markerRule.uniqueAction, delegate: delegate)
         addArrangedSubview(backgroundView)
+        view.setupText(action: markerRule.uniqueAction, delegate: delegate, viewWidth: view.getViewWidth())
     }
 }
 

@@ -8,8 +8,8 @@
 import UIKit
 
 protocol AddFireTeamCellDelegate: AnyObject {
-    func didCompletePlusFireTeam(_ cell: AddFireTeamCell, fireTeam: FireTeam)
-    func didCompleteMinusFireTeam(_ cell: AddFireTeamCell, fireTeam: FireTeam)
+    func addFireTeam(_ cell: AddFireTeamCell, fireTeam: FireTeam)
+    func removeFireTeam(_ cell: AddFireTeamCell, fireTeam: FireTeam)
 }
  
  class AddFireTeamCell: UITableViewCell, ReusableView {
@@ -89,50 +89,20 @@ protocol AddFireTeamCellDelegate: AnyObject {
          ])
      }
      
-     
      @objc func addFireTeam() {
         guard let fireTeam = fireTeam else { return }
-        delegate?.didCompletePlusFireTeam(self, fireTeam: fireTeam)
+        delegate?.addFireTeam(self, fireTeam: fireTeam)
      }
      
      @objc func removeFireTeam() {
         guard let fireTeam = fireTeam else { return }
-        delegate?.didCompleteMinusFireTeam(self, fireTeam: fireTeam)
+        delegate?.removeFireTeam(self, fireTeam: fireTeam)
      }
      
      
  }
 
- extension AddFireTeamCell: StoreDelegate {
-     func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        guard let killTeam = killTeam, let fireTeam = fireTeam else { return }
-        if let key = killTeam.counterFireTeam?[fireTeam.name] {
-             countFireTeam = key
-         }
-     }
- }
 
 
-class AddFireTeamButton: UIButton {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configure()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure() {
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = ColorScheme.shared.theme.buttonBackground
-        layer.masksToBounds = true
-        layer.cornerRadius = Constant.Size.cornerRadius
-        layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
-        layer.borderWidth = Constant.Size.borderWidht
-    }
-    
-}
  
 

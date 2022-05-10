@@ -21,7 +21,7 @@ class PsychicPowerView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupText(psychicPower: PsychicPower, delegate: WeaponRuleButtonDelegate) {
+    func setupText(psychicPower: PsychicPower, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         setupHeader(psychicPower: psychicPower)
         if let type = psychicPower.type {
             setupTypeView(type: type)
@@ -31,7 +31,7 @@ class PsychicPowerView: UIStackView {
             setupSubText(subText: subText)
         }
         if let weapon = psychicPower.weapon {
-            setupWeaponView(weapon: weapon, delegate: delegate)
+            setupWeaponView(weapon: weapon, delegate: delegate, viewWidth: viewWidth)
         }
         setupView()
     }
@@ -74,21 +74,21 @@ class PsychicPowerView: UIStackView {
         addSubTextPointView(subText: subText)
     }
     
-    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate) {
+    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         let backgroundView = UIView()
         let view = WeaponView()
-        view.header.backgroundColor = ColorScheme.shared.theme.psychicPowerViewHeader
-        view.header.nameLabel.textColor = ColorScheme.shared.theme.textWhite
-        view.layer.borderColor = ColorScheme.shared.theme.psychicPowerViewHeader.cgColor
-        view.layer.borderWidth = Constant.Size.borderWidht
         backgroundView.addView(top: Constant.Size.Otstup.small,
                                bottom: Constant.Size.Otstup.small,
                                leading: Constant.Size.Otstup.small,
                                trailing: Constant.Size.Otstup.small,
                                view: backgroundView,
                                subView: view)
-        view.setupText(wargear: weapon, delegate: delegate)
         addArrangedSubview(backgroundView)
+        view.setupText(wargear: weapon, delegate: delegate, viewWidth: viewWidth)
+        view.header.backgroundColor = ColorScheme.shared.theme.psychicPowerViewHeader
+        view.header.nameLabel.textColor = ColorScheme.shared.theme.textWhite
+        view.layer.borderColor = ColorScheme.shared.theme.psychicPowerViewHeader.cgColor
+        view.layer.borderWidth = Constant.Size.borderWidht
     }
     
     private func setupView() {

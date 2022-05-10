@@ -13,9 +13,9 @@ protocol ChooseKillTeamViewProtocol: AnyObject {
 }
 
 protocol ChooseKillTeamPresenterProtocol: AnyObject {
-    init(view: ChooseKillTeamViewProtocol, store: StoreProtocol)
-    var model: AllKillTeam {get set}
-    var store: StoreProtocol {get}
+    init(view: ChooseKillTeamViewProtocol, store: StoreProtocol, storage: StorageProtocol)
+    var model: AllKillTeam { get }
+    var store: StoreProtocol { get }
     func goToEditKillTeamViewController(killTeam: KillTeam)
 }
 
@@ -25,24 +25,27 @@ protocol ChooseKillTeamPresenterDelegate: AnyObject {
 
 class ChooseKillTeamPresenter: ChooseKillTeamPresenterProtocol {
     
-    var store: StoreProtocol
+    let store: StoreProtocol
     weak var view: ChooseKillTeamViewProtocol?
     weak var delegate: ChooseKillTeamPresenterDelegate?
-    var model = AllKillTeam()
+    let model = AllKillTeam()
+    let storage: StorageProtocol
     
     
-    required init(view: ChooseKillTeamViewProtocol, store: StoreProtocol) {
+    required init(view: ChooseKillTeamViewProtocol, store: StoreProtocol, storage: StorageProtocol) {
         self.view = view
         self.store = store
-        model.allFaction += store.allFaction
+        model.allFaction = store.allFaction
+        self.storage = storage
     }
     
     func goToEditKillTeamViewController(killTeam: KillTeam) {
-        guard let key = killTeam.id else { return }
+        //guard let key = killTeam.id else { return }
         delegate?.didComplete(presenter: self)
         store.updateCurrentKillTeam(killTeam: killTeam)
-        store.appendNewKillTeam(killTeam: killTeam)
-        store.appendNewKey(key: key)
-        KeySaver.saveKey(key: store.keysForKillTeam)
+        storage.appendNewKillTeam(killTeam: killTeam)
+        //store.appendNewKillTeam(killTeam: killTeam)
+        //store.appendNewKey(key: key)
+        //KeySaver.saveKey(key: store.keysForKillTeam)
     }
 }

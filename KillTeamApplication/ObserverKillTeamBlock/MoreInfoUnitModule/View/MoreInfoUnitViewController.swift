@@ -19,17 +19,20 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
     let scrollView = UIScrollView()
     let scrollViewContainer = UIStackView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         navigationItem.title = presenter?.model.choosenUnit?.customName ?? ""
         setupScrollView()
         setupScrollViewContainer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presenter?.updateChoosenUnit()
+        scrollViewContainer.arrangedSubviews.forEach { view in
+            view.removeFromSuperview()
+        }
         setupAdditionalView()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        presenter?.cleareIndex()
-    }
 }

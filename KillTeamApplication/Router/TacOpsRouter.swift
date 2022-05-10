@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol TacOpsRouterProtocol {
+protocol TacOpsRouterProtocol: RouterProtocol {
     var tacOpsNavigationController: TacOpsNavigationController? { get }
 }
 

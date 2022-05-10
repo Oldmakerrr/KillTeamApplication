@@ -17,7 +17,7 @@ protocol MoreUnitInfoPresenterProtocol: AnyObject {
     var view: MoreInfoUnitViewControllerProtocol? { get }
     var store: StoreProtocol { get set }
     var model: MoreInfoUnitModel { get }
-    func cleareIndex()
+    func updateChoosenUnit()
 }
 
 class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
@@ -32,20 +32,28 @@ class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
         self.view = view
         self.store = store
         store.multicastDelegate.addDelegate(self)
+        model.indexPathOfChoosenUnit = store.indexObservedUnit
+        updateChoosenUnit()
     }
     
-    func cleareIndex() {
-        model.killTeam?.indexOfChoosenUnit = nil
-        store.updateCurrentKillTeam(killTeam: model.killTeam!)
+    func updateChoosenUnit() {
+        guard let indexPath = model.indexPathOfChoosenUnit,
+              let killTeam = store.getKillTeam() else { return }
+        if !killTeam.choosenFireTeam.isEmpty {
+            model.choosenUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+            model.killTeam = killTeam
+        }
     }
     
 }
 
 extension MoreUnitInfoPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        guard let killTeam = killTeam, let indexPath = killTeam.indexOfChoosenUnit else { return }
+        guard let killTeam = killTeam, let indexPath = store.indexObservedUnit else { return }
         model.killTeam = killTeam
         model.indexPathOfChoosenUnit = indexPath
-        model.choosenUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        if !killTeam.choosenFireTeam.isEmpty {
+            model.choosenUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        }
     }
 }

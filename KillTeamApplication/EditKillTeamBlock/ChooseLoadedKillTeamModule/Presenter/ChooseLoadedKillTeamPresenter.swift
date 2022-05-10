@@ -13,7 +13,7 @@ protocol ChooseLoadedKillTeamControllerProtocol: AnyObject {
 }
 
 protocol ChooseLoadedKillTeamPresenterProtocol: AnyObject {
-    init(view: ChooseLoadedKillTeamControllerProtocol, store: StoreProtocol)
+    init(view: ChooseLoadedKillTeamControllerProtocol, store: StoreProtocol, storage: StorageProtocol)
     var view: ChooseLoadedKillTeamControllerProtocol? { get }
     var store: StoreProtocol { get }
     var model: ChooseLoadedKillTeamModel { get }
@@ -30,17 +30,19 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
     
     weak var view: ChooseLoadedKillTeamControllerProtocol?
     
-    var store: StoreProtocol
+    let store: StoreProtocol
     
-    var model = ChooseLoadedKillTeamModel()
+    let model = ChooseLoadedKillTeamModel()
+    
+    let storage: StorageProtocol
     
     weak var delegate: ChooseLoadedKillTeamPresenterDelegate?
     
-    required init(view: ChooseLoadedKillTeamControllerProtocol, store: StoreProtocol) {
+    required init(view: ChooseLoadedKillTeamControllerProtocol, store: StoreProtocol, storage: StorageProtocol) {
         self.view = view
         self.store = store
-        store.loadSavedKillTeam()
-        model.loadedKillTeam = store.loadedKillTeam
+        self.storage = storage
+        model.loadedKillTeam = storage.loadedKillTeam
     }
     
     func chooseKillTeam(killTeam: KillTeam) {
@@ -52,9 +54,7 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
     
     func removeMyKillTeam(indexPath: IndexPath, view: UITableViewController) {
         model.loadedKillTeam.remove(at: indexPath.row)
-        store.removeKey(indexPath: indexPath)
-        store.removeKillTeam(indexPath: indexPath)
-        KeySaver.saveKey(key: store.keysForKillTeam)
+        storage.removeKillTeam(indexPath: indexPath)
         view.tableView.reloadData()
     }
     

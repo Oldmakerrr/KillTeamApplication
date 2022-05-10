@@ -11,7 +11,7 @@ protocol AbilitieViewProtocol {}
 
 class KillTeamAbilitieView: UIStackView, AbilitieViewProtocol {
     
-    var viewController: UIViewController?
+    weak var viewController: UIViewController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -40,7 +40,7 @@ class PsychicPowerPresenter: PsychicPowerPresenterProtocol {
     }
     
     func getLastChoosenPsychicDisciplines() -> String? {
-        return store.getLastChoosenPsychicDisciplines()
+        return store.lastChoosenPsychicDisciplines
     }
     
     private func addPsychicPowersToDictionary(psychicPower: PsychicPower, type: String) {

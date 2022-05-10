@@ -11,6 +11,8 @@ import Foundation
 
 final class KeySaver {
     
+    static let lastUsedKillTeamKey = "lastUsedKillTeamKey"
+    
     static func saveKey(key: [String]) {
         UserDefaults.standard.set(key, forKey: "KeyForKillTeam")
     }

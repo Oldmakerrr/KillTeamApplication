@@ -20,20 +20,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().tintColor = .orange
         let gameStore = GameStore()
         let store = Store()
+        let storage = Storage(store: store)
+        let builder = ModuleBuilder(store: store, gameStore: gameStore, storage: storage)
+        let router = MainRouter(builder: builder)
         DispatchQueue.global(qos: .utility).async {
-            store.loadSavedKillTeam()
-            store.allFaction = store.killTeamFromJson()
-            if let keys = KeySaver.getKey() {
-                store.keysForKillTeam = keys
-            }
+            storage.loadSavedKillTeam()
+            storage.loadKeys()
+            store.killTeamFromJson()
         }
         gameStore.parseTacOps()
-        let builder = ModuleBuilder(store: store, gameStore: gameStore)
-        let router = MainRouter(builder: builder)
-        let rootViewController = MainTabBarController(mainRouter: router, builder: builder, complition: store.loadLastUsedKillTeam)
+        let rootViewController = MainTabBarController(mainRouter: router, builder: builder, complition: storage.loadLastUsedKillTeam)
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
-        //_ = MainTabbarRouter(builder: builder, window: window!, complition: store.loadLastUsedKillTeam)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

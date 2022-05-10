@@ -84,9 +84,9 @@ class TacOpView: UIStackView {
             let view = UIView()
             let actionView = UniqueActionView()
             actionView.layer.applyBorder()
-            actionView.setupText(action: uniquiAction, delegate: delegate)
             addView(view: view, subView: actionView)
             addArrangedSubview(view)
+            actionView.setupText(action: uniquiAction, delegate: delegate, viewWidth: actionView.getViewWidth())
         }
         
         if let abilitie = tacOp.abilitie {

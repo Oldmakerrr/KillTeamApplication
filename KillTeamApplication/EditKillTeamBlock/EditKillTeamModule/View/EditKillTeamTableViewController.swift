@@ -32,9 +32,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
         addUnitOrFireTeamButton.removeFromSuperview()
     }
     
-   
-
-    // MARK: - Table view data source
+// MARK: - TableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return presenter?.model.killTeam?.choosenFireTeam.count ?? 0
@@ -62,51 +60,21 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
         return Constant.Size.headerHeight
     }
     
+//MARK: - TableViewDelegate
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.goToEditUnitVC(indexPath: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let changeUnit = presenter?.changeUnitAction(indexPath: indexPath),
-              let renameUnit = presenter?.renameUnitAction(indexPath: indexPath) else { return nil }
+        let changeUnit = changeUnitAction(indexPath: indexPath)
+        let renameUnit = renameUnitAction(indexPath: indexPath)
         return UISwipeActionsConfiguration(actions: [changeUnit, renameUnit])
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let removeUnit = presenter?.removeUnitAction(indexPath: indexPath) else { return nil }
+        let removeUnit = removeUnitAction(indexPath: indexPath)
         return UISwipeActionsConfiguration(actions: [removeUnit])
     }
 
-}
-
-extension EditKillTeamTableViewController {
-    
-    @objc func addFireTeam() {
-        presenter?.addFireTeamAction()
-    }
-    
-    func addGestureToTitleView() {
-        guard let titleView = navigationItem.titleView else { return }
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(gestureAction))
-        gesture.numberOfTapsRequired = 1
-        titleView.addGestureRecognizer(gesture)
-    }
-    
-    @objc private func gestureAction() {
-        presenter?.renameKillTeamAlertController()
-    }
-    
-    func setupTitleView(name: String?) {
-        customTitleView.setupText(text: name)
-        customTitleView.label.textColor = .white
-        let image = UIImage(systemName: "square.and.pencil")
-        customTitleView.setupImage(image: image)
-        navigationItem.titleView = customTitleView
-    }
-    
-    private func setupAddButton() {
-        guard let tabBarController = tabBarController, let tabBarView = tabBarController.view else { return }
-        addUnitOrFireTeamButton.setupButton(tabBarController: tabBarController, tabBarView: tabBarView)
-        addUnitOrFireTeamButton.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
-    }
 }

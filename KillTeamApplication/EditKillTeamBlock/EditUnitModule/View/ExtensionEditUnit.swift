@@ -10,47 +10,48 @@ import UIKit
 
 extension EditUnitViewController {
     
+//MARK: - ChaosBlessing
+    
+    func setupChaosBlesisnButton() {
+        if presenter?.model.killTeam?.abilitiesOfKillTeam is LegionaryAbilitie ||
+            presenter?.model.killTeam?.abilitiesOfKillTeam is WarpcovenAbilitie {
+            chaosBlessingButton = UIBarButtonItem(image: UIImage(named: presenter?.setImage() ?? "killTeamViewController"),
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(chaosBlesingButtonAction))
+            navigationItem.rightBarButtonItem = chaosBlessingButton
+        }
+        
+    }
+    
+    @objc private func chaosBlesingButtonAction() {
+        presenter?.goToAbilitieKillTeamViewController()
+    }
+    
+    
+//MARK: - Methods
+    
+    func showChooseAbilitieAlert(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Done", style: .cancel, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
     func registerCell() {
         tableView.register(EditUnitWargearCell.self, forCellReuseIdentifier: EditUnitWargearCell.identifier)
         tableView.register(EditUnitEquipmentCell.self, forCellReuseIdentifier: EditUnitEquipmentCell.identifier)
-            createBarlabel()
     }
     
-    func createBarlabel() {
-        guard let navigationBar = navigationController?.navigationBar,
-              let countOfEquipmentPoint = presenter?.model.killTeam?.countEquipmentPoint  else { return }
-        navigationBar.addSubview(countOfEquipmentPointLabel)
+    func setupNavigationTitlelabel() {
+        guard let countOfEquipmentPoint = presenter?.model.killTeam?.countEquipmentPoint  else { return }
         countOfEquipmentPointLabel.text = "EP = \(countOfEquipmentPoint)"
         countOfEquipmentPointLabel.textColor = .white
-        NSLayoutConstraint.activate([
-            countOfEquipmentPointLabel.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large),
-            countOfEquipmentPointLabel.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor)
-        ])
+        navigationItem.titleView = countOfEquipmentPointLabel
     }
     
-    func setupWeaponCell(tableView: UITableView, indexPath: IndexPath, wargear: [Weapon]) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EditUnitWargearCell.identifier, for: indexPath) as! EditUnitWargearCell
-        presenter?.store.multicastDelegate.addDelegate(cell)
-        cell.wargear = wargear[indexPath.row]
-        cell.unit = presenter?.model.currentUnit
-        cell.delegate = presenter as? EditUnitCellDelegate
-        cell.setupText(weapon: wargear[indexPath.row])
-        return cell
-    }
-    
-    func setupEquipmentCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EditUnitEquipmentCell.identifier, for: indexPath) as! EditUnitEquipmentCell
-        guard let equipment = presenter?.model.killTeam?.equipment[indexPath.row] else { return UITableViewCell() }
-        presenter?.store.multicastDelegate.addDelegate(cell)
-        cell.equipment = equipment
-        cell.unit = presenter?.model.currentUnit
-        cell.delegate = presenter as? EditUnitEquipmentCellDelegate
-        cell.setupText(equipment: equipment)
-        return cell
-    }
-    
-    func setupWargearView<T: WargearView>(view: T, wargear: T.Wargear, delegate: T.Delegate) {
-        view.setupText(wargear: wargear, delegate: delegate as? WeaponRuleButtonDelegate)
+    func setupWargearView<T: WargearView>(view: T, wargear: T.Wargear, delegate: T.Delegate, viewWidth: CGFloat) {
+        view.setupText(wargear: wargear, delegate: delegate as? WeaponRuleButtonDelegate, viewWidth: viewWidth)
         view.setupButton()
         view.setDelegate(delegate: delegate)
         guard let view = view as? UIView else { return }
@@ -58,26 +59,19 @@ extension EditUnitViewController {
         view.layer.masksToBounds = true
     }
     
-    func addWeaponAction(wargear: [Weapon], indexPtah: IndexPath) -> UISwipeActionsConfiguration {
+    func addSwipeAction(indexPath: IndexPath) -> UISwipeActionsConfiguration {
         let action = UIContextualAction(style: .normal, title: "More info") { _, _, complition in
-            let weapon = wargear[indexPtah.row]
-            let view = WeaponView()
-            self.setupWargearView(view: view, wargear: weapon, delegate: self)
-            self.showAlert(alertView: view)
-        complition(true)
-        }
-        action.backgroundColor = ColorScheme.shared.theme.swipeInfoAction
-        action.title = "Info"
-        action.image = UIImage(systemName: "info.circle.fill")
-        return UISwipeActionsConfiguration(actions: [action])
-    }
-    
-    func addEquipmentAction(indexPath: IndexPath) -> UISwipeActionsConfiguration {
-        let action = UIContextualAction(style: .normal, title: "More info") { _, _, complition in
-            guard let equipment = self.presenter?.model.killTeam?.equipment[indexPath.row] else { return }
-            let view = EquipmentView()
-            self.setupWargearView(view: view, wargear: equipment, delegate: self)
-            self.showAlert(alertView: view)
+            guard let wargear = self.presenter?.model.wargear[indexPath.section][indexPath.row] else { return }
+            if let weapon = wargear as? Weapon {
+                let view = WeaponView()
+                self.showAlert(alertView: view)
+                self.setupWargearView(view: view, wargear: weapon, delegate: self, viewWidth: view.getViewWidth())
+            }
+            if let equipment = wargear as? Equipment {
+                let view = EquipmentView()
+                self.showAlert(alertView: view)
+                self.setupWargearView(view: view, wargear: equipment, delegate: self, viewWidth: view.getViewWidth())
+            }
             complition(true)
         }
         action.backgroundColor = ColorScheme.shared.theme.swipeInfoAction
@@ -86,3 +80,5 @@ extension EditUnitViewController {
         return UISwipeActionsConfiguration(actions: [action])
     }
 }
+
+

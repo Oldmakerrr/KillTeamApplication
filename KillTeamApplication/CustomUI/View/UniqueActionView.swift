@@ -25,13 +25,13 @@ class UniqueActionView: UIStackView {
         backgroundColor = ColorScheme.shared.theme.subViewBackground
     }
     
-    func setupTextForUnit(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
+    func setupTextForUnit(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         setupActionText(uniqueAction: action)
         if let subText = action.subText {
             addSubTextPointView(subText: subText)
         }
         if let wargear = action.wargear {
-            setupWeaponView(weapon: wargear, delegate: delegate)
+            setupWeaponView(weapon: wargear, delegate: delegate, viewWidth: viewWidth)
         }
         if let postSubText = action.postSubText {
             addTextView(text: postSubText)
@@ -39,14 +39,14 @@ class UniqueActionView: UIStackView {
     }
     
     
-    func setupText(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
+    func setupText(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         setupHeader(action: action)
         addTextView(text: action.description)
         if let subText = action.subText {
             addSubTextPointView(subText: subText)
         }
         if let wargear = action.wargear {
-            setupWeaponView(weapon: wargear, delegate: delegate)
+            setupWeaponView(weapon: wargear, delegate: delegate, viewWidth: viewWidth)
         }
         if let postSubText = action.postSubText {
             addTextView(text: postSubText)
@@ -69,12 +69,12 @@ class UniqueActionView: UIStackView {
         addArrangedSubview(header)
     }
     
-    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate) {
+    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         let view = WeaponView()
         let backgroundView = UIView()
-        view.setupText(wargear: weapon, delegate: delegate)
         addView(view: backgroundView, subView: view)
         addArrangedSubview(backgroundView)
+        view.setupText(wargear: weapon, delegate: delegate, viewWidth: viewWidth)
         view.layer.borderWidth = Constant.Size.borderWidht
         view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
     }

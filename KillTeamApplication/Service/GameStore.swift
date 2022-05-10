@@ -35,8 +35,9 @@ final class GameStoreMulticastDelegate<T> {
 protocol GameStoreProtocol: AnyObject {
     var multicastDelegate: GameStoreMulticastDelegate<GameStoreDelegate> { get }
     var tacOps: [TacOp] { get }
-    func updateGameData(gameData: GameData)
     func parseTacOps()
+    func updateGameData(gameData: GameData)
+    func getGameDate() -> GameData?
 }
 
 protocol GameStoreDelegate: AnyObject {
@@ -47,12 +48,16 @@ final class GameStore: GameStoreProtocol {
     
     var multicastDelegate = GameStoreMulticastDelegate<GameStoreDelegate>()
     
-    var gameData: GameData? {
+    private var gameData: GameData? {
         didSet{
             multicastDelegate.invoke({ presenter in
                 presenter.didUpdate(self, gameData: gameData)
             })
         }
+    }
+    
+    func getGameDate() -> GameData? {
+        return self.gameData
     }
     
     func updateGameData(gameData: GameData) {
@@ -66,15 +71,20 @@ final class GameStore: GameStoreProtocol {
         let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
         tacOps = try! JSONDecoder().decode([TacOp].self, from: jsonData! as Data)
     }
+    
 }
 
 
 struct GameData {
+    
     var countCommandPoint = 0
     var countVictoryPoint = 0
     var countTurningPoint = 0
+    var countKillTeamAbilitiePoint: Int?
     var currentStrategicPloys = [Ploy]()
     var firstTacOp: TacOp?
     var secondTacOp: TacOp?
     var thirdTacOp: TacOp?
+    var currentAbilitie: String?
+    
 }

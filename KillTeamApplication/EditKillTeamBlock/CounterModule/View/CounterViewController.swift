@@ -12,42 +12,49 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     var presenter: CounterPresenterProtocol?
     
     let customAlert = CustomScrollAlert()
+    
     let currentKillTeamView = CurrentKillTeamView()
     
     let addKillTeamButton = AddButton()
-    
-    let currentStrategicPloyLabel = CounterLabel()
 
     let turningPointLabel = CounterLabel()
-    let commandPointLabel = CounterLabel()
-    let victoryPointLabel = CounterLabel()
     
-    let plusCommandPoint = ChangePointButton()
-    let minusCommandPoint = ChangePointButton()
-    let plusVictoryPoint = ChangePointButton()
-    let minusVictoryPoint = ChangePointButton()
+    let currentAbilitieView = ViewWithLabel()
+    
+    let counterLabelsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillProportionally
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    let commandPoint = CounterPointView(title: "Command Point")
+    let victoryPoint = CounterPointView(title: "Victory Point")
+    var killTeamAbilitiePoint: CounterPointView?
     
     let nextTurnButton = ChangeTurnButton()
     let endGameButton = ChangeTurnButton()
     
-    let currentPloysCollectionView = CurrentPloysCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    lazy var nextTurnButtonView = ButtonView(button: nextTurnButton, width: 100, height: 30)
+    lazy var endGameButtonView = ButtonView(button: endGameButton, width: 100, height: 30)
     
+    let currentPloysCollectionView = CurrentPloysCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         setupBackgroundImage()
         setupSubView()
-        enableButtons()
-        currentPloysCollectionView.dataSource = self
-        currentPloysCollectionView.selectCellDelegate = self
-        currentKillTeamView.delegate = presenter as? CurrentKillTeamViewProtocol
+        setupDelegates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
         currentPloysCollectionView.reloadData()
         setupAddButton()
+        fillCounterStackView()
+        setupTextToAbilitieView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,11 +63,11 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
     func showAlert(ploy: Ploy) {
         let view = PloyView()
-        view.setupPloy(ploy: ploy, delegate: self)
-        view.setupButton(delegate: self)
         view.layer.applyCornerRadius()
         view.layer.masksToBounds = true
         customAlert.showAlert(alertView: view, targetViewController: self)
+        view.setupPloy(ploy: ploy, delegate: self, viewWidth: view.weaponView.getViewWidth())
+        view.setupButton(delegate: self)
     }
     
     @objc func dismissAlert() {
@@ -97,7 +104,7 @@ extension CounterViewController: UICollectionViewDataSource {
     
 }
 
-extension CounterViewController: CurrentPloysCollectionViewProtocol {
+extension CounterViewController: CurrentPloysCollectionViewDelegate {
     func didSelectCell(_ CurrentPloysCollectionView: CurrentPloysCollectionView, indexPath: IndexPath) {
         guard let ploy = presenter?.model.gameData.currentStrategicPloys[indexPath.item] else {
             return }
@@ -109,7 +116,7 @@ extension CounterViewController: CurrentPloysCollectionViewProtocol {
 
 extension CounterViewController: WeaponRuleButtonDelegate {
     func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
-        print("adfdf")
+        moreInfoWeaponRuleAlert(weaponRule: weaponRule)
     }
     
     

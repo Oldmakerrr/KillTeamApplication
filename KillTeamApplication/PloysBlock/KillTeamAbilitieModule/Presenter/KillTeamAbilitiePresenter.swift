@@ -14,8 +14,9 @@ protocol KillTeamAbilitieViewControllerProtocol: AnyObject {
 protocol KillTeamAbilitiePresenterProtocol: AnyObject {
     var view: KillTeamAbilitieViewControllerProtocol? { get }
     var model: KillTeamAbilitieModel { get }
+    var gameStore: GameStoreProtocol { get }
     var store: StoreProtocol { get }
-    init(view: KillTeamAbilitieViewControllerProtocol, store: StoreProtocol)
+    init(view: KillTeamAbilitieViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol)
 }
 
 class KillTeamAbilitiePresenter: KillTeamAbilitiePresenterProtocol {
@@ -23,10 +24,12 @@ class KillTeamAbilitiePresenter: KillTeamAbilitiePresenterProtocol {
     weak var view: KillTeamAbilitieViewControllerProtocol?
     let model = KillTeamAbilitieModel()
     let store: StoreProtocol
+    let gameStore: GameStoreProtocol
     
-    required init(view: KillTeamAbilitieViewControllerProtocol, store: StoreProtocol) {
+    required init(view: KillTeamAbilitieViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol) {
         self.view = view
         self.store = store
+        self.gameStore = gameStore
         store.multicastDelegate.addDelegate(self)
         
     }

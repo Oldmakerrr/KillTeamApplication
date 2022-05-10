@@ -8,10 +8,6 @@
 import UIKit
 import Foundation
 
-protocol EditUnitEquipmentCellDelegate: AnyObject {
-    func selectEquipment(equipment: Equipment, selected: Bool)
-}
-
 class EditUnitEquipmentCell: UITableViewCell, ReusableView {
 
     static var identifier: String {
@@ -29,22 +25,14 @@ class EditUnitEquipmentCell: UITableViewCell, ReusableView {
         }
     }
     
-    weak var delegate: EditUnitEquipmentCellDelegate?
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setupNameEquipmentLabel()
         setupCostEquipmentLabel()
-        checkSelectedState()
     }
         
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        guard let equipment = equipment  else { return }
-        delegate?.selectEquipment(equipment: equipment, selected: selected)
     }
     
     func setupText(equipment: Equipment) {
@@ -79,11 +67,4 @@ class EditUnitEquipmentCell: UITableViewCell, ReusableView {
         ])
     }
     
-}
-
-extension EditUnitEquipmentCell: StoreDelegate {
-    func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        guard let killTeam = killTeam, let indexPath = killTeam.indexOfChoosenUnit else { return }
-        unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
-    }
 }

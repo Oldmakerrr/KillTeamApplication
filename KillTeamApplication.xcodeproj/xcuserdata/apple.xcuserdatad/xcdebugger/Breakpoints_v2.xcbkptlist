@@ -7,128 +7,80 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B79705E-F8C0-4C44-8B92-1D71D507674E"
+            uuid = "789FEE35-3E0B-43B2-B5D7-F1C837F31FB9"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/TacOpsBlock/TacOpsModule/View/CustomView/TacOpView.swift"
+            filePath = "KillTeamApplication/EditKillTeamBlock/CounterModule/View/ExtentionCounter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "init(frame:)"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "setupTextToAbilitieView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "33481A58-CB27-4139-9D71-4CD68BA0B705"
+            uuid = "352FBB3C-B877-48D9-822D-C698D1B94A30"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/TacOpsBlock/ChoosenTacOpsModule/Presenter/ChoosenTacOpsPresenter.swift"
+            filePath = "KillTeamApplication/EditKillTeamBlock/EditUnitModule/View/Cell/EditUnitEquipmentCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "didSelectConditionView(_:isSelect:indexPath:numberOfCondition:)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "checkSelectedState()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0AF51199-E11D-48CD-AB0E-FC1F71F1B17A"
+            uuid = "025FF880-FE00-444D-8550-038055769672"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/TacOpsBlock/ChoosenTacOpsModule/View/CustomView/ChoosenTacOpView.swift"
+            filePath = "KillTeamApplication/EditKillTeamBlock/EditUnitModule/View/Cell/EditUnitWargearCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "addConditionTextView(text:trailingSpace:)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "checkSelectedState()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3E0C0BB8-3DC2-4346-96C3-80D2B5C9BDB1"
+            uuid = "D372CF10-D701-4A01-91E1-FE98AE1D1AFD"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/TacOpsBlock/ChoosenTacOpsModule/Presenter/ChoosenTacOpsPresenter.swift"
+            filePath = "KillTeamApplication/EditKillTeamBlock/EditUnitModule/Presenter/EditUnitPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "didSelectConditionView(_:isSelect:indexPath:numberOfCondition:)"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "didUpdate(_:killTeam:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CAA9D198-A568-4FAB-8035-54D3FC6B8DC4"
+            uuid = "048910E8-9831-4499-80F2-CC897A2426D1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/PloysBlock/PsychicPowerModule/View/PsychicPowerViewController.swift"
+            filePath = "KillTeamApplication/ObserverKillTeamBlock/MoreInfoUnitModule/View/ExtentionMoreInfoUnit.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F2FC7114-61BD-43F2-AC6E-457AA916B5BF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/PloysBlock/PsychicPowerModule/View/ExtensionPsychicPowerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "setupDescriptionView(psychicPowerDescription:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D46A8958-8380-498D-A7F6-EEC6D2907E49"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/Model/KillTeam.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "init(from:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E2737EA0-9E7E-4EB6-8170-476DFD284CE7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/Model/KillTeam.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "encode(to:)"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "stepperAction()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

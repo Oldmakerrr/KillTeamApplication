@@ -7,13 +7,40 @@
 
 import UIKit
 
+protocol BoonOfTzeenchTableViewControllerDelegate: AnyObject {
+    func didComplete(_ boonOfTzeenchTableViewController: BoonOfTzeenchTableViewController, boonOfTzeentch: WarpcovenAbilitie.BoonsOfTzeentch)
+}
+
 class BoonOfTzeenchTableViewController: UITableViewController {
+    
+    weak var delegate: BoonOfTzeenchTableViewControllerDelegate?
     
     var boonsOfTzeentch: [[WarpcovenAbilitie.BoonsOfTzeentch]]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(BoonOfTzeenchTableViewCell.self, forCellReuseIdentifier: BoonOfTzeenchTableViewCell.identifier)
+    }
+    
+    func addBoonOfTzeench(abilitie: WarpcovenAbilitie) {
+        var boonsOfTzeentch = [[WarpcovenAbilitie.BoonsOfTzeentch]]()
+        var mutation = [WarpcovenAbilitie.BoonsOfTzeentch]()
+        var fate = [WarpcovenAbilitie.BoonsOfTzeentch]()
+        var aetheric = [WarpcovenAbilitie.BoonsOfTzeentch]()
+        abilitie.mutation.forEach { boonOfTzeentch in
+            switch boonOfTzeentch.type {
+            case .mutation:
+                mutation.append(boonOfTzeentch)
+            case .fate:
+                fate.append(boonOfTzeentch)
+            case .aetheric:
+                aetheric.append(boonOfTzeentch)
+            }
+        }
+        boonsOfTzeentch.append(mutation)
+        boonsOfTzeentch.append(fate)
+        boonsOfTzeentch.append(aetheric)
+        self.boonsOfTzeentch = boonsOfTzeentch
     }
     
     private func setColorToCell(cell: BoonOfTzeenchTableViewCell, indexPath: IndexPath) {
@@ -57,8 +84,8 @@ class BoonOfTzeenchTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cost = boonsOfTzeentch?[indexPath.row][indexPath.row] else { return }
-        print("boonsOfTzeentch - \(cost.name)")
+        guard let boonOfTzeentch = boonsOfTzeentch?[indexPath.section][indexPath.row] else { return }
+        delegate?.didComplete(self, boonOfTzeentch: boonOfTzeentch)
     }
 }
 

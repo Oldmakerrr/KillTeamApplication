@@ -25,6 +25,8 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
         setupAbilitie()
     }
     
+    
+    
     private func setupAbilitie() {
         guard let abilitie = presenter?.model.abilitie else { return }
         
@@ -67,6 +69,7 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     
     private func setupNovitiateAbilitie(abilitie: NovitiateAbilitie) -> UIStackView {
         let view = NovitiateAbilitieView()
+        view.delegate = self
         let image = UIImage(named: "killTeamViewController")
         view.setupAbilitie(abilitie: abilitie, viewController: self)
         view.addRightBurButtonItem(navigationItem: navigationItem,
@@ -76,6 +79,7 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     
     private func setupHunterCladeAbilitie(abilitie: HunterCladeAbilitie) -> UIStackView {
         let view = HunterCladeAbilitieView()
+        view.delegate = self
         let image = UIImage(named: "killTeamViewController")
         view.setupAbilitie(abilitie: abilitie, viewController: self)
         view.addRightBurButtonItem(navigationItem: navigationItem,
@@ -112,6 +116,7 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     
     private func setupVoidDancerTroupeAbilitie(abilitie: VoidDancerTroupeAbilitie) -> UIStackView {
         let view = VoidDancerTroupeAbilitieView()
+        view.delegate = self
         view.setupAbilitie(abilitie: abilitie, viewController: self)
         let image = UIImage(named: "killTeamViewController")
         view.addRightBurButtonItem(navigationItem: navigationItem,
@@ -206,6 +211,16 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     }
 }
 
+extension KillTeamAbilitieViewController: WeaponRuleButtonDelegate {
+    
+    func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
+        moreInfoWeaponRuleAlert(weaponRule: weaponRule)
+    }
+    
+}
+
+//MARK: - MenuBarDelegate
+
 extension KillTeamAbilitieViewController: MenuBarDelegate {
     func didSelect(_ menuBar: MenuBar, indexPath: IndexPath) {
         guard let abilitie = presenter?.model.abilitie else { return }
@@ -225,10 +240,40 @@ extension KillTeamAbilitieViewController: MenuBarDelegate {
     
 }
 
-extension KillTeamAbilitieViewController: WeaponRuleButtonDelegate {
-    func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
-        moreInfoWeaponRuleAlert(weaponRule: weaponRule)
+//MARK: AbilitieViewDelegate
+
+extension KillTeamAbilitieViewController: NovitiateAbilitieViewDelegate {
+    
+    func didComplete(_ novitiateAbilitieView: NovitiateAbilitieView) {
+        guard let abilitie = presenter?.model.abilitie as? NovitiateAbilitie,
+              let gameStore = presenter?.gameStore else { return }
+        let tableViewController = ActsOfFaithTableViewController(gameStore: gameStore)
+        tableViewController.actsOfFaith = abilitie.actsOfFaith
+        present(tableViewController, animated: true, completion: nil)
     }
     
+}
+
+extension KillTeamAbilitieViewController: HunterCladeAbilitieViewDelegate {
+    
+    func didComplete(_ hunterCladeAbilitieView: HunterCladeAbilitieView) {
+        guard let abilitie = presenter?.model.abilitie as? HunterCladeAbilitie,
+              let gameStore = presenter?.gameStore else { return }
+        let tableViewController = ImperativeTableViewController(gameStore: gameStore)
+        tableViewController.imperative = abilitie.imperatives
+        present(tableViewController, animated: true, completion: nil)
+    }
+    
+}
+
+extension KillTeamAbilitieViewController: VoidDancerTroupeAbilitieViewDelegate {
+    
+    func didComplete(_ voidDancerTroupeAbilitieView: VoidDancerTroupeAbilitieView) {
+        guard let abilitie = presenter?.model.abilitie as? VoidDancerTroupeAbilitie,
+              let gameStore = presenter?.gameStore else { return }
+        let tableViewController = AllegoryTableViewController(gameStore: gameStore)
+        tableViewController.allegory = abilitie.allegory
+        present(tableViewController, animated: true, completion: nil)
+    }
     
 }

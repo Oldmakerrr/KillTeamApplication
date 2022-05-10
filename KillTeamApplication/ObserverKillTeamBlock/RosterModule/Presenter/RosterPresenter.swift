@@ -28,9 +28,9 @@ class RosterPresenter: RosterPresenterProtocol {
     
     weak var view: RosterTableViewControllerProtocol?
     
-    var store: StoreProtocol
+    let store: StoreProtocol
     
-    var router: KillTeamObserverRouterProtocol
+    let router: KillTeamObserverRouterProtocol
     
     let model = RosterModel()
     
@@ -44,9 +44,8 @@ class RosterPresenter: RosterPresenterProtocol {
     }
     
     func goToMoreInfoUnit(indexPath: IndexPath) {
+        store.updateIndexObservedUnit(indexPath: indexPath)
         delegate?.didComplete(self)
-       // store.updateChoosenUnit(unit: unit)
-        store.addIndexOfChoosenUnit(index: indexPath)
     }
 
 }

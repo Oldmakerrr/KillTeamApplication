@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Equipment: Codable {
+struct Equipment: Codable, Wargear {
     let name: String
     let description: String
     let cost: Int

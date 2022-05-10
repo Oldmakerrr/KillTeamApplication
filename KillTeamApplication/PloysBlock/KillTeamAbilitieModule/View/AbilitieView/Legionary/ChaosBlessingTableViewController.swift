@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol ChaosBlessingTableViewControllerDelegate: AnyObject {
+    func didSelect(_ chaosBlessingTableViewController: ChaosBlessingTableViewController, chaosBlessing: UnitAbilitie)
+}
+
 class ChaosBlessingTableViewController: UITableViewController {
     
-    var chaosBlessing: [LegionaryAbilitie.ChaosBlessing]?
+    weak var delegate: ChaosBlessingTableViewControllerDelegate?
+    
+    var chaosBlessing: [UnitAbilitie]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +42,15 @@ class ChaosBlessingTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cost = chaosBlessing?[indexPath.row] else { return }
-        print("chaosBlessing - \(cost.name)")
+        guard let chaosBlessing = chaosBlessing?[indexPath.row] else { return }
+        delegate?.didSelect(self, chaosBlessing: chaosBlessing)
+        
     }
 }
 
 class ChaosBlessingTableViewCell: KillTeamAbilitieTableViewCell<AbilitieView> {
     
-    func setupText(chaosBlessing: LegionaryAbilitie.ChaosBlessing) {
+    func setupText(chaosBlessing: UnitAbilitie) {
         view.setupText(abilitie: chaosBlessing)
     }
     

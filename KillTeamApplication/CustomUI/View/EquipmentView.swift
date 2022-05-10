@@ -11,7 +11,7 @@ import UIKit
 protocol WargearView {
     associatedtype Wargear
     associatedtype Delegate
-    func setupText(wargear: Wargear, delegate: WeaponRuleButtonDelegate?)
+    func setupText(wargear: Wargear, delegate: WeaponRuleButtonDelegate?, viewWidth: CGFloat)
     func setupButton()
     func setDelegate(delegate: Delegate)
 }
@@ -42,7 +42,7 @@ class EquipmentView: UIStackView, WargearView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupText(wargear: Equipment, delegate: WeaponRuleButtonDelegate?) {
+    func setupText(wargear: Equipment, delegate: WeaponRuleButtonDelegate?, viewWidth: CGFloat) {
         
         setupHeader(equipment: wargear)
         addTextView(text: wargear.description)
@@ -51,7 +51,7 @@ class EquipmentView: UIStackView, WargearView {
         }
         if let uniqueAction = wargear.unitAction {
             guard let delegate = delegate else { return }
-            setupUniqueActionView(action: uniqueAction, delegate: delegate)
+            setupUniqueActionView(action: uniqueAction, delegate: delegate, viewWidth: viewWidth)
         }
         if let body = wargear.body {
             addTextView(text: body)
@@ -61,8 +61,9 @@ class EquipmentView: UIStackView, WargearView {
         }
         if let wargear = wargear.wargear {
             guard let delegate = delegate else { return }
-            setupWeaponView(weapon: wargear, delegate: delegate)
+            setupWeaponView(weapon: wargear, delegate: delegate, viewWidth: viewWidth)
         }
+        
     }
     
     private func configue() {
@@ -87,10 +88,10 @@ class EquipmentView: UIStackView, WargearView {
         addArrangedSubview(view)
     }
  
-    private func setupUniqueActionView(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate) {
+    private func setupUniqueActionView(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         let view = UniqueActionView()
         let backgroundView = UIView()
-        view.setupText(action: action, delegate: delegate)
+        view.setupText(action: action, delegate: delegate, viewWidth: viewWidth)
         addView(view: backgroundView, subView: view)
         addArrangedSubview(backgroundView)
         view.backgroundColor = ColorScheme.shared.theme.viewBackground
@@ -98,15 +99,15 @@ class EquipmentView: UIStackView, WargearView {
         view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
     }
     
-    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate) {
+    private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         let view = WeaponView()
         let backgroundView = UIView()
-        view.setupText(wargear: weapon, delegate: delegate)
-        addArrangedSubview(backgroundView)
-        addView(view: backgroundView, subView: view)
+        view.setupText(wargear: weapon, delegate: delegate, viewWidth: viewWidth)
         view.backgroundColor = ColorScheme.shared.theme.viewBackground
         view.layer.borderWidth = Constant.Size.borderWidht
         view.layer.borderColor = ColorScheme.shared.theme.cellBorder.cgColor
+        addArrangedSubview(backgroundView)
+        addView(view: backgroundView, subView: view)
     }
     
     func setupButton() {
@@ -205,7 +206,7 @@ extension UIStackView {
         let view = UIView()
         let label = NormalLabel()
         label.text = text
-        view.addView(view: view, subView: label)
+        addView(view: view, subView: label)
         addArrangedSubview(view)
     }
     

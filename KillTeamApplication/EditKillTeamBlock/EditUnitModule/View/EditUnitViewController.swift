@@ -19,21 +19,24 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     var presenter: EditUnitPresenterProtocol?
     
     var countOfEquipmentPointLabel = BoldLabel()
+    var chaosBlessingButton: UIBarButtonItem?
     
     let customAlert = CustomScrollAlert()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerCell()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        
+        registerCell()
+        setupChaosBlesisnButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationTitlelabel()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         countOfEquipmentPointLabel.removeFromSuperview()
-        presenter?.cleareIndex()
     }
-
     
     func showAlert(alertView: UIView) {
         tableView.isScrollEnabled = false
@@ -47,37 +50,18 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     }
 
 // MARK: - TableView DataSource
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.model.numberOfRow.count ?? 0
+        return presenter?.model.wargear.count ?? 0
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return presenter?.model.numberOfRow[0] ?? 0
-        case 1:
-            return presenter?.model.numberOfRow[1] ?? 0
-        case 2:
-            return presenter?.model.numberOfRow[2] ?? 0
-        default:
-            return  0
-        }
-        
+        return presenter?.model.wargear[section].count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = TableHeaderView()
-        switch section {
-        case 0:
-            view.label.text = presenter?.model.headerForRow[0]
-        case 1:
-            view.label.text = presenter?.model.headerForRow[1]
-        case 2:
-            view.label.text = presenter?.model.headerForRow[2]
-        default:
-            view.label.text = ""
-        }
+        view.label.text = presenter?.model.headerForRow[section]
         return view
     }
     
@@ -86,33 +70,22 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let model = presenter?.model else { return UITableViewCell() }
-        switch indexPath.section {
-        case 0:
-            if !model.rangeWeapon.isEmpty {
-                return setupWeaponCell(tableView: tableView, indexPath: indexPath, wargear: model.rangeWeapon)
-            } else {
-                if !model.closeWeapon.isEmpty {
-                    return setupWeaponCell(tableView: tableView, indexPath: indexPath, wargear: model.closeWeapon)
-                } else {
-                    return setupEquipmentCell(tableView: tableView, indexPath: indexPath)
-                }
+        let weaponCell = tableView.dequeueReusableCell(withIdentifier: EditUnitWargearCell.identifier) as! EditUnitWargearCell
+        let equipmentCell = tableView.dequeueReusableCell(withIdentifier: EditUnitEquipmentCell.identifier) as! EditUnitEquipmentCell
+        let wargear = presenter?.model.wargear[indexPath.section]
+            if let weapon = wargear as? [Weapon] {
+                weaponCell.wargear = weapon[indexPath.row]
+                weaponCell.unit = presenter?.model.currentUnit
+                weaponCell.setupText(weapon: weapon[indexPath.row])
+                return weaponCell
             }
-        case 1:
-            if model.rangeWeapon.isEmpty {
-                return setupEquipmentCell(tableView: tableView, indexPath: indexPath)
-            } else {
-                if !model.closeWeapon.isEmpty {
-                    return setupWeaponCell(tableView: tableView, indexPath: indexPath, wargear: model.closeWeapon)
-                } else {
-                    return setupEquipmentCell(tableView: tableView, indexPath: indexPath)
-                }
+            if let equipment = wargear as? [Equipment] {
+                equipmentCell.setupText(equipment: equipment[indexPath.row])
+                equipmentCell.equipment = equipment[indexPath.row]
+                equipmentCell.unit = presenter?.model.currentUnit
+                return equipmentCell
             }
-        case 2:
-            return setupEquipmentCell(tableView: tableView, indexPath: indexPath)
-        default:
-            return UITableViewCell()
-        }
+        return UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -120,36 +93,14 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let model = presenter?.model else { return nil }
-        switch indexPath.section {
-        case 0:
-            if !model.rangeWeapon.isEmpty {
-                return addWeaponAction(wargear: model.rangeWeapon, indexPtah: indexPath)
-            } else {
-                if !model.closeWeapon.isEmpty {
-                    return addWeaponAction(wargear: model.closeWeapon, indexPtah: indexPath)
-                } else {
-                    return addEquipmentAction(indexPath: indexPath)
-                }
-            }
-        case 1:
-            if model.rangeWeapon.isEmpty {
-                return addEquipmentAction(indexPath: indexPath)
-            } else {
-                if !model.closeWeapon.isEmpty {
-                    return addWeaponAction(wargear: model.closeWeapon, indexPtah: indexPath)
-                } else {
-                    return addEquipmentAction(indexPath: indexPath)
-                }
-            }
-        case 2:
-            return addEquipmentAction(indexPath: indexPath)
-        default:
-            return nil
-        }
+        return addSwipeAction(indexPath: indexPath)
     }
     
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let wargear = presenter?.model.wargear[indexPath.section][indexPath.row] else { return }
+        presenter?.selectCell(wargear: wargear)
+        tableView.reloadData()
+    }
 }
 
 extension EditUnitViewController: WeaponRuleButtonDelegate {
@@ -158,7 +109,7 @@ extension EditUnitViewController: WeaponRuleButtonDelegate {
     }
 }
 
-extension EditUnitViewController: WeaponViewProtocol {
+extension EditUnitViewController: WeaponViewDelegate {
     func didComplete(_ weaponView: WeaponView) {
         dismissAlert()
     }
@@ -228,8 +179,7 @@ class TableHeaderView: UIView {
             imageView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Constant.Size.Otstup.large),
             imageView.topAnchor.constraint(equalTo: label.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-           // imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
         ])
     }
 }

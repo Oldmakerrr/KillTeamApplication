@@ -9,7 +9,7 @@ import UIKit
 
 class LegionaryAbilitieView: KillTeamAbilitieView {
     
-    var chaosBlessing: [LegionaryAbilitie.ChaosBlessing]?
+    var chaosBlessing: [UnitAbilitie]?
     
     func setupAbilitie(abilitie: LegionaryAbilitie, viewController: UIViewController) {
         chaosBlessing = abilitie.chaosBlessings

@@ -8,53 +8,60 @@
 import UIKit
 
 protocol BuilderProtocol {
-    func createCounterModule(router: EditKillTeamRouterProtocol) -> CounterViewProtocol
-    func createChooseKillTeamModule(router: EditKillTeamRouterProtocol) -> ChooseKillTeamViewProtocol
-    func createEditKillTeamModule(router: EditKillTeamRouterProtocol) -> EditKillTeamProtocol
-    func createAddFireTeamModule(router: EditKillTeamRouterProtocol) -> AddFireTeamTableVCProtocol
-    func createEditUnitModule(router: EditKillTeamRouterProtocol) -> EditUnitViewControllerProtocol
-    func createChooseLoadedKillTeamModule(router: EditKillTeamRouterProtocol) -> ChooseLoadedKillTeamControllerProtocol
+    func createCounterModule(router: RouterProtocol) -> CounterViewProtocol
+    func createChooseKillTeamModule(router: RouterProtocol) -> ChooseKillTeamViewProtocol
+    func createEditKillTeamModule(router: RouterProtocol) -> EditKillTeamProtocol
+    func createAddFireTeamModule(router: RouterProtocol) -> AddFireTeamTableVCProtocol
+    func createEditUnitModule(router: RouterProtocol) -> EditUnitViewControllerProtocol
+    func createChooseLoadedKillTeamModule(router: RouterProtocol) -> ChooseLoadedKillTeamControllerProtocol
     
-    func createRosterModule(router: KillTeamObserverRouterProtocol) -> RosterTableViewControllerProtocol
-    func createMoreInfooUnitModule(router: KillTeamObserverRouterProtocol) -> MoreInfoUnitViewControllerProtocol
+    func createRosterModule(router: RouterProtocol) -> RosterTableViewControllerProtocol
+    func createMoreInfooUnitModule(router: RouterProtocol) -> MoreInfoUnitViewControllerProtocol
     
-    func createPloysModule(router: PloysRouterProtocol) -> PloysViewControllerProtocol
-    func createPsychicPowerModule(router: PloysRouterProtocol) -> PsychicPowerViewControllerProtocol
-    func createKillTeamAbilitieModule(router: PloysRouterProtocol) -> KillTeamAbilitieViewControllerProtocol
+    func createPloysModule(router: RouterProtocol) -> PloysViewControllerProtocol
+    func createPsychicPowerModule(router: RouterProtocol) -> PsychicPowerViewControllerProtocol
+    func createKillTeamAbilitieModule(router: RouterProtocol) -> KillTeamAbilitieViewControllerProtocol
     
-    func createTacOpsModule(router: TacOpsRouterProtocol) -> TacOpsViewControllerProtocol
-    func createChoosenTacOpsModule(router: TacOpsRouterProtocol) -> ChoosenTacOpsViewControllerProtocol
+    func createTacOpsModule(router: RouterProtocol) -> TacOpsViewControllerProtocol
+    func createChoosenTacOpsModule(router: RouterProtocol) -> ChoosenTacOpsViewControllerProtocol
+    
+    func createKillTeamImperativesList(router: RouterProtocol) -> ImperativeTableViewController?
+    func createKillTeamAllegoryList(router: RouterProtocol) -> AllegoryTableViewController?
+    func createChaosBlessingList(router: RouterProtocol, delegate: ChaosBlessingTableViewControllerDelegate) -> ChaosBlessingTableViewController?
+    func createBoonOfTzeenchTableViewController(router: RouterProtocol, delegate: BoonOfTzeenchTableViewControllerDelegate) -> BoonOfTzeenchTableViewController? 
 }
 
 class ModuleBuilder: BuilderProtocol {
     
     let store: StoreProtocol
     let gameStore: GameStoreProtocol
+    let storage: StorageProtocol
     
-    init (store: StoreProtocol, gameStore: GameStoreProtocol) {
+    init (store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol) {
         self.store = store
         self.gameStore = gameStore
+        self.storage = storage
     }
     
 //MARK: - EditKillTeam
     
-    func createCounterModule(router: EditKillTeamRouterProtocol) -> CounterViewProtocol{
+    func createCounterModule(router: RouterProtocol) -> CounterViewProtocol{
         let view = CounterViewController()
-        let presenter = CounterPresenter(view: view, router: router, store: store, gameStore: gameStore)
+        let presenter = CounterPresenter(view: view, router: router as! EditKillTeamRouterProtocol, store: store, gameStore: gameStore, storage: storage)
         view.presenter = presenter
         presenter.delegate = router as? CounterPresenterDelegate
         return view
     }
     
-    func createChooseKillTeamModule(router: EditKillTeamRouterProtocol) -> ChooseKillTeamViewProtocol {
+    func createChooseKillTeamModule(router: RouterProtocol) -> ChooseKillTeamViewProtocol {
         let view = ChooseKillTeamTableViewController()
-        let presenter = ChooseKillTeamPresenter(view: view, store: store)
+        let presenter = ChooseKillTeamPresenter(view: view, store: store, storage: storage)
         view.presenter = presenter
         presenter.delegate = router as? ChooseKillTeamPresenterDelegate
         return view
     }
     
-    func createEditKillTeamModule(router: EditKillTeamRouterProtocol) -> EditKillTeamProtocol {
+    func createEditKillTeamModule(router: RouterProtocol) -> EditKillTeamProtocol {
         let view = EditKillTeamTableViewController()
         let presenter = EditKillTeamPresenter(view: view, store: store)
         view.presenter = presenter
@@ -62,24 +69,25 @@ class ModuleBuilder: BuilderProtocol {
         return view
     }
     
-    func createAddFireTeamModule(router: EditKillTeamRouterProtocol) -> AddFireTeamTableVCProtocol {
+    func createAddFireTeamModule(router: RouterProtocol) -> AddFireTeamTableVCProtocol {
         let view = AddFireTeamViewController()
         let presenter = AddFireTeamPresenter(view: view, store: store)
         view.presenter = presenter
         return view
     }
     
-    func createEditUnitModule(router: EditKillTeamRouterProtocol) -> EditUnitViewControllerProtocol {
+    func createEditUnitModule(router: RouterProtocol) -> EditUnitViewControllerProtocol {
         let view = EditUnitViewController()
         let presenter = EditUnitPresenter(view: view, store: store)
+        presenter.delegate = router as? EditUnitPresenterDelegate
         view.presenter = presenter
         return view
         
     }
     
-    func createChooseLoadedKillTeamModule(router: EditKillTeamRouterProtocol) -> ChooseLoadedKillTeamControllerProtocol {
+    func createChooseLoadedKillTeamModule(router: RouterProtocol) -> ChooseLoadedKillTeamControllerProtocol {
         let view = ChooseLoadedKillTeamController()
-        let presenter = ChooseLoadedKillTeamPresenter(view: view, store: store)
+        let presenter = ChooseLoadedKillTeamPresenter(view: view, store: store, storage: storage)
         view.presenter = presenter
         presenter.delegate = router as? ChooseLoadedKillTeamPresenterDelegate
         return view
@@ -87,15 +95,15 @@ class ModuleBuilder: BuilderProtocol {
 
 //MARK: - ObserverKillTeam
 
-    func createRosterModule(router: KillTeamObserverRouterProtocol) -> RosterTableViewControllerProtocol {
+    func createRosterModule(router: RouterProtocol) -> RosterTableViewControllerProtocol {
         let view = RosterTableViewController()
-        let presenter = RosterPresenter(view: view, store: store, router: router)
+        let presenter = RosterPresenter(view: view, store: store, router: router as! KillTeamObserverRouterProtocol)
         view.presenter = presenter
         presenter.delegate = router as? RosterPresenterDelegate
         return view
     }
     
-    func createMoreInfooUnitModule(router: KillTeamObserverRouterProtocol) -> MoreInfoUnitViewControllerProtocol {
+    func createMoreInfooUnitModule(router: RouterProtocol) -> MoreInfoUnitViewControllerProtocol {
         let view = MoreInfoUnitViewController()
         let presenter = MoreUnitInfoPresenter(view: view, store: store)
         view.presenter = presenter
@@ -104,24 +112,24 @@ class ModuleBuilder: BuilderProtocol {
     
 //MARK: - Ploys
     
-    func createPloysModule(router: PloysRouterProtocol) -> PloysViewControllerProtocol {
+    func createPloysModule(router: RouterProtocol) -> PloysViewControllerProtocol {
         let view = PloysViewController()
-        let presenter = PloysPresenter(view: view, store: store, gameStore: gameStore, router: router)
+        let presenter = PloysPresenter(view: view, store: store, gameStore: gameStore, router: router as! PloysRouterProtocol)
         presenter.delegate = router as? PloysPresenterDelegate
         view.presenter = presenter
         return view
     }
     
-    func createPsychicPowerModule(router: PloysRouterProtocol) -> PsychicPowerViewControllerProtocol {
+    func createPsychicPowerModule(router: RouterProtocol) -> PsychicPowerViewControllerProtocol {
         let view = PsychicPowerViewController()
         let presenter = PsychicPowerPresenter(view: view, store: store)
         view.presenter = presenter
         return view
     }
     
-    func createKillTeamAbilitieModule(router: PloysRouterProtocol) -> KillTeamAbilitieViewControllerProtocol {
+    func createKillTeamAbilitieModule(router: RouterProtocol) -> KillTeamAbilitieViewControllerProtocol {
         let view = KillTeamAbilitieViewController()
-        let presenter = KillTeamAbilitiePresenter(view: view, store: store)
+        let presenter = KillTeamAbilitiePresenter(view: view, store: store, gameStore: gameStore)
         view.presenter = presenter
         return view
     }
@@ -129,18 +137,55 @@ class ModuleBuilder: BuilderProtocol {
 
 //MARK: - TacOps
     
-    func createTacOpsModule(router: TacOpsRouterProtocol) -> TacOpsViewControllerProtocol {
+    func createTacOpsModule(router: RouterProtocol) -> TacOpsViewControllerProtocol {
         let view = TacOpsViewController()
-        let presenter = TacOpsPresenter(view: view, store: store, gameStore: gameStore, router: router)
+        let presenter = TacOpsPresenter(view: view, store: store, gameStore: gameStore, router: router as! TacOpsRouterProtocol)
         view.presenter = presenter
         presenter.delegate = router as? TacOpsPresenterDelegate
         return view
     }
 
-    func createChoosenTacOpsModule(router: TacOpsRouterProtocol) -> ChoosenTacOpsViewControllerProtocol {
+    func createChoosenTacOpsModule(router: RouterProtocol) -> ChoosenTacOpsViewControllerProtocol {
         let view = ChoosenTacOpsViewController()
         let presenter = ChoosenTacOpsPresenter(view: view, gameStore: gameStore)
         view.presenter = presenter
         return view
     }
+    
+//MARK: - AbilitieList
+
+    func createKillTeamImperativesList(router: RouterProtocol) -> ImperativeTableViewController? {
+        guard let killTeam = store.getKillTeam(),
+              let abilitie = killTeam.abilitiesOfKillTeam as? HunterCladeAbilitie  else { return nil }
+        let view = ImperativeTableViewController(gameStore: gameStore)
+        view.imperative = abilitie.imperatives
+        return view
+    }
+
+    func createKillTeamAllegoryList(router: RouterProtocol) -> AllegoryTableViewController? {
+        guard let killTeam = store.getKillTeam(),
+              let abilitie = killTeam.abilitiesOfKillTeam as? VoidDancerTroupeAbilitie else { return nil }
+        let view = AllegoryTableViewController(gameStore: gameStore)
+        view.allegory = abilitie.allegory
+        return view
+    }
+    
+    func createChaosBlessingList(router: RouterProtocol, delegate: ChaosBlessingTableViewControllerDelegate) -> ChaosBlessingTableViewController? {
+        guard let killTeam = store.getKillTeam(),
+              let abilitie = killTeam.abilitiesOfKillTeam as? LegionaryAbilitie else { return nil }
+        let view = ChaosBlessingTableViewController()
+        view.chaosBlessing = abilitie.chaosBlessings
+        view.delegate = delegate
+        return view
+    }
+    
+    func createBoonOfTzeenchTableViewController(router: RouterProtocol, delegate: BoonOfTzeenchTableViewControllerDelegate) -> BoonOfTzeenchTableViewController? {
+        guard let killTeam = store.getKillTeam(),
+              let abilitie = killTeam.abilitiesOfKillTeam as? WarpcovenAbilitie else { return nil }
+        let view = BoonOfTzeenchTableViewController()
+        view.addBoonOfTzeench(abilitie: abilitie)
+        view.delegate = delegate
+        return view
+    }
+
 }

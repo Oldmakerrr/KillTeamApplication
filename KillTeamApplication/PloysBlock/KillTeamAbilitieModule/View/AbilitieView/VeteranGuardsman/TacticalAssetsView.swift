@@ -29,9 +29,9 @@ class TacticalAssetsView: UIStackView {
     private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate) {
         let backgroundView = UIView()
         let view = WeaponView()
-        view.layer.applyBorder()
-        view.setupText(wargear: weapon, delegate: delegate)
         view.addView(view: backgroundView, subView: view)
         addArrangedSubview(backgroundView)
+        view.layer.applyBorder()
+        view.setupText(wargear: weapon, delegate: delegate, viewWidth: UIScreen.main.bounds.width - 20)
     }
 }

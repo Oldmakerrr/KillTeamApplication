@@ -7,11 +7,22 @@
 
 import UIKit
 
-//MARK: - ImperativeTableViewController
-
 class ImperativeTableViewController: UITableViewController {
     
     var imperative: [HunterCladeAbilitie.Imperative]?
+    let gameStore: GameStoreProtocol
+    var gameData = GameData()
+    
+    init(gameStore: GameStoreProtocol) {
+        self.gameStore = gameStore
+        super.init(style: .plain)
+        guard let gameData = gameStore.getGameDate() else { return }
+        self.gameData = gameData
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,17 +49,38 @@ class ImperativeTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cost = imperative?[indexPath.row] else { return }
-        print("Act of Faith point - \(cost.name)")
+        guard let imperative = imperative?[indexPath.row] else { return }
+        gameData.currentAbilitie = imperative.name
+        gameStore.updateGameData(gameData: gameData)
+        showAlert()
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: "Imperative successfuly used", message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Done", style: .cancel, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 }
+
+//extension ImperativeTableViewController: GameStoreDelegate {
+//
+//    func didUpdate(_ gameStore: GameStore, gameData: GameData?) {
+//        <#code#>
+//    }
+//
+//}
 
 //MARK: - ImperativeCell
 
 class ImperativeTableViewCell: KillTeamAbilitieTableViewCell<ImperativeView> {
+    
     func setupText(imperative: HunterCladeAbilitie.Imperative) {
         view.setupImerative(imperative: imperative)
     }
     
-    
 }
+
+

@@ -51,6 +51,7 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
         self.dismiss(animated: true, completion: nil)
         presenter?.chooseKillTeam(killTeam: killTeam)
     }
+    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let removeKillTeamAction = presenter?.removeKillTeamSwipeAction(indexPath: indexPath, view: self) else {
             return nil

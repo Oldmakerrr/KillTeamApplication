@@ -9,20 +9,10 @@ import Foundation
 import UIKit
 
 
-class LabelWithImageView: UIView {
+class LabelWithImageView: BaseView {
     
     let label = BoldLabel()
     private let imageView = UIImageView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configure()
-        addConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     func setupImage(image: UIImage?) {
         imageView.image = image
@@ -32,15 +22,16 @@ class LabelWithImageView: UIView {
         label.text = text
     }
     
-    private func configure() {
-        translatesAutoresizingMaskIntoConstraints = false
+    override func configure() {
+        super.configure()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 1
         label.adjustsFontSizeToFitWidth = true
     }
     
-    private func addConstraints() {
+    override func setupView() {
+        super.setupView()
         addSubview(imageView)
         addSubview(label)
         NSLayoutConstraint.activate([
@@ -56,5 +47,6 @@ class LabelWithImageView: UIView {
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
+    
 }
 

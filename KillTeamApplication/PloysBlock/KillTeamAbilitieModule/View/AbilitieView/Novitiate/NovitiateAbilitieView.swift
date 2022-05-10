@@ -9,15 +9,18 @@ import UIKit
 
 //MARK: - NovitiateAbilitieView
 
+protocol NovitiateAbilitieViewDelegate: AnyObject {
+    func didComplete(_ novitiateAbilitieView: NovitiateAbilitieView)
+}
+
 class NovitiateAbilitieView: KillTeamAbilitieView {
     
     var actOfFaith: [NovitiateAbilitie.ActOfFaith]?
     
+    weak var delegate: NovitiateAbilitieViewDelegate?
+    
     @objc override func buttonAction() {
-        guard let viewController = viewController else { return }
-        let tableViewController = ActsOfFaithTableViewController()
-        tableViewController.actsOfFaith = actOfFaith
-        viewController.present(tableViewController, animated: true, completion: nil)
+        delegate?.didComplete(self)
     }
     
     func setupAbilitie(abilitie: NovitiateAbilitie, viewController: UIViewController) {

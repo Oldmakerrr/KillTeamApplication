@@ -27,6 +27,13 @@
 		186E002D281C6178006E86E9 /* WyrmbladeSubViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E002C281C6178006E86E9 /* WyrmbladeSubViewExtension.swift */; };
 		186E002F281C637E006E86E9 /* HunterCadreSubViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E002E281C637E006E86E9 /* HunterCadreSubViewExtension.swift */; };
 		186E0031281C6FF5006E86E9 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0030281C6FF5006E86E9 /* TextView.swift */; };
+		186E0037281EE920006E86E9 /* CounterPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0036281EE920006E86E9 /* CounterPointView.swift */; };
+		186E00392825103E006E86E9 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E00382825103E006E86E9 /* ButtonView.swift */; };
+		186E003B2827E130006E86E9 /* ExtensionEditKillTeamVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E003A2827E130006E86E9 /* ExtensionEditKillTeamVC.swift */; };
+		186E003E282804A9006E86E9 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E003D282804A9006E86E9 /* UIAlertController.swift */; };
+		186E004028280C28006E86E9 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E003F28280C28006E86E9 /* CALayer.swift */; };
+		186E004328286A87006E86E9 /* AddFireTeamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E004228286A87006E86E9 /* AddFireTeamButton.swift */; };
+		186E0045282A4D4B006E86E9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0044282A4D4B006E86E9 /* Storage.swift */; };
 		186EFFEA281B0DAD006E86E9 /* LegionaryAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFE9281B0DAD006E86E9 /* LegionaryAbilitieView.swift */; };
 		186EFFEC281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFEB281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift */; };
 		186EFFF0281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFEF281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift */; };
@@ -177,6 +184,13 @@
 		186E002C281C6178006E86E9 /* WyrmbladeSubViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WyrmbladeSubViewExtension.swift; sourceTree = "<group>"; };
 		186E002E281C637E006E86E9 /* HunterCadreSubViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HunterCadreSubViewExtension.swift; sourceTree = "<group>"; };
 		186E0030281C6FF5006E86E9 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		186E0036281EE920006E86E9 /* CounterPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterPointView.swift; sourceTree = "<group>"; };
+		186E00382825103E006E86E9 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		186E003A2827E130006E86E9 /* ExtensionEditKillTeamVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionEditKillTeamVC.swift; sourceTree = "<group>"; };
+		186E003D282804A9006E86E9 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
+		186E003F28280C28006E86E9 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		186E004228286A87006E86E9 /* AddFireTeamButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamButton.swift; sourceTree = "<group>"; };
+		186E0044282A4D4B006E86E9 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		186EFFE9281B0DAD006E86E9 /* LegionaryAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegionaryAbilitieView.swift; sourceTree = "<group>"; };
 		186EFFEB281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaosBlessingTableViewController.swift; sourceTree = "<group>"; };
 		186EFFEF281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidDancerTroupeAbilitieView.swift; sourceTree = "<group>"; };
@@ -374,6 +388,23 @@
 			path = Pathfinder;
 			sourceTree = "<group>";
 		};
+		186E003C2828047A006E86E9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				186E003D282804A9006E86E9 /* UIAlertController.swift */,
+				186E003F28280C28006E86E9 /* CALayer.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		186E004128286A72006E86E9 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				186E004228286A87006E86E9 /* AddFireTeamButton.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
 		186EFFE8281B0DA1006E86E9 /* Legionary */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,6 +475,7 @@
 				1892484927F09BAF00F1996C /* Constant.swift */,
 				18E908D6280BEB830077516B /* TacOps.json */,
 				18E908D4280BEB7A0077516B /* AllFactionV1 .json */,
+				186E003C2828047A006E86E9 /* Extension */,
 				18E908D3280BE9AC0077516B /* Model */,
 				1892484B27F1F18E00F1996C /* CustomUI */,
 				18A5216227C17E0C003A29DA /* Service */,
@@ -466,6 +498,7 @@
 				18A5215E27C17DE7003A29DA /* SaveData.swift */,
 				18103AA027F5F9F400DBD2C4 /* ErrorLayer.swift */,
 				18A5216027C17DF7003A29DA /* Store.swift */,
+				186E0044282A4D4B006E86E9 /* Storage.swift */,
 				1857E37827C6341E00FEFA76 /* GameStore.swift */,
 			);
 			path = Service;
@@ -519,6 +552,7 @@
 			children = (
 				18A5217B27C18222003A29DA /* AddFireTeamViewController.swift */,
 				18A5217D27C18237003A29DA /* ExtensionAddFireTeam.swift */,
+				186E004128286A72006E86E9 /* CustomView */,
 				18E908B8280BE2510077516B /* Cell */,
 			);
 			path = View;
@@ -659,6 +693,7 @@
 			isa = PBXGroup;
 			children = (
 				18A521AF27C18566003A29DA /* EditKillTeamTableViewController.swift */,
+				186E003A2827E130006E86E9 /* ExtensionEditKillTeamVC.swift */,
 				18E908BA280BE39A0077516B /* Cell */,
 				18E908B9280BE38C0077516B /* CustomView */,
 			);
@@ -984,9 +1019,10 @@
 			isa = PBXGroup;
 			children = (
 				18A521A327C1849F003A29DA /* CurrentKillTeamView.swift */,
+				186E0036281EE920006E86E9 /* CounterPointView.swift */,
 				18E9089C28053DF70077516B /* CurrentPloysCollectionView.swift */,
-				18E908BD280BE58D0077516B /* Cell */,
 				18E9089A280471550077516B /* CustomUIViewElements.swift */,
+				18E908BD280BE58D0077516B /* Cell */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -1028,6 +1064,7 @@
 			children = (
 				1810011B27EB633B00A18B1B /* HeaderView.swift */,
 				186E0030281C6FF5006E86E9 /* TextView.swift */,
+				186E00382825103E006E86E9 /* ButtonView.swift */,
 				18A521BF27C18AFF003A29DA /* WeaponView.swift */,
 				18A521C327C18BB6003A29DA /* EquipmentView.swift */,
 				18E9098A2816F4000077516B /* PsychicPowerView.swift */,
@@ -1320,6 +1357,7 @@
 				18A5218627C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift in Sources */,
 				18E9089B280471550077516B /* CustomUIViewElements.swift in Sources */,
 				18E909C3281952780077516B /* Wyrmblade.swift in Sources */,
+				186E003E282804A9006E86E9 /* UIAlertController.swift in Sources */,
 				18A5216427C17E3B003A29DA /* EditKillTeamRouter.swift in Sources */,
 				18A5216927C17E89003A29DA /* MainTabBarController.swift in Sources */,
 				18E908A728094A700077516B /* ExtensionTacOps.swift in Sources */,
@@ -1327,6 +1365,7 @@
 				18A5216F27C17EF0003A29DA /* TacOpsRouter.swift in Sources */,
 				186EFFFE281B1104006E86E9 /* WarpcovenAbilitieView.swift in Sources */,
 				1857E36A27C4E6D100FEFA76 /* TacOpView.swift in Sources */,
+				186E003B2827E130006E86E9 /* ExtensionEditKillTeamVC.swift in Sources */,
 				18E909DC281A8E9B0077516B /* ImperativeTableViewController.swift in Sources */,
 				18E908DF280C20F50077516B /* Equipment.swift in Sources */,
 				18A521AC27C18520003A29DA /* EditKillTeamPresenter.swift in Sources */,
@@ -1356,6 +1395,7 @@
 				18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */,
 				1892484A27F09BAF00F1996C /* Constant.swift in Sources */,
 				18A521BE27C18AE1003A29DA /* EditUnitEquipmentCell.swift in Sources */,
+				186E004328286A87006E86E9 /* AddFireTeamButton.swift in Sources */,
 				18E909D3281A856C0077516B /* NovitiateAbilitieView.swift in Sources */,
 				186E0000281B111B006E86E9 /* BoonOfTzeenchTableViewController.swift in Sources */,
 				18E909D8281A8E1B0077516B /* ActsOfFaithTableViewController.swift in Sources */,
@@ -1364,6 +1404,7 @@
 				18A5214B27C17D5B003A29DA /* SceneDelegate.swift in Sources */,
 				18D3B95727C18FFE00B74C2D /* PloysModel.swift in Sources */,
 				186E0005281BDFCF006E86E9 /* MenuBar.swift in Sources */,
+				186E00392825103E006E86E9 /* ButtonView.swift in Sources */,
 				18A5217C27C18222003A29DA /* AddFireTeamViewController.swift in Sources */,
 				18E908A1280570B50077516B /* RosterTableViewCell.swift in Sources */,
 				18E908B1280BD0FE0077516B /* PloysCollectionViewCell.swift in Sources */,
@@ -1407,6 +1448,7 @@
 				18E908C5280BE6450077516B /* DoneButton.swift in Sources */,
 				18D3B96627C190AE00B74C2D /* TacOpsModel.swift in Sources */,
 				186E002D281C6178006E86E9 /* WyrmbladeSubViewExtension.swift in Sources */,
+				186E0037281EE920006E86E9 /* CounterPointView.swift in Sources */,
 				1892482627EF06E800F1996C /* WeaponRuleButton.swift in Sources */,
 				18A5216127C17DF7003A29DA /* Store.swift in Sources */,
 				186E002B281C46EB006E86E9 /* ZoomAndSnapFlowLayout.swift in Sources */,
@@ -1448,8 +1490,10 @@
 				1857E37327C574E600FEFA76 /* ChoosenTacOpsViewController.swift in Sources */,
 				18A521B627C18A23003A29DA /* EditUnitModel.swift in Sources */,
 				18E9095828159F2B0077516B /* ChoosenTacOpView.swift in Sources */,
+				186E004028280C28006E86E9 /* CALayer.swift in Sources */,
 				18D3B94627C18F2100B74C2D /* RosterPresenter.swift in Sources */,
 				18A521AE27C18538003A29DA /* EditKillTeamCell.swift in Sources */,
+				186E0045282A4D4B006E86E9 /* Storage.swift in Sources */,
 				18E909DA281A8E530077516B /* ActOfFateView.swift in Sources */,
 				18E909C128194A480077516B /* Warpcoven.swift in Sources */,
 			);
