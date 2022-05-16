@@ -35,4 +35,8 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
         setupAdditionalView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        presenter?.clearIndex()
+    }
+    
 }

@@ -88,13 +88,15 @@ extension MoreInfoUnitViewController {
     }
     
     private func setupAdditionalWeapon(unit: Unit, type: WeaponType) {
-        if let additionalWeapon = unit.additionalWeapon {
-            additionalWeapon.forEach { weapon in
-                if weapon.type == type {
-                    addWeaponView(weapon: weapon)
-                }
+        guard let additionalWeapon = unit.additionalWeapon else { return }
+        additionalWeapon.forEach { weapon in
+            if weapon.type == type &&
+                weapon.name != unit.selectedRangeWeapon?.name &&
+                weapon.name != unit.selectedCloseWeapon?.name {
+                addWeaponView(weapon: weapon)
             }
         }
+        
     }
     
     private func addWeaponView(weapon: Weapon) {
@@ -102,10 +104,33 @@ extension MoreInfoUnitViewController {
         scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
         view.layer.applyCornerRadius()
         view.layer.masksToBounds = true
-        
         view.setupText(wargear: weapon, delegate: self, viewWidth: view.getViewWidth())
-        
-        
+        guard let specialRule = weapon.specialRule, let availableWeapon = presenter?.model.choosenUnit?.availableWeapon else { return }
+        if specialRule.contains(where: { weaponSpecialRule in
+            weaponSpecialRule.name == "Combi"
+        }) || specialRule.contains(where: { weaponSpecialRule in
+            weaponSpecialRule.name == "Kombi"
+        }) {
+            weaponWithCombi(availableWeapon: availableWeapon)
+        }
+    }
+    
+    private func weaponWithCombi(availableWeapon: [Weapon]) {
+        var mainWeapon: Weapon?
+        availableWeapon.forEach { weapon in
+            if weapon.name == "Boltgun" {
+                mainWeapon = weapon
+            }
+            if weapon.name == "Deathwatch boltgun" {
+                mainWeapon = weapon
+            }
+            if weapon.name == "Shoota" {
+                mainWeapon = weapon
+            }
+        }
+        if let weapon = mainWeapon {
+            addWeaponView(weapon: weapon)
+        }
     }
     
     private func addCurrentWoundView(unit: Unit) {

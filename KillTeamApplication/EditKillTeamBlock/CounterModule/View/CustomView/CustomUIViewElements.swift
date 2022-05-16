@@ -57,6 +57,27 @@ class ChangePointButton: UIButton {
     }
 }
 
+class ChangePointButtonN: UIButton {
+    
+    let imageName: String
+    
+    init(imageName: String) {
+        self.imageName = imageName
+        super.init(frame: .zero)
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
+        tintColor = #colorLiteral(red: 0.293800056, green: 0.2970282733, blue: 0.3509224057, alpha: 1)
+        setBackgroundImage(UIImage(systemName: imageName), for: .normal)
+    }
+}
+
 class ChangeTurnButton: UIButton {
     
     override init(frame: CGRect) {
@@ -70,10 +91,9 @@ class ChangeTurnButton: UIButton {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = ColorScheme.shared.theme.buttonBackground
-        setTitleColor(ColorScheme.shared.theme.textDark, for: .normal)
-        layer.applyBorder()
+        backgroundColor = #colorLiteral(red: 0.293800056, green: 0.2970282733, blue: 0.3509224057, alpha: 1)
+        setTitleColor(#colorLiteral(red: 0.5879502892, green: 0.5915290713, blue: 0.6288157105, alpha: 1), for: .normal)
+        setTitleColor(#colorLiteral(red: 1, green: 0.502659142, blue: 0, alpha: 1), for: .highlighted)
         layer.applyCornerRadius()
-        tintColor = ColorScheme.shared.theme.viewHeader
     }
 }

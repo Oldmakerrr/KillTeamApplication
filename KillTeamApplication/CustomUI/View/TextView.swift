@@ -30,7 +30,7 @@ class BaseView: UIView {
 
 class ViewWithLabel: BaseView {
     
-    private let label: UILabel
+    let label: UILabel
     private let otstup = Constant.Size.Otstup.normal
     
     init(label: UILabel = NormalLabel()) {

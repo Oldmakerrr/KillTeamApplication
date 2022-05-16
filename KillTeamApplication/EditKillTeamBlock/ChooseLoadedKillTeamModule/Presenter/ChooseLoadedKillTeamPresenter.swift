@@ -42,6 +42,7 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
         self.view = view
         self.store = store
         self.storage = storage
+        storage.loadSavedKillTeam()
         model.loadedKillTeam = storage.loadedKillTeam
     }
     

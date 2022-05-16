@@ -23,6 +23,7 @@ protocol EditUnitPresenterProtocol: AnyObject {
     func goToAbilitieKillTeamViewController()
     func setImage() -> String?
     func selectCell(wargear: Wargear)
+    func clearIndex()
 }
 
 protocol EditUnitPresenterDelegate: AnyObject {
@@ -51,6 +52,10 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         self.model.indexPathUnit = store.indexOfChoosenUnit
         prepareModel()
         prepeareWargear(store: store)
+    }
+    
+    func clearIndex() {
+        store.clearIndexChoosenUnit()
     }
     
     private func prepareModel() {

@@ -38,7 +38,7 @@ class MenuBar: UIView {
         self.namesOfCell = namesOfCell
         self.cellCount = namesOfCell.count
         super.init(frame: .zero)
-        setupBlurView()
+        setupBlurView(style: .dark)
         setupCollectionView()
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
@@ -59,22 +59,22 @@ class MenuBar: UIView {
         ])
     }
     
-    private func setupBlurView() {
-        if !UIAccessibility.isReduceTransparencyEnabled {
-            backgroundColor = .clear
-            let blurEffect = UIBlurEffect(style: .dark)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(blurEffectView)
-            NSLayoutConstraint.activate([
-                blurEffectView.topAnchor.constraint(equalTo: topAnchor),
-                blurEffectView.widthAnchor.constraint(equalTo: widthAnchor),
-                blurEffectView.heightAnchor.constraint(equalTo: heightAnchor)
-            ])
-        } else {
-            backgroundColor = ColorScheme.shared.theme.viewBackground
-        }
-    }
+    //private func setupBlurView() {
+    //    if !UIAccessibility.isReduceTransparencyEnabled {
+    //        backgroundColor = .clear
+    //        let blurEffect = UIBlurEffect(style: .dark)
+    //        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+    //        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+    //        addSubview(blurEffectView)
+    //        NSLayoutConstraint.activate([
+    //            blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+    //            blurEffectView.widthAnchor.constraint(equalTo: widthAnchor),
+    //            blurEffectView.heightAnchor.constraint(equalTo: heightAnchor)
+    //        ])
+    //    } else {
+    //        backgroundColor = ColorScheme.shared.theme.viewBackground
+    //    }
+    //}
 }
 
 //MARK: Delegates

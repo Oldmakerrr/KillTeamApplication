@@ -18,6 +18,7 @@ protocol MoreUnitInfoPresenterProtocol: AnyObject {
     var store: StoreProtocol { get set }
     var model: MoreInfoUnitModel { get }
     func updateChoosenUnit()
+    func clearIndex()
 }
 
 class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
@@ -36,8 +37,12 @@ class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
         updateChoosenUnit()
     }
     
+    func clearIndex() {
+        store.clearIndexObservedUnit()
+    }
+    
     func updateChoosenUnit() {
-        guard let indexPath = model.indexPathOfChoosenUnit,
+        guard let indexPath = store.indexObservedUnit,
               let killTeam = store.getKillTeam() else { return }
         if !killTeam.choosenFireTeam.isEmpty {
             model.choosenUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]

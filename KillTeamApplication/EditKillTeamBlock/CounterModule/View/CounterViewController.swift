@@ -19,7 +19,25 @@ class CounterViewController: UIViewController, CounterViewProtocol {
 
     let turningPointLabel = CounterLabel()
     
-    let currentAbilitieView = ViewWithLabel()
+    let currentAbilitieButton: ChangeTurnButton = {
+        let button = ChangeTurnButton()
+        button.backgroundColor = #colorLiteral(red: 0.293800056, green: 0.2970282733, blue: 0.3509224057, alpha: 1)
+        button.setTitleColor(#colorLiteral(red: 0.5959115028, green: 0.5955135226, blue: 0.6286229491, alpha: 1), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 1, green: 0.502659142, blue: 0, alpha: 1), for: .highlighted)
+        button.layer.applyCornerRadius()
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        return button
+    }()
+    
+    let currentStrategicPloysButton: ChangeTurnButton = {
+        let button = ChangeTurnButton()
+        button.backgroundColor = #colorLiteral(red: 0.293800056, green: 0.2970282733, blue: 0.3509224057, alpha: 1)
+        button.setTitleColor(#colorLiteral(red: 0.5959115028, green: 0.5955135226, blue: 0.6286229491, alpha: 1), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 1, green: 0.502659142, blue: 0, alpha: 1), for: .highlighted)
+        button.layer.applyCornerRadius()
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        return button
+    }()
     
     let counterLabelsStackView: UIStackView = {
         let stackView = UIStackView()
@@ -39,8 +57,6 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     lazy var nextTurnButtonView = ButtonView(button: nextTurnButton, width: 100, height: 30)
     lazy var endGameButtonView = ButtonView(button: endGameButton, width: 100, height: 30)
     
-    let currentPloysCollectionView = CurrentPloysCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -51,10 +67,10 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
-        currentPloysCollectionView.reloadData()
         setupAddButton()
         fillCounterStackView()
         setupTextToAbilitieView()
+        currentPloysViewState()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,40 +102,11 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
 }
 
-extension CounterViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter?.model.gameData.currentStrategicPloys.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CurrentPloysCollectionViewCell.identifier, for: indexPath) as! CurrentPloysCollectionViewCell
-        guard let ploy = presenter?.model.gameData.currentStrategicPloys[indexPath.item] else {
-            return UICollectionViewCell()
-        }
-        
-        cell.setupText(ploy: ploy)
-        return cell
-    }
-    
-}
-
-extension CounterViewController: CurrentPloysCollectionViewDelegate {
-    func didSelectCell(_ CurrentPloysCollectionView: CurrentPloysCollectionView, indexPath: IndexPath) {
-        guard let ploy = presenter?.model.gameData.currentStrategicPloys[indexPath.item] else {
-            return }
-        showAlert(ploy: ploy)
-    }
-    
-    
-}
-
 extension CounterViewController: WeaponRuleButtonDelegate {
+    
     func didComplete(_: WeaponRuleButton, weaponRule: WeaponSpecialRule) {
         moreInfoWeaponRuleAlert(weaponRule: weaponRule)
     }
-    
-    
     
 }
 

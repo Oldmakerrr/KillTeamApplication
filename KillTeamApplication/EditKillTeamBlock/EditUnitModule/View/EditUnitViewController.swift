@@ -36,6 +36,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     
     override func viewWillDisappear(_ animated: Bool) {
         countOfEquipmentPointLabel.removeFromSuperview()
+        presenter?.clearIndex()
     }
     
     func showAlert(alertView: UIView) {

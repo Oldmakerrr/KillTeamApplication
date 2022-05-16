@@ -80,14 +80,14 @@ class Storage: StorageProtocol {
     }
     
     func loadSavedKillTeam() {
-        if let keys = KeySaver.getKey() {
-            keysForKillTeam = keys
-        }
+        loadKeys()
+        var killTeams = [KillTeam]()
         for key in keysForKillTeam {
             if let killTeam = loadKillTeam(key: key) {
-                loadedKillTeam.append(killTeam)
+                killTeams.append(killTeam)
             }
         }
+        loadedKillTeam = killTeams
     }
         
     private func loadKillTeam(key: String) -> KillTeam? {

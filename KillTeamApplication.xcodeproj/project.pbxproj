@@ -34,6 +34,7 @@
 		186E004028280C28006E86E9 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E003F28280C28006E86E9 /* CALayer.swift */; };
 		186E004328286A87006E86E9 /* AddFireTeamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E004228286A87006E86E9 /* AddFireTeamButton.swift */; };
 		186E0045282A4D4B006E86E9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0044282A4D4B006E86E9 /* Storage.swift */; };
+		186E0047282A7172006E86E9 /* UIVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0046282A7172006E86E9 /* UIVIew.swift */; };
 		186EFFEA281B0DAD006E86E9 /* LegionaryAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFE9281B0DAD006E86E9 /* LegionaryAbilitieView.swift */; };
 		186EFFEC281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFEB281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift */; };
 		186EFFF0281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFEF281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift */; };
@@ -107,8 +108,6 @@
 		18E908972802BEE80077516B /* PloyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908962802BEE80077516B /* PloyView.swift */; };
 		18E90899280318C60077516B /* ExtensionEditUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E90898280318C60077516B /* ExtensionEditUnit.swift */; };
 		18E9089B280471550077516B /* CustomUIViewElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9089A280471550077516B /* CustomUIViewElements.swift */; };
-		18E9089D28053DF70077516B /* CurrentPloysCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9089C28053DF70077516B /* CurrentPloysCollectionView.swift */; };
-		18E9089F2805406D0077516B /* CurrentPloysCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */; };
 		18E908A1280570B50077516B /* RosterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A0280570B50077516B /* RosterTableViewCell.swift */; };
 		18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A42807FB990077516B /* LabelWithImageView.swift */; };
 		18E908A728094A700077516B /* ExtensionTacOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908A628094A700077516B /* ExtensionTacOps.swift */; };
@@ -191,6 +190,7 @@
 		186E003F28280C28006E86E9 /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		186E004228286A87006E86E9 /* AddFireTeamButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamButton.swift; sourceTree = "<group>"; };
 		186E0044282A4D4B006E86E9 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		186E0046282A7172006E86E9 /* UIVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVIew.swift; sourceTree = "<group>"; };
 		186EFFE9281B0DAD006E86E9 /* LegionaryAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegionaryAbilitieView.swift; sourceTree = "<group>"; };
 		186EFFEB281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaosBlessingTableViewController.swift; sourceTree = "<group>"; };
 		186EFFEF281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidDancerTroupeAbilitieView.swift; sourceTree = "<group>"; };
@@ -267,8 +267,6 @@
 		18E908962802BEE80077516B /* PloyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PloyView.swift; sourceTree = "<group>"; };
 		18E90898280318C60077516B /* ExtensionEditUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionEditUnit.swift; sourceTree = "<group>"; };
 		18E9089A280471550077516B /* CustomUIViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIViewElements.swift; sourceTree = "<group>"; };
-		18E9089C28053DF70077516B /* CurrentPloysCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPloysCollectionView.swift; sourceTree = "<group>"; };
-		18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPloysCollectionViewCell.swift; sourceTree = "<group>"; };
 		18E908A0280570B50077516B /* RosterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewCell.swift; sourceTree = "<group>"; };
 		18E908A42807FB990077516B /* LabelWithImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithImageView.swift; sourceTree = "<group>"; };
 		18E908A628094A700077516B /* ExtensionTacOps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTacOps.swift; sourceTree = "<group>"; };
@@ -393,6 +391,7 @@
 			children = (
 				186E003D282804A9006E86E9 /* UIAlertController.swift */,
 				186E003F28280C28006E86E9 /* CALayer.swift */,
+				186E0046282A7172006E86E9 /* UIVIew.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1020,19 +1019,9 @@
 			children = (
 				18A521A327C1849F003A29DA /* CurrentKillTeamView.swift */,
 				186E0036281EE920006E86E9 /* CounterPointView.swift */,
-				18E9089C28053DF70077516B /* CurrentPloysCollectionView.swift */,
 				18E9089A280471550077516B /* CustomUIViewElements.swift */,
-				18E908BD280BE58D0077516B /* Cell */,
 			);
 			path = CustomView;
-			sourceTree = "<group>";
-		};
-		18E908BD280BE58D0077516B /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				18E9089E2805406D0077516B /* CurrentPloysCollectionViewCell.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		18E908C6280BE6610077516B /* Label */ = {
@@ -1375,7 +1364,6 @@
 				18E908E5280C23380077516B /* Weapon.swift in Sources */,
 				18A5216D27C17ED8003A29DA /* PloysRouter.swift in Sources */,
 				18D3B94427C18EF100B74C2D /* RosterTableViewController.swift in Sources */,
-				18E9089F2805406D0077516B /* CurrentPloysCollectionViewCell.swift in Sources */,
 				18A521A427C1849F003A29DA /* CurrentKillTeamView.swift in Sources */,
 				1892482827EF1BC300F1996C /* WeaponRuleAlertController.swift in Sources */,
 				186E002F281C637E006E86E9 /* HunterCadreSubViewExtension.swift in Sources */,
@@ -1384,7 +1372,6 @@
 				18A5219C27C18421003A29DA /* CounterPresenter.swift in Sources */,
 				18A521B027C18566003A29DA /* EditKillTeamTableViewController.swift in Sources */,
 				18A5219427C183C6003A29DA /* ChooseKillTeamCell.swift in Sources */,
-				18E9089D28053DF70077516B /* CurrentPloysCollectionView.swift in Sources */,
 				18A5216727C17E72003A29DA /* KillTeamObserverRouter.swift in Sources */,
 				18E909902817F3A90077516B /* VoidDancerTroupe.swift in Sources */,
 				18E908EC280DC22D0077516B /* InfoButton.swift in Sources */,
@@ -1465,6 +1452,7 @@
 				18E908E1280C21260077516B /* Unit.swift in Sources */,
 				18E908BF280BE5D20077516B /* NormalLabel.swift in Sources */,
 				18E909892816E0F70077516B /* PsychicPowerPresenter.swift in Sources */,
+				186E0047282A7172006E86E9 /* UIVIew.swift in Sources */,
 				18D3B94A27C18F5400B74C2D /* MoreUnitInfoPresenter.swift in Sources */,
 				18E909942818066D0077516B /* HunterCadre.swift in Sources */,
 				18D3B95D27C1905400B74C2D /* PloysTableViewCell.swift in Sources */,

@@ -73,6 +73,7 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
 //MARK: - MethodsEditUnit
     
     func removeUnit(indexPath: IndexPath) {
+        returnCostEquipment(indexPath: indexPath)
         model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates.remove(at: indexPath.row)
         if let killTeam = model.killTeam {
             store.updateCurrentKillTeam(killTeam: killTeam)
@@ -86,6 +87,7 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     func changeUnit(unit: Unit, indexPath: IndexPath) {
         var unit = unit
         unit.updateCurrentWounds()
+        returnCostEquipment(indexPath: indexPath)
         model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
         if let killTeam = model.killTeam {
             store.updateCurrentKillTeam(killTeam: killTeam)
@@ -106,6 +108,12 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         } else {
             return unit.name
         }
+    }
+    
+    private func returnCostEquipment(indexPath: IndexPath) {
+        model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row].equipment.forEach({ equipment in
+            model.killTeam?.countEquipmentPoint += equipment.cost
+        })
     }
     
 //MARK: MethodsAddUnitOrFireTeam

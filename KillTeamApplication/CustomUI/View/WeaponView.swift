@@ -59,11 +59,11 @@ class WeaponView: UIStackView, WargearView {
         switch wargear.type {
         case .range:
             setupCharacteristicView(attack: "A = \(wargear.attacks)",
-                                    ballisticSkills: "BS = +\(wargear.ballisticWeaponSkill)",
+                                    ballisticSkills: "BS = \(wargear.ballisticWeaponSkill)+",
                                     damage: "D = \(wargear.damage)/\(wargear.critDamage)")
         case .close:
             setupCharacteristicView(attack: "A = \(wargear.attacks)",
-                                    ballisticSkills: "WS = +\(wargear.ballisticWeaponSkill)",
+                                    ballisticSkills: "WS = \(wargear.ballisticWeaponSkill)+",
                                     damage: "D = \(wargear.damage)/\(wargear.critDamage)")
         }
         if let specialRule = wargear.specialRule {

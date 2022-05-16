@@ -69,7 +69,11 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let changeUnit = changeUnitAction(indexPath: indexPath)
         let renameUnit = renameUnitAction(indexPath: indexPath)
-        return UISwipeActionsConfiguration(actions: [changeUnit, renameUnit])
+        if presenter?.model.killTeam?.choosenFireTeam[indexPath.section].availableDataslates.count == 1 {
+            return UISwipeActionsConfiguration(actions: [renameUnit])
+        } else {
+            return UISwipeActionsConfiguration(actions: [changeUnit, renameUnit])
+        }
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

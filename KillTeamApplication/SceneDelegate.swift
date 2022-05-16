@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let router = MainRouter(builder: builder)
         DispatchQueue.global(qos: .utility).async {
             storage.loadSavedKillTeam()
-            storage.loadKeys()
+           // storage.loadKeys()
             store.killTeamFromJson()
         }
         gameStore.parseTacOps()

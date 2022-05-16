@@ -43,6 +43,9 @@ protocol StoreProtocol {
     func updateIndexObservedUnit(indexPath: IndexPath)
     func updateIndexChoosenUnit(indexPath: IndexPath)
     
+    func clearIndexObservedUnit()
+    func clearIndexChoosenUnit()
+    
     var allFaction: [Faction] { get }
     
 }
@@ -93,11 +96,19 @@ final class Store: StoreProtocol {
         indexObservedUnit = indexPath
     }
     
+    func clearIndexObservedUnit() {
+        indexObservedUnit = nil
+    }
+    
+    func clearIndexChoosenUnit() {
+        indexOfChoosenUnit = nil
+    }
+    
     private func saveMyKillTeam(killTeam: KillTeam) {
         if let key = killTeam.id {
             UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: key)
-            UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: KeySaver.lastUsedKillTeamKey)
         }
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: KeySaver.lastUsedKillTeamKey)
     }
     
     //MARK: - JSON

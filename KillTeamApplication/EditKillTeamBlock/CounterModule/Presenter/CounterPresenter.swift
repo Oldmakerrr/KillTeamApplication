@@ -16,12 +16,12 @@ protocol CounterViewProtocol: AnyObject {
     var killTeamAbilitiePoint: CounterPointView? { get }
     
     var turningPointLabel: CounterLabel { get }
-    var currentAbilitieView: ViewWithLabel { get }
+    var currentAbilitieButton: ChangeTurnButton { get }
     
     var nextTurnButton: ChangeTurnButton { get }
     var endGameButton: ChangeTurnButton { get }
     
-    var currentPloysCollectionView: CurrentPloysCollectionView { get }
+    func currentPloysViewState()
 }
 
 protocol CounterPresenterProtocol: AnyObject {
@@ -99,7 +99,7 @@ class CounterPresenter: CounterPresenterProtocol {
         view?.victoryPoint.label.text = "Victory Point = \(model.gameData.countVictoryPoint)"
         view?.killTeamAbilitiePoint?.label.text = "\(view?.killTeamAbilitiePoint?.title ?? "") = \(model.gameData.countKillTeamAbilitiePoint ?? 0)"
         if let abilitieName = model.gameData.currentAbilitie {
-            view?.currentAbilitieView.setupText(text: "\(createTitleForAbilitieView()) \(abilitieName)")
+            view?.currentAbilitieButton.setTitle("\(createTitleForAbilitieView()) \(abilitieName)", for: .normal)
         }
         if model.gameData.countTurningPoint > 0 {
             view?.endGameButton.isHidden = false
@@ -186,7 +186,8 @@ class CounterPresenter: CounterPresenterProtocol {
         } else {
             plusActOfFaithPointPerTurn()
             model.gameData.currentStrategicPloys = []
-            view.currentPloysCollectionView.reloadData()
+            view.currentPloysViewState()
+          //  view.currentPloysCollectionView.reloadData()
             model.gameData.countTurningPoint += 1
             model.gameData.countCommandPoint += 1
         }
@@ -206,7 +207,7 @@ class CounterPresenter: CounterPresenterProtocol {
         model.gameData.secondTacOp = nil
         model.gameData.thirdTacOp = nil
         gameStore.updateGameData(gameData: model.gameData)
-        view.currentPloysCollectionView.reloadData()
+        view.currentPloysViewState()
     }
     
     private func isExistKillTeamAbilitie(killTeam: KillTeam?) {

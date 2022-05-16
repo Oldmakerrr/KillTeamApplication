@@ -27,7 +27,7 @@ class WeaponRuleView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         layer.masksToBounds = true
         layer.cornerRadius = Constant.Size.cornerRadius
-        setupBlurView()
+        setupBlurView(style: .extraLight)
     }
     
     func setupText(title: String?, message: String?, subText: [String]?) {
@@ -40,22 +40,7 @@ class WeaponRuleView: UIView {
         }
     }
     
-    private func setupBlurView() {
-        if !UIAccessibility.isReduceTransparencyEnabled {
-            backgroundColor = .clear
-            let blurEffect = UIBlurEffect(style: .extraLight)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(blurEffectView)
-            NSLayoutConstraint.activate([
-                blurEffectView.topAnchor.constraint(equalTo: topAnchor),
-                blurEffectView.widthAnchor.constraint(equalTo: widthAnchor),
-                blurEffectView.heightAnchor.constraint(equalTo: heightAnchor)
-            ])
-        } else {
-            backgroundColor = ColorScheme.shared.theme.viewBackground
-        }
-    }
+    
     
     private func setupButton(topView: UIView) {
         addSubview(doneButton)

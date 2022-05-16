@@ -28,8 +28,8 @@ class CounterPointView: BaseView {
     }
     
     let label = CounterLabel()
-    let plusButton = ChangePointButton()
-    let minusButton = ChangePointButton()
+    let plusButton = ChangePointButtonN(imageName: "arrowtriangle.right.fill")
+    let minusButton = ChangePointButtonN(imageName: "arrowtriangle.left.fill")
     
     override func setupView() {
         super.setupView()
@@ -66,8 +66,8 @@ class CounterPointView: BaseView {
     
     override func configure() {
         super.configure()
-        plusButton.setupImage(imageName: "plus")
-        minusButton.setupImage(imageName: "minus")
+       // plusButton.setupImage(imageName: "plus")
+       // minusButton.setupImage(imageName: "minus")
         label.text = "\(title) = 0"
         label.textAlignment = .center
         minusButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)

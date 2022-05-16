@@ -9,14 +9,43 @@ import Foundation
 import UIKit
 
 extension CounterViewController {
+    
+    func currentPloysViewState() {
+        guard let ploys = presenter?.model.gameData.currentStrategicPloys else { return }
+        if ploys.isEmpty {
+            currentStrategicPloysButton.isHidden = true
+        } else {
+            currentStrategicPloysButton.isHidden = false
+        }
+        if ploys.count == 1 {
+            currentStrategicPloysButton.setTitle(ploys.first?.name ?? "Current Strategic Ploys", for: .normal)
+
+        } else {
+            currentStrategicPloysButton.setTitle("Current Strategic Ploys", for: .normal)
+        }
+    }
+    
+    func alertCurrentPloys(ploys: [Ploy]) {
+        let alert = UIAlertController(title: "Current Strategic Ploys",
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        ploys.forEach { ploy in
+            let action = UIAlertAction(title: ploy.name, style: .default) { _ in
+                self.showAlert(ploy: ploy)
+            }
+            alert.addAction(action)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
         
 //MARK: - ConfigureAbilitieView
     
     func setupTextToAbilitieView() {
         guard let abilitie = presenter?.model.killTeam?.abilitiesOfKillTeam else {
-            currentAbilitieView.isHidden = true
+            currentAbilitieButton.isHidden = true
             return }
-        configureAbilitieView()
         
         if abilitie is HunterCladeAbilitie {
             if let currentAbilitie = presenter?.model.gameData.currentAbilitie {
@@ -38,21 +67,12 @@ extension CounterViewController {
                 return
             }
         }
-        currentAbilitieView.isHidden = true
-    }
-    
-    private func configureAbilitieView() {
-        currentAbilitieView.layer.applyCornerRadius()
-        currentAbilitieView.backgroundColor = ColorScheme.shared.theme.viewBackground
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(abilitieViewAction))
-        gesture.numberOfTouchesRequired = 1
-        currentAbilitieView.addGestureRecognizer(gesture)
+        currentAbilitieButton.isHidden = true
     }
     
     private func setupTextToAbilitieView(title: String) {
-        currentAbilitieView.isHidden = false
-        currentAbilitieView.setupText(text: title)
+        currentAbilitieButton.isHidden = false
+        currentAbilitieButton.setTitle(title, for: .normal)
     }
     
     @objc private func abilitieViewAction() {
@@ -71,8 +91,6 @@ extension CounterViewController {
     }
     
     func setupDelegates() {
-        currentPloysCollectionView.dataSource = self
-        currentPloysCollectionView.selectCellDelegate = self
         currentKillTeamView.delegate = presenter as? CurrentKillTeamViewProtocol
         commandPoint.delegate = presenter as? CounterPointViewDelegate
         victoryPoint.delegate = presenter as? CounterPointViewDelegate
@@ -110,9 +128,9 @@ extension CounterViewController {
     func setupSubView() {
         setupCurrentKillTeamView()
         setupStackView()
-        setupAbilitieView()
+        setupAbilitieButton()
         setupChangeTurnButtons()
-        setupCollectionView()
+        setupCurrentPloysButton()
     }
     
     private func setupCurrentKillTeamView() {
@@ -136,23 +154,35 @@ extension CounterViewController {
         counterLabelsStackView.addArrangedSubview(victoryPoint)
         view.addSubview(counterLabelsStackView)
         NSLayoutConstraint.activate([
-            counterLabelsStackView.topAnchor.constraint(equalTo: currentKillTeamView.bottomAnchor, constant: 30),
+            counterLabelsStackView.topAnchor.constraint(equalTo: currentKillTeamView.bottomAnchor, constant: Constant.Size.screenHeight * 0.025),
             counterLabelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.1),
             counterLabelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.1),
             counterLabelsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.screenHeight/2 - 20)
         ])
     }
     
-    private func setupAbilitieView() {
-        view.addSubview(currentAbilitieView)
+    private func setupAbilitieButton() {
+        view.addSubview(currentAbilitieButton)
+        currentAbilitieButton.addTarget(self, action: #selector(abilitieViewAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            currentAbilitieView.topAnchor.constraint(equalTo: counterLabelsStackView.bottomAnchor, constant: 20),
-            currentAbilitieView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor),
-            currentAbilitieView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
-            currentAbilitieView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
-            currentAbilitieView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            currentAbilitieButton.topAnchor.constraint(equalTo: counterLabelsStackView.bottomAnchor, constant: Constant.Size.screenHeight * 0.025),
+            currentAbilitieButton.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor),
+            currentAbilitieButton.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+            currentAbilitieButton.heightAnchor.constraint(equalToConstant: Constant.Size.screenHeight * 0.06),
+            currentAbilitieButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
+    
+    private func setupCurrentPloysButton() {
+        view.addSubview(currentStrategicPloysButton)
+        currentStrategicPloysButton.addTarget(self, action: #selector(moreInfoCurrentPloys), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            currentStrategicPloysButton.topAnchor.constraint(equalTo: currentAbilitieButton.bottomAnchor, constant: Constant.Size.screenHeight * 0.025),
+            currentStrategicPloysButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentStrategicPloysButton.heightAnchor.constraint(equalToConstant: Constant.Size.screenHeight * 0.06)
+        ])
+    }
+    
     
     private func setupChangeTurnButtons() {
         view.addSubview(nextTurnButton)
@@ -177,15 +207,17 @@ extension CounterViewController {
         endGameButton.isHidden = true
     }
     
-    private func setupCollectionView() {
-        view.addSubview(currentPloysCollectionView)
-        NSLayoutConstraint.activate([
-            currentPloysCollectionView.topAnchor.constraint(equalTo: currentAbilitieView.bottomAnchor, constant: Constant.Size.screenHeight * 0.025),
-            currentPloysCollectionView.bottomAnchor.constraint(equalTo: nextTurnButton.topAnchor, constant: -Constant.Size.screenHeight * 0.025),
-            currentPloysCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.screenWidth * 0.025),
-            currentPloysCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.screenWidth * 0.025)
-        ])
+    @objc private func moreInfoCurrentPloys() {
+        guard let currentPloys = presenter?.model.gameData.currentStrategicPloys else { return }
+        if currentPloys.count == 1 {
+            if let ploy = currentPloys.first {
+                showAlert(ploy: ploy)
+            }
+        } else {
+            alertCurrentPloys(ploys: currentPloys)
+        }
     }
+    
     
 //MARK: ButtonConfigure
     
