@@ -187,7 +187,6 @@ class CounterPresenter: CounterPresenterProtocol {
             plusActOfFaithPointPerTurn()
             model.gameData.currentStrategicPloys = []
             view.currentPloysViewState()
-          //  view.currentPloysCollectionView.reloadData()
             model.gameData.countTurningPoint += 1
             model.gameData.countCommandPoint += 1
         }
@@ -278,6 +277,7 @@ extension CounterPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
         if killTeam?.killTeamName != model.killTeam?.killTeamName {
             model.gameData.currentAbilitie = nil
+            model.gameData.currentStrategicPloys = []
             gameStore.updateGameData(gameData: model.gameData)
         }
         model.killTeam = killTeam

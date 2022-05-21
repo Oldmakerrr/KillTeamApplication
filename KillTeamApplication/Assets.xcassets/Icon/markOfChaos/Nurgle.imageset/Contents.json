@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Nurgle [Chaos, Chaos Daemons, Gods].svg",
+      "filename" : "Nurgle_60x60-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Nurgle_60x60.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Nurgle [Chaos, Chaos Daemons, Gods]-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

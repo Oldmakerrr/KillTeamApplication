@@ -19,9 +19,9 @@ extension EditUnitViewController {
                                      style: .done,
                                      target: self,
                                      action: #selector(chaosBlesingButtonAction))
+            chaosBlessingButton?.largeContentSizeImageInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
             navigationItem.rightBarButtonItem = chaosBlessingButton
         }
-        
     }
     
     @objc private func chaosBlesingButtonAction() {

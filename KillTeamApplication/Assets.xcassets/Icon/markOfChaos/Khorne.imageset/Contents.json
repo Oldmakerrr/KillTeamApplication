@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Khorne [Chaos, Chaos Daemons, Gods].svg",
+      "filename" : "Khorne_60x60-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Khorne_60x60.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Khorne [Chaos, Chaos Daemons, Gods]-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Star of Chaos.svg",
+      "filename" : "Star of Chaos (2).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Star of Chaos (2)-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Star of Chaos (1).png",
       "idiom" : "universal",
       "scale" : "3x"
     }
