@@ -32,8 +32,8 @@ class PloyView: UIStackView {
         delegate?.didComplete(self)
     }
     
-    func setupPloy(ploy: Ploy, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
-        setupHeader(name: ploy.name, cost: ploy.cost)
+    func setupPloy(ploy: Ploy, image: UIImage? = nil, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
+        setupHeader(name: ploy.name, cost: ploy.cost, image: image)
         setupDescription(description: ploy.description)
         
         if let subText = ploy.subText {
@@ -71,7 +71,6 @@ class PloyView: UIStackView {
     
     private func setupUniqueAction(action: UnitUniqueAction, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         let backgroundView = UIView()
-        //let view = UnitUniqueAtionView()
         let view = UniqueActionView()
         view.backgroundColor = ColorScheme.shared.theme.subViewBackground
         addView(view: backgroundView, subView: view)
@@ -86,11 +85,6 @@ class PloyView: UIStackView {
         addArrangedSubview(view)
     }
     
-  //  private func setupSubText(subText: [String]) {
-  //      let view = addArrayLabels(subTexts: subText)
-  //      addArrangedSubview(view)
-  //  }
-    
     private func setupDescription(description: String) {
         let view = UIView()
         let label = NormalLabel()
@@ -99,9 +93,11 @@ class PloyView: UIStackView {
         addArrangedSubview(view)
     }
     
-    private func setupHeader(name: String, cost: Int) {
-        let header = HeaderIntView()
-        header.setupText(name: name, cost: "\(cost) CP")
+    private func setupHeader(name: String, cost: Int, image: UIImage?) {
+        let header = HeaderImageView()
+        header.setupText(name: name, cost: "\(cost) CP", image: image)
+        header.imageView.image = image?.withRenderingMode(.alwaysTemplate)
+        header.imageView.tintColor = .black
         addArrangedSubview(header)
     }
     

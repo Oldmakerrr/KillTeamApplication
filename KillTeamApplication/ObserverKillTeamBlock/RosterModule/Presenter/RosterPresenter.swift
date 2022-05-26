@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol RosterTableViewControllerProtocol: AnyObject {
     var presenter: RosterPresenterProtocol? { get }

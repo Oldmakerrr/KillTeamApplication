@@ -14,6 +14,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     let tableView = UITableView()
     
+    let commandPointLabel = BoldLabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +27,25 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        setupRightNavigationLabel(label: commandPointLabel)
+        commandPointLabel.text = "CP = \(presenter?.model.gameData.countCommandPoint ?? 0)"
+        if presenter?.model.strategicPloy.count == 0 && presenter?.model.tacticalPloy.count == 0 {
+            setEmptyState(title: "No Kill Team",
+                          message: "Please choose or create new Kill Team on the main screen")
+        } else {
+            restore()
+        }
         let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
         shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
         setupKillTeamAbilitieButton()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        commandPointLabel.removeFromSuperview()
+    }
+    
+    func setupCommandPointLabel() {
+        
     }
     
     func setupKillTeamAbilitieButton() {
@@ -64,31 +81,25 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         }
     }
     
-    func usePloyAlert(ploy: Ploy, question: String, succes: String) {
-        let alertController = UIAlertController(title: nil, message: question, preferredStyle: .alert)
-        let alertOk = UIAlertAction(title: "Yes", style: .default) { _ in
-            if ploy.cost > self.presenter!.model.gameData.countCommandPoint {
-                let alertController = UIAlertController(title: nil, message: "You have not enough command point.", preferredStyle: .alert)
-                let alertOk = UIAlertAction(title: "Done", style: .cancel, handler: nil)
-                alertController.addAction(alertOk)
-                self.present(alertController, animated: true, completion: nil)
+    func usePloy(ploy: Ploy, cell: UITableViewCell, tableView: UITableView) {
+        guard let presenter = presenter else { return }
+        if ploy.cost > presenter.model.gameData.countCommandPoint {
+            showToast(message: "You have not enough command point.")
+            cell.shake()
+        } else {
+            presenter.model.gameData.countCommandPoint -= ploy.cost
+            if ploy.type == .strategic {
+                presenter.addPloy(ploy: ploy)
+                showToast(message: "Strategic ploy successfully used.")
+                tableView.reloadData()
             } else {
-                self.presenter!.model.gameData.countCommandPoint -= ploy.cost
-                if ploy.type == .strategic {
-                    self.presenter?.model.gameData.currentStrategicPloys.append(ploy)
-                }
-                self.presenter?.gameStore.updateGameData(gameData: self.presenter!.model.gameData)
-                let alertController = UIAlertController(title: nil, message: succes, preferredStyle: .alert)
-                let alertOk = UIAlertAction(title: "Done", style: .cancel, handler: nil)
-                alertController.addAction(alertOk)
-                self.present(alertController, animated: true, completion: nil)
+                showToast(message: "Tactical ploy successfully used.")
             }
+            commandPointLabel.text = "CP = \(presenter.model.gameData.countCommandPoint)"
         }
-        let alertNo = UIAlertAction(title: "No, i changed my mind", style: .cancel, handler: nil)
-        alertController.addAction(alertOk)
-        alertController.addAction(alertNo)
-        present(alertController, animated: true, completion: nil)
     }
+    
+   
 }
 
 extension PloysViewController: UITableViewDataSource {
@@ -130,15 +141,20 @@ extension PloysViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let presenter = presenter else { return UITableViewCell() }
         let cell = tableView.dequeueReusableCell(withIdentifier: PloysTableViewCell.identifier, for: indexPath) as! PloysTableViewCell
         cell.updateCell()
         switch indexPath.section {
         case 0:
-            let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
-            cell.setupPloy(ploy: strategicPloy, delegate: self)
+            let strategicPloy = presenter.model.strategicPloy[indexPath.row]
+            if presenter.model.gameData.currentStrategicPloys.contains(strategicPloy) {
+                cell.setupPloy(ploy: strategicPloy, image: UIImage(systemName: "largecircle.fill.circle"), delegate: self)
+            } else {
+                cell.setupPloy(ploy: strategicPloy, delegate: self)
+            }
             return cell
         default:
-            let tacticalPloy = presenter!.model.tacticalPloy[indexPath.row]
+            let tacticalPloy = presenter.model.tacticalPloy[indexPath.row]
             cell.setupPloy(ploy: tacticalPloy, delegate: self)
             return cell
         }
@@ -149,21 +165,23 @@ extension PloysViewController: UITableViewDataSource {
 extension PloysViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         switch indexPath.section {
         case 0:
             let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
             if self.presenter!.model.gameData.currentStrategicPloys.contains(strategicPloy) {
-                let alertController = UIAlertController(title: nil, message: "You have already used this stratigic ploy in that Turning Point", preferredStyle: .alert)
-                let alertOk = UIAlertAction(title: "Done", style: .cancel, handler: nil)
-                alertController.addAction(alertOk)
-                self.present(alertController, animated: true, completion: nil)
+                showToast(message: "You have already used this stratigic ploy in that Turning Point")
+                cell.shake()
             } else {
-                usePloyAlert(ploy: strategicPloy, question: "Do you want to use this strategic ploy?", succes: "This strategic ploy successfully used.")
+                usePloy(ploy: strategicPloy, cell: cell, tableView: tableView)
             }
-        default:
+        case 1:
             let tacticalPloy = presenter!.model.tacticalPloy[indexPath.row]
-            usePloyAlert(ploy: tacticalPloy, question: "Do you want to use this tactical ploy?", succes: "This tactical ploy successfully used.")
+            usePloy(ploy: tacticalPloy, cell: cell, tableView: tableView)
+        default:
+            return
         }
+        
     }
     
 }

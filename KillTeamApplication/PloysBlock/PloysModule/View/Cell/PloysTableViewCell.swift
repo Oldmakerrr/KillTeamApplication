@@ -15,8 +15,8 @@ class PloysTableViewCell: UITableViewCell, ReusableView {
     
     private var ployView = PloyView()
     
-    func setupPloy(ploy: Ploy, delegate: WeaponRuleButtonDelegate) {
-        ployView.setupPloy(ploy: ploy, delegate: delegate, viewWidth: UIScreen.main.bounds.width - 20)
+    func setupPloy(ploy: Ploy, image: UIImage? = nil, delegate: WeaponRuleButtonDelegate) {
+        ployView.setupPloy(ploy: ploy, image: image, delegate: delegate, viewWidth: UIScreen.main.bounds.width - 20)
         ployView.setupView()
     }
     

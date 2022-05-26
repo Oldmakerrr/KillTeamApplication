@@ -12,12 +12,13 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
     var presenter: AddFireTeamPresenterProtocol?
     
     var maxCountFIreTeamLabel = BoldLabel()
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.register(AddFireTeamCell.self, forCellReuseIdentifier: AddFireTeamCell.identifier)
-        setupMaxCountFIreTeamLabel()
+        setupRightNavigationLabel(label: maxCountFIreTeamLabel)
+        maxCountFIreTeamLabel.text = "Max FT: \(presenter?.model.killTeam?.countOfFireTeam ?? 0)"
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -10,14 +10,32 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().tintColor = .orange
+        
+        if #available(iOS 15.0, *) {
+            UITableView.appearance().sectionHeaderTopPadding = 0
+        }
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            let tabAppearance = UITabBarAppearance()
+            let blure = UIBlurEffect(style: .dark)
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundEffect = blure
+            appearance.backgroundColor = .clear
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            tabAppearance.backgroundEffect = blure
+            tabAppearance.backgroundColor = .clear
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            UITabBar.appearance().standardAppearance = tabAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabAppearance
+        }
         let gameStore = GameStore()
         let store = Store()
         let storage = Storage(store: store)

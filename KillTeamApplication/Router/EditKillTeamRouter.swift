@@ -123,3 +123,11 @@ extension EeditKillTeamRouter: EditUnitPresenterDelegate {
     
     
 }
+
+extension EeditKillTeamRouter: RosterPresenterDelegate {
+    func didComplete(_ presenter: RosterPresenterProtocol) {
+        showChooseKillTeamTableViewController()
+    }
+    
+    
+}

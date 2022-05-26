@@ -43,13 +43,6 @@ extension EditUnitViewController {
         tableView.register(EditUnitEquipmentCell.self, forCellReuseIdentifier: EditUnitEquipmentCell.identifier)
     }
     
-    func setupNavigationTitlelabel() {
-        guard let countOfEquipmentPoint = presenter?.model.killTeam?.countEquipmentPoint  else { return }
-        countOfEquipmentPointLabel.text = "EP = \(countOfEquipmentPoint)"
-        countOfEquipmentPointLabel.textColor = .white
-        navigationItem.titleView = countOfEquipmentPointLabel
-    }
-    
     func setupWargearView<T: WargearView>(view: T, wargear: T.Wargear, delegate: T.Delegate, viewWidth: CGFloat) {
         view.setupText(wargear: wargear, delegate: delegate as? WeaponRuleButtonDelegate, viewWidth: viewWidth)
         view.setupButton()

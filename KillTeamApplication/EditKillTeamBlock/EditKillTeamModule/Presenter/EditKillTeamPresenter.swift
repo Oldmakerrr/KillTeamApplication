@@ -25,6 +25,7 @@ protocol EditKillTeamPresenterProtocol: AnyObject {
     func changeUnitName(name: String, indexPath: IndexPath)
     func getUnitName(indexPath: IndexPath) -> String
     func removeUnit(indexPath: IndexPath)
+    func removeFireTeam(indexPath: IndexPath)
     
     func changeUnit(unit: Unit, indexPath: IndexPath)
     func getAvailableUnit(indexPath: IndexPath) -> [Unit]?
@@ -75,6 +76,13 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     func removeUnit(indexPath: IndexPath) {
         returnCostEquipment(indexPath: indexPath)
         model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates.remove(at: indexPath.row)
+        if let killTeam = model.killTeam {
+            store.updateCurrentKillTeam(killTeam: killTeam)
+        }
+    }
+    
+    func removeFireTeam(indexPath: IndexPath) {
+        model.killTeam?.choosenFireTeam.remove(at: indexPath.section)
         if let killTeam = model.killTeam {
             store.updateCurrentKillTeam(killTeam: killTeam)
         }
@@ -225,4 +233,11 @@ extension EditKillTeamPresenter: StoreDelegate {
     }
 }
 
+extension EditKillTeamPresenter: TableViewEmptyStateDelegate {
+    func didComplete(_ tableViewEmptyState: TableViewEmptyState) {
+        goToAddFireTeam()
+    }
+    
+    
+}
 

@@ -116,7 +116,7 @@ final class Store: StoreProtocol {
     var allFaction: [Faction] = []
         
     func killTeamFromJson() {
-        let path = Bundle.main.path(forResource: "AllFactionV1 ", ofType: "json")
+        let path = Bundle.main.path(forResource: "AllFaction", ofType: "json")
         let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
         allFaction = try! JSONDecoder().decode([Faction].self, from: jsonData! as Data)
     }

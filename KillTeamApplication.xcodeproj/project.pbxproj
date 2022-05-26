@@ -35,6 +35,8 @@
 		186E004328286A87006E86E9 /* AddFireTeamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E004228286A87006E86E9 /* AddFireTeamButton.swift */; };
 		186E0045282A4D4B006E86E9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0044282A4D4B006E86E9 /* Storage.swift */; };
 		186E0047282A7172006E86E9 /* UIVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0046282A7172006E86E9 /* UIVIew.swift */; };
+		186E0076283B82AD006E86E9 /* AllFaction.json in Resources */ = {isa = PBXBuildFile; fileRef = 186E0074283B82AC006E86E9 /* AllFaction.json */; };
+		186E0077283B82AD006E86E9 /* TacOps.json in Resources */ = {isa = PBXBuildFile; fileRef = 186E0075283B82AD006E86E9 /* TacOps.json */; };
 		186EFFEA281B0DAD006E86E9 /* LegionaryAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFE9281B0DAD006E86E9 /* LegionaryAbilitieView.swift */; };
 		186EFFEC281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFEB281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift */; };
 		186EFFF0281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFEF281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift */; };
@@ -64,7 +66,6 @@
 		18A5217827C181E8003A29DA /* AddFireTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217727C181E8003A29DA /* AddFireTeamModel.swift */; };
 		18A5217A27C18209003A29DA /* AddFireTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217927C18209003A29DA /* AddFireTeamCell.swift */; };
 		18A5217C27C18222003A29DA /* AddFireTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217B27C18222003A29DA /* AddFireTeamViewController.swift */; };
-		18A5217E27C18237003A29DA /* ExtensionAddFireTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5217D27C18237003A29DA /* ExtensionAddFireTeam.swift */; };
 		18A5218627C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5218527C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift */; };
 		18A5218827C18301003A29DA /* ChooseLoadedKillTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5218727C18301003A29DA /* ChooseLoadedKillTeamModel.swift */; };
 		18A5218A27C18321003A29DA /* ChooseLoadedKillTeamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5218927C18321003A29DA /* ChooseLoadedKillTeamController.swift */; };
@@ -89,6 +90,10 @@
 		18A521C027C18AFF003A29DA /* WeaponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521BF27C18AFF003A29DA /* WeaponView.swift */; };
 		18A521C227C18B5E003A29DA /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521C127C18B5E003A29DA /* CustomAlert.swift */; };
 		18A521C427C18BB6003A29DA /* EquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521C327C18BB6003A29DA /* EquipmentView.swift */; };
+		18CF2827284023C800E81A2E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF2826284023C800E81A2E /* UIViewController.swift */; };
+		18CF2829284023F600E81A2E /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF2828284023F600E81A2E /* UITableViewCell.swift */; };
+		18CF282B2840244100E81A2E /* TableViewEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF282A2840244100E81A2E /* TableViewEmptyState.swift */; };
+		18CF282D2840248500E81A2E /* ToastTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF282C2840248500E81A2E /* ToastTextView.swift */; };
 		18D3B94227C18ECB00B74C2D /* RosterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94127C18ECB00B74C2D /* RosterModel.swift */; };
 		18D3B94427C18EF100B74C2D /* RosterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94327C18EF100B74C2D /* RosterTableViewController.swift */; };
 		18D3B94627C18F2100B74C2D /* RosterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3B94527C18F2100B74C2D /* RosterPresenter.swift */; };
@@ -119,8 +124,6 @@
 		18E908C5280BE6450077516B /* DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908C4280BE6450077516B /* DoneButton.swift */; };
 		18E908C9280BE6930077516B /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908C8280BE6930077516B /* AddButton.swift */; };
 		18E908CF280BE8B80077516B /* WeaponRuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908CE280BE8B70077516B /* WeaponRuleView.swift */; };
-		18E908D5280BEB7A0077516B /* AllFactionV1 .json in Resources */ = {isa = PBXBuildFile; fileRef = 18E908D4280BEB7A0077516B /* AllFactionV1 .json */; };
-		18E908D7280BEB830077516B /* TacOps.json in Resources */ = {isa = PBXBuildFile; fileRef = 18E908D6280BEB830077516B /* TacOps.json */; };
 		18E908D9280C10BE0077516B /* KillTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908D8280C10BD0077516B /* KillTeam.swift */; };
 		18E908DB280C111B0077516B /* Ploy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908DA280C111B0077516B /* Ploy.swift */; };
 		18E908DD280C20540077516B /* FireTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E908DC280C20540077516B /* FireTeam.swift */; };
@@ -191,6 +194,8 @@
 		186E004228286A87006E86E9 /* AddFireTeamButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamButton.swift; sourceTree = "<group>"; };
 		186E0044282A4D4B006E86E9 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		186E0046282A7172006E86E9 /* UIVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVIew.swift; sourceTree = "<group>"; };
+		186E0074283B82AC006E86E9 /* AllFaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = AllFaction.json; path = ../../../Documents/KillTeamAppData/AllFaction.json; sourceTree = "<group>"; };
+		186E0075283B82AD006E86E9 /* TacOps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TacOps.json; path = ../../../Documents/KillTeamAppData/TacOps.json; sourceTree = "<group>"; };
 		186EFFE9281B0DAD006E86E9 /* LegionaryAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegionaryAbilitieView.swift; sourceTree = "<group>"; };
 		186EFFEB281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaosBlessingTableViewController.swift; sourceTree = "<group>"; };
 		186EFFEF281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidDancerTroupeAbilitieView.swift; sourceTree = "<group>"; };
@@ -223,7 +228,6 @@
 		18A5217727C181E8003A29DA /* AddFireTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamModel.swift; sourceTree = "<group>"; };
 		18A5217927C18209003A29DA /* AddFireTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamCell.swift; sourceTree = "<group>"; };
 		18A5217B27C18222003A29DA /* AddFireTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamViewController.swift; sourceTree = "<group>"; };
-		18A5217D27C18237003A29DA /* ExtensionAddFireTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionAddFireTeam.swift; sourceTree = "<group>"; };
 		18A5218527C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLoadedKillTeamPresenter.swift; sourceTree = "<group>"; };
 		18A5218727C18301003A29DA /* ChooseLoadedKillTeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLoadedKillTeamModel.swift; sourceTree = "<group>"; };
 		18A5218927C18321003A29DA /* ChooseLoadedKillTeamController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLoadedKillTeamController.swift; sourceTree = "<group>"; };
@@ -248,6 +252,10 @@
 		18A521BF27C18AFF003A29DA /* WeaponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponView.swift; sourceTree = "<group>"; };
 		18A521C127C18B5E003A29DA /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		18A521C327C18BB6003A29DA /* EquipmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentView.swift; sourceTree = "<group>"; };
+		18CF2826284023C800E81A2E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		18CF2828284023F600E81A2E /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
+		18CF282A2840244100E81A2E /* TableViewEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewEmptyState.swift; sourceTree = "<group>"; };
+		18CF282C2840248500E81A2E /* ToastTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastTextView.swift; sourceTree = "<group>"; };
 		18D3B94127C18ECB00B74C2D /* RosterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterModel.swift; sourceTree = "<group>"; };
 		18D3B94327C18EF100B74C2D /* RosterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterTableViewController.swift; sourceTree = "<group>"; };
 		18D3B94527C18F2100B74C2D /* RosterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosterPresenter.swift; sourceTree = "<group>"; };
@@ -278,8 +286,6 @@
 		18E908C4280BE6450077516B /* DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButton.swift; sourceTree = "<group>"; };
 		18E908C8280BE6930077516B /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		18E908CE280BE8B70077516B /* WeaponRuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponRuleView.swift; sourceTree = "<group>"; };
-		18E908D4280BEB7A0077516B /* AllFactionV1 .json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "AllFactionV1 .json"; path = "../../../Downloads/AllFactionV1 .json"; sourceTree = "<group>"; };
-		18E908D6280BEB830077516B /* TacOps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TacOps.json; path = ../../../Desktop/TacOps.json; sourceTree = "<group>"; };
 		18E908D8280C10BD0077516B /* KillTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillTeam.swift; sourceTree = "<group>"; };
 		18E908DA280C111B0077516B /* Ploy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ploy.swift; sourceTree = "<group>"; };
 		18E908DC280C20540077516B /* FireTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireTeam.swift; sourceTree = "<group>"; };
@@ -390,6 +396,8 @@
 			isa = PBXGroup;
 			children = (
 				186E003D282804A9006E86E9 /* UIAlertController.swift */,
+				18CF2826284023C800E81A2E /* UIViewController.swift */,
+				18CF2828284023F600E81A2E /* UITableViewCell.swift */,
 				186E003F28280C28006E86E9 /* CALayer.swift */,
 				186E0046282A7172006E86E9 /* UIVIew.swift */,
 			);
@@ -472,8 +480,8 @@
 				18A5214827C17D5B003A29DA /* AppDelegate.swift */,
 				18A5214A27C17D5B003A29DA /* SceneDelegate.swift */,
 				1892484927F09BAF00F1996C /* Constant.swift */,
-				18E908D6280BEB830077516B /* TacOps.json */,
-				18E908D4280BEB7A0077516B /* AllFactionV1 .json */,
+				186E0074283B82AC006E86E9 /* AllFaction.json */,
+				186E0075283B82AD006E86E9 /* TacOps.json */,
 				186E003C2828047A006E86E9 /* Extension */,
 				18E908D3280BE9AC0077516B /* Model */,
 				1892484B27F1F18E00F1996C /* CustomUI */,
@@ -550,7 +558,6 @@
 			isa = PBXGroup;
 			children = (
 				18A5217B27C18222003A29DA /* AddFireTeamViewController.swift */,
-				18A5217D27C18237003A29DA /* ExtensionAddFireTeam.swift */,
 				186E004128286A72006E86E9 /* CustomView */,
 				18E908B8280BE2510077516B /* Cell */,
 			);
@@ -1052,6 +1059,8 @@
 			isa = PBXGroup;
 			children = (
 				1810011B27EB633B00A18B1B /* HeaderView.swift */,
+				18CF282A2840244100E81A2E /* TableViewEmptyState.swift */,
+				18CF282C2840248500E81A2E /* ToastTextView.swift */,
 				186E0030281C6FF5006E86E9 /* TextView.swift */,
 				186E00382825103E006E86E9 /* ButtonView.swift */,
 				18A521BF27C18AFF003A29DA /* WeaponView.swift */,
@@ -1321,8 +1330,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				18A5215527C17D5C003A29DA /* LaunchScreen.storyboard in Resources */,
-				18E908D7280BEB830077516B /* TacOps.json in Resources */,
-				18E908D5280BEB7A0077516B /* AllFactionV1 .json in Resources */,
+				186E0077283B82AD006E86E9 /* TacOps.json in Resources */,
+				186E0076283B82AD006E86E9 /* AllFaction.json in Resources */,
 				18A5215227C17D5C003A29DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1345,6 +1354,7 @@
 				18E909872816E0EE0077516B /* PsychicPowerViewController.swift in Sources */,
 				18A5218627C182E2003A29DA /* ChooseLoadedKillTeamPresenter.swift in Sources */,
 				18E9089B280471550077516B /* CustomUIViewElements.swift in Sources */,
+				18CF282D2840248500E81A2E /* ToastTextView.swift in Sources */,
 				18E909C3281952780077516B /* Wyrmblade.swift in Sources */,
 				186E003E282804A9006E86E9 /* UIAlertController.swift in Sources */,
 				18A5216427C17E3B003A29DA /* EditKillTeamRouter.swift in Sources */,
@@ -1414,6 +1424,7 @@
 				18E908E7280C244F0077516B /* TacOp.swift in Sources */,
 				18E908C9280BE6930077516B /* AddButton.swift in Sources */,
 				1810011827EB5C6300A18B1B /* AbilitieView.swift in Sources */,
+				18CF2829284023F600E81A2E /* UITableViewCell.swift in Sources */,
 				18E908CF280BE8B80077516B /* WeaponRuleView.swift in Sources */,
 				18A5219227C1839B003A29DA /* ChooseKillTeamModel.swift in Sources */,
 				18D3B95B27C1903200B74C2D /* PloysViewController.swift in Sources */,
@@ -1427,7 +1438,6 @@
 				18103AA127F5F9F400DBD2C4 /* ErrorLayer.swift in Sources */,
 				18A521AA27C18509003A29DA /* EditKillTeamModel.swift in Sources */,
 				18A5219027C18380003A29DA /* ChooseKillTeamPresenter.swift in Sources */,
-				18A5217E27C18237003A29DA /* ExtensionAddFireTeam.swift in Sources */,
 				1810011627E9E5CF00A18B1B /* BoldTextLabel.swift in Sources */,
 				18E909CD28197BBD0077516B /* KillTeamAbilitieViewController.swift in Sources */,
 				1857E37927C6341E00FEFA76 /* GameStore.swift in Sources */,
@@ -1454,6 +1464,7 @@
 				18E909892816E0F70077516B /* PsychicPowerPresenter.swift in Sources */,
 				186E0047282A7172006E86E9 /* UIVIew.swift in Sources */,
 				18D3B94A27C18F5400B74C2D /* MoreUnitInfoPresenter.swift in Sources */,
+				18CF282B2840244100E81A2E /* TableViewEmptyState.swift in Sources */,
 				18E909942818066D0077516B /* HunterCadre.swift in Sources */,
 				18D3B95D27C1905400B74C2D /* PloysTableViewCell.swift in Sources */,
 				18A5217A27C18209003A29DA /* AddFireTeamCell.swift in Sources */,
@@ -1467,6 +1478,7 @@
 				18E908972802BEE80077516B /* PloyView.swift in Sources */,
 				186EFFFC281B0FF6006E86E9 /* ItalicLabel.swift in Sources */,
 				18A5215D27C17DB7003A29DA /* Builder.swift in Sources */,
+				18CF2827284023C800E81A2E /* UIViewController.swift in Sources */,
 				18E9098D2816FB9A0077516B /* ExtensionPsychicPowerViewController.swift in Sources */,
 				18A5215F27C17DE7003A29DA /* SaveData.swift in Sources */,
 				18E9098B2816F4000077516B /* PsychicPowerView.swift in Sources */,
@@ -1623,7 +1635,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X76643KRX5;
+				DEVELOPMENT_TEAM = 7L552PX75S;
 				INFOPLIST_FILE = KillTeamApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1642,7 +1654,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X76643KRX5;
+				DEVELOPMENT_TEAM = 7L552PX75S;
 				INFOPLIST_FILE = KillTeamApplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

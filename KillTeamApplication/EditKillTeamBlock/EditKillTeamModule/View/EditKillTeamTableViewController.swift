@@ -25,8 +25,10 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        setupAddButton()
+        checkTableViewState()
     }
+    
+   
     
     override func viewWillDisappear(_ animated: Bool) {
         addUnitOrFireTeamButton.removeFromSuperview()
@@ -77,7 +79,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let removeUnit = removeUnitAction(indexPath: indexPath)
+        let removeUnit = removeUnitAction(indexPath: indexPath, section: IndexSet(arrayLiteral: indexPath.section), tableView: tableView)
         return UISwipeActionsConfiguration(actions: [removeUnit])
     }
 

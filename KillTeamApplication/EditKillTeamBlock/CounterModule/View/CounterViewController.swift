@@ -18,6 +18,10 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     let addKillTeamButton = AddButton()
 
     let turningPointLabel = CounterLabel()
+        
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
     
     let currentAbilitieButton: ChangeTurnButton = {
         let button = ChangeTurnButton()

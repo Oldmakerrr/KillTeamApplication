@@ -19,6 +19,12 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        if presenter?.model.killTeam?.choosenFireTeam.count == 0 {
+            setEmptyState(title: "No Kill Team",
+                          message: "Please choose or create new Kill Team on the main screen")
+        } else {
+            restore()
+        }
         navigationItem.title = presenter?.model.killTeam?.userCustomName ?? presenter?.model.killTeam?.factionName
     }
 

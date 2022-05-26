@@ -47,15 +47,13 @@ protocol AddFireTeamCellDelegate: AnyObject {
         let button = AddFireTeamButton()
         button.setImage(UIImage(systemName: "minus"), for: .normal)
         button.imageView?.tintColor = ColorScheme.shared.theme.selectedView
-        button.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
+        button.addTarget(self, action: #selector(removeFireTeam), for: .touchUpInside)
         return button
     }()
      
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
-        plusButton.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
-        minusButton.addTarget(self, action: #selector(removeFireTeam), for: .touchUpInside)
         setupConstraints()
      }
      

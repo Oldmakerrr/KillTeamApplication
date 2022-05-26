@@ -261,6 +261,7 @@ extension CounterPresenter: CounterPointViewDelegate {
         default:
             break
         }
+        gameStore.updateGameData(gameData: model.gameData)
     }
     
 }

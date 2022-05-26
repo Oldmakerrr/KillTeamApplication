@@ -26,12 +26,11 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        setupRightNavigationLabel(label: countOfEquipmentPointLabel)
+        countOfEquipmentPointLabel.text = "EP = \(presenter?.model.killTeam?.countEquipmentPoint ?? 0)"
+        title = "Edit Unit"
         registerCell()
         setupChaosBlesisnButton()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setupNavigationTitlelabel()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

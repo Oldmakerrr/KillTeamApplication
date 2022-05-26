@@ -9,6 +9,19 @@ import UIKit
 
 extension EditKillTeamTableViewController {
     
+    func checkTableViewState() {
+        if presenter?.model.killTeam?.choosenFireTeam.count == 0 {
+            setEmptyState(title: "No Fire Team",
+                          message: "Please add Fire Team",
+                          buttonTitle: "Add Fire Team",
+                          delegate: presenter as? TableViewEmptyStateDelegate)
+            addUnitOrFireTeamButton.removeFromSuperview()
+        } else {
+            restore()
+            setupAddButton()
+        }
+    }
+    
     @objc func addFireTeam() {
         presenter?.addFireTeam(view: self)
     }
@@ -60,12 +73,20 @@ extension EditKillTeamTableViewController {
         return action
     }
     
-    func removeUnitAction(indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .destructive, title: "Remove") { [weak self] _, _, completion in
+    func removeUnitAction(indexPath: IndexPath, section: IndexSet, tableView: UITableView) -> UIContextualAction {
+        let action = UIContextualAction(style: .destructive, title: "Remove") { [weak self] action, _, completion in
             guard let self = self else { return }
+            action.backgroundColor = .clear
             self.presenter?.removeUnit(indexPath: indexPath)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            if self.presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates.count == 0 {
+                tableView.beginUpdates()
+                self.presenter?.removeFireTeam(indexPath: indexPath)
+                self.tableView.deleteSections(section, with: .automatic)
+                tableView.endUpdates()
+            }
             completion(true)
+            self.checkTableViewState()
         }
         action.backgroundColor = .red
         action.image = UIImage(systemName: "minus.square.fill")
