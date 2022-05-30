@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02BE855A0DE6AD50D94F7267 /* Pods_KillTeamApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D1DA5216F93737AE8DDF420 /* Pods_KillTeamApplication.framework */; };
 		1810011627E9E5CF00A18B1B /* BoldTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810011527E9E5CF00A18B1B /* BoldTextLabel.swift */; };
 		1810011827EB5C6300A18B1B /* AbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810011727EB5C6300A18B1B /* AbilitieView.swift */; };
 		1810011A27EB5DCA00A18B1B /* UniqueActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810011927EB5DCA00A18B1B /* UniqueActionView.swift */; };
@@ -167,6 +168,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12E8E43D6BC799897499ECD2 /* Pods-KillTeamApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KillTeamApplication.release.xcconfig"; path = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.release.xcconfig"; sourceTree = "<group>"; };
 		1810011527E9E5CF00A18B1B /* BoldTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldTextLabel.swift; sourceTree = "<group>"; };
 		1810011727EB5C6300A18B1B /* AbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilitieView.swift; sourceTree = "<group>"; };
 		1810011927EB5DCA00A18B1B /* UniqueActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueActionView.swift; sourceTree = "<group>"; };
@@ -326,6 +328,8 @@
 		18E909E7281AC8010077516B /* VeteranGuardsmanAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeteranGuardsmanAbilitieView.swift; sourceTree = "<group>"; };
 		18E909E9281ACC6F0077516B /* TacticalAssetsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacticalAssetsTableViewController.swift; sourceTree = "<group>"; };
 		18E909EB281AD0CB0077516B /* TacticalAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacticalAssetsView.swift; sourceTree = "<group>"; };
+		5D1DA5216F93737AE8DDF420 /* Pods_KillTeamApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KillTeamApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6194EA5B43216D04E42F8A4 /* Pods-KillTeamApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KillTeamApplication.debug.xcconfig"; path = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +337,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02BE855A0DE6AD50D94F7267 /* Pods_KillTeamApplication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +468,8 @@
 			children = (
 				18A5214727C17D5B003A29DA /* KillTeamApplication */,
 				18A5214627C17D5B003A29DA /* Products */,
+				75659772FDCD7A12B0357769 /* Pods */,
+				3A1D8B15F7590A3F08D99F9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1272,6 +1279,24 @@
 			path = Warpcoven;
 			sourceTree = "<group>";
 		};
+		3A1D8B15F7590A3F08D99F9E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5D1DA5216F93737AE8DDF420 /* Pods_KillTeamApplication.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		75659772FDCD7A12B0357769 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A6194EA5B43216D04E42F8A4 /* Pods-KillTeamApplication.debug.xcconfig */,
+				12E8E43D6BC799897499ECD2 /* Pods-KillTeamApplication.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1279,9 +1304,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18A5215927C17D5C003A29DA /* Build configuration list for PBXNativeTarget "KillTeamApplication" */;
 			buildPhases = (
+				8717600E6A7FBE74F663AFA6 /* [CP] Check Pods Manifest.lock */,
 				18A5214127C17D5B003A29DA /* Sources */,
 				18A5214227C17D5B003A29DA /* Frameworks */,
 				18A5214327C17D5B003A29DA /* Resources */,
+				F38D890DFF5FB4AD7C791B6C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1337,6 +1364,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8717600E6A7FBE74F663AFA6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KillTeamApplication-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F38D890DFF5FB4AD7C791B6C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		18A5214127C17D5B003A29DA /* Sources */ = {
@@ -1631,6 +1700,7 @@
 		};
 		18A5215A27C17D5C003A29DA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6194EA5B43216D04E42F8A4 /* Pods-KillTeamApplication.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1650,6 +1720,7 @@
 		};
 		18A5215B27C17D5C003A29DA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12E8E43D6BC799897499ECD2 /* Pods-KillTeamApplication.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
