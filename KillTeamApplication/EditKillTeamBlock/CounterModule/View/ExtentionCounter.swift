@@ -102,6 +102,8 @@ extension CounterViewController {
         currentKillTeamView.delegate = presenter as? CurrentKillTeamViewProtocol
         commandPoint.delegate = presenter as? CounterPointViewDelegate
         victoryPoint.delegate = presenter as? CounterPointViewDelegate
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
     }
     
     func fillCounterStackView() {

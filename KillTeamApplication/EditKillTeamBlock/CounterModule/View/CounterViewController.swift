@@ -70,9 +70,6 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         setupBackgroundImage()
         setupSubView()
         setupDelegates()
-        
-        coachMarksController.dataSource = self
-        coachMarksController.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {

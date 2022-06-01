@@ -74,4 +74,20 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
+    
+    func animateSelect() {
+        alpha = 0.8
+        UIView.animate(withDuration: 0.1, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        }) { (finished) in
+            self.animateDeselect()
+        }
+    }
+        
+    func animateDeselect() {
+        alpha = 1.0
+        UIView.animate(withDuration: 0.1) {
+            self.transform = .identity
+        }
+    }
 }

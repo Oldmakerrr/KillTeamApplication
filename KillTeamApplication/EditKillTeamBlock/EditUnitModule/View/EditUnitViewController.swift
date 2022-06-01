@@ -5,7 +5,7 @@
 //  Created by Apple on 19.02.2022.
 //
 
-import Foundation
+import Instructions
 import UIKit
 
 protocol EditUnitProtocol: AnyObject {
@@ -13,6 +13,8 @@ protocol EditUnitProtocol: AnyObject {
 }
 
 class EditUnitViewController: UITableViewController, EditUnitViewControllerProtocol {
+    
+    let coachMarksController = CoachMarksController()
     
     weak var delegate: EditUnitProtocol?
     
@@ -31,12 +33,23 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         title = "Edit Unit"
         registerCell()
         setupChaosBlesisnButton()
+        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        coachMarksController.start(in: .window(over: self))
+    }
+   
     
     override func viewWillDisappear(_ animated: Bool) {
         countOfEquipmentPointLabel.removeFromSuperview()
         presenter?.clearIndex()
+        coachMarksController.stop(immediately: true)
     }
+
     
     func showAlert(alertView: UIView) {
         tableView.isScrollEnabled = false
@@ -44,7 +57,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         delegate = customAlert
     }
     
-    func dismissAlert() {
+    private func dismissAlert() {
         delegate?.didComplete(self)
         tableView.isScrollEnabled = true
     }
