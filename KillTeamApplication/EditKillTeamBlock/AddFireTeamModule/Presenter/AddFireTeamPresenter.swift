@@ -15,7 +15,7 @@ protocol AddFireTeamPresenterProtocol: AnyObject {
     var model: AddFireTeamModel { get }
     var store: StoreProtocol { get }
     var view: AddFireTeamTableVCProtocol? { get set }
-    var userSettings: UserSettingsProtocol { get }
+    var userSettings: UserSettingsProtocol { get set }
     init(view: AddFireTeamTableVCProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol)
 }
 
@@ -27,7 +27,7 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
     
     let store: StoreProtocol
     
-    let userSettings: UserSettingsProtocol
+    var userSettings: UserSettingsProtocol
     
     required init(view: AddFireTeamTableVCProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol) {
         self.view = view

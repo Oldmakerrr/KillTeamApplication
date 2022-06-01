@@ -36,12 +36,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let presenter = presenter,
-              let killTeam = presenter.model.killTeam else { return }
-        if presenter.userSettings.isFirstTimeLaunch && !killTeam.choosenFireTeam.isEmpty && !presenter.userSettings.isInstructionShowed.contains(self.description) {
-            coachMarksController.start(in: .window(over: self))
-            presenter.userSettings.isInstructionShowed.append(self.description)
-        }
+        showCoachMarks()
     }
    
     

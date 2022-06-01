@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Instructions
 
 class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtocol {
+    
+    let coachMarksController = CoachMarksController()
     
     var presenter: AddFireTeamPresenterProtocol?
     
@@ -19,10 +22,28 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
         tableView.register(AddFireTeamCell.self, forCellReuseIdentifier: AddFireTeamCell.identifier)
         setupRightNavigationLabel(label: maxCountFIreTeamLabel)
         maxCountFIreTeamLabel.text = "Max FT: \(presenter?.model.killTeam?.countOfFireTeam ?? 0)"
+        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showCoachMarks()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         maxCountFIreTeamLabel.removeFromSuperview()
+        coachMarksController.stop(immediately: true)
+    }
+    
+    private func showCoachMarks() {
+        guard let presenter = presenter else { return }
+        if presenter.userSettings.isFirstTimeLaunch &&
+            !presenter.userSettings.isInstructionShowed.contains(self.description) {
+            presenter.userSettings.isInstructionShowed.append(self.description)
+            coachMarksController.start(in: .window(over: self))
+        }
     }
 
     // MARK: - Table view data source

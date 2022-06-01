@@ -10,6 +10,14 @@ import UIKit
 
 extension CounterViewController {
     
+    func showCoachMarks() {
+        guard let presenter = presenter else { return }
+        if presenter.userSettings.isFirstTimeLaunch && !presenter.userSettings.isInstructionShowed.contains(self.description) {
+            presenter.userSettings.isInstructionShowed.append(self.description)
+            coachMarksController.start(in: .window(over: self))
+        }
+    }
+    
     func currentPloysViewState() {
         guard let ploys = presenter?.model.gameData.currentStrategicPloys else { return }
         if ploys.isEmpty {

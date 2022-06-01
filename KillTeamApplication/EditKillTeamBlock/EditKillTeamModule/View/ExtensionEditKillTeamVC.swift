@@ -9,6 +9,15 @@ import UIKit
 
 extension EditKillTeamTableViewController {
     
+    func showCoachMarks() {
+        guard let presenter = presenter,
+              let killTeam = presenter.model.killTeam else { return }
+        if presenter.userSettings.isFirstTimeLaunch && !killTeam.choosenFireTeam.isEmpty && !presenter.userSettings.isInstructionShowed.contains(self.description) {
+            presenter.userSettings.isInstructionShowed.append(self.description)
+            coachMarksController.start(in: .window(over: self))
+        }
+    }
+    
     func checkTableViewState() {
         if presenter?.model.killTeam?.choosenFireTeam.count == 0 {
             setEmptyState(title: "No Fire Team",

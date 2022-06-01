@@ -1,27 +1,24 @@
 //
-//  CoachMarkExtention.swift
+//  CoachMarkAddFireTeamExtention.swift
 //  KillTeamApplication
 //
 //  Created by Apple on 01.06.2022.
 //
 
-import UIKit
 import Instructions
 
-extension CounterViewController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+extension AddFireTeamViewController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+    
     
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachView.bodyView.hintLabel.text = "Tap here and you may Edit your Kill Team, if Kill Team hasn't been choosen you may choose Kill Team from list."
+            coachView.bodyView.hintLabel.text = "Here you may show Maximum number of Fire Team"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
-            coachView.bodyView.hintLabel.text = "You may manage and observe for your game Resources."
-            coachView.bodyView.nextLabel.text = "Next"
-        case 2:
-            coachView.bodyView.hintLabel.text = "Tap here to create new Kill Team"
-            coachView.bodyView.nextLabel.text = "Ok"
+            coachView.bodyView.hintLabel.text = "Add and remove Fire Team, but sum added Fire Team not be more then maximum number of Fire Team"
+            coachView.bodyView.nextLabel.text = "OK"
         default:
             break
         }
@@ -33,11 +30,9 @@ extension CounterViewController: CoachMarksControllerDataSource, CoachMarksContr
         var coachMark = CoachMark()
         switch index {
         case 0:
-            coachMark = coachMarksController.helper.makeCoachMark(for: currentKillTeamView)
+            coachMark = coachMarksController.helper.makeCoachMark(for: maxCountFIreTeamLabel)
         case 1:
-            coachMark = coachMarksController.helper.makeCoachMark(for: counterLabelsStackView)
-        case 2:
-            coachMark = coachMarksController.helper.makeCoachMark(for: addKillTeamButton)
+            coachMark = coachMarksController.helper.makeCoachMark(for: tableView.cellForRow(at: IndexPath(item: 0, section: 0)))
         default:
             break
         }
@@ -45,9 +40,9 @@ extension CounterViewController: CoachMarksControllerDataSource, CoachMarksContr
     }
     
     
-    
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
-        return 3
+        return 2
     }
+    
     
 }
