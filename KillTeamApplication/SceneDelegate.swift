@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         UINavigationBar.appearance().barStyle = .black
         UINavigationBar.appearance().tintColor = .orange
-        let isAppAlreadyLaunchedOnce = ifAppLaunchedFirstTime()
+        let isAppAlreadyLaunchedOnce = true
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = 0
         }

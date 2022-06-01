@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Instructions
 
 class CounterViewController: UIViewController, CounterViewProtocol {
+    
+    let coachMarkController = CoachMarksController()
     
     var presenter: CounterPresenterProtocol?
     
@@ -67,6 +70,17 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         setupBackgroundImage()
         setupSubView()
         setupDelegates()
+        
+        coachMarkController.dataSource = self
+        coachMarkController.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let presenter = presenter else { return }
+        if presenter.userSettings.firstTimeLaunch {
+            coachMarkController.start(in: .window(over: self))
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +89,7 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         fillCounterStackView()
         setupTextToAbilitieView()
         currentPloysViewState()
+      
     }
     
     override func viewWillDisappear(_ animated: Bool) {
