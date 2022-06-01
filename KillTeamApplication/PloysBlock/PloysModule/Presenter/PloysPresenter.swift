@@ -13,10 +13,11 @@ protocol PloysViewControllerProtocol: AnyObject {
 }
 
 protocol PloysPresenterProtocol: AnyObject {
-    init(view: PloysViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: PloysRouterProtocol)
+    init(view: PloysViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: PloysRouterProtocol, userSettings: UserSettingsProtocol)
     var view: PloysViewControllerProtocol? { get }
     var gameStore: GameStoreProtocol { get }
     var store: StoreProtocol { get }
+    var userSettings: UserSettingsProtocol { get }
     var model: PloysModel { get }
     var router: PloysRouterProtocol { get }
     
@@ -40,25 +41,22 @@ class PloysPresenter: PloysPresenterProtocol {
     
     weak var view: PloysViewControllerProtocol?
     
-    var store: StoreProtocol
+    let store: StoreProtocol
     
-    var gameStore: GameStoreProtocol
+    let gameStore: GameStoreProtocol
     
-    var model = PloysModel() //{
-    //    didSet {
-    //        if let view = view as? UIViewController {
-    //            view.title = "Command Point = \(model.gameData.countCommandPoint)"
-    //        }
-    //    }
-    //}
+    let model = PloysModel()
    
-    var router: PloysRouterProtocol
+    let router: PloysRouterProtocol
     
-    required init(view: PloysViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: PloysRouterProtocol) {
+    let userSettings: UserSettingsProtocol
+    
+    required init(view: PloysViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: PloysRouterProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
         self.gameStore = gameStore
         self.router = router
+        self.userSettings = userSettings
         gameStore.multicastDelegate.addDelegate(self)
         store.multicastDelegate.addDelegate(self)
         //model.tacticalPloy.append(model.reRoll)

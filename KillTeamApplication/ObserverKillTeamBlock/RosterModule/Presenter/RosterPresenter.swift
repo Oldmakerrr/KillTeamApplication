@@ -18,8 +18,9 @@ protocol RosterPresenterDelegate: AnyObject {
 
 protocol RosterPresenterProtocol: AnyObject {
     
-    init(view: RosterTableViewControllerProtocol, store: StoreProtocol, router: KillTeamObserverRouterProtocol)
+    init(view: RosterTableViewControllerProtocol, store: StoreProtocol, router: KillTeamObserverRouterProtocol, userSettings: UserSettingsProtocol)
     var view: RosterTableViewControllerProtocol? { get }
+    var userSettings: UserSettingsProtocol { get }
     var store: StoreProtocol { get }
     var model: RosterModel { get }
     func goToMoreInfoUnit(indexPath: IndexPath)
@@ -35,12 +36,15 @@ class RosterPresenter: RosterPresenterProtocol {
     
     let model = RosterModel()
     
+    let userSettings: UserSettingsProtocol
+    
     weak var delegate: RosterPresenterDelegate?
     
-    required init(view: RosterTableViewControllerProtocol, store: StoreProtocol, router: KillTeamObserverRouterProtocol) {
+    required init(view: RosterTableViewControllerProtocol, store: StoreProtocol, router: KillTeamObserverRouterProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
         self.router = router
+        self.userSettings = userSettings
         store.multicastDelegate.addDelegate(self)
     }
     

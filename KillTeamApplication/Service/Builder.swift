@@ -65,7 +65,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createEditKillTeamModule(router: RouterProtocol) -> EditKillTeamProtocol {
         let view = EditKillTeamTableViewController()
-        let presenter = EditKillTeamPresenter(view: view, store: store)
+        let presenter = EditKillTeamPresenter(view: view, store: store, userSettings: userSettings)
         view.presenter = presenter
         presenter.delegate = router as? EditKillTeamPresenterDelegate
         return view
@@ -73,14 +73,14 @@ class ModuleBuilder: BuilderProtocol {
     
     func createAddFireTeamModule(router: RouterProtocol) -> AddFireTeamTableVCProtocol {
         let view = AddFireTeamViewController()
-        let presenter = AddFireTeamPresenter(view: view, store: store)
+        let presenter = AddFireTeamPresenter(view: view, store: store, userSettings: userSettings)
         view.presenter = presenter
         return view
     }
     
     func createEditUnitModule(router: RouterProtocol) -> EditUnitViewControllerProtocol {
         let view = EditUnitViewController()
-        let presenter = EditUnitPresenter(view: view, store: store)
+        let presenter = EditUnitPresenter(view: view, store: store, userSettings: userSettings)
         presenter.delegate = router as? EditUnitPresenterDelegate
         view.presenter = presenter
         return view
@@ -99,7 +99,7 @@ class ModuleBuilder: BuilderProtocol {
 
     func createRosterModule(router: RouterProtocol) -> RosterTableViewControllerProtocol {
         let view = RosterTableViewController()
-        let presenter = RosterPresenter(view: view, store: store, router: router as! KillTeamObserverRouterProtocol)
+        let presenter = RosterPresenter(view: view, store: store, router: router as! KillTeamObserverRouterProtocol, userSettings: userSettings)
         view.presenter = presenter
         presenter.delegate = router as? RosterPresenterDelegate
         return view
@@ -107,7 +107,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createMoreInfooUnitModule(router: RouterProtocol) -> MoreInfoUnitViewControllerProtocol {
         let view = MoreInfoUnitViewController()
-        let presenter = MoreUnitInfoPresenter(view: view, store: store)
+        let presenter = MoreUnitInfoPresenter(view: view, store: store, userSettings: userSettings)
         view.presenter = presenter
         return view
     }
@@ -116,7 +116,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createPloysModule(router: RouterProtocol) -> PloysViewControllerProtocol {
         let view = PloysViewController()
-        let presenter = PloysPresenter(view: view, store: store, gameStore: gameStore, router: router as! PloysRouterProtocol)
+        let presenter = PloysPresenter(view: view, store: store, gameStore: gameStore, router: router as! PloysRouterProtocol, userSettings: userSettings)
         presenter.delegate = router as? PloysPresenterDelegate
         view.presenter = presenter
         return view
@@ -141,7 +141,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createTacOpsModule(router: RouterProtocol) -> TacOpsViewControllerProtocol {
         let view = TacOpsViewController()
-        let presenter = TacOpsPresenter(view: view, store: store, gameStore: gameStore, router: router as! TacOpsRouterProtocol)
+        let presenter = TacOpsPresenter(view: view, store: store, gameStore: gameStore, router: router as! TacOpsRouterProtocol, userSettings: userSettings)
         view.presenter = presenter
         presenter.delegate = router as? TacOpsPresenterDelegate
         return view
@@ -149,7 +149,7 @@ class ModuleBuilder: BuilderProtocol {
 
     func createChoosenTacOpsModule(router: RouterProtocol) -> ChoosenTacOpsViewControllerProtocol {
         let view = ChoosenTacOpsViewController()
-        let presenter = ChoosenTacOpsPresenter(view: view, gameStore: gameStore)
+        let presenter = ChoosenTacOpsPresenter(view: view, gameStore: gameStore, userSettings: userSettings)
         view.presenter = presenter
         return view
     }
