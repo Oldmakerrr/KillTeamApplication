@@ -39,11 +39,9 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
     }
     
     private func showCoachMarks() {
-        guard let presenter = presenter else { return }
-        if presenter.userSettings.isFirstTimeLaunch &&
-            !presenter.userSettings.isInstructionShowed.contains(self.description) {
-            presenter.userSettings.isInstructionShowed.append(self.description)
+        if !isCoachMarkShowed() {
             coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
         }
     }
 

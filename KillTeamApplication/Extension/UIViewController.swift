@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Instructions
 
 extension UIViewController {
     
@@ -109,6 +110,20 @@ extension UIViewController {
                 label.removeFromSuperview()
             })
         }
+    }
+
+    
+    func isCoachMarkShowed() -> Bool {
+        guard let viewController = self.description.components(separatedBy: ".").last?.components(separatedBy: ":").first else { return false }
+        let key = "Instruction_\(viewController)"
+        guard let data = UserDefaults.standard.value(forKey: key) as? Bool else { return false }
+        return data
+    }
+    
+    func setCoachMarkStateToShowed() {
+        guard let viewController = self.description.components(separatedBy: ".").last?.components(separatedBy: ":").first else { return }
+        let key = "Instruction_\(viewController)"
+        UserDefaults.standard.set(true, forKey: key)
     }
     
 }

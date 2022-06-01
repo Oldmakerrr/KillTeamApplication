@@ -6,15 +6,15 @@
 //
 
 import UIKit
+import Instructions
 
 extension EditKillTeamTableViewController {
     
     func showCoachMarks() {
-        guard let presenter = presenter,
-              let killTeam = presenter.model.killTeam else { return }
-        if presenter.userSettings.isFirstTimeLaunch && !killTeam.choosenFireTeam.isEmpty && !presenter.userSettings.isInstructionShowed.contains(self.description) {
-            presenter.userSettings.isInstructionShowed.append(self.description)
+        guard let killTeam = presenter?.model.killTeam else { return }
+        if !isCoachMarkShowed() && !killTeam.choosenFireTeam.isEmpty {
             coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
         }
     }
     

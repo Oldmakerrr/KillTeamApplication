@@ -10,6 +10,13 @@ import UIKit
 
 extension EditUnitViewController {
     
+    func showCoachMarks() {
+        if !isCoachMarkShowed() {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
+    }
+    
 //MARK: - ChaosBlessing
     
     func setupChaosBlesisnButton() {

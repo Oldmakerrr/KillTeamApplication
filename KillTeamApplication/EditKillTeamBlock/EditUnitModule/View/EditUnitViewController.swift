@@ -41,7 +41,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        coachMarksController.start(in: .window(over: self))
+        showCoachMarks()
     }
    
     

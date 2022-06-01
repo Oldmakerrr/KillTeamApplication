@@ -83,7 +83,6 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         fillCounterStackView()
         setupTextToAbilitieView()
         currentPloysViewState()
-      
     }
     
     override func viewWillDisappear(_ animated: Bool) {
