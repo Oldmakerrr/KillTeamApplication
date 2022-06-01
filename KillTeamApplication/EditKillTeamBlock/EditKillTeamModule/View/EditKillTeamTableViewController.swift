@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Instructions
 
 class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtocol {
+    
+    let coachMarksController = CoachMarksController()
     
     var presenter: EditKillTeamPresenterProtocol?
     
@@ -21,6 +24,9 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
         tableView.register(EditKillTeamCell.self, forCellReuseIdentifier: EditKillTeamCell.identifier)
         setupTitleView(name: presenter?.model.killTeam?.userCustomName ?? presenter?.model.killTeam?.killTeamName)
         addGestureToTitleView()
+        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,10 +34,20 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
         checkTableViewState()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let presenter = presenter,
+              let killTeam = presenter.model.killTeam else { return }
+        if presenter.userSettings.isFirstTimeLaunch && !killTeam.choosenFireTeam.isEmpty && !presenter.userSettings.isInstructionShowed.contains(self.description) {
+            coachMarksController.start(in: .window(over: self))
+            presenter.userSettings.isInstructionShowed.append(self.description)
+        }
+    }
    
     
     override func viewWillDisappear(_ animated: Bool) {
         addUnitOrFireTeamButton.removeFromSuperview()
+        coachMarksController.stop(immediately: true)
     }
     
 // MARK: - TableViewDataSource

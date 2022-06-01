@@ -14,7 +14,8 @@
 		1810011C27EB633B00A18B1B /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810011B27EB633B00A18B1B /* HeaderView.swift */; };
 		18103AA127F5F9F400DBD2C4 /* ErrorLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18103AA027F5F9F400DBD2C4 /* ErrorLayer.swift */; };
 		181E3540284724DF002BB1BE /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E353F284724DF002BB1BE /* UserSettings.swift */; };
-		181E354228474F89002BB1BE /* CoachMarkExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E354128474F89002BB1BE /* CoachMarkExtention.swift */; };
+		181E354228474F89002BB1BE /* CoachMarkCounterExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E354128474F89002BB1BE /* CoachMarkCounterExtention.swift */; };
+		181E3544284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E3543284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift */; };
 		18339DAC27C21BED00EBCC35 /* TacOpsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */; };
 		1857E36A27C4E6D100FEFA76 /* TacOpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36927C4E6D100FEFA76 /* TacOpView.swift */; };
 		1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */; };
@@ -177,7 +178,8 @@
 		1810011B27EB633B00A18B1B /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		18103AA027F5F9F400DBD2C4 /* ErrorLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLayer.swift; sourceTree = "<group>"; };
 		181E353F284724DF002BB1BE /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		181E354128474F89002BB1BE /* CoachMarkExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkExtention.swift; sourceTree = "<group>"; };
+		181E354128474F89002BB1BE /* CoachMarkCounterExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkCounterExtention.swift; sourceTree = "<group>"; };
+		181E3543284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkEditKillTeamExtention.swift; sourceTree = "<group>"; };
 		18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsCollectionCell.swift; sourceTree = "<group>"; };
 		1857E36927C4E6D100FEFA76 /* TacOpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpView.swift; sourceTree = "<group>"; };
 		1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsModel.swift; sourceTree = "<group>"; };
@@ -676,7 +678,7 @@
 			children = (
 				18A5219F27C18467003A29DA /* CounterViewController.swift */,
 				18A521A127C18486003A29DA /* ExtentionCounter.swift */,
-				181E354128474F89002BB1BE /* CoachMarkExtention.swift */,
+				181E354128474F89002BB1BE /* CoachMarkCounterExtention.swift */,
 				18E908BC280BE57B0077516B /* CustomView */,
 			);
 			path = View;
@@ -713,6 +715,7 @@
 			children = (
 				18A521AF27C18566003A29DA /* EditKillTeamTableViewController.swift */,
 				186E003A2827E130006E86E9 /* ExtensionEditKillTeamVC.swift */,
+				181E3543284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift */,
 				18E908BA280BE39A0077516B /* Cell */,
 				18E908B9280BE38C0077516B /* CustomView */,
 			);
@@ -1420,6 +1423,7 @@
 				18E908E3280C22F70077516B /* UnitAbilitie.swift in Sources */,
 				18E909B9281930F10077516B /* Novitiate.swift in Sources */,
 				18A5217827C181E8003A29DA /* AddFireTeamModel.swift in Sources */,
+				181E3544284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift in Sources */,
 				18D3B94C27C18F7200B74C2D /* MoreInfoUnitViewController.swift in Sources */,
 				1857E37727C57BF600FEFA76 /* ChoosenTacOpsCell.swift in Sources */,
 				186EFFF2281B0F1C006E86E9 /* AllegoryTableViewController.swift in Sources */,
@@ -1490,7 +1494,7 @@
 				18E909DE281A8EF20077516B /* ImperativeView.swift in Sources */,
 				18A521BC27C18ABC003A29DA /* EditUnitWargearCell.swift in Sources */,
 				186EFFFA281B0F8E006E86E9 /* HunterCadreAbilitieView.swift in Sources */,
-				181E354228474F89002BB1BE /* CoachMarkExtention.swift in Sources */,
+				181E354228474F89002BB1BE /* CoachMarkCounterExtention.swift in Sources */,
 				18E908C3280BE6100077516B /* BigLabel.swift in Sources */,
 				186EFFEC281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift in Sources */,
 				18A521A227C18486003A29DA /* ExtentionCounter.swift in Sources */,

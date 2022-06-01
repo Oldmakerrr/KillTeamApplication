@@ -10,7 +10,7 @@ import Instructions
 
 class CounterViewController: UIViewController, CounterViewProtocol {
     
-    let coachMarkController = CoachMarksController()
+    let coachMarksController = CoachMarksController()
     
     var presenter: CounterPresenterProtocol?
     
@@ -71,8 +71,8 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         setupSubView()
         setupDelegates()
         
-        coachMarkController.dataSource = self
-        coachMarkController.delegate = self
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,7 +80,7 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         guard let presenter = presenter else { return }
         if presenter.userSettings.isFirstTimeLaunch && !presenter.userSettings.isInstructionShowed.contains(self.description) {
             presenter.userSettings.isInstructionShowed.append(self.description)
-            coachMarkController.start(in: .window(over: self))
+            coachMarksController.start(in: .window(over: self))
         }
     }
     
@@ -95,6 +95,7 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
     override func viewWillDisappear(_ animated: Bool) {
         addKillTeamButton.removeFromSuperview()
+        coachMarksController.stop(immediately: true)
     }
     
     func showAlert(ploy: Ploy) {
