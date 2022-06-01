@@ -36,6 +36,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {

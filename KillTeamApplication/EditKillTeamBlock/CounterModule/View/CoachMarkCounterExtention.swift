@@ -51,3 +51,16 @@ extension CounterViewController: CoachMarksControllerDataSource, CoachMarksContr
     }
     
 }
+
+extension CounterViewController: CoachMarksControllerAnimationDelegate {
+    
+    func coachMarksController(
+        _ coachMarksController: CoachMarksController,
+        fetchAppearanceTransitionOfCoachMark coachMarkView: UIView,
+        at index: Int,
+        using manager: CoachMarkTransitionManager
+    ) {
+        manager.parameters.duration = 0.7
+    }
+    
+}

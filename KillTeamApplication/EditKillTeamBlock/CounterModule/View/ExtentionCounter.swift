@@ -104,6 +104,7 @@ extension CounterViewController {
         victoryPoint.delegate = presenter as? CounterPointViewDelegate
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
     }
     
     func fillCounterStackView() {

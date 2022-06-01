@@ -27,6 +27,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
         
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {

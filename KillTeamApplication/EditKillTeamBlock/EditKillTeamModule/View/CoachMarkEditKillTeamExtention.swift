@@ -21,11 +21,11 @@ extension EditKillTeamTableViewController: CoachMarksControllerDataSource, Coach
             coachView.bodyView.hintLabel.text = "Tap on cell - Edit Unit"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
-            previewSwipeActions(message: "Change", actionBackgroundColor: UIColor.orange, swipeDirection: .left, tableView: tableView)
+            previewSwipeActions(message: "  Change  ", actionBackgroundColor: UIColor.orange, swipeDirection: .left, tableView: tableView)
             coachView.bodyView.hintLabel.text = "Left Swipe - Change or Rename unit"
             coachView.bodyView.nextLabel.text = "Next"
         case 2:
-            previewSwipeActions(message: "Remove", actionBackgroundColor: UIColor.red, swipeDirection: .right, tableView: tableView)
+            previewSwipeActions(message: "  Remove  ", actionBackgroundColor: UIColor.red, swipeDirection: .right, tableView: tableView)
             coachView.bodyView.hintLabel.text = "Right swipe - Remove unit"
             coachView.bodyView.nextLabel.text = "Next"
         case 3:
@@ -54,5 +54,19 @@ extension EditKillTeamTableViewController: CoachMarksControllerDataSource, Coach
         4
     }
     
+    
+}
+
+
+extension EditKillTeamTableViewController: CoachMarksControllerAnimationDelegate {
+    
+    func coachMarksController(
+        _ coachMarksController: CoachMarksController,
+        fetchAppearanceTransitionOfCoachMark coachMarkView: UIView,
+        at index: Int,
+        using manager: CoachMarkTransitionManager
+    ) {
+        manager.parameters.duration = 0.7
+    }
     
 }
