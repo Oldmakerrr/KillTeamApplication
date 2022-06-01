@@ -29,7 +29,7 @@ protocol CounterPresenterProtocol: AnyObject {
     var model: CounterModel {get set}
     var store: StoreProtocol {get}
     var gameStore: GameStoreProtocol { get }
-    var userSettings: UserSettingsProtocol { get }
+    var userSettings: UserSettingsProtocol { get set }
     
     func showKillTeamAbilitieViewController()
     func buttonAction(sender: UIButton)
@@ -51,7 +51,7 @@ class CounterPresenter: CounterPresenterProtocol {
     
     let gameStore: GameStoreProtocol
     
-    let userSettings: UserSettingsProtocol
+    var userSettings: UserSettingsProtocol
     
     weak var view: CounterViewProtocol?
     
