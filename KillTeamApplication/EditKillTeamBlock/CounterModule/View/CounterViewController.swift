@@ -77,11 +77,11 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let presenter = presenter else { return }
-        if presenter.userSettings.isFirstTimeLaunch && !presenter.userSettings.isInstructionShowed.contains(self.description) {
-            presenter.userSettings.isInstructionShowed.append(self.description)
-            coachMarksController.start(in: .window(over: self))
-        }
+      //  guard let presenter = presenter else { return }
+      //  if presenter.userSettings.isFirstTimeLaunch && !presenter.userSettings.isInstructionShowed.contains(self.description) {
+      //      presenter.userSettings.isInstructionShowed.append(self.description)
+      //      coachMarksController.start(in: .window(over: self))
+      //  }
     }
     
     override func viewWillAppear(_ animated: Bool) {

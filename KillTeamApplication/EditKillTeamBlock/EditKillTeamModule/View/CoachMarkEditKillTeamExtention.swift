@@ -7,6 +7,7 @@
 
 import Foundation
 import Instructions
+import UIKit
 
 extension EditKillTeamTableViewController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
     
@@ -19,9 +20,11 @@ extension EditKillTeamTableViewController: CoachMarksControllerDataSource, Coach
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
             coachView.bodyView.hintLabel.text = "Left Swipe - Change or Rename unit"
+            previewSwipeActions(message: "Change", actionBackgroundColor: UIColor.orange, swipeDirection: .left, tableView: tableView)
             coachView.bodyView.nextLabel.text = "Next"
         case 2:
             coachView.bodyView.hintLabel.text = "Right swipe - Remove unit"
+            previewSwipeActions(message: "Remove", actionBackgroundColor: UIColor.red, swipeDirection: .right, tableView: tableView)
             coachView.bodyView.nextLabel.text = "Next"
         case 3:
             coachView.bodyView.hintLabel.text = "You may add new Unit or Fire Team."
@@ -31,7 +34,6 @@ extension EditKillTeamTableViewController: CoachMarksControllerDataSource, Coach
         }
         return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
     }
-    
     
     
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
@@ -46,12 +48,9 @@ extension EditKillTeamTableViewController: CoachMarksControllerDataSource, Coach
     }
     
     
-    
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
         4
     }
-    
-    
     
     
 }

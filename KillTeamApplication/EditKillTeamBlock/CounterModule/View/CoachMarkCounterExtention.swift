@@ -52,9 +52,4 @@ extension CounterViewController: CoachMarksControllerDataSource, CoachMarksContr
         return 3
     }
     
-    
-    
-    
-    
-    
 }

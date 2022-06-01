@@ -59,4 +59,56 @@ extension UIViewController {
         ])
     }
     
+    enum PreviewSwipeDirection {
+        case left
+        case right
+    }
+    
+    func previewSwipeActions(forCellAt indexPath: IndexPath = IndexPath(row: 0, section: 0),
+                             message: String = "  Swipe me  ",
+                             actionBackgroundColor: UIColor = UIColor.blue,
+                             swipeDirection: PreviewSwipeDirection,
+                             tableView: UITableView) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
+
+        let label: UILabel = {
+            let label = UILabel(frame: CGRect.zero)
+            label.text = message
+            label.backgroundColor = actionBackgroundColor
+            label.textColor = .white
+            return label
+        }()
+        
+        let bestSize = label.sizeThatFits(label.frame.size)
+        switch swipeDirection {
+        case .left:
+            label.frame = CGRect(x: 0, y: 0, width: bestSize.width, height: cell.bounds.height)
+        case .right:
+            label.frame = CGRect(x: cell.bounds.width - bestSize.width, y: 0, width: bestSize.width, height: cell.bounds.height)
+        }
+        
+        cell.insertSubview(label, belowSubview: cell.contentView)
+
+        UIView.animate(withDuration: 0.3, animations: {
+            switch swipeDirection {
+            case .left:
+                cell.transform = CGAffineTransform.identity.translatedBy(x: label.bounds.width, y: 0)
+                label.transform = CGAffineTransform.identity.translatedBy(x: -label.bounds.width, y: 0)
+            case .right:
+                cell.transform = CGAffineTransform.identity.translatedBy(x: -label.bounds.width, y: 0)
+                label.transform = CGAffineTransform.identity.translatedBy(x: label.bounds.width, y: 0)
+            }
+        }) { (finished) in
+            UIView.animateKeyframes(withDuration: 0.3, delay: 0.4, options: [], animations: {
+                cell.transform = CGAffineTransform.identity
+                label.transform = CGAffineTransform.identity
+            }, completion: { (finished) in
+                label.removeFromSuperview()
+            })
+        }
+    }
+    
 }
