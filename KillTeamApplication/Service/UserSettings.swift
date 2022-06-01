@@ -7,7 +7,11 @@
 
 import Foundation
 
-class UserSettings {
+protocol UserSettingsProtocol {
+    var firstTimeLaunch: Bool { get }
+}
+
+class UserSettings: UserSettingsProtocol {
     
     var firstTimeLaunch: Bool
     

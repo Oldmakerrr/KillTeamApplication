@@ -36,18 +36,20 @@ class ModuleBuilder: BuilderProtocol {
     let store: StoreProtocol
     let gameStore: GameStoreProtocol
     let storage: StorageProtocol
+    let userSettings: UserSettingsProtocol
     
-    init (store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol) {
+    init (store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol, userSettings: UserSettingsProtocol) {
         self.store = store
         self.gameStore = gameStore
         self.storage = storage
+        self.userSettings = userSettings
     }
     
 //MARK: - EditKillTeam
     
     func createCounterModule(router: RouterProtocol) -> CounterViewProtocol{
         let view = CounterViewController()
-        let presenter = CounterPresenter(view: view, router: router as! EditKillTeamRouterProtocol, store: store, gameStore: gameStore, storage: storage)
+        let presenter = CounterPresenter(view: view, router: router as! EditKillTeamRouterProtocol, store: store, gameStore: gameStore, storage: storage, userSettings: userSettings)
         view.presenter = presenter
         presenter.delegate = router as? CounterPresenterDelegate
         return view

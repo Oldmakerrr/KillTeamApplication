@@ -49,7 +49,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let gameStore = GameStore()
         let store = Store()
         let storage = Storage(store: store)
-        let builder = ModuleBuilder(store: store, gameStore: gameStore, storage: storage)
+        let builder = ModuleBuilder(store: store,
+                                    gameStore: gameStore,
+                                    storage: storage,
+                                    userSettings: userSettings)
         let router = MainRouter(builder: builder)
         DispatchQueue.global(qos: .utility).async {
             storage.loadSavedKillTeam()

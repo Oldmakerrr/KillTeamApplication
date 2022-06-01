@@ -25,10 +25,11 @@ protocol CounterViewProtocol: AnyObject {
 }
 
 protocol CounterPresenterProtocol: AnyObject {
-    init (view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol)
+    init (view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol, userSettings: UserSettingsProtocol)
     var model: CounterModel {get set}
     var store: StoreProtocol {get}
     var gameStore: GameStoreProtocol { get }
+    var userSettings: UserSettingsProtocol { get }
     
     func showKillTeamAbilitieViewController()
     func buttonAction(sender: UIButton)
@@ -50,6 +51,8 @@ class CounterPresenter: CounterPresenterProtocol {
     
     let gameStore: GameStoreProtocol
     
+    let userSettings: UserSettingsProtocol
+    
     weak var view: CounterViewProtocol?
     
     weak var delegate: CounterPresenterDelegate?
@@ -60,12 +63,13 @@ class CounterPresenter: CounterPresenterProtocol {
         }
     }
     
-    required init(view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol) {
+    required init(view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.router = router
         self.store = store
         self.storage = storage
         self.gameStore = gameStore
+        self.userSettings = userSettings
         self.gameStore.multicastDelegate.addDelegate(self)
         self.store.multicastDelegate.addDelegate(self)
     }
