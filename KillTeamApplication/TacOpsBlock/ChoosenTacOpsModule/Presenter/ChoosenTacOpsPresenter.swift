@@ -14,7 +14,8 @@ protocol ChoosenTacOpsViewControllerProtocol: AnyObject {
 }
 
 protocol ChoosenTacOpsPresenterProtocol: AnyObject {
-    init(view: ChoosenTacOpsViewControllerProtocol, gameStore: GameStoreProtocol)
+    init(view: ChoosenTacOpsViewControllerProtocol, gameStore: GameStoreProtocol, userSettings: UserSettingsProtocol)
+    var userSettings: UserSettingsProtocol { get }
     var view: ChoosenTacOpsViewControllerProtocol? { get }
     var gameStore: GameStoreProtocol { get }
     var model: ChoosenTacOpsModel { get }
@@ -23,13 +24,19 @@ protocol ChoosenTacOpsPresenterProtocol: AnyObject {
 }
 
 class ChoosenTacOpsPresenter: ChoosenTacOpsPresenterProtocol {
+    
     weak var view: ChoosenTacOpsViewControllerProtocol?
+    
     var model = ChoosenTacOpsModel()
+    
     var gameStore: GameStoreProtocol
     
-    required init(view: ChoosenTacOpsViewControllerProtocol, gameStore: GameStoreProtocol) {
+    let userSettings: UserSettingsProtocol
+    
+    required init(view: ChoosenTacOpsViewControllerProtocol, gameStore: GameStoreProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.gameStore = gameStore
+        self.userSettings = userSettings
         gameStore.multicastDelegate.addDelegate(self)
     }
     

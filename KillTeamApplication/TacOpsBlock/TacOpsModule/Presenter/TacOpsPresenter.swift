@@ -15,9 +15,10 @@ protocol TacOpsViewControllerProtocol: AnyObject {
 }
 
 protocol TacOpsPresenterProtocol: AnyObject {
-    init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol)
+    init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol, userSettings: UserSettingsProtocol)
     var view: TacOpsViewControllerProtocol? { get }
     var model: TacOpsModel { get }
+    var userSettings: UserSettingsProtocol { get }
     
     func pickTacOps(sender: TypeOfTacOp, collectionView: UICollectionView)
     func mixDeck()
@@ -44,13 +45,16 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     var model = TacOpsModel()
     
+    let userSettings: UserSettingsProtocol
+    
     private var selectedTacOp: TacOp?
     
-    required init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol) {
+    required init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
         self.gameStore = gameStore
         self.router = router
+        self.userSettings = userSettings
         gameStore.multicastDelegate.addDelegate(self)
         store.multicastDelegate.addDelegate(self)
         loadTacOps(tacOps: gameStore.tacOps)

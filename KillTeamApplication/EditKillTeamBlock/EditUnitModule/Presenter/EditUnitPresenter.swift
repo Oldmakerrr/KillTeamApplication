@@ -18,7 +18,8 @@ protocol EditUnitPresenterProtocol: AnyObject {
     var view: EditUnitViewControllerProtocol? { get }
     var model: ChoosenUnit { get }
     var store: StoreProtocol { get }
-    init (view: EditUnitViewControllerProtocol, store: StoreProtocol)
+    var userSettings: UserSettingsProtocol { get }
+    init (view: EditUnitViewControllerProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol)
     
     func goToAbilitieKillTeamViewController()
     func setImage() -> String?
@@ -45,9 +46,12 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
     
     var store: StoreProtocol
     
-    required init(view: EditUnitViewControllerProtocol, store: StoreProtocol) {
+    let userSettings: UserSettingsProtocol
+    
+    required init(view: EditUnitViewControllerProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
+        self.userSettings = userSettings
         self.store.multicastDelegate.addDelegate(self)
         self.model.indexPathUnit = store.indexOfChoosenUnit
         prepareModel()
