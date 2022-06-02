@@ -16,6 +16,7 @@ extension PloysViewController: CoachMarksControllerDataSource, CoachMarksControl
             coachView.bodyView.hintLabel.text = "Here you may show number of Command Point"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
+            tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.animateSelect()
             coachView.bodyView.hintLabel.text = "Tap cell - use Ploy, you can't used it if you have not enothe Command Point"
             coachView.bodyView.nextLabel.text = "OK"
         default:

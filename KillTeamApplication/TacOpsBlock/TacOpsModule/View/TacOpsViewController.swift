@@ -6,15 +6,21 @@
 //
 
 import UIKit
+import Instructions
 
 class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
+    
+    let coachMarksController = CoachMarksController()
 
     var presenter: TacOpsPresenterProtocol?
     
-    let goToChoosenTacOpsButton = UIBarButtonItem()
+    let goToChoosenTacOpsButton = UIButton()
    
     let customAlert = CustomScrollAlert()
+    
     var moreInfoTacOpView = TacOpView()
+    let changeTacOpsTypeButton = UIButton()
+    let mixDeckButton = UIButton()
     
     let tacOpsCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,6 +38,9 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
         setupRightBarButton()
         setupGoToChoosenTacOpsButton()
         
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +50,15 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        coachMarksController.start(in: .window(over: self))
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        coachMarksController.stop()
+    }
     
 }
 

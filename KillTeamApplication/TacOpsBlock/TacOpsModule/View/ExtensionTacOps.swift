@@ -27,6 +27,17 @@ extension TacOpsViewController {
     }
     
     func setupRightBarButton() {
+        changeTacOpsTypeButton.addTarget(self, action: #selector(changeTacOpsType), for: .touchUpInside)
+        changeTacOpsTypeButton.setBackgroundImage(UIImage(named: "change"), for: .normal)
+        mixDeckButton.addTarget(self, action: #selector(mixDeck), for: .touchUpInside)
+        changeTacOpsTypeButton.action = #selector(changeTacOpsType)
+        changeTacOpsTypeButton.target = self
+        changeTacOpsTypeButton.image = UIImage(named: "change")
+        
+        mixDeckButton.action = #selector(mixDeck)
+        mixDeckButton.target = self
+        mixDeckButton.image = UIImage(systemName: "arrow.2.circlepath")
+        /*
         let changeTacOpsTypeButton = UIBarButtonItem(image: UIImage(named: "change"),
                                                      style: .done,
                                                      target: self,
@@ -35,6 +46,7 @@ extension TacOpsViewController {
                                             style: .done,
                                             target: self,
                                             action: #selector(mixDeck))
+         */
         navigationItem.rightBarButtonItems = [mixDeckButton, changeTacOpsTypeButton]
     }
     
