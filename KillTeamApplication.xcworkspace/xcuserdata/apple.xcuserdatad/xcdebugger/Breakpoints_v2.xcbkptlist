@@ -30,9 +30,9 @@
             filePath = "KillTeamApplication/PloysBlock/PloysModule/View/PloysViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "psychicPowerButtonAction()"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "shouldPsychicPowerButton(shouldShow:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

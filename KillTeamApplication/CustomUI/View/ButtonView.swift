@@ -13,11 +13,11 @@ class ButtonView: BaseView {
     let width: CGFloat
     let height: CGFloat
     
-    init(button: UIButton, width: CGFloat, height: CGFloat) {
+    init(button: UIButton, width: CGFloat, height: CGFloat, blureStyle: UIBlurEffect.Style? = nil) {
         self.button = button
         self.width = width
         self.height = height
-        super.init(frame: .zero)
+        super.init(blureStyle: blureStyle)
     }
     
     required init?(coder: NSCoder) {

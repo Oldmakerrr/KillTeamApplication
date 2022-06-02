@@ -27,7 +27,6 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        setupRightNavigationLabel(label: commandPointLabel)
         setupTableView()
         //tabBarController?.delegate = self
         navigationItem.title = "Ploys"
@@ -36,13 +35,19 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         commandPointLabel.text = "CP = \(presenter?.model.gameData.countCommandPoint ?? 0)"
-        
         emptyTableState()
-        let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
-        shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
         setupKillTeamAbilitieButton()
+        let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
+        setupRightNavigationLabel(label: commandPointLabel)
+        shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        commandPointLabel.removeFromSuperview()
+        psychicPowerButton.removeFromSuperview()
+    }
+    
     
     func emptyTableState() {
         if presenter?.model.strategicPloy.count == 0 && presenter?.model.tacticalPloy.count == 0 {
@@ -55,7 +60,6 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     func setupKillTeamAbilitieButton() {
         guard presenter?.model.killTeam?.abilitiesOfKillTeam != nil else {
-        
             navigationItem.leftBarButtonItem = nil
             return }
         let killTeamAbilitieBarButtonItem = UIBarButtonItem(image: nil,

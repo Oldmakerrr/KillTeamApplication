@@ -38,6 +38,16 @@ extension EditUnitViewController {
     
 //MARK: - Methods
     
+    func setupTableView() {
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: unitNameLabelView.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
     func showChooseAbilitieAlert(title: String) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "Done", style: .cancel, handler: nil)

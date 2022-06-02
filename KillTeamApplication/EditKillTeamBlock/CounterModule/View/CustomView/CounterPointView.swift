@@ -18,9 +18,9 @@ class CounterPointView: BaseView {
     
     var title: String
     
-    init(title: String) {
+    init(title: String, blureStyle: UIBlurEffect.Style? = nil) {
         self.title = title
-        super.init(frame: .zero)
+        super.init(blureStyle: blureStyle)
     }
     
     required init?(coder: NSCoder) {
