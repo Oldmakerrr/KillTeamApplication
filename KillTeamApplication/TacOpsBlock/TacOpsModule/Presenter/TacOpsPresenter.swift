@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol TacOpsViewControllerProtocol: AnyObject {
-    var goToChoosenTacOpsButton: UIBarButtonItem { get }
+    var goToChoosenTacOpsButton: UIButton { get }
     var presenter: TacOpsPresenterProtocol? { get }
     var tacOpsCollection: UICollectionView { get }
 }

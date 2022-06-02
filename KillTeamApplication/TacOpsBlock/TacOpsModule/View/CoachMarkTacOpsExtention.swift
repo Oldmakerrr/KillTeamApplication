@@ -34,14 +34,13 @@ extension TacOpsViewController: CoachMarksControllerDataSource, CoachMarksContro
     
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
         var coachMark = CoachMark()
-      //  guard let navigationBar = navigationBar else { return CoachMark() }
         switch index {
         case 0:
-            coachMark = coachMarksController.helper.makeCoachMark(forFrame: CGRect(x: 10, y: 5, width: 30, height: 30), in: navigationController?.navigationBar)
+            coachMark = coachMarksController.helper.makeCoachMark(for: goToChoosenTacOpsButton)
         case 1:
-            coachMark = coachMarksController.helper.makeCoachMark(forFrame: CGRect(x: 270, y: 5, width: 30, height: 30), in: navigationController?.navigationBar)
+            coachMark = coachMarksController.helper.makeCoachMark(for: mixDeckButton)
         case 2:
-            coachMark = coachMarksController.helper.makeCoachMark(forFrame: CGRect(x: 330, y: 5, width: 30, height: 30), in: navigationController?.navigationBar)
+            coachMark = coachMarksController.helper.makeCoachMark(for: changeTacOpsTypeButton)
         case 3:
             coachMark = coachMarksController.helper.makeCoachMark(for: tacOpsCollection.cellForItem(at: IndexPath(row: 0, section: 0)))
 
