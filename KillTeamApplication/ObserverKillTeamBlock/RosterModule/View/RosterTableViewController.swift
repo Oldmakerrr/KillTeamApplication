@@ -6,15 +6,22 @@
 //
 
 import UIKit
+import Instructions
 
 class RosterTableViewController: UITableViewController, RosterTableViewControllerProtocol {
     
     var presenter: RosterPresenterProtocol?
+    
+    let coachMarksController = CoachMarksController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.register(RosterTableViewCell.self, forCellReuseIdentifier: RosterTableViewCell.identifier)
+        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -22,6 +29,26 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
         checkEmptyStateTableView()
         navigationItem.title = presenter?.model.killTeam?.userCustomName ?? presenter?.model.killTeam?.factionName
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        coachMarksController.stop(immediately: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showCoachMarks()
+    }
+    
+    
+    private func showCoachMarks() {
+        guard let killTeam = presenter?.model.killTeam else { return }
+        if !isCoachMarkShowed() && !killTeam.choosenFireTeam.isEmpty {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
+    }
+    
     
     private func checkEmptyStateTableView() {
         restore()
