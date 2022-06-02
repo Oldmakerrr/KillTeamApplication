@@ -14,42 +14,48 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     let tableView = UITableView()
     
-    let commandPointLabel = BoldLabel()
+    let commandPointLabel = NormalLabel()
+    
+    let psychicPowerButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(systemName: "flame.fill"), for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        setupRightNavigationLabel(label: commandPointLabel)
         setupTableView()
-        tabBarController?.delegate = self
+        //tabBarController?.delegate = self
         navigationItem.title = "Ploys"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        setupRightNavigationLabel(label: commandPointLabel)
         commandPointLabel.text = "CP = \(presenter?.model.gameData.countCommandPoint ?? 0)"
+        
+        emptyTableState()
+        let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
+        shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
+        setupKillTeamAbilitieButton()
+    }
+
+    
+    func emptyTableState() {
         if presenter?.model.strategicPloy.count == 0 && presenter?.model.tacticalPloy.count == 0 {
             setEmptyState(title: "No Kill Team",
                           message: "Please choose or create new Kill Team on the main screen")
         } else {
             restore()
         }
-        let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
-        shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
-        setupKillTeamAbilitieButton()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        commandPointLabel.removeFromSuperview()
-    }
-    
-    func setupCommandPointLabel() {
-        
     }
     
     func setupKillTeamAbilitieButton() {
         guard presenter?.model.killTeam?.abilitiesOfKillTeam != nil else {
+        
             navigationItem.leftBarButtonItem = nil
             return }
         let killTeamAbilitieBarButtonItem = UIBarButtonItem(image: nil,
@@ -65,8 +71,13 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     }
     
     func setupPsychicPowerButton() {
-        let psychicPowerButton = UIBarButtonItem(image: UIImage(systemName: "flame.fill"), style: .done, target: self, action: #selector(psychicPowerButtonAction))
-        navigationItem.rightBarButtonItem = psychicPowerButton
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        psychicPowerButton.addTarget(self, action: #selector(psychicPowerButtonAction), for: .touchUpInside)
+        navigationBar.addSubview(psychicPowerButton)
+        NSLayoutConstraint.activate([
+            psychicPowerButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
+            psychicPowerButton.trailingAnchor.constraint(equalTo: commandPointLabel.leadingAnchor, constant: -Constant.Size.Otstup.normal)
+        ])
     }
     
     @objc func psychicPowerButtonAction() {
@@ -77,7 +88,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         if shouldShow {
             setupPsychicPowerButton()
         } else {
-            navigationItem.rightBarButtonItem = nil
+            psychicPowerButton.removeFromSuperview()
         }
     }
     
@@ -186,14 +197,14 @@ extension PloysViewController: UITableViewDelegate {
     
 }
 
-extension PloysViewController: UITabBarControllerDelegate {
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        guard let nav = viewController as? UINavigationController else { return }
-        nav.popToRootViewController(animated: true)
-    }
-    
-}
+//extension PloysViewController: UITabBarControllerDelegate {
+//
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        guard let nav = viewController as? UINavigationController else { return }
+//        nav.popToRootViewController(animated: true)
+//    }
+//
+//}
 
 extension PloysViewController: WeaponRuleButtonDelegate {
     

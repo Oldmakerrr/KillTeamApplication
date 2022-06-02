@@ -101,7 +101,6 @@ extension TacOpsViewController {
     }
     
     
-    
 //MARK: - EditTacOpsDeck
     
     private func changeTacOpsAlert() {
