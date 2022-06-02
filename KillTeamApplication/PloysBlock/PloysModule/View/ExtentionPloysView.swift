@@ -10,6 +10,14 @@ import UIKit
 
 extension PloysViewController {
     
+    func showCoachMarks() {
+        guard let killTeam = presenter?.model.killTeam else { return }
+        if !isCoachMarkShowed() && !killTeam.choosenFireTeam.isEmpty {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
+    }
+    
     func setupTableView() {
         view.addSubview(tableView)
         tableView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground

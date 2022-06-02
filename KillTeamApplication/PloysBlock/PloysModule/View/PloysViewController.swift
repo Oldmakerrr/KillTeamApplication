@@ -6,11 +6,13 @@
 //
 
 import UIKit
-
+import Instructions
 
 class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     var presenter: PloysPresenterProtocol?
+    
+    let coachMarksController = CoachMarksController()
     
     let tableView = UITableView()
     
@@ -30,6 +32,15 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         setupTableView()
         //tabBarController?.delegate = self
         navigationItem.title = "Ploys"
+        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showCoachMarks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +55,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        coachMarksController.stop()
         commandPointLabel.removeFromSuperview()
         psychicPowerButton.removeFromSuperview()
     }
