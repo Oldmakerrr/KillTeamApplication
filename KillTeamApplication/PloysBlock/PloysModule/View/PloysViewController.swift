@@ -14,7 +14,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     let tableView = UITableView()
     
-    let commandPointLabel = NormalLabel()
+    let commandPointLabel = BoldLabel()
     
     let psychicPowerButton: UIButton = {
         let button = UIButton()

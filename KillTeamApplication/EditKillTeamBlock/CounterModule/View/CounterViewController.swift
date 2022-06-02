@@ -61,9 +61,6 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     let nextTurnButton = ChangeTurnButton()
     let endGameButton = ChangeTurnButton()
     
-    lazy var nextTurnButtonView = ButtonView(button: nextTurnButton, width: 100, height: 30)
-    lazy var endGameButtonView = ButtonView(button: endGameButton, width: 100, height: 30)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()

@@ -27,10 +27,11 @@ class ToastTextView: BaseView {
     override func configure() {
         super.configure()
         label.textAlignment = .center
-        backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        //backgroundColor = UIColor.black.withAlphaComponent(0.8)
         label.textColor = UIColor.white
         alpha = 1.0
         layer.applyCornerRadius()
+        layer.masksToBounds = true
     }
     
     override func setupView() {

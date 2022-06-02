@@ -35,30 +35,6 @@ class CounterLabel: UILabel {
 
 class ChangePointButton: UIButton {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configure()
-    }
-    
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupImage(imageName: String) {
-        setImage(UIImage(systemName: imageName), for: .normal)
-    }
-    
-    private func configure() {
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = ColorScheme.shared.theme.buttonBackground
-        layer.applyBorder()
-        tintColor = ColorScheme.shared.theme.viewHeader
-    }
-}
-
-class ChangePointButtonN: UIButton {
-    
     let imageName: String
     
     init(imageName: String) {

@@ -35,7 +35,7 @@ extension UIViewController {
     }
     
     func showToast(message : String) {
-        let toastView = ToastTextView(message: message)
+        let toastView = ToastTextView(message: message, blureStyle: .dark)
         self.view.addSubview(toastView)
         NSLayoutConstraint.activate([
             toastView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
