@@ -35,15 +35,14 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
         navigationItem.title = "Seek & Destroy"
         setupTacOpsCollection()
         moreInfoTacOpView.delegate = self
-        setupRightBarButton()
-        setupGoToChoosenTacOpsButton()
-        
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
         coachMarksController.animationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setupRightBarButton()
+        setupGoToChoosenTacOpsButton()
         tacOpsCollection.reloadData()
         if let bool = presenter?.checkSelectTacOp {
             goToChoosenTacOpsButton.isEnabled = bool()
@@ -52,12 +51,13 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        coachMarksController.start(in: .window(over: self))
+        showCoachMarks()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         coachMarksController.stop()
+        clearNavigationBar()
     }
     
 }

@@ -10,7 +10,20 @@ import UIKit
 
 extension TacOpsViewController {
     
+    func showCoachMarks() {
+        if !isCoachMarkShowed() {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
+    }
+    
 //MARK: - SetupView
+    
+    func clearNavigationBar() {
+        goToChoosenTacOpsButton.removeFromSuperview()
+        changeTacOpsTypeButton.removeFromSuperview()
+        mixDeckButton.removeFromSuperview()
+    }
     
     func setupTacOpsCollection() {
         view.addSubview(tacOpsCollection)

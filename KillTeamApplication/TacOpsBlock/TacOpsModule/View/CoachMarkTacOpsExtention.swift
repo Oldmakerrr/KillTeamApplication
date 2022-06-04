@@ -14,16 +14,19 @@ extension TacOpsViewController: CoachMarksControllerDataSource, CoachMarksContro
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachView.bodyView.hintLabel.text = "Mark 1"
+            coachView.bodyView.hintLabel.text = "Then you select three Tac Ops you can enter to screen with choosen Tac Ops"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
-            coachView.bodyView.hintLabel.text = "MArk 2"
+            coachView.bodyView.hintLabel.text = "Press to mix deck"
             coachView.bodyView.nextLabel.text = "Next"
         case 2:
-            coachView.bodyView.hintLabel.text = "Mark 3"
+            coachView.bodyView.hintLabel.text = "Press to change type of Tac Op"
             coachView.bodyView.nextLabel.text = "Next"
         case 3:
-            coachView.bodyView.hintLabel.text = "Mark 4"
+            coachView.bodyView.hintLabel.text = "Press to select that Tac Op, you need choose three Tac Op"
+            coachView.bodyView.nextLabel.text = "Next"
+        case 4:
+            coachView.bodyView.hintLabel.text = "Preess to get more info about that Tac Op"
             coachView.bodyView.nextLabel.text = "OK"
         default:
             break
@@ -43,7 +46,10 @@ extension TacOpsViewController: CoachMarksControllerDataSource, CoachMarksContro
             coachMark = coachMarksController.helper.makeCoachMark(for: changeTacOpsTypeButton)
         case 3:
             coachMark = coachMarksController.helper.makeCoachMark(for: tacOpsCollection.cellForItem(at: IndexPath(row: 0, section: 0)))
-
+        case 4:
+            if let cell = tacOpsCollection.cellForItem(at: IndexPath(row: 0, section: 0)) as? TacOpsCollectionCell {
+                coachMark = coachMarksController.helper.makeCoachMark(for: cell.moreInfoButton)
+            }
         default:
             break
         }
@@ -52,7 +58,7 @@ extension TacOpsViewController: CoachMarksControllerDataSource, CoachMarksContro
     
     
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
-        return 4
+        return 5
     }
     
     
