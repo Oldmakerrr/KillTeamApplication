@@ -12,7 +12,6 @@ class MoreInfoUnitViewController: UIViewController, MoreInfoUnitViewControllerPr
     var presenter: MoreUnitInfoPresenterProtocol?
     
     let currentWoundLabel = HeaderLabel()
-    let characteristicsView = CharacteristicsView()
     
     let stepper = UIStepper()
     

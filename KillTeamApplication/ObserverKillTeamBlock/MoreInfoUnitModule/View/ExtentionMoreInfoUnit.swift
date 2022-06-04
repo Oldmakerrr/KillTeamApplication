@@ -52,10 +52,11 @@ extension MoreInfoUnitViewController {
     
     func setupAdditionalView() {
         guard let unit = presenter?.model.choosenUnit else { return }
-        addUnitCharacteristicsView(unit: unit)
+        let characteristicsView = CharacteristicsView()
         characteristicsView.layoutIfNeeded()
         let width = characteristicsView.frame.size.width
         characteristicsView.setupText(unit: unit, widthSuperView: width)
+        addUnitCharacteristicsView(unit: unit, characteristicsView: characteristicsView)
         addCurrentWoundView(unit: unit)
         addDescriptionView(text: unit.description)
         if let rangeWeapon = unit.selectedRangeWeapon {
@@ -237,7 +238,7 @@ extension MoreInfoUnitViewController {
         return backgroundView
     }
     
-    private func addUnitCharacteristicsView (unit: Unit) {
+    private func addUnitCharacteristicsView (unit: Unit, characteristicsView: CharacteristicsView) {
         addHeaderView(text: unit.name)
         let contentView = UIView()
         contentView.backgroundColor = ColorScheme.shared.theme.viewBackground
