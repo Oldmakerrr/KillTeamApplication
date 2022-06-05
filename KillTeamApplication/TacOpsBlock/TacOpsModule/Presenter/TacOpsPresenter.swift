@@ -84,14 +84,13 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     private func prepareTacOp(tacOp: TacOp) -> TacOp {
         var tacOp = tacOp
-        tacOp.isCompleteSubConditions = []
-        tacOp.isCompleteSubConditions?.append(false)
+        tacOp.isCompleteConditions.append(false)
         if tacOp.secondCondition != nil {
-            tacOp.isCompleteSubConditions?.append(false)
+            tacOp.isCompleteConditions.append(false)
         }
         if let subCondition = tacOp.subCondition {
             subCondition.forEach({ _ in
-                tacOp.isCompleteSubConditions?.append(false)
+                tacOp.isCompleteConditions.append(false)
             })
         }
         return tacOp
