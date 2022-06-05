@@ -34,10 +34,6 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
         navigationController?.navigationBar.clearNavigationBar()
     }
     
-    deinit {
-        print("VIEWCONTROLLER = NULL")
-    }
-    
     private func setupAbilitie() {
         guard let abilitie = presenter?.model.abilitie else { return }
         if let novitiateAbilitie = abilitie as? NovitiateAbilitie {
