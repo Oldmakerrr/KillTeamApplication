@@ -53,10 +53,10 @@ extension MoreInfoUnitViewController {
     func setupAdditionalView() {
         guard let unit = presenter?.model.choosenUnit else { return }
         let characteristicsView = CharacteristicsView()
+        addUnitCharacteristicsView(unit: unit, characteristicsView: characteristicsView)
         characteristicsView.layoutIfNeeded()
         let width = characteristicsView.frame.size.width
         characteristicsView.setupText(unit: unit, widthSuperView: width)
-        addUnitCharacteristicsView(unit: unit, characteristicsView: characteristicsView)
         addCurrentWoundView(unit: unit)
         addDescriptionView(text: unit.description)
         if let rangeWeapon = unit.selectedRangeWeapon {
