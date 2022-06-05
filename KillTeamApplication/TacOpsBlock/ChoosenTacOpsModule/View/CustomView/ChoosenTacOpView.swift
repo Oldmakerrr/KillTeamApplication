@@ -49,11 +49,8 @@ class ChoosenTacOpView: TacOpView {
         }
     }
     
-    override func setupText(tacOp: TacOp, delegate: WeaponRuleButtonDelegate) {
-        if let isCompleteSubConditions = tacOp.isCompleteSubConditions {
-            for condition in isCompleteSubConditions {
+    override func setupText(tacOp: TacOp, delegate: WeaponRuleButtonDelegate) {            for condition in tacOp.isCompleteConditions {
                 boolArray.append(condition)
-            }
         }
         super.setupText(tacOp: tacOp, delegate: delegate)
     }

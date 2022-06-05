@@ -12,9 +12,11 @@ class ToastTextView: BaseView {
     let label = NormalLabel()
     let contentEdgeInsets: UIEdgeInsets
     
-    init(message: String, contentEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)) {
+    init(message: String,
+         contentEdgeInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10),
+         blureStyle: UIBlurEffect.Style? = nil) {
         self.contentEdgeInsets = contentEdgeInsets
-        super.init(frame: .zero)
+        super.init(blureStyle: blureStyle)
         label.text = message
     }
     
@@ -25,10 +27,11 @@ class ToastTextView: BaseView {
     override func configure() {
         super.configure()
         label.textAlignment = .center
-        backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        //backgroundColor = UIColor.black.withAlphaComponent(0.8)
         label.textColor = UIColor.white
         alpha = 1.0
         layer.applyCornerRadius()
+        layer.masksToBounds = true
     }
     
     override func setupView() {

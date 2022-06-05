@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Instructions
 
 class ChoosenTacOpsViewController: UIViewController, ChoosenTacOpsViewControllerProtocol {
+    
+    let coachMarksController = CoachMarksController()
   
     var presenter: ChoosenTacOpsPresenterProtocol?
     
@@ -26,6 +29,27 @@ class ChoosenTacOpsViewController: UIViewController, ChoosenTacOpsViewController
         setupTacOpsCollection()
         choosenTacOpsCollectionView.dataSource = self
         choosenTacOpsCollectionView.delegate = self
+        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showCoachMarks()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        coachMarksController.stop(immediately: true)
+    }
+    
+    func showCoachMarks() {
+        if !isCoachMarkShowed() {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
     }
     
     func setupTacOpsCollection() {

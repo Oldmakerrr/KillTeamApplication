@@ -39,7 +39,6 @@ protocol AddFireTeamCellDelegate: AnyObject {
         let button = AddFireTeamButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.imageView?.tintColor = ColorScheme.shared.theme.selectedView
-        button.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
         return button
     }()
     
@@ -47,7 +46,6 @@ protocol AddFireTeamCellDelegate: AnyObject {
         let button = AddFireTeamButton()
         button.setImage(UIImage(systemName: "minus"), for: .normal)
         button.imageView?.tintColor = ColorScheme.shared.theme.selectedView
-        button.addTarget(self, action: #selector(removeFireTeam), for: .touchUpInside)
         return button
     }()
      
@@ -55,6 +53,8 @@ protocol AddFireTeamCellDelegate: AnyObject {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
         setupConstraints()
+        minusButton.addTarget(self, action: #selector(removeFireTeam), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(addFireTeam), for: .touchUpInside)
      }
      
      required init?(coder: NSCoder) {

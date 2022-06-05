@@ -17,7 +17,7 @@ struct KillTeam: Codable {
     let killTeamName: String
     let factionName: String
     var userCustomName: String?
-    var id: String?
+    let id: String
     let countOfFireTeam: Int
     let factionLogo: String
     let fireTeam: [FireTeam]
@@ -85,8 +85,7 @@ struct KillTeam: Codable {
         self.factionName = try factionName.decode(String.self, forKey: .factionName)
         let userCustomName = try decoder.container(keyedBy: CodingKeys.self)
         self.userCustomName = try? userCustomName.decode(String.self, forKey: .userCustomName)
-        let id = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try? id.decode(String.self, forKey: .id)
+        self.id = UUID().uuidString
         let countOfFireTeam = try decoder.container(keyedBy: CodingKeys.self)
         self.countOfFireTeam = try countOfFireTeam.decode(Int.self, forKey: .countOfFireTeam)
         let factionLogo = try decoder.container(keyedBy: CodingKeys.self)
@@ -140,31 +139,31 @@ struct KillTeam: Codable {
             try abilitiesOfKillTeam.encode(pathfinderAbilitie, forKey: .abilitiesOfKillTeam)
         }
         var killTeamName = encoder.container(keyedBy: CodingKeys.self)
-        try? killTeamName.encode(self.killTeamName, forKey: .killTeamName)
+        try killTeamName.encode(self.killTeamName, forKey: .killTeamName)
         var factionName = encoder.container(keyedBy: CodingKeys.self)
-        try? factionName.encode(self.factionName, forKey: .factionName)
+        try factionName.encode(self.factionName, forKey: .factionName)
         var userCustomName = encoder.container(keyedBy: CodingKeys.self)
         try? userCustomName.encode(self.userCustomName, forKey: .userCustomName)
         var id = encoder.container(keyedBy: CodingKeys.self)
-        try? id.encode(self.id, forKey: .id)
+        try id.encode(self.id, forKey: .id)
         var countOfFireTeam = encoder.container(keyedBy: CodingKeys.self)
-        try? countOfFireTeam.encode(self.countOfFireTeam, forKey: .countOfFireTeam)
+        try countOfFireTeam.encode(self.countOfFireTeam, forKey: .countOfFireTeam)
         var factionLogo = encoder.container(keyedBy: CodingKeys.self)
-        try? factionLogo.encode(self.factionLogo, forKey: .factionLogo)
+        try factionLogo.encode(self.factionLogo, forKey: .factionLogo)
         var fireTeam = encoder.container(keyedBy: CodingKeys.self)
-        try? fireTeam.encode(self.fireTeam, forKey: .fireTeam)
+        try fireTeam.encode(self.fireTeam, forKey: .fireTeam)
         var choosenFireTeam = encoder.container(keyedBy: CodingKeys.self)
-        try? choosenFireTeam.encode(self.choosenFireTeam, forKey: .choosenFireTeam)
+        try choosenFireTeam.encode(self.choosenFireTeam, forKey: .choosenFireTeam)
         var ploys = encoder.container(keyedBy: CodingKeys.self)
-        try? ploys.encode(self.ploys, forKey: .ploys)
+        try ploys.encode(self.ploys, forKey: .ploys)
         var psychicPower = encoder.container(keyedBy: CodingKeys.self)
         try? psychicPower.encode(self.psychicPower, forKey: .psychicPower)
         var psychicPowerDescription = encoder.container(keyedBy: CodingKeys.self)
         try? psychicPowerDescription.encode(self.psychicPowerDescription, forKey: .psychicPowerDescription)
         var equipment = encoder.container(keyedBy: CodingKeys.self)
-        try? equipment.encode(self.equipment, forKey: .equipment)
+        try equipment.encode(self.equipment, forKey: .equipment)
         var countEquipmentPoint = encoder.container(keyedBy: CodingKeys.self)
-        try? countEquipmentPoint.encode(self.countEquipmentPoint, forKey: .countEquipmentPoint)
+        try countEquipmentPoint.encode(self.countEquipmentPoint, forKey: .countEquipmentPoint)
         var tacOps = encoder.container(keyedBy: CodingKeys.self)
         try? tacOps.encode(self.tacOps, forKey: .tacOps)
     }
@@ -182,12 +181,6 @@ struct KillTeam: Codable {
             choosenFireTeam = fireTeam
         }
         updateCurrentWounds()
-    }
-    
-    mutating func prepareKillTeam() {
-        addDefaultFireTeam()
-        id = UUID().uuidString
-        
     }
     
  }

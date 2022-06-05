@@ -12,7 +12,7 @@ protocol EditUnitProtocol: AnyObject {
     func didComplete(_ EditUnitViewController: EditUnitViewController)
 }
 
-class EditUnitViewController: UITableViewController, EditUnitViewControllerProtocol {
+class EditUnitViewController: UIViewController, EditUnitViewControllerProtocol {
     
     let coachMarksController = CoachMarksController()
     
@@ -22,12 +22,38 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     
     var countOfEquipmentPointLabel = BoldLabel()
     var chaosBlessingButton: UIBarButtonItem?
+    var unitNameLabelView = ViewWithLabel(label: BoldLabel(), blureStyle: .dark)
     
     let customAlert = CustomScrollAlert()
+    
+    let tableView = UITableView()
+    
+    
+    func setupUnitNameLabrlView() {
+        guard let unit = presenter?.model.currentUnit else { return }
+        view.addSubview(unitNameLabelView)
+        unitNameLabelView.setupText(text: unit.customName ?? unit.name)
+        unitNameLabelView.label.textColor = .white
+        unitNameLabelView.label.numberOfLines = 1
+        unitNameLabelView.label.adjustsFontSizeToFitWidth = true
+        unitNameLabelView.label.textAlignment = .center
+        NSLayoutConstraint.activate([
+            unitNameLabelView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            unitNameLabelView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            unitNameLabelView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            unitNameLabelView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        setupUnitNameLabrlView()
+        setupTableView()
         setupRightNavigationLabel(label: countOfEquipmentPointLabel)
         countOfEquipmentPointLabel.text = "EP = \(presenter?.model.killTeam?.countEquipmentPoint ?? 0)"
         title = "Edit Unit"
@@ -41,7 +67,7 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        coachMarksController.start(in: .window(over: self))
+        showCoachMarks()
     }
    
     
@@ -63,27 +89,30 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         tableView.isScrollEnabled = true
     }
 
+}
 // MARK: - TableView DataSource
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+extension EditUnitViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return presenter?.model.wargear.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter?.model.wargear[section].count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = TableHeaderView()
         view.label.text = presenter?.model.headerForRow[section]
         return view
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         Constant.Size.headerHeight
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let weaponCell = tableView.dequeueReusableCell(withIdentifier: EditUnitWargearCell.identifier) as! EditUnitWargearCell
         let equipmentCell = tableView.dequeueReusableCell(withIdentifier: EditUnitEquipmentCell.identifier) as! EditUnitEquipmentCell
         let wargear = presenter?.model.wargear[indexPath.section]
@@ -102,19 +131,20 @@ class EditUnitViewController: UITableViewController, EditUnitViewControllerProto
         return UITableViewCell()
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return Constant.Size.cellHeight
     }
     
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         return addSwipeAction(indexPath: indexPath)
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let wargear = presenter?.model.wargear[indexPath.section][indexPath.row] else { return }
         presenter?.selectCell(wargear: wargear)
         tableView.reloadData()
     }
+    
 }
 
 extension EditUnitViewController: WeaponRuleButtonDelegate {

@@ -17,7 +17,8 @@ extension UIView {
             blurEffectView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(blurEffectView)
             NSLayoutConstraint.activate([
-                blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+                blurEffectView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                blurEffectView.centerYAnchor.constraint(equalTo: centerYAnchor),
                 blurEffectView.widthAnchor.constraint(equalTo: widthAnchor),
                 blurEffectView.heightAnchor.constraint(equalTo: heightAnchor)
             ])

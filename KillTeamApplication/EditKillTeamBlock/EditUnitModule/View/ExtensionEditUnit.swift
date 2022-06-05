@@ -10,6 +10,13 @@ import UIKit
 
 extension EditUnitViewController {
     
+    func showCoachMarks() {
+        if !isCoachMarkShowed() {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
+    }
+    
 //MARK: - ChaosBlessing
     
     func setupChaosBlesisnButton() {
@@ -30,6 +37,16 @@ extension EditUnitViewController {
     
     
 //MARK: - Methods
+    
+    func setupTableView() {
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: unitNameLabelView.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
     
     func showChooseAbilitieAlert(title: String) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)

@@ -64,9 +64,8 @@ class Storage: StorageProtocol {
     }
     
     func appendNewKillTeam(killTeam: KillTeam) {
-        guard let key = killTeam.id else { return }
         loadedKillTeam.insert(killTeam, at: 0)
-        appendNewKey(key: key)
+        appendNewKey(key: killTeam.id)
         KeySaver.saveKey(key: keysForKillTeam)
     }
         

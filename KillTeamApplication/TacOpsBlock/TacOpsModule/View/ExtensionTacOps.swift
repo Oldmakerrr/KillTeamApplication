@@ -10,7 +10,20 @@ import UIKit
 
 extension TacOpsViewController {
     
+    func showCoachMarks() {
+        if !isCoachMarkShowed() {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
+    }
+    
 //MARK: - SetupView
+    
+    func clearNavigationBar() {
+        goToChoosenTacOpsButton.removeFromSuperview()
+        changeTacOpsTypeButton.removeFromSuperview()
+        mixDeckButton.removeFromSuperview()
+    }
     
     func setupTacOpsCollection() {
         view.addSubview(tacOpsCollection)
@@ -27,15 +40,30 @@ extension TacOpsViewController {
     }
     
     func setupRightBarButton() {
-        let changeTacOpsTypeButton = UIBarButtonItem(image: UIImage(named: "change"),
-                                                     style: .done,
-                                                     target: self,
-                                                     action: #selector(changeTacOpsType))
-        let mixDeckButton = UIBarButtonItem(image: UIImage(systemName: "arrow.2.circlepath"),
-                                            style: .done,
-                                            target: self,
-                                            action: #selector(mixDeck))
-        navigationItem.rightBarButtonItems = [mixDeckButton, changeTacOpsTypeButton]
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        changeTacOpsTypeButton.addTarget(self, action: #selector(changeTacOpsType), for: .touchUpInside)
+        changeTacOpsTypeButton.setBackgroundImage(UIImage(named: "change")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        changeTacOpsTypeButton.imageView?.contentMode = .scaleAspectFit
+        changeTacOpsTypeButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        mixDeckButton.addTarget(self, action: #selector(mixDeck), for: .touchUpInside)
+        mixDeckButton.setBackgroundImage(UIImage(systemName: "arrow.2.circlepath"), for: .normal)
+        mixDeckButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        navigationBar.addSubview(changeTacOpsTypeButton)
+        navigationBar.addSubview(mixDeckButton)
+        
+        NSLayoutConstraint.activate([
+            changeTacOpsTypeButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
+            changeTacOpsTypeButton.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large),
+            changeTacOpsTypeButton.heightAnchor.constraint(equalToConstant: navigationBar.bounds.size.height-10),
+            changeTacOpsTypeButton.widthAnchor.constraint(equalTo: changeTacOpsTypeButton.heightAnchor),
+            
+            mixDeckButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
+            mixDeckButton.trailingAnchor.constraint(equalTo: changeTacOpsTypeButton.leadingAnchor, constant: -Constant.Size.Otstup.normal),
+            mixDeckButton.heightAnchor.constraint(equalToConstant: navigationBar.bounds.size.height-10),
+            mixDeckButton.widthAnchor.constraint(equalTo: mixDeckButton.heightAnchor)
+        ])
     }
     
     @objc private func changeTacOpsType() {
@@ -44,10 +72,18 @@ extension TacOpsViewController {
     }
     
     func setupGoToChoosenTacOpsButton() {
-        navigationItem.leftBarButtonItem = goToChoosenTacOpsButton
-        goToChoosenTacOpsButton.image = UIImage(systemName: "checkmark.rectangle.portrait.fill")
-        goToChoosenTacOpsButton.target = self
-        goToChoosenTacOpsButton.action = #selector(goToChoosenTacOpsView)
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        goToChoosenTacOpsButton.addTarget(self, action: #selector(goToChoosenTacOpsView), for: .touchUpInside)
+        goToChoosenTacOpsButton.setBackgroundImage(UIImage(systemName: "checkmark.rectangle.portrait.fill"), for: .normal)
+        goToChoosenTacOpsButton.translatesAutoresizingMaskIntoConstraints = false
+        goToChoosenTacOpsButton.setTitleColor(UIColor.gray, for: .disabled)
+        navigationBar.addSubview(goToChoosenTacOpsButton)
+        NSLayoutConstraint.activate([
+            goToChoosenTacOpsButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
+            goToChoosenTacOpsButton.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor, constant: Constant.Size.Otstup.large),
+            goToChoosenTacOpsButton.heightAnchor.constraint(equalToConstant: navigationBar.bounds.size.height-10),
+            goToChoosenTacOpsButton.widthAnchor.constraint(equalTo: goToChoosenTacOpsButton.heightAnchor, constant: -5)
+        ])
     }
     
 //MARK: - ButtonAction
@@ -99,7 +135,6 @@ extension TacOpsViewController {
     func dismissAlert() {
         customAlert.dismissAlert()
     }
-    
     
     
 //MARK: - EditTacOpsDeck

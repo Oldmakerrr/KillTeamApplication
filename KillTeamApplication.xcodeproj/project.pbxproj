@@ -19,6 +19,7 @@
 		181E35462847B267002BB1BE /* CoachMarkAddFireTeamExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E35452847B267002BB1BE /* CoachMarkAddFireTeamExtention.swift */; };
 		181E35482847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E35472847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift */; };
 		18339DAC27C21BED00EBCC35 /* TacOpsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */; };
+		18497F9D284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */; };
 		1857E36A27C4E6D100FEFA76 /* TacOpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36927C4E6D100FEFA76 /* TacOpView.swift */; };
 		1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */; };
 		1857E37327C574E600FEFA76 /* ChoosenTacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */; };
@@ -170,6 +171,9 @@
 		18E909E8281AC8010077516B /* VeteranGuardsmanAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E909E7281AC8010077516B /* VeteranGuardsmanAbilitieView.swift */; };
 		18E909EA281ACC6F0077516B /* TacticalAssetsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E909E9281ACC6F0077516B /* TacticalAssetsTableViewController.swift */; };
 		18E909EC281AD0CB0077516B /* TacticalAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E909EB281AD0CB0077516B /* TacticalAssetsView.swift */; };
+		18FFD4A32848A18200CAB341 /* CoachMarkRosterExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFD4A22848A18200CAB341 /* CoachMarkRosterExtention.swift */; };
+		18FFD4A52848AD9400CAB341 /* CoachMarkPloysExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFD4A42848AD9400CAB341 /* CoachMarkPloysExtention.swift */; };
+		18FFD4A72848B60D00CAB341 /* CoachMarkTacOpsExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFD4A62848B60D00CAB341 /* CoachMarkTacOpsExtention.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -185,6 +189,7 @@
 		181E35452847B267002BB1BE /* CoachMarkAddFireTeamExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkAddFireTeamExtention.swift; sourceTree = "<group>"; };
 		181E35472847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkEditUnitExtention.swift; sourceTree = "<group>"; };
 		18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsCollectionCell.swift; sourceTree = "<group>"; };
+		18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkChoosenTacOpExtention.swift; sourceTree = "<group>"; };
 		1857E36927C4E6D100FEFA76 /* TacOpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpView.swift; sourceTree = "<group>"; };
 		1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsModel.swift; sourceTree = "<group>"; };
 		1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +343,9 @@
 		18E909E7281AC8010077516B /* VeteranGuardsmanAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeteranGuardsmanAbilitieView.swift; sourceTree = "<group>"; };
 		18E909E9281ACC6F0077516B /* TacticalAssetsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacticalAssetsTableViewController.swift; sourceTree = "<group>"; };
 		18E909EB281AD0CB0077516B /* TacticalAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacticalAssetsView.swift; sourceTree = "<group>"; };
+		18FFD4A22848A18200CAB341 /* CoachMarkRosterExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkRosterExtention.swift; sourceTree = "<group>"; };
+		18FFD4A42848AD9400CAB341 /* CoachMarkPloysExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkPloysExtention.swift; sourceTree = "<group>"; };
+		18FFD4A62848B60D00CAB341 /* CoachMarkTacOpsExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkTacOpsExtention.swift; sourceTree = "<group>"; };
 		5D1DA5216F93737AE8DDF420 /* Pods_KillTeamApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KillTeamApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6194EA5B43216D04E42F8A4 /* Pods-KillTeamApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KillTeamApplication.debug.xcconfig"; path = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -385,6 +393,7 @@
 			isa = PBXGroup;
 			children = (
 				1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */,
+				18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */,
 				18E9095B28159FA30077516B /* CustomView */,
 				18E908B7280BE1740077516B /* Cell */,
 			);
@@ -813,6 +822,7 @@
 			isa = PBXGroup;
 			children = (
 				18D3B94327C18EF100B74C2D /* RosterTableViewController.swift */,
+				18FFD4A22848A18200CAB341 /* CoachMarkRosterExtention.swift */,
 				18E908B3280BE0690077516B /* Cell */,
 			);
 			path = View;
@@ -885,6 +895,7 @@
 			children = (
 				18D3B95A27C1903200B74C2D /* PloysViewController.swift */,
 				18D3B95E27C1906700B74C2D /* ExtentionPloysView.swift */,
+				18FFD4A42848AD9400CAB341 /* CoachMarkPloysExtention.swift */,
 				18E908B5280BE1260077516B /* Cell */,
 				18E908B6280BE1310077516B /* CustomView */,
 				18E908B2280BD32F0077516B /* PloysCollectionView */,
@@ -931,6 +942,7 @@
 			isa = PBXGroup;
 			children = (
 				18D3B96927C190D700B74C2D /* TacOpsViewController.swift */,
+				18FFD4A62848B60D00CAB341 /* CoachMarkTacOpsExtention.swift */,
 				18E908A628094A700077516B /* ExtensionTacOps.swift */,
 				18E908A828094C350077516B /* Cell */,
 				18E908A928094C3E0077516B /* CustomView */,
@@ -1448,6 +1460,7 @@
 				18A5216F27C17EF0003A29DA /* TacOpsRouter.swift in Sources */,
 				186EFFFE281B1104006E86E9 /* WarpcovenAbilitieView.swift in Sources */,
 				1857E36A27C4E6D100FEFA76 /* TacOpView.swift in Sources */,
+				18FFD4A52848AD9400CAB341 /* CoachMarkPloysExtention.swift in Sources */,
 				186E003B2827E130006E86E9 /* ExtensionEditKillTeamVC.swift in Sources */,
 				18E909DC281A8E9B0077516B /* ImperativeTableViewController.swift in Sources */,
 				18E908DF280C20F50077516B /* Equipment.swift in Sources */,
@@ -1477,11 +1490,13 @@
 				18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */,
 				1892484A27F09BAF00F1996C /* Constant.swift in Sources */,
 				18A521BE27C18AE1003A29DA /* EditUnitEquipmentCell.swift in Sources */,
+				18FFD4A72848B60D00CAB341 /* CoachMarkTacOpsExtention.swift in Sources */,
 				186E004328286A87006E86E9 /* AddFireTeamButton.swift in Sources */,
 				18E909D3281A856C0077516B /* NovitiateAbilitieView.swift in Sources */,
 				186E0000281B111B006E86E9 /* BoonOfTzeenchTableViewController.swift in Sources */,
 				18E909D8281A8E1B0077516B /* ActsOfFaithTableViewController.swift in Sources */,
 				18D3B95927C1901400B74C2D /* PloysPresenter.swift in Sources */,
+				18497F9D284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift in Sources */,
 				181E35462847B267002BB1BE /* CoachMarkAddFireTeamExtention.swift in Sources */,
 				18E909D6281A8C8E0077516B /* HunterCladeAbilitieView.swift in Sources */,
 				18A5214B27C17D5B003A29DA /* SceneDelegate.swift in Sources */,
@@ -1575,6 +1590,7 @@
 				18A5218A27C18321003A29DA /* ChooseLoadedKillTeamController.swift in Sources */,
 				18E909C528196DC70077516B /* Pathfinder.swift in Sources */,
 				18A521C027C18AFF003A29DA /* WeaponView.swift in Sources */,
+				18FFD4A32848A18200CAB341 /* CoachMarkRosterExtention.swift in Sources */,
 				1857E37327C574E600FEFA76 /* ChoosenTacOpsViewController.swift in Sources */,
 				18A521B627C18A23003A29DA /* EditUnitModel.swift in Sources */,
 				18E9095828159F2B0077516B /* ChoosenTacOpView.swift in Sources */,

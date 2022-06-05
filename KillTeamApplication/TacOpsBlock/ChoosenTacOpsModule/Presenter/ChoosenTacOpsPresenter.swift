@@ -64,7 +64,7 @@ extension ChoosenTacOpsPresenter: GameStoreDelegate {
         }
     }
     
-    func changeConditionState(isSelect: Bool) -> Bool {
+    func changeConditionState(_ isSelect: Bool) -> Bool {
        return isSelect ?  false : true
     }
 }
@@ -75,14 +75,14 @@ extension ChoosenTacOpsPresenter: ChoosenTacOpViewDelegate {
         
             switch indexPath?.item {
             case 0:
-                model.gameData.firstTacOp?.isCompleteSubConditions![numberOfCondition] = changeConditionState(isSelect: isSelect)
-                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.firstTacOp?.victoryPointForfirstCondition)
+                model.gameData.firstTacOp?.isCompleteConditions[numberOfCondition] = changeConditionState(isSelect)
+                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.firstTacOp?.victoryPoint[numberOfCondition])
             case 1:
-                model.gameData.secondTacOp?.isCompleteSubConditions![numberOfCondition] = changeConditionState(isSelect: isSelect)
-                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.secondTacOp?.victoryPointForfirstCondition)
+                model.gameData.secondTacOp?.isCompleteConditions[numberOfCondition] = changeConditionState(isSelect)
+                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.secondTacOp?.victoryPoint[numberOfCondition])
             case 2:
-                model.gameData.thirdTacOp?.isCompleteSubConditions![numberOfCondition] = changeConditionState(isSelect: isSelect)
-                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.thirdTacOp?.victoryPointForfirstCondition)
+                model.gameData.thirdTacOp?.isCompleteConditions[numberOfCondition] = changeConditionState(isSelect)
+                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.thirdTacOp?.victoryPoint[numberOfCondition])
             default:
                 return
             }
