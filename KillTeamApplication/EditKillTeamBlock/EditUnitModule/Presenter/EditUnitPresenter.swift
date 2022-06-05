@@ -177,10 +177,11 @@ extension EditUnitPresenter: StoreDelegate {
 
 extension EditUnitPresenter: ChaosBlessingTableViewControllerDelegate {
     func didSelect(_ chaosBlessingTableViewController: ChaosBlessingTableViewController, chaosBlessing: UnitAbilitie) {
+        guard let view = view as? UIViewController else { return }
         addAdditionalAbilitie(abilitie: chaosBlessing)
-        chaosBlessingTableViewController.dismiss(animated: true) { [self] in
+        chaosBlessingTableViewController.dismiss(animated: true) { 
             if let nameOfMarkOfChaos = chaosBlessing.name.components(separatedBy: " ").first {
-                view?.showChooseAbilitieAlert(title: "Mark of \(nameOfMarkOfChaos) choosen")
+                view.showToast(message: "Mark of \(nameOfMarkOfChaos) choosen")
             }
         }
     }
@@ -190,10 +191,10 @@ extension EditUnitPresenter: ChaosBlessingTableViewControllerDelegate {
 
 extension EditUnitPresenter: BoonOfTzeenchTableViewControllerDelegate {
     func didComplete(_ boonOfTzeenchTableViewController: BoonOfTzeenchTableViewController, boonOfTzeentch: WarpcovenAbilitie.BoonsOfTzeentch) {
+        guard let view = view as? UIViewController else { return }
         addAdditionalAbilitie(abilitie: boonOfTzeentch)
-        boonOfTzeenchTableViewController.dismiss(animated: true) {  [self] in
-            view?.showChooseAbilitieAlert(title: "\(boonOfTzeentch.name) choosen")
-            
+        boonOfTzeenchTableViewController.dismiss(animated: true) {
+            view.showToast(message: "\(boonOfTzeentch.name) choosen")
         }
         
     }

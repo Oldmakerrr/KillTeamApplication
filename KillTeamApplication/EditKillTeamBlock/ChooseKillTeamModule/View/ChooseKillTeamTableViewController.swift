@@ -43,8 +43,9 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let killTeam = (presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row]) else { return }
+        guard var killTeam = (presenter?.model.allFaction[indexPath.section].killTeam[indexPath.row]) else { return }
         self.dismiss(animated: true, completion: nil)
+        killTeam.addDefaultFireTeam()
         presenter?.goToEditKillTeamViewController(killTeam: killTeam)
     }
 }

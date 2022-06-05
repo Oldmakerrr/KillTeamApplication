@@ -182,7 +182,7 @@ struct KillTeam: Codable {
         }
         updateCurrentWounds()
     }
-    
+   
  }
 
 extension KillTeam: Equatable {
