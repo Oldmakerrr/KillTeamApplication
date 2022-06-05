@@ -62,7 +62,7 @@ extension TacOpsViewController {
             mixDeckButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
             mixDeckButton.trailingAnchor.constraint(equalTo: changeTacOpsTypeButton.leadingAnchor, constant: -Constant.Size.Otstup.normal),
             mixDeckButton.heightAnchor.constraint(equalToConstant: navigationBar.bounds.size.height-10),
-            mixDeckButton.widthAnchor.constraint(equalTo: mixDeckButton.heightAnchor)
+            mixDeckButton.widthAnchor.constraint(equalTo: mixDeckButton.heightAnchor, constant: 4)
         ])
     }
     
