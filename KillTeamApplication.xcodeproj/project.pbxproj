@@ -20,6 +20,7 @@
 		181E35482847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E35472847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift */; };
 		18339DAC27C21BED00EBCC35 /* TacOpsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */; };
 		18497F9D284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */; };
+		18497F9F284CB3230046CA39 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18497F9E284CB3230046CA39 /* UINavigationBar.swift */; };
 		1857E36A27C4E6D100FEFA76 /* TacOpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36927C4E6D100FEFA76 /* TacOpView.swift */; };
 		1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */; };
 		1857E37327C574E600FEFA76 /* ChoosenTacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */; };
@@ -190,6 +191,7 @@
 		181E35472847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkEditUnitExtention.swift; sourceTree = "<group>"; };
 		18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsCollectionCell.swift; sourceTree = "<group>"; };
 		18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkChoosenTacOpExtention.swift; sourceTree = "<group>"; };
+		18497F9E284CB3230046CA39 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
 		1857E36927C4E6D100FEFA76 /* TacOpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpView.swift; sourceTree = "<group>"; };
 		1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsModel.swift; sourceTree = "<group>"; };
 		1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsViewController.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 			children = (
 				186E003D282804A9006E86E9 /* UIAlertController.swift */,
 				18CF2826284023C800E81A2E /* UIViewController.swift */,
+				18497F9E284CB3230046CA39 /* UINavigationBar.swift */,
 				18CF2828284023F600E81A2E /* UITableViewCell.swift */,
 				186E003F28280C28006E86E9 /* CALayer.swift */,
 				186E0046282A7172006E86E9 /* UIVIew.swift */,
@@ -1600,6 +1603,7 @@
 				186E0045282A4D4B006E86E9 /* Storage.swift in Sources */,
 				18E909DA281A8E530077516B /* ActOfFateView.swift in Sources */,
 				18E909C128194A480077516B /* Warpcoven.swift in Sources */,
+				18497F9F284CB3230046CA39 /* UINavigationBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

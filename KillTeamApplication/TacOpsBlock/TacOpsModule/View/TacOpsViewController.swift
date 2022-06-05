@@ -57,7 +57,7 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         coachMarksController.stop()
-        clearNavigationBar()
+        navigationController?.navigationBar.clearNavigationBar()
     }
     
 }

@@ -49,15 +49,16 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         emptyTableState()
         setupKillTeamAbilitieButton()
         let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
-        setupRightNavigationLabel(label: commandPointLabel)
+        commandPointLabel.textColor = .white
+        setupRightNavigationView(view: commandPointLabel)
         shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         coachMarksController.stop()
-        commandPointLabel.removeFromSuperview()
-        psychicPowerButton.removeFromSuperview()
+        navigationController?.navigationBar.clearNavigationBar()
+       
     }
     
     

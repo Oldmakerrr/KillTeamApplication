@@ -19,12 +19,6 @@ extension TacOpsViewController {
     
 //MARK: - SetupView
     
-    func clearNavigationBar() {
-        goToChoosenTacOpsButton.removeFromSuperview()
-        changeTacOpsTypeButton.removeFromSuperview()
-        mixDeckButton.removeFromSuperview()
-    }
-    
     func setupTacOpsCollection() {
         view.addSubview(tacOpsCollection)
         tacOpsCollection.dataSource = self

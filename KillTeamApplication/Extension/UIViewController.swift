@@ -50,14 +50,16 @@ extension UIViewController {
         })
     }
     
-    func setupRightNavigationLabel(label: UILabel) {
+    func setupRightNavigationView(view: UIView, toRight rightView: UIView? = nil) {
         guard let navigationBar = navigationController?.navigationBar else { return }
-        label.textColor = .white
-        navigationBar.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
-            label.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large)
-        ])
+        view.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.addSubview(view)
+        view.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor).isActive = true
+        if let rightView = rightView {
+            view.trailingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+        } else {
+            view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large).isActive = true
+        }
     }
     
     enum PreviewSwipeDirection {

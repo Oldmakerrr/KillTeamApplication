@@ -10,7 +10,7 @@ import UIKit
 protocol EditUnitViewControllerProtocol: AnyObject {
     var presenter: EditUnitPresenterProtocol? { get }
     var countOfEquipmentPointLabel: BoldLabel { get }
-    var chaosBlessingButton: UIBarButtonItem? { get }
+    var chaosBlessingButton: UIButton? { get }
     func showChooseAbilitieAlert(title: String)
 }
 
@@ -22,7 +22,7 @@ protocol EditUnitPresenterProtocol: AnyObject {
     init (view: EditUnitViewControllerProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol)
     
     func goToAbilitieKillTeamViewController()
-    func setImage() -> String?
+    func updateButtonImage()
     func selectCell(wargear: Wargear)
     func clearIndex()
 }
@@ -40,7 +40,7 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
     var model = ChoosenUnit() {
         didSet {
             view?.countOfEquipmentPointLabel.text = "EP = \(model.killTeam?.countEquipmentPoint ?? 0)"
-            updateButtonImage(imageName: setImage())
+            updateButtonImage()
         }
     }
     
@@ -108,15 +108,20 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         delegate?.didComplete(self)
     }
     
-    func setImage() -> String? {
-        guard let chaosBlessing = model.currentUnit?.additionalAbilitie else { return nil }
-        let chaosBlessingName = chaosBlessing.name
-        return chaosBlessingName.components(separatedBy: " ").first
+    private func getImageName() -> String {
+        guard let chaosBlessing = model.currentUnit?.additionalAbilitie else { return "killTeamViewController" }
+        if let chaosBlessingName = chaosBlessing.name.components(separatedBy: " ").first {
+            return chaosBlessingName
+        } else {
+            return "killTeamViewController"
+        }
     }
     
-    private func updateButtonImage(imageName: String?) {
-        guard let button = view?.chaosBlessingButton, let imageName = imageName else { return }
-        button.image = UIImage(named: imageName)
+    func updateButtonImage() {
+        guard let button = view?.chaosBlessingButton else { return }
+        let imageName = getImageName()
+        let image = UIImage(named: imageName)?.withTintColor(.orange).withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(image, for: .normal)
     }
     
     func selectCell(wargear: Wargear) {
