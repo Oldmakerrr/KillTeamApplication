@@ -105,9 +105,7 @@ final class Store: StoreProtocol {
     }
     
     private func saveMyKillTeam(killTeam: KillTeam) {
-        if let key = killTeam.id {
-            UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: key)
-        }
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: killTeam.id)
         UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: KeySaver.lastUsedKillTeamKey)
     }
     
