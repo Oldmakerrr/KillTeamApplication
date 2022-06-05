@@ -14,12 +14,12 @@ struct TacOp: Codable {
     let subDescription: String?
     let subText: String?
     let firstCondition: String
-    let victoryPointForfirstCondition: Int
+    //let victoryPointForfirstCondition: Int
     let secondCondition: String?
-    let victoryPointSecondCondition: Int?
+    //let victoryPointSecondCondition: Int?
     let subConditionTitle: String?
     let subCondition: [String]?
-    let victoryPointSubCondition: [Int]?
+    let victoryPoint: [Int]
     var isCompleteSubConditions: [Bool]?
     let abilitie: UnitAbilitie?
     let uniquiAction: UnitUniqueAction?
