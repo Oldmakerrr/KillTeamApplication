@@ -21,7 +21,7 @@ extension EditKillTeamTableViewController: CoachMarksControllerDataSource, Coach
             coachView.bodyView.hintLabel.text = "Tap on cell - Edit Unit"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
-            previewSwipeActions(message: "  Change  ", actionBackgroundColor: UIColor.orange, swipeDirection: .left, tableView: tableView)
+            previewSwipeActions(message: "  Change  ", actionBackgroundColor: ColorScheme.shared.theme.selectedView, swipeDirection: .left, tableView: tableView)
             coachView.bodyView.hintLabel.text = "Left Swipe - Change or Rename unit"
             coachView.bodyView.nextLabel.text = "Next"
         case 2:

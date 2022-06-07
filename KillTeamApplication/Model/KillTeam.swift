@@ -85,7 +85,12 @@ struct KillTeam: Codable {
         self.factionName = try factionName.decode(String.self, forKey: .factionName)
         let userCustomName = try decoder.container(keyedBy: CodingKeys.self)
         self.userCustomName = try? userCustomName.decode(String.self, forKey: .userCustomName)
-        self.id = UUID().uuidString
+        let id = try decoder.container(keyedBy: CodingKeys.self)
+        if let id = try? id.decode(String.self, forKey: .id) {
+            self.id = id
+        } else {
+            self.id = UUID().uuidString
+        }
         let countOfFireTeam = try decoder.container(keyedBy: CodingKeys.self)
         self.countOfFireTeam = try countOfFireTeam.decode(Int.self, forKey: .countOfFireTeam)
         let factionLogo = try decoder.container(keyedBy: CodingKeys.self)

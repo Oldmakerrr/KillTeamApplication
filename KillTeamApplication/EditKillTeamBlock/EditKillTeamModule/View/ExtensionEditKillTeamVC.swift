@@ -77,7 +77,7 @@ extension EditKillTeamTableViewController {
             changeUnit(indexPath: indexPath)
             completion(true)
         }
-        action.backgroundColor = .orange
+        action.backgroundColor = ColorScheme.shared.theme.selectedView
         action.image = UIImage(systemName: "arrow.swap")
         return action
     }

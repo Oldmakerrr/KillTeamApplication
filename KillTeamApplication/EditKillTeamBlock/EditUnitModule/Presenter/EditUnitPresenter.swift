@@ -120,7 +120,7 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
     func updateButtonImage() {
         guard let button = view?.chaosBlessingButton else { return }
         let imageName = getImageName()
-        let image = UIImage(named: imageName)?.withTintColor(.orange).withRenderingMode(.alwaysTemplate)
+        let image = UIImage(named: imageName)?.withTintColor(ColorScheme.shared.theme.selectedView).withRenderingMode(.alwaysTemplate)
         button.setBackgroundImage(image, for: .normal)
     }
     

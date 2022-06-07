@@ -65,7 +65,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.barStyle = .black
-        tabBar.tintColor = .orange
+        tabBar.tintColor = ColorScheme.shared.theme.selectedView
     }
 }
 
