@@ -92,7 +92,7 @@ class CounterPresenter: CounterPresenterProtocol {
             title = ""
         }
         if model.killTeam?.abilitiesOfKillTeam is VoidDancerTroupeAbilitie {
-            title = "Choosen Allegory:"
+            title = "Selected Allegory:"
         }
         return title
     }
@@ -144,7 +144,7 @@ class CounterPresenter: CounterPresenterProtocol {
     
     func addKillTeam() {
         if !storage.isLoadedKillTeamEmpty() {
-            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose an existing.", preferredStyle: .actionSheet)
+            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose existed", preferredStyle: .actionSheet)
             let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
                 self.showChooseKillTeamTableViewController()
             }

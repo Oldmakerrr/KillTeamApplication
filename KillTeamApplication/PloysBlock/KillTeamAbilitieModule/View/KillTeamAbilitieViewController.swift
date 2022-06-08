@@ -17,7 +17,7 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewBackground
-        title = "Abilitie"
+        title = "Abilities"
     }
     
     override func viewWillAppear(_ animated: Bool) {

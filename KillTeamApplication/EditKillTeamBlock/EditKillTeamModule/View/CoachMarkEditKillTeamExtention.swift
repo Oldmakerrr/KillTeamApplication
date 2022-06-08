@@ -18,7 +18,7 @@ extension EditKillTeamTableViewController: CoachMarksControllerDataSource, Coach
             if let cell = tableView.cellForRow(at: IndexPath(item: 0, section: 0)) {
                 cell.animateSelect()
             }
-            coachView.bodyView.hintLabel.text = "Tap on cell - Edit Unit"
+            coachView.bodyView.hintLabel.text = "Tap on cell - Edit unit"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
             previewSwipeActions(message: "  Change  ", actionBackgroundColor: ColorScheme.shared.theme.selectedView, swipeDirection: .left, tableView: tableView)
@@ -29,7 +29,7 @@ extension EditKillTeamTableViewController: CoachMarksControllerDataSource, Coach
             coachView.bodyView.hintLabel.text = "Right swipe - Remove unit"
             coachView.bodyView.nextLabel.text = "Next"
         case 3:
-            coachView.bodyView.hintLabel.text = "You may add new Unit or Fire Team."
+            coachView.bodyView.hintLabel.text = "Here you can add new Unit or Fire Team"
             coachView.bodyView.nextLabel.text = "OK"
         default:
             break

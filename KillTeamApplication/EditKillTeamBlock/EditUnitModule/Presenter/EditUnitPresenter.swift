@@ -186,7 +186,7 @@ extension EditUnitPresenter: ChaosBlessingTableViewControllerDelegate {
         addAdditionalAbilitie(abilitie: chaosBlessing)
         chaosBlessingTableViewController.dismiss(animated: true) { 
             if let nameOfMarkOfChaos = chaosBlessing.name.components(separatedBy: " ").first {
-                view.showToast(message: "Mark of \(nameOfMarkOfChaos) choosen")
+                view.showToast(message: "Mark of \(nameOfMarkOfChaos) selected")
             }
         }
     }
@@ -199,7 +199,7 @@ extension EditUnitPresenter: BoonOfTzeenchTableViewControllerDelegate {
         guard let view = view as? UIViewController else { return }
         addAdditionalAbilitie(abilitie: boonOfTzeentch)
         boonOfTzeenchTableViewController.dismiss(animated: true) {
-            view.showToast(message: "\(boonOfTzeentch.name) choosen")
+            view.showToast(message: "\(boonOfTzeentch.name) selected")
         }
         
     }

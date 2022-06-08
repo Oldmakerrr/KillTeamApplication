@@ -28,10 +28,6 @@ class TacticalAssetsTableViewController: UITableViewController {
         return tacticalAssets?.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cost = tacticalAssets?[indexPath.row] else { return }
-        print("tacticalAssets - \(cost.name)")
-    }
 }
 
 extension TacticalAssetsTableViewController: WeaponRuleButtonDelegate {

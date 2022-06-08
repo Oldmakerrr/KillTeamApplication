@@ -13,11 +13,11 @@ extension PloysViewController: CoachMarksControllerDataSource, CoachMarksControl
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachView.bodyView.hintLabel.text = "Here you may show number of Command Point"
+            coachView.bodyView.hintLabel.text = "Here you can see current number of Command Point"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
             tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.animateSelect()
-            coachView.bodyView.hintLabel.text = "Tap cell - use Ploy, you can't used it if you have not enothe Command Point"
+            coachView.bodyView.hintLabel.text = "Tap on cell - use Ploy"
             coachView.bodyView.nextLabel.text = "OK"
         default:
             break

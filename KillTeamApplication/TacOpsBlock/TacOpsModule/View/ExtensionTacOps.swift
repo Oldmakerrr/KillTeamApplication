@@ -102,7 +102,7 @@ extension TacOpsViewController {
             self.presenter?.mixDeckWithSpecialTacOps()
             self.tacOpsCollection.reloadData()
         }
-        let actionWithoutFactionTacOp = UIAlertAction(title: "Mix deck without Facton Tac Ops", style: .default) { _ in
+        let actionWithoutFactionTacOp = UIAlertAction(title: "Mix deck without Faction Tac Ops", style: .default) { _ in
             self.presenter?.mixDeck()
             self.tacOpsCollection.reloadData()
         }

@@ -54,7 +54,7 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
         restore()
         guard let killTeam = presenter?.model.killTeam else {
             setEmptyState(title: "No Kill Team",
-                          message: "Please choose or create new Kill Team on the main screen")
+                          message: "Please create new Kill Team or choose existed on the main screen")
             return
         }
         if killTeam.choosenFireTeam.count == 0 {

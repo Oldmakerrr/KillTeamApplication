@@ -80,7 +80,6 @@ class CounterViewController: UIViewController, CounterViewProtocol {
         fillCounterStackView()
         setupTextToAbilitieView()
         currentPloysViewState()
-        print(presenter?.model.killTeam?.id)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

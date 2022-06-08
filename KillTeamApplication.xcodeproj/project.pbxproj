@@ -21,6 +21,7 @@
 		18339DAC27C21BED00EBCC35 /* TacOpsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */; };
 		18497F9D284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */; };
 		18497F9F284CB3230046CA39 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18497F9E284CB3230046CA39 /* UINavigationBar.swift */; };
+		184EB2D3284F8F0E003B4232 /* updateUserKillTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EB2D2284F8F0E003B4232 /* updateUserKillTeam.swift */; };
 		1857E36A27C4E6D100FEFA76 /* TacOpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36927C4E6D100FEFA76 /* TacOpView.swift */; };
 		1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */; };
 		1857E37327C574E600FEFA76 /* ChoosenTacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */; };
@@ -192,6 +193,7 @@
 		18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsCollectionCell.swift; sourceTree = "<group>"; };
 		18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkChoosenTacOpExtention.swift; sourceTree = "<group>"; };
 		18497F9E284CB3230046CA39 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
+		184EB2D2284F8F0E003B4232 /* updateUserKillTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = updateUserKillTeam.swift; sourceTree = "<group>"; };
 		1857E36927C4E6D100FEFA76 /* TacOpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpView.swift; sourceTree = "<group>"; };
 		1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsModel.swift; sourceTree = "<group>"; };
 		1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsViewController.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 			children = (
 				18A5215C27C17DB7003A29DA /* Builder.swift */,
 				18A5215E27C17DE7003A29DA /* SaveData.swift */,
+				184EB2D2284F8F0E003B4232 /* updateUserKillTeam.swift */,
 				18103AA027F5F9F400DBD2C4 /* ErrorLayer.swift */,
 				18A5216027C17DF7003A29DA /* Store.swift */,
 				181E353F284724DF002BB1BE /* UserSettings.swift */,
@@ -1553,6 +1556,7 @@
 				186E0037281EE920006E86E9 /* CounterPointView.swift in Sources */,
 				1892482627EF06E800F1996C /* WeaponRuleButton.swift in Sources */,
 				18A5216127C17DF7003A29DA /* Store.swift in Sources */,
+				184EB2D3284F8F0E003B4232 /* updateUserKillTeam.swift in Sources */,
 				186E002B281C46EB006E86E9 /* ZoomAndSnapFlowLayout.swift in Sources */,
 				18A521C227C18B5E003A29DA /* CustomAlert.swift in Sources */,
 				1857E37527C575EF00FEFA76 /* ChoosenTacOpsPresenter.swift in Sources */,
@@ -1753,7 +1757,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Project.KillTeamApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1773,7 +1777,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Project.KillTeamApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
