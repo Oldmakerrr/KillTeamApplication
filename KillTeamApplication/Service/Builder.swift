@@ -25,8 +25,8 @@ protocol BuilderProtocol {
     func createTacOpsModule(router: RouterProtocol) -> TacOpsViewControllerProtocol
     func createChoosenTacOpsModule(router: RouterProtocol) -> ChoosenTacOpsViewControllerProtocol
     
-    func createKillTeamImperativesList(router: RouterProtocol) -> ImperativeTableViewController?
-    func createKillTeamAllegoryList(router: RouterProtocol) -> AllegoryTableViewController?
+    func createKillTeamImperativesList(router: RouterProtocol, delegate: ImperativeTableViewControllerDelegate) -> ImperativeTableViewController?
+    func createKillTeamAllegoryList(router: RouterProtocol, delegate: AllegoryTableViewControllerDelegate) -> AllegoryTableViewController?
     func createChaosBlessingList(router: RouterProtocol, delegate: ChaosBlessingTableViewControllerDelegate) -> ChaosBlessingTableViewController?
     func createBoonOfTzeenchTableViewController(router: RouterProtocol, delegate: BoonOfTzeenchTableViewControllerDelegate) -> BoonOfTzeenchTableViewController? 
 }
@@ -156,18 +156,20 @@ class ModuleBuilder: BuilderProtocol {
     
 //MARK: - AbilitieList
 
-    func createKillTeamImperativesList(router: RouterProtocol) -> ImperativeTableViewController? {
+    func createKillTeamImperativesList(router: RouterProtocol, delegate: ImperativeTableViewControllerDelegate) -> ImperativeTableViewController? {
         guard let killTeam = store.getKillTeam(),
               let abilitie = killTeam.abilitiesOfKillTeam as? HunterCladeAbilitie  else { return nil }
         let view = ImperativeTableViewController(gameStore: gameStore)
         view.imperative = abilitie.imperatives
+        view.delegate = delegate
         return view
     }
 
-    func createKillTeamAllegoryList(router: RouterProtocol) -> AllegoryTableViewController? {
+    func createKillTeamAllegoryList(router: RouterProtocol, delegate: AllegoryTableViewControllerDelegate) -> AllegoryTableViewController? {
         guard let killTeam = store.getKillTeam(),
               let abilitie = killTeam.abilitiesOfKillTeam as? VoidDancerTroupeAbilitie else { return nil }
         let view = AllegoryTableViewController(gameStore: gameStore)
+        view.delegate = delegate
         view.allegory = abilitie.allegory
         return view
     }

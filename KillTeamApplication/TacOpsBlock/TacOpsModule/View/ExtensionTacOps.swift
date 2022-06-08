@@ -19,12 +19,6 @@ extension TacOpsViewController {
     
 //MARK: - SetupView
     
-    func clearNavigationBar() {
-        goToChoosenTacOpsButton.removeFromSuperview()
-        changeTacOpsTypeButton.removeFromSuperview()
-        mixDeckButton.removeFromSuperview()
-    }
-    
     func setupTacOpsCollection() {
         view.addSubview(tacOpsCollection)
         tacOpsCollection.dataSource = self
@@ -62,7 +56,7 @@ extension TacOpsViewController {
             mixDeckButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
             mixDeckButton.trailingAnchor.constraint(equalTo: changeTacOpsTypeButton.leadingAnchor, constant: -Constant.Size.Otstup.normal),
             mixDeckButton.heightAnchor.constraint(equalToConstant: navigationBar.bounds.size.height-10),
-            mixDeckButton.widthAnchor.constraint(equalTo: mixDeckButton.heightAnchor)
+            mixDeckButton.widthAnchor.constraint(equalTo: mixDeckButton.heightAnchor, constant: 4)
         ])
     }
     
@@ -108,7 +102,7 @@ extension TacOpsViewController {
             self.presenter?.mixDeckWithSpecialTacOps()
             self.tacOpsCollection.reloadData()
         }
-        let actionWithoutFactionTacOp = UIAlertAction(title: "Mix deck without Facton Tac Ops", style: .default) { _ in
+        let actionWithoutFactionTacOp = UIAlertAction(title: "Mix deck without Faction Tac Ops", style: .default) { _ in
             self.presenter?.mixDeck()
             self.tacOpsCollection.reloadData()
         }

@@ -21,7 +21,7 @@ class EditUnitViewController: UIViewController, EditUnitViewControllerProtocol {
     var presenter: EditUnitPresenterProtocol?
     
     var countOfEquipmentPointLabel = BoldLabel()
-    var chaosBlessingButton: UIBarButtonItem?
+    var chaosBlessingButton: UIButton?
     var unitNameLabelView = ViewWithLabel(label: BoldLabel(), blureStyle: .dark)
     
     let customAlert = CustomScrollAlert()
@@ -29,7 +29,7 @@ class EditUnitViewController: UIViewController, EditUnitViewControllerProtocol {
     let tableView = UITableView()
     
     
-    func setupUnitNameLabrlView() {
+    func setupUnitNameLabelView() {
         guard let unit = presenter?.model.currentUnit else { return }
         view.addSubview(unitNameLabelView)
         unitNameLabelView.setupText(text: unit.customName ?? unit.name)
@@ -48,17 +48,11 @@ class EditUnitViewController: UIViewController, EditUnitViewControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        setupUnitNameLabrlView()
-        setupTableView()
-        setupRightNavigationLabel(label: countOfEquipmentPointLabel)
-        countOfEquipmentPointLabel.text = "EP = \(presenter?.model.killTeam?.countEquipmentPoint ?? 0)"
         title = "Edit Unit"
+        setupUnitNameLabelView()
+        setupTableView()
+        setupViewsOnNavigationBar()
         registerCell()
-        setupChaosBlesisnButton()
         
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
@@ -72,9 +66,16 @@ class EditUnitViewController: UIViewController, EditUnitViewControllerProtocol {
    
     
     override func viewWillDisappear(_ animated: Bool) {
-        countOfEquipmentPointLabel.removeFromSuperview()
+        navigationController?.navigationBar.clearNavigationBar()
         presenter?.clearIndex()
         coachMarksController.stop(immediately: true)
+    }
+    
+    private func setupViewsOnNavigationBar() {
+        setupChaosBlesisnButton()
+        setupRightNavigationView(view: countOfEquipmentPointLabel, toRight: chaosBlessingButton)
+        countOfEquipmentPointLabel.textColor = .white
+        countOfEquipmentPointLabel.text = "EP = \(presenter?.model.killTeam?.countEquipmentPoint ?? 0)"
     }
 
     

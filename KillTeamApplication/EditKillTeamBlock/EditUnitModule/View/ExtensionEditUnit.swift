@@ -20,14 +20,14 @@ extension EditUnitViewController {
 //MARK: - ChaosBlessing
     
     func setupChaosBlesisnButton() {
-        if presenter?.model.killTeam?.abilitiesOfKillTeam is LegionaryAbilitie ||
-            presenter?.model.killTeam?.abilitiesOfKillTeam is WarpcovenAbilitie {
-            chaosBlessingButton = UIBarButtonItem(image: UIImage(named: presenter?.setImage() ?? "killTeamViewController"),
-                                     style: .done,
-                                     target: self,
-                                     action: #selector(chaosBlesingButtonAction))
-            chaosBlessingButton?.largeContentSizeImageInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-            navigationItem.rightBarButtonItem = chaosBlessingButton
+        guard let presenter = presenter else { return }
+        if presenter.model.killTeam?.abilitiesOfKillTeam is LegionaryAbilitie ||
+            presenter.model.killTeam?.abilitiesOfKillTeam is WarpcovenAbilitie {
+            chaosBlessingButton = UIButton()
+            presenter.updateButtonImage()
+            guard let chaosBlessingButton = chaosBlessingButton else { return }
+            setupRightNavigationView(view: chaosBlessingButton)
+            chaosBlessingButton.addTarget(self, action: #selector(chaosBlesingButtonAction), for: .touchUpInside)
         }
     }
     
@@ -39,6 +39,10 @@ extension EditUnitViewController {
 //MARK: - Methods
     
     func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

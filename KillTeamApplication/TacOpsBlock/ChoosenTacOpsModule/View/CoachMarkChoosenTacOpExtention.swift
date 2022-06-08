@@ -13,7 +13,7 @@ extension ChoosenTacOpsViewController: CoachMarksControllerDataSource, CoachMark
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachView.bodyView.hintLabel.text = "You can select and check completed mission"
+            coachView.bodyView.hintLabel.text = "Press to mark completed mission"
             coachView.bodyView.nextLabel.text = "OK"
         default:
             break

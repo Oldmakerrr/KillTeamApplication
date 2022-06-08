@@ -92,7 +92,7 @@ class CounterPresenter: CounterPresenterProtocol {
             title = ""
         }
         if model.killTeam?.abilitiesOfKillTeam is VoidDancerTroupeAbilitie {
-            title = "Choosen Allegory:"
+            title = "Selected Allegory:"
         }
         return title
     }
@@ -144,7 +144,7 @@ class CounterPresenter: CounterPresenterProtocol {
     
     func addKillTeam() {
         if !storage.isLoadedKillTeamEmpty() {
-            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose an existing.", preferredStyle: .actionSheet)
+            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose existed", preferredStyle: .actionSheet)
             let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
                 self.showChooseKillTeamTableViewController()
             }
@@ -292,7 +292,7 @@ extension CounterPresenter: StoreDelegate {
     }
 }
 
-extension CounterPresenter: CurrentKillTeamViewProtocol {
+extension CounterPresenter: CurrentKillTeamViewDelegate {
     func didComplete(_ currentKillTeamView: CurrentKillTeamView) {
         guard let killTeam = model.killTeam else {
             addKillTeam()
@@ -302,5 +302,26 @@ extension CounterPresenter: CurrentKillTeamViewProtocol {
         store.updateCurrentKillTeam(killTeam: killTeam)
     } 
 
+    
+}
+
+
+extension CounterPresenter: AllegoryTableViewControllerDelegate {
+    
+    func didComplete(_ allegoryTableViewController: AllegoryTableViewController) {
+        guard let view = view as? UIViewController else { return }
+        allegoryTableViewController.dismiss(animated: true)
+        view.showToast(message: "Allegory successfuly selected")
+    }
+    
+}
+
+extension CounterPresenter: ImperativeTableViewControllerDelegate {
+    
+    func didComplete(_ imperativeTableViewController: ImperativeTableViewController) {
+        guard let view = view as? UIViewController else { return }
+        imperativeTableViewController.dismiss(animated: true)
+        view.showToast(message: "Imperative successfuly selected")
+    }
     
 }

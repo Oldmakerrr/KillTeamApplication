@@ -49,22 +49,23 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         emptyTableState()
         setupKillTeamAbilitieButton()
         let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
-        setupRightNavigationLabel(label: commandPointLabel)
+        commandPointLabel.textColor = .white
+        setupRightNavigationView(view: commandPointLabel)
         shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         coachMarksController.stop()
-        commandPointLabel.removeFromSuperview()
-        psychicPowerButton.removeFromSuperview()
+        navigationController?.navigationBar.clearNavigationBar()
+       
     }
     
     
     func emptyTableState() {
         if presenter?.model.strategicPloy.count == 0 && presenter?.model.tacticalPloy.count == 0 {
             setEmptyState(title: "No Kill Team",
-                          message: "Please choose or create new Kill Team on the main screen")
+                          message: "Please create new Kill Team or choose existed on the main screen")
         } else {
             restore()
         }
@@ -78,7 +79,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(goToKillTeamAbilitieButtonAction))
-        killTeamAbilitieBarButtonItem.title = "Abilitie"
+        killTeamAbilitieBarButtonItem.title = "Abilities"
         navigationItem.leftBarButtonItem = killTeamAbilitieBarButtonItem
     }
     
@@ -111,16 +112,16 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     func usePloy(ploy: Ploy, cell: UITableViewCell, tableView: UITableView) {
         guard let presenter = presenter else { return }
         if ploy.cost > presenter.model.gameData.countCommandPoint {
-            showToast(message: "You have not enough command point.")
+            showToast(message: "You have not enough Command Points")
             cell.shake()
         } else {
             presenter.model.gameData.countCommandPoint -= ploy.cost
             if ploy.type == .strategic {
                 presenter.addPloy(ploy: ploy)
-                showToast(message: "Strategic ploy successfully used.")
+                showToast(message: "Strategic Ploy successfully used")
                 tableView.reloadData()
             } else {
-                showToast(message: "Tactical ploy successfully used.")
+                showToast(message: "Tactical Ploy successfully used")
             }
             commandPointLabel.text = "CP = \(presenter.model.gameData.countCommandPoint)"
         }
@@ -197,7 +198,7 @@ extension PloysViewController: UITableViewDelegate {
         case 0:
             let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
             if self.presenter!.model.gameData.currentStrategicPloys.contains(strategicPloy) {
-                showToast(message: "You have already used this stratigic ploy in that Turning Point")
+                showToast(message: "You have already used this Stratigic Ploy in that Turning Point")
                 cell.shake()
             } else {
                 usePloy(ploy: strategicPloy, cell: cell, tableView: tableView)

@@ -98,7 +98,7 @@ extension CounterViewController {
     }
     
     func setupDelegates() {
-        currentKillTeamView.delegate = presenter as? CurrentKillTeamViewProtocol
+        currentKillTeamView.delegate = presenter as? CurrentKillTeamViewDelegate
         commandPoint.delegate = presenter as? CounterPointViewDelegate
         victoryPoint.delegate = presenter as? CounterPointViewDelegate
         coachMarksController.dataSource = self

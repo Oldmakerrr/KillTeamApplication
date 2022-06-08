@@ -42,7 +42,58 @@ class TextView: UIStackView {
 
 //MARK: - CharacteristicsView
 
-
+class CharacteristicsViewWithoutImage: UIStackView {
+    
+    private let characteristic: [[String : String]]
+    
+    init(unit: Unit) {
+        characteristic = [["M":"\(unit.movement)",
+                          "APL":"\(unit.actionPointLimit)",
+                          "GA":"\(unit.groupActivation)"],
+                          ["DF":"\(unit.defense)",
+                          "SV":"\(unit.save)+",
+                          "W":"\(unit.wounds)"]]
+        super.init(frame: .zero)
+        configure()
+        setupView()
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView() {
+        addArrangedSubview(UIView())
+        characteristic.forEach { texts in
+            setupSubView(texts: texts)
+        }
+        addArrangedSubview(UIView())
+    }
+    
+    private func configure() {
+        axis = .vertical
+        spacing = 10
+        backgroundColor = ColorScheme.shared.theme.viewBackground
+        layer.applyCornerRadius()
+        layer.masksToBounds = true
+    }
+    
+    private func setupSubView(texts: [String:String]) {
+        let stackView = UIStackView()
+        stackView.backgroundColor = ColorScheme.shared.theme.subViewBackground
+        stackView.alignment = .center
+        stackView.spacing = 16
+        for text in texts {
+            let label = HeaderLabel()
+            label.font = UIFont.boldSystemFont(ofSize: 22)
+            label.text = "\(text.key) = \(text.value)"
+            label.textAlignment = .center
+            stackView.addArrangedSubview(label)
+        }
+        addArrangedSubview(stackView)
+    }
+    
+}
 
 class CharacteristicsView: UIStackView {
     

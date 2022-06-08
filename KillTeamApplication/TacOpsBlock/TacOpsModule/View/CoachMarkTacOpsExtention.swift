@@ -14,19 +14,19 @@ extension TacOpsViewController: CoachMarksControllerDataSource, CoachMarksContro
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachView.bodyView.hintLabel.text = "Then you select three Tac Ops you can enter to screen with choosen Tac Ops"
+            coachView.bodyView.hintLabel.text = "When you select three Tac Ops you can go to the screen with chosen Tac Ops"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
             coachView.bodyView.hintLabel.text = "Press to mix deck"
             coachView.bodyView.nextLabel.text = "Next"
         case 2:
-            coachView.bodyView.hintLabel.text = "Press to change type of Tac Op"
+            coachView.bodyView.hintLabel.text = "Press to change type of Tac Ops"
             coachView.bodyView.nextLabel.text = "Next"
         case 3:
-            coachView.bodyView.hintLabel.text = "Press to select that Tac Op, you need choose three Tac Op"
+            coachView.bodyView.hintLabel.text = "Press to select this Tac Op. You need choose three Tac Ops"
             coachView.bodyView.nextLabel.text = "Next"
         case 4:
-            coachView.bodyView.hintLabel.text = "Preess to get more info about that Tac Op"
+            coachView.bodyView.hintLabel.text = "Preess to get more info about this Tac Op"
             coachView.bodyView.nextLabel.text = "OK"
         default:
             break

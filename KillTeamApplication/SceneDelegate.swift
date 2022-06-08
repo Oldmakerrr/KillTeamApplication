@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func configureNavigatinBar() {
         UINavigationBar.appearance().barStyle = .black
-        UINavigationBar.appearance().tintColor = .orange
+        UINavigationBar.appearance().tintColor = ColorScheme.shared.theme.selectedView
         
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = 0
