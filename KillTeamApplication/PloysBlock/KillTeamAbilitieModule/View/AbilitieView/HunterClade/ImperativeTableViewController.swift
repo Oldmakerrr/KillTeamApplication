@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ImperativeTableViewControllerDelegate: AnyObject {
+    func didComplete(_ imperativeTableViewController: ImperativeTableViewController)
+}
+
 class ImperativeTableViewController: UITableViewController {
+    
+    weak var delegate: ImperativeTableViewControllerDelegate?
     
     var imperative: [HunterCladeAbilitie.Imperative]?
     let gameStore: GameStoreProtocol
@@ -52,7 +58,7 @@ class ImperativeTableViewController: UITableViewController {
         guard let imperative = imperative?[indexPath.row] else { return }
         gameData.currentAbilitie = imperative.name
         gameStore.updateGameData(gameData: gameData)
-        showToast(message: "Imperative successfuly selected")
+        delegate?.didComplete(self)
     }
     
 }

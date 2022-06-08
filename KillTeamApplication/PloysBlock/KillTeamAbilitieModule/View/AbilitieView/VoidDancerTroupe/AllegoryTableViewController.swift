@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol AllegoryTableViewControllerDelegate: AnyObject {
+    func didComplete(_ allegoryTableViewController: AllegoryTableViewController)
+}
+
 class AllegoryTableViewController: UITableViewController {
+    
+    weak var delegate:AllegoryTableViewControllerDelegate?
     
     var allegory: [VoidDancerTroupeAbilitie.Allegory]?
     let gameStore: GameStoreProtocol
@@ -52,7 +58,7 @@ class AllegoryTableViewController: UITableViewController {
         guard let allegory = allegory?[indexPath.row] else { return }
         gameData.currentAbilitie = allegory.name
         gameStore.updateGameData(gameData: gameData)
-        showToast(message: "Allegory successfuly selected")
+        delegate?.didComplete(self)
     }
     
 }

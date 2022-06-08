@@ -292,7 +292,7 @@ extension CounterPresenter: StoreDelegate {
     }
 }
 
-extension CounterPresenter: CurrentKillTeamViewProtocol {
+extension CounterPresenter: CurrentKillTeamViewDelegate {
     func didComplete(_ currentKillTeamView: CurrentKillTeamView) {
         guard let killTeam = model.killTeam else {
             addKillTeam()
@@ -302,5 +302,26 @@ extension CounterPresenter: CurrentKillTeamViewProtocol {
         store.updateCurrentKillTeam(killTeam: killTeam)
     } 
 
+    
+}
+
+
+extension CounterPresenter: AllegoryTableViewControllerDelegate {
+    
+    func didComplete(_ allegoryTableViewController: AllegoryTableViewController) {
+        guard let view = view as? UIViewController else { return }
+        allegoryTableViewController.dismiss(animated: true)
+        view.showToast(message: "Allegory successfuly selected")
+    }
+    
+}
+
+extension CounterPresenter: ImperativeTableViewControllerDelegate {
+    
+    func didComplete(_ imperativeTableViewController: ImperativeTableViewController) {
+        guard let view = view as? UIViewController else { return }
+        imperativeTableViewController.dismiss(animated: true)
+        view.showToast(message: "Imperative successfuly selected")
+    }
     
 }

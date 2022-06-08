@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol CurrentKillTeamViewProtocol: AnyObject {
+protocol CurrentKillTeamViewDelegate: AnyObject {
     func didComplete(_ currentKillTeamView: CurrentKillTeamView)
 }
 
 class CurrentKillTeamView: UIView {
     
-    weak var delegate: CurrentKillTeamViewProtocol?
+    weak var delegate: CurrentKillTeamViewDelegate?
     
     let nameLabel = HeaderLabel()
     let factionNameLabel: UILabel = {
