@@ -1,0 +1,797 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04320C04A55EAA6B318EFF0BC4ABB9F7 /* SkipViewDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF600A7BA8476B742807422933B90A97 /* SkipViewDisplayManager.swift */; };
+		0A12AE8480976DBB7D27385ABB2F5C2C /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C047DABABE5724271072C9B8335FE04 /* ErrorMessage.swift */; };
+		0A3BF9F5CBF667E75F82B5C69F1A4597 /* BlurringOverlayStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0388F4868015433956D08F641DA40A25 /* BlurringOverlayStyleManager.swift */; };
+		12710D75ABC5A6BADEAB1201572C55A1 /* CoachMarkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4713267B4A1662FCD2F46F4E48310782 /* CoachMarkHelper.swift */; };
+		12D8D02540CF77756A110C07AD084D93 /* CoachMarkBodyDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635CC49A58318A6E40B94CFDF15300C2 /* CoachMarkBodyDefaultView.swift */; };
+		149176B03307F1FF7ADE172DFD8A4722 /* CoachMarkSkipDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3528F1BC90315A57AF762D05F6C53 /* CoachMarkSkipDefaultView.swift */; };
+		2481E28EE996F595EFE6346EFF9E7BD1 /* TranslucentOverlayStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0657C656A3C56BF7411EF30AED5373E /* TranslucentOverlayStyleManager.swift */; };
+		25DD4D26232F398972745DAC05E5D03C /* CoachMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2B2A6443BBBED1039B7EB826106B4F /* CoachMark.swift */; };
+		2C2B7C5A086BF88A9CC34EBEFA037659 /* ViewControllerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F6BD899E2E1ED2FF2A01CEC360D1A /* ViewControllerConfiguration.swift */; };
+		34503F44A8D5773B85A5ABDCB062F878 /* CoachMarkArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E845929115FA79B566B0B2E30788906A /* CoachMarkArrowView.swift */; };
+		360FCCAADEEE6BF4FFEE816F470678F9 /* Pods-KillTeamApplication-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B5FC995AE334B7E04C75082EF9FD2257 /* Pods-KillTeamApplication-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36B3B09157D2B05BEE302641D452638A /* CoachMarkBodyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7485B5C5EF6BA130FB738AB7E1EDB105 /* CoachMarkBodyBackgroundView.swift */; };
+		398715C41521DF34B5AB10019267B057 /* CoachMarkBackgroundStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E821F7AD0032EAF5E3145B3E730E104 /* CoachMarkBackgroundStyle.swift */; };
+		3DFE15C2EED6E5CFD0ED53CA3961F499 /* Instructions-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C55BB090B22C89583F59103A06B770A0 /* Instructions-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42A8506FEA0038E77EF326EE16D258DF /* CoachMarkLayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778AEE5F1111DCAF28819D6C49CEDB2E /* CoachMarkLayoutHelper.swift */; };
+		475AE2E4761AA2FB529463E30A93E2E7 /* CoachMarkViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF02DF7E2B18E8349CB926CC01F778 /* CoachMarkViewControllerDelegate.swift */; };
+		49309D7FE29973AFB8E8C92520052511 /* CoachMarkAnimationManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7828171458F7C03015047311337426 /* CoachMarkAnimationManagement.swift */; };
+		493433E438A4611FE4CA51C59570AEE5 /* CoachMarksControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8381235338056DCDB00FC5741653FB61 /* CoachMarksControllerDataSource.swift */; };
+		4CE2D58C22BC2D39D36DF71812A91640 /* CoachMarkBodyHighlightArrowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C37623CE126EEC0BC97E67E5417C27 /* CoachMarkBodyHighlightArrowDelegate.swift */; };
+		5CA19CF4AED351064AD9D10A6B4D04EA /* MaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F18E11BCC3FA2A9FFB780C039A8508D /* MaskView.swift */; };
+		602B5633C50BB46B8B7FF8022E26B939 /* CoachMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926BB515EA543BC2F285D0B94C2B6540 /* CoachMarkView.swift */; };
+		67DC3E8922CEF32F90672A7784305DE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		7375D295BDA858060684E265B06A3659 /* CoachMarkComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988A16113C10A1CB6F324D4F31BEECA6 /* CoachMarkComponent.swift */; };
+		752F7F028A79A673098224F9623922F7 /* OverlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F784742D142AA1B038E9E6D3E07B474C /* OverlayManager.swift */; };
+		7C6ADCBC2916F28326577530DFC9C18A /* CoachMarkPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3605BA17E7BA75347C981B13167EA9B /* CoachMarkPosition.swift */; };
+		8136E86F9E33D77C74A62C0EBAAB3057 /* UIApplication+WindowScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB2E6BAFE7D7C5A98BC18A2C5DD92D2 /* UIApplication+WindowScene.swift */; };
+		8AFD224B9698CE5B89A616547213AF64 /* CoachMarkSkipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C7C8BD6BFFCECDE33A4B248E1945CD /* CoachMarkSkipView.swift */; };
+		8CA303B134DA987C7F52835E3CCE9E92 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD619D8DAC396D49748A2FEBF9D4B179 /* OverlayView.swift */; };
+		9B01FE65D84D4079625C0DF1176F9948 /* Pods-KillTeamApplication-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 35043FAE64630E2C03F95D31AA425D04 /* Pods-KillTeamApplication-dummy.m */; };
+		9D897D29CCAA521B8AA1FE6252ECEFB1 /* PassthroughViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37D487EF3DCD1BE59B648DB93005999 /* PassthroughViews.swift */; };
+		9DFC92AABD407DFD055F909B2FA18F75 /* Instructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF1527C23B9B013DE9DFB03A6ABDBE2 /* Instructions.swift */; };
+		A340258B1546BCB1D49B1DC598CC1CEE /* CoachMarksControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0556636AD2E70F697F1C187DED047BD5 /* CoachMarksControllerDelegate.swift */; };
+		AB4D2482C58323E204731F241F9B687C /* CoachMarkTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178C7C64CF296AE4B94AF10B62D06454 /* CoachMarkTransitionManager.swift */; };
+		B0373D2EEAF531B5A581CA8058CCFD84 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		B1A9F7D33554C1298A8FF7B0BD624011 /* PresentationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2971EEEAFF2A1D43D231B0A9891ABBE0 /* PresentationContext.swift */; };
+		B5F168F4C09F6DE3602E85B209E7A98A /* CoachMarkCoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E79726FF4922E0412910A14467C4B4 /* CoachMarkCoordinateConverter.swift */; };
+		B779C448D875450329A45212C76B2F82 /* CoachMarkArrowOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0602D26C5BEEF876405BCBD015D812F9 /* CoachMarkArrowOrientation.swift */; };
+		BC45302212870BC70EDDE09B0429ED26 /* CoachMarkInnerLayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9333AC5F22CEF403037BE1694CB83794 /* CoachMarkInnerLayoutHelper.swift */; };
+		C3C43A9618E215AC6901DF1589262B9D /* CoachMarksControllerAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C90F2D4CDBD445F85310AD7C899D649 /* CoachMarksControllerAnimationDelegate.swift */; };
+		C961E20AA6F83CB7CC1D9FB7E7C711B5 /* CoachMarksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AFB8EFD596205EF19F10F5A7D4BC85 /* CoachMarksController.swift */; };
+		CB71EB88662FFBD0835C409BD8A5A009 /* CoachMarksController+Proxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A0D0197D74DF01D60FBDD6F4BC28B6 /* CoachMarksController+Proxy.swift */; };
+		CD74A038A467EA16CA8F932E95194E8D /* CoachMarkDisplayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A830B108184655D42046F0314F6D2D /* CoachMarkDisplayManager.swift */; };
+		CE1C9EA0240C350E2984D17866D96801 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4482BD168662C7E36A58DF68254E2DB0 /* UIView+Layout.swift */; };
+		D0C8391A866ABE328AC7718F5F48CC27 /* OverlayStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9089788D3CFE4AC75B35DE5287A341 /* OverlayStyleManager.swift */; };
+		D7F5087778C8D56524BE89004EDA9CA1 /* CoachMarkBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10A860E52A3C902665999E5B1B10EEA /* CoachMarkBodyView.swift */; };
+		DA930D64146BDD4582644706EAEB5CB5 /* ConfigurationChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D054AFC6D690F50FADE6B21BEB00A369 /* ConfigurationChange.swift */; };
+		E60D8B22D64714A3AE7363217929A9D0 /* CoachMarkNextLabelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A7F529FA64C3BBA42C224079101985F /* CoachMarkNextLabelPosition.swift */; };
+		E77D13223E4D34EBBD474CCEF86A11E9 /* CoachMarkAnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694C6F38EA7048B5E9E3D1FDA703E264 /* CoachMarkAnimationManager.swift */; };
+		E8822018315F237916130DDFFFF2DB74 /* FlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FAECD0ECDAE5541B8C6FCFB1D8B763 /* FlowManager.swift */; };
+		E9312E6EA7861860DE5D624D2B6913B6 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892FC1D5AA5D3970B25538AF17EE3C07 /* AccessibilityIdentifiers.swift */; };
+		EB477D2CF8C8AD34C03661EF780DE318 /* PauseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E824A4DC2AED334F7D1866F16C5F6702 /* PauseStyle.swift */; };
+		EC76382761904162101C4A62C72895AD /* CoachMarkArrowDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CE132131143719A8960E7B98BFB1D8 /* CoachMarkArrowDefaultView.swift */; };
+		ED69FF4049A08563D97B782C0B54C0F4 /* OverlaySnapshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8B12B7B8B7F80AC8C9E7006BFD9162 /* OverlaySnapshotView.swift */; };
+		EF89458FBBC86384400C87DBB0A0F2E6 /* CoachMarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BC770D6B8D3C7607FAE38C37E28550 /* CoachMarksViewController.swift */; };
+		FE4F899976F6559D82872F6B7575990C /* Instructions-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 322A39407A8332E029AB85029EEDCC77 /* Instructions-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		35DC8930F7B640B6C4BF9BFB89C9EF53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97482FB5B78AAF68DDD9AC7CD1C3A456;
+			remoteInfo = Instructions;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0388F4868015433956D08F641DA40A25 /* BlurringOverlayStyleManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlurringOverlayStyleManager.swift; path = Sources/Instructions/Managers/Internal/OverlayStyleManager/BlurringOverlayStyleManager.swift; sourceTree = "<group>"; };
+		0556636AD2E70F697F1C187DED047BD5 /* CoachMarksControllerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarksControllerDelegate.swift; path = "Sources/Instructions/Protocols and Enums/Public/Delegates/CoachMarksControllerDelegate.swift"; sourceTree = "<group>"; };
+		0602D26C5BEEF876405BCBD015D812F9 /* CoachMarkArrowOrientation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkArrowOrientation.swift; path = Sources/Instructions/Helpers/Public/Enums/CoachMarkArrowOrientation.swift; sourceTree = "<group>"; };
+		0B8B12B7B8B7F80AC8C9E7006BFD9162 /* OverlaySnapshotView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OverlaySnapshotView.swift; path = Sources/Instructions/Views/OverlaySnapshotView.swift; sourceTree = "<group>"; };
+		12AFB8EFD596205EF19F10F5A7D4BC85 /* CoachMarksController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarksController.swift; path = Sources/Instructions/Core/Public/CoachMarksController.swift; sourceTree = "<group>"; };
+		178C7C64CF296AE4B94AF10B62D06454 /* CoachMarkTransitionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkTransitionManager.swift; path = "Sources/Instructions/Helpers/Public/CoachMark Animation/CoachMarkTransitionManager.swift"; sourceTree = "<group>"; };
+		1C22078EBCD4EA2D0BEA63674BE8FBF0 /* Instructions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Instructions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2971EEEAFF2A1D43D231B0A9891ABBE0 /* PresentationContext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PresentationContext.swift; path = "Sources/Instructions/Protocols and Enums/Public/Enums/PresentationContext.swift"; sourceTree = "<group>"; };
+		322A39407A8332E029AB85029EEDCC77 /* Instructions-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Instructions-dummy.m"; sourceTree = "<group>"; };
+		34A0D0197D74DF01D60FBDD6F4BC28B6 /* CoachMarksController+Proxy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CoachMarksController+Proxy.swift"; path = "Sources/Instructions/Core/Public/Extensions/CoachMarksController+Proxy.swift"; sourceTree = "<group>"; };
+		35043FAE64630E2C03F95D31AA425D04 /* Pods-KillTeamApplication-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-KillTeamApplication-dummy.m"; sourceTree = "<group>"; };
+		37A830B108184655D42046F0314F6D2D /* CoachMarkDisplayManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkDisplayManager.swift; path = Sources/Instructions/Managers/Internal/CoachMarkDisplayManager.swift; sourceTree = "<group>"; };
+		3C2B2A6443BBBED1039B7EB826106B4F /* CoachMark.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMark.swift; path = Sources/Instructions/Core/Public/CoachMark.swift; sourceTree = "<group>"; };
+		4482BD168662C7E36A58DF68254E2DB0 /* UIView+Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Layout.swift"; path = "Sources/Instructions/Helpers/Internal/Extensions/UIView+Layout.swift"; sourceTree = "<group>"; };
+		4713267B4A1662FCD2F46F4E48310782 /* CoachMarkHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkHelper.swift; path = Sources/Instructions/Helpers/Public/CoachMarkHelper.swift; sourceTree = "<group>"; };
+		47A29F9B1A839DB9F7DEA469BF7AC53E /* Instructions-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Instructions-prefix.pch"; sourceTree = "<group>"; };
+		4AB757D997AE575D23995E96A79BB73B /* Pods-KillTeamApplication-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KillTeamApplication-acknowledgements.markdown"; sourceTree = "<group>"; };
+		4F18E11BCC3FA2A9FFB780C039A8508D /* MaskView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MaskView.swift; path = Sources/Instructions/Views/MaskView.swift; sourceTree = "<group>"; };
+		52C7C8BD6BFFCECDE33A4B248E1945CD /* CoachMarkSkipView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkSkipView.swift; path = "Sources/Instructions/Protocols and Enums/Public/CoachMarkSkipView.swift"; sourceTree = "<group>"; };
+		543CDE2D842912FBAFADB7CF2E9C6FA5 /* Pods-KillTeamApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KillTeamApplication.release.xcconfig"; sourceTree = "<group>"; };
+		5477081AE7344CC9B08FAFBFABA1AF52 /* Instructions.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Instructions.modulemap; sourceTree = "<group>"; };
+		5E821F7AD0032EAF5E3145B3E730E104 /* CoachMarkBackgroundStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkBackgroundStyle.swift; path = "Sources/Instructions/Extra/Default Views/CoachMarkBackgroundStyle.swift"; sourceTree = "<group>"; };
+		5FAF494333F6811A419E15B156C73114 /* Pods-KillTeamApplication-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KillTeamApplication-Info.plist"; sourceTree = "<group>"; };
+		635CC49A58318A6E40B94CFDF15300C2 /* CoachMarkBodyDefaultView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkBodyDefaultView.swift; path = "Sources/Instructions/Extra/Default Views/CoachMarkBodyDefaultView.swift"; sourceTree = "<group>"; };
+		63C3528F1BC90315A57AF762D05F6C53 /* CoachMarkSkipDefaultView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkSkipDefaultView.swift; path = "Sources/Instructions/Extra/Default Views/CoachMarkSkipDefaultView.swift"; sourceTree = "<group>"; };
+		67FBEE0B920CE689A5364D84BDDDFD2F /* Pods-KillTeamApplication */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-KillTeamApplication"; path = Pods_KillTeamApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		694C6F38EA7048B5E9E3D1FDA703E264 /* CoachMarkAnimationManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkAnimationManager.swift; path = "Sources/Instructions/Helpers/Public/CoachMark Animation/CoachMarkAnimationManager.swift"; sourceTree = "<group>"; };
+		69E00E8ABF7273BDFD79C2F1CD219AC0 /* Instructions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Instructions.debug.xcconfig; sourceTree = "<group>"; };
+		69E79726FF4922E0412910A14467C4B4 /* CoachMarkCoordinateConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkCoordinateConverter.swift; path = Sources/Instructions/Helpers/Public/CoachMarkCoordinateConverter.swift; sourceTree = "<group>"; };
+		6C047DABABE5724271072C9B8335FE04 /* ErrorMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorMessage.swift; path = Sources/Instructions/Helpers/Internal/ErrorMessage.swift; sourceTree = "<group>"; };
+		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		7485B5C5EF6BA130FB738AB7E1EDB105 /* CoachMarkBodyBackgroundView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkBodyBackgroundView.swift; path = Sources/Instructions/Extra/Internal/CoachMarkBodyBackgroundView.swift; sourceTree = "<group>"; };
+		778AEE5F1111DCAF28819D6C49CEDB2E /* CoachMarkLayoutHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkLayoutHelper.swift; path = Sources/Instructions/Helpers/Internal/CoachMarkLayoutHelper.swift; sourceTree = "<group>"; };
+		798B84830A6E16B1FF427D41580334E0 /* Pods-KillTeamApplication-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KillTeamApplication-acknowledgements.plist"; sourceTree = "<group>"; };
+		7A7F529FA64C3BBA42C224079101985F /* CoachMarkNextLabelPosition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkNextLabelPosition.swift; path = Sources/Instructions/Helpers/Public/Enums/CoachMarkNextLabelPosition.swift; sourceTree = "<group>"; };
+		7D9089788D3CFE4AC75B35DE5287A341 /* OverlayStyleManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OverlayStyleManager.swift; path = Sources/Instructions/Managers/Internal/OverlayStyleManager/OverlayStyleManager.swift; sourceTree = "<group>"; };
+		8381235338056DCDB00FC5741653FB61 /* CoachMarksControllerDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarksControllerDataSource.swift; path = "Sources/Instructions/Protocols and Enums/Public/CoachMarksControllerDataSource.swift"; sourceTree = "<group>"; };
+		892FC1D5AA5D3970B25538AF17EE3C07 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AccessibilityIdentifiers.swift; path = Sources/Instructions/Helpers/Internal/AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
+		8CB2E6BAFE7D7C5A98BC18A2C5DD92D2 /* UIApplication+WindowScene.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIApplication+WindowScene.swift"; path = "Sources/Instructions/Helpers/Internal/Extensions/UIApplication+WindowScene.swift"; sourceTree = "<group>"; };
+		8DEAC539E8936E4C878C65A3B9C4428C /* Pods-KillTeamApplication-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KillTeamApplication-frameworks.sh"; sourceTree = "<group>"; };
+		90BC770D6B8D3C7607FAE38C37E28550 /* CoachMarksViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarksViewController.swift; path = Sources/Instructions/Core/Internal/CoachMarksViewController.swift; sourceTree = "<group>"; };
+		926BB515EA543BC2F285D0B94C2B6540 /* CoachMarkView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkView.swift; path = Sources/Instructions/Views/CoachMarkView.swift; sourceTree = "<group>"; };
+		9333AC5F22CEF403037BE1694CB83794 /* CoachMarkInnerLayoutHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkInnerLayoutHelper.swift; path = Sources/Instructions/Helpers/Internal/CoachMarkInnerLayoutHelper.swift; sourceTree = "<group>"; };
+		988A16113C10A1CB6F324D4F31BEECA6 /* CoachMarkComponent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkComponent.swift; path = Sources/Instructions/Extra/Internal/CoachMarkComponent.swift; sourceTree = "<group>"; };
+		9BCF79DBD7CB03AE116E447CE0590DD9 /* Instructions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Instructions.release.xcconfig; sourceTree = "<group>"; };
+		9C90F2D4CDBD445F85310AD7C899D649 /* CoachMarksControllerAnimationDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarksControllerAnimationDelegate.swift; path = "Sources/Instructions/Protocols and Enums/Public/Delegates/CoachMarksControllerAnimationDelegate.swift"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AD619D8DAC396D49748A2FEBF9D4B179 /* OverlayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OverlayView.swift; path = Sources/Instructions/Views/OverlayView.swift; sourceTree = "<group>"; };
+		B0C37623CE126EEC0BC97E67E5417C27 /* CoachMarkBodyHighlightArrowDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkBodyHighlightArrowDelegate.swift; path = "Sources/Instructions/Protocols and Enums/Public/CoachMarkBodyHighlightArrowDelegate.swift"; sourceTree = "<group>"; };
+		B10A860E52A3C902665999E5B1B10EEA /* CoachMarkBodyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkBodyView.swift; path = "Sources/Instructions/Protocols and Enums/Public/CoachMarkBodyView.swift"; sourceTree = "<group>"; };
+		B564416AB1CFCA0C69835FBB7460E24C /* Pods-KillTeamApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KillTeamApplication.debug.xcconfig"; sourceTree = "<group>"; };
+		B5FC995AE334B7E04C75082EF9FD2257 /* Pods-KillTeamApplication-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-KillTeamApplication-umbrella.h"; sourceTree = "<group>"; };
+		C55BB090B22C89583F59103A06B770A0 /* Instructions-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Instructions-umbrella.h"; sourceTree = "<group>"; };
+		C90F6BD899E2E1ED2FF2A01CEC360D1A /* ViewControllerConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewControllerConfiguration.swift; path = "Sources/Instructions/Protocols and Enums/Public/Enums/ViewControllerConfiguration.swift"; sourceTree = "<group>"; };
+		CEFF02DF7E2B18E8349CB926CC01F778 /* CoachMarkViewControllerDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkViewControllerDelegate.swift; path = "Sources/Instructions/Protocols and Enums/Internal/CoachMarkViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		D054AFC6D690F50FADE6B21BEB00A369 /* ConfigurationChange.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConfigurationChange.swift; path = "Sources/Instructions/Protocols and Enums/Public/Enums/ConfigurationChange.swift"; sourceTree = "<group>"; };
+		D0657C656A3C56BF7411EF30AED5373E /* TranslucentOverlayStyleManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TranslucentOverlayStyleManager.swift; path = Sources/Instructions/Managers/Internal/OverlayStyleManager/TranslucentOverlayStyleManager.swift; sourceTree = "<group>"; };
+		D8CE132131143719A8960E7B98BFB1D8 /* CoachMarkArrowDefaultView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkArrowDefaultView.swift; path = "Sources/Instructions/Extra/Default Views/CoachMarkArrowDefaultView.swift"; sourceTree = "<group>"; };
+		DF7828171458F7C03015047311337426 /* CoachMarkAnimationManagement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkAnimationManagement.swift; path = "Sources/Instructions/Helpers/Public/CoachMark Animation/CoachMarkAnimationManagement.swift"; sourceTree = "<group>"; };
+		E3605BA17E7BA75347C981B13167EA9B /* CoachMarkPosition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkPosition.swift; path = Sources/Instructions/Helpers/Internal/Enums/CoachMarkPosition.swift; sourceTree = "<group>"; };
+		E6752A21559FF659396A9D5B403B8A89 /* Instructions-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Instructions-Info.plist"; sourceTree = "<group>"; };
+		E824A4DC2AED334F7D1866F16C5F6702 /* PauseStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PauseStyle.swift; path = "Sources/Instructions/Protocols and Enums/Public/Enums/PauseStyle.swift"; sourceTree = "<group>"; };
+		E845929115FA79B566B0B2E30788906A /* CoachMarkArrowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoachMarkArrowView.swift; path = "Sources/Instructions/Protocols and Enums/Public/CoachMarkArrowView.swift"; sourceTree = "<group>"; };
+		EE637CF4D1803CE2C7916D9754921B6E /* Pods-KillTeamApplication.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-KillTeamApplication.modulemap"; sourceTree = "<group>"; };
+		F37D487EF3DCD1BE59B648DB93005999 /* PassthroughViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PassthroughViews.swift; path = Sources/Instructions/Views/PassthroughViews.swift; sourceTree = "<group>"; };
+		F784742D142AA1B038E9E6D3E07B474C /* OverlayManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OverlayManager.swift; path = Sources/Instructions/Managers/Public/OverlayManager.swift; sourceTree = "<group>"; };
+		F8FAECD0ECDAE5541B8C6FCFB1D8B763 /* FlowManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FlowManager.swift; path = Sources/Instructions/Managers/Public/FlowManager.swift; sourceTree = "<group>"; };
+		FCF1527C23B9B013DE9DFB03A6ABDBE2 /* Instructions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Instructions.swift; path = Sources/Instructions/Instructions.swift; sourceTree = "<group>"; };
+		FF600A7BA8476B742807422933B90A97 /* SkipViewDisplayManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SkipViewDisplayManager.swift; path = Sources/Instructions/Managers/Internal/SkipViewDisplayManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		57DAD70BA462814F40D42CD80B581649 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67DC3E8922CEF32F90672A7784305DE1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7887366EE33D751180DFF6B5F74FFBD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0373D2EEAF531B5A581CA8058CCFD84 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0CD5E568D46B56E942C4DAC0839EC88C /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5477081AE7344CC9B08FAFBFABA1AF52 /* Instructions.modulemap */,
+				322A39407A8332E029AB85029EEDCC77 /* Instructions-dummy.m */,
+				E6752A21559FF659396A9D5B403B8A89 /* Instructions-Info.plist */,
+				47A29F9B1A839DB9F7DEA469BF7AC53E /* Instructions-prefix.pch */,
+				C55BB090B22C89583F59103A06B770A0 /* Instructions-umbrella.h */,
+				69E00E8ABF7273BDFD79C2F1CD219AC0 /* Instructions.debug.xcconfig */,
+				9BCF79DBD7CB03AE116E447CE0590DD9 /* Instructions.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Instructions";
+			sourceTree = "<group>";
+		};
+		37C5E24000F070C566535ED118ED9A87 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				9C02AC8C6517917866AF9227AE43FEC6 /* Pods-KillTeamApplication */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		8835BBCDAAF61605822293F2F05F3EFD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C22078EBCD4EA2D0BEA63674BE8FBF0 /* Instructions.framework */,
+				67FBEE0B920CE689A5364D84BDDDFD2F /* Pods-KillTeamApplication */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9293504969DC3046D98DB23C0AF3ECED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E665E4EA382A0DDC9A008B0314542959 /* Instructions */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9C02AC8C6517917866AF9227AE43FEC6 /* Pods-KillTeamApplication */ = {
+			isa = PBXGroup;
+			children = (
+				EE637CF4D1803CE2C7916D9754921B6E /* Pods-KillTeamApplication.modulemap */,
+				4AB757D997AE575D23995E96A79BB73B /* Pods-KillTeamApplication-acknowledgements.markdown */,
+				798B84830A6E16B1FF427D41580334E0 /* Pods-KillTeamApplication-acknowledgements.plist */,
+				35043FAE64630E2C03F95D31AA425D04 /* Pods-KillTeamApplication-dummy.m */,
+				8DEAC539E8936E4C878C65A3B9C4428C /* Pods-KillTeamApplication-frameworks.sh */,
+				5FAF494333F6811A419E15B156C73114 /* Pods-KillTeamApplication-Info.plist */,
+				B5FC995AE334B7E04C75082EF9FD2257 /* Pods-KillTeamApplication-umbrella.h */,
+				B564416AB1CFCA0C69835FBB7460E24C /* Pods-KillTeamApplication.debug.xcconfig */,
+				543CDE2D842912FBAFADB7CF2E9C6FA5 /* Pods-KillTeamApplication.release.xcconfig */,
+			);
+			name = "Pods-KillTeamApplication";
+			path = "Target Support Files/Pods-KillTeamApplication";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				9293504969DC3046D98DB23C0AF3ECED /* Pods */,
+				8835BBCDAAF61605822293F2F05F3EFD /* Products */,
+				37C5E24000F070C566535ED118ED9A87 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				578452D2E740E91742655AC8F1636D1F /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E665E4EA382A0DDC9A008B0314542959 /* Instructions */ = {
+			isa = PBXGroup;
+			children = (
+				892FC1D5AA5D3970B25538AF17EE3C07 /* AccessibilityIdentifiers.swift */,
+				0388F4868015433956D08F641DA40A25 /* BlurringOverlayStyleManager.swift */,
+				3C2B2A6443BBBED1039B7EB826106B4F /* CoachMark.swift */,
+				DF7828171458F7C03015047311337426 /* CoachMarkAnimationManagement.swift */,
+				694C6F38EA7048B5E9E3D1FDA703E264 /* CoachMarkAnimationManager.swift */,
+				D8CE132131143719A8960E7B98BFB1D8 /* CoachMarkArrowDefaultView.swift */,
+				0602D26C5BEEF876405BCBD015D812F9 /* CoachMarkArrowOrientation.swift */,
+				E845929115FA79B566B0B2E30788906A /* CoachMarkArrowView.swift */,
+				5E821F7AD0032EAF5E3145B3E730E104 /* CoachMarkBackgroundStyle.swift */,
+				7485B5C5EF6BA130FB738AB7E1EDB105 /* CoachMarkBodyBackgroundView.swift */,
+				635CC49A58318A6E40B94CFDF15300C2 /* CoachMarkBodyDefaultView.swift */,
+				B0C37623CE126EEC0BC97E67E5417C27 /* CoachMarkBodyHighlightArrowDelegate.swift */,
+				B10A860E52A3C902665999E5B1B10EEA /* CoachMarkBodyView.swift */,
+				988A16113C10A1CB6F324D4F31BEECA6 /* CoachMarkComponent.swift */,
+				69E79726FF4922E0412910A14467C4B4 /* CoachMarkCoordinateConverter.swift */,
+				37A830B108184655D42046F0314F6D2D /* CoachMarkDisplayManager.swift */,
+				4713267B4A1662FCD2F46F4E48310782 /* CoachMarkHelper.swift */,
+				9333AC5F22CEF403037BE1694CB83794 /* CoachMarkInnerLayoutHelper.swift */,
+				778AEE5F1111DCAF28819D6C49CEDB2E /* CoachMarkLayoutHelper.swift */,
+				7A7F529FA64C3BBA42C224079101985F /* CoachMarkNextLabelPosition.swift */,
+				E3605BA17E7BA75347C981B13167EA9B /* CoachMarkPosition.swift */,
+				12AFB8EFD596205EF19F10F5A7D4BC85 /* CoachMarksController.swift */,
+				34A0D0197D74DF01D60FBDD6F4BC28B6 /* CoachMarksController+Proxy.swift */,
+				9C90F2D4CDBD445F85310AD7C899D649 /* CoachMarksControllerAnimationDelegate.swift */,
+				8381235338056DCDB00FC5741653FB61 /* CoachMarksControllerDataSource.swift */,
+				0556636AD2E70F697F1C187DED047BD5 /* CoachMarksControllerDelegate.swift */,
+				63C3528F1BC90315A57AF762D05F6C53 /* CoachMarkSkipDefaultView.swift */,
+				52C7C8BD6BFFCECDE33A4B248E1945CD /* CoachMarkSkipView.swift */,
+				90BC770D6B8D3C7607FAE38C37E28550 /* CoachMarksViewController.swift */,
+				178C7C64CF296AE4B94AF10B62D06454 /* CoachMarkTransitionManager.swift */,
+				926BB515EA543BC2F285D0B94C2B6540 /* CoachMarkView.swift */,
+				CEFF02DF7E2B18E8349CB926CC01F778 /* CoachMarkViewControllerDelegate.swift */,
+				D054AFC6D690F50FADE6B21BEB00A369 /* ConfigurationChange.swift */,
+				6C047DABABE5724271072C9B8335FE04 /* ErrorMessage.swift */,
+				F8FAECD0ECDAE5541B8C6FCFB1D8B763 /* FlowManager.swift */,
+				FCF1527C23B9B013DE9DFB03A6ABDBE2 /* Instructions.swift */,
+				4F18E11BCC3FA2A9FFB780C039A8508D /* MaskView.swift */,
+				F784742D142AA1B038E9E6D3E07B474C /* OverlayManager.swift */,
+				0B8B12B7B8B7F80AC8C9E7006BFD9162 /* OverlaySnapshotView.swift */,
+				7D9089788D3CFE4AC75B35DE5287A341 /* OverlayStyleManager.swift */,
+				AD619D8DAC396D49748A2FEBF9D4B179 /* OverlayView.swift */,
+				F37D487EF3DCD1BE59B648DB93005999 /* PassthroughViews.swift */,
+				E824A4DC2AED334F7D1866F16C5F6702 /* PauseStyle.swift */,
+				2971EEEAFF2A1D43D231B0A9891ABBE0 /* PresentationContext.swift */,
+				FF600A7BA8476B742807422933B90A97 /* SkipViewDisplayManager.swift */,
+				D0657C656A3C56BF7411EF30AED5373E /* TranslucentOverlayStyleManager.swift */,
+				8CB2E6BAFE7D7C5A98BC18A2C5DD92D2 /* UIApplication+WindowScene.swift */,
+				4482BD168662C7E36A58DF68254E2DB0 /* UIView+Layout.swift */,
+				C90F6BD899E2E1ED2FF2A01CEC360D1A /* ViewControllerConfiguration.swift */,
+				0CD5E568D46B56E942C4DAC0839EC88C /* Support Files */,
+			);
+			path = Instructions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6254CEE8AC6EFF1D26341697C81D41BF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DFE15C2EED6E5CFD0ED53CA3961F499 /* Instructions-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9887A8B679A2F137232715F232208B77 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				360FCCAADEEE6BF4FFEE816F470678F9 /* Pods-KillTeamApplication-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6B31667BFF2CA0778B68C0BDEC736467 /* Pods-KillTeamApplication */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27DF0CD8845DEF691B6283F254F0229D /* Build configuration list for PBXNativeTarget "Pods-KillTeamApplication" */;
+			buildPhases = (
+				9887A8B679A2F137232715F232208B77 /* Headers */,
+				39DD4255F42D42668AA9CF4485002C08 /* Sources */,
+				57DAD70BA462814F40D42CD80B581649 /* Frameworks */,
+				48365DCB00AD8F2B49EB6997E0C3CBA9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02F5FA83F939091FD7064FA932E2A321 /* PBXTargetDependency */,
+			);
+			name = "Pods-KillTeamApplication";
+			productName = Pods_KillTeamApplication;
+			productReference = 67FBEE0B920CE689A5364D84BDDDFD2F /* Pods-KillTeamApplication */;
+			productType = "com.apple.product-type.framework";
+		};
+		97482FB5B78AAF68DDD9AC7CD1C3A456 /* Instructions */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFBDDA5A334C330CCDC2F2243F5ADB2F /* Build configuration list for PBXNativeTarget "Instructions" */;
+			buildPhases = (
+				6254CEE8AC6EFF1D26341697C81D41BF /* Headers */,
+				3AF12F0BD858E5050D6F584C4380B9FB /* Sources */,
+				7887366EE33D751180DFF6B5F74FFBD8 /* Frameworks */,
+				73A32639E6968133EB1AF3DEE60D6AF0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Instructions;
+			productName = Instructions;
+			productReference = 1C22078EBCD4EA2D0BEA63674BE8FBF0 /* Instructions.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1340;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 8835BBCDAAF61605822293F2F05F3EFD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				97482FB5B78AAF68DDD9AC7CD1C3A456 /* Instructions */,
+				6B31667BFF2CA0778B68C0BDEC736467 /* Pods-KillTeamApplication */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		48365DCB00AD8F2B49EB6997E0C3CBA9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73A32639E6968133EB1AF3DEE60D6AF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		39DD4255F42D42668AA9CF4485002C08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B01FE65D84D4079625C0DF1176F9948 /* Pods-KillTeamApplication-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AF12F0BD858E5050D6F584C4380B9FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9312E6EA7861860DE5D624D2B6913B6 /* AccessibilityIdentifiers.swift in Sources */,
+				0A3BF9F5CBF667E75F82B5C69F1A4597 /* BlurringOverlayStyleManager.swift in Sources */,
+				25DD4D26232F398972745DAC05E5D03C /* CoachMark.swift in Sources */,
+				49309D7FE29973AFB8E8C92520052511 /* CoachMarkAnimationManagement.swift in Sources */,
+				E77D13223E4D34EBBD474CCEF86A11E9 /* CoachMarkAnimationManager.swift in Sources */,
+				EC76382761904162101C4A62C72895AD /* CoachMarkArrowDefaultView.swift in Sources */,
+				B779C448D875450329A45212C76B2F82 /* CoachMarkArrowOrientation.swift in Sources */,
+				34503F44A8D5773B85A5ABDCB062F878 /* CoachMarkArrowView.swift in Sources */,
+				398715C41521DF34B5AB10019267B057 /* CoachMarkBackgroundStyle.swift in Sources */,
+				36B3B09157D2B05BEE302641D452638A /* CoachMarkBodyBackgroundView.swift in Sources */,
+				12D8D02540CF77756A110C07AD084D93 /* CoachMarkBodyDefaultView.swift in Sources */,
+				4CE2D58C22BC2D39D36DF71812A91640 /* CoachMarkBodyHighlightArrowDelegate.swift in Sources */,
+				D7F5087778C8D56524BE89004EDA9CA1 /* CoachMarkBodyView.swift in Sources */,
+				7375D295BDA858060684E265B06A3659 /* CoachMarkComponent.swift in Sources */,
+				B5F168F4C09F6DE3602E85B209E7A98A /* CoachMarkCoordinateConverter.swift in Sources */,
+				CD74A038A467EA16CA8F932E95194E8D /* CoachMarkDisplayManager.swift in Sources */,
+				12710D75ABC5A6BADEAB1201572C55A1 /* CoachMarkHelper.swift in Sources */,
+				BC45302212870BC70EDDE09B0429ED26 /* CoachMarkInnerLayoutHelper.swift in Sources */,
+				42A8506FEA0038E77EF326EE16D258DF /* CoachMarkLayoutHelper.swift in Sources */,
+				E60D8B22D64714A3AE7363217929A9D0 /* CoachMarkNextLabelPosition.swift in Sources */,
+				7C6ADCBC2916F28326577530DFC9C18A /* CoachMarkPosition.swift in Sources */,
+				C961E20AA6F83CB7CC1D9FB7E7C711B5 /* CoachMarksController.swift in Sources */,
+				CB71EB88662FFBD0835C409BD8A5A009 /* CoachMarksController+Proxy.swift in Sources */,
+				C3C43A9618E215AC6901DF1589262B9D /* CoachMarksControllerAnimationDelegate.swift in Sources */,
+				493433E438A4611FE4CA51C59570AEE5 /* CoachMarksControllerDataSource.swift in Sources */,
+				A340258B1546BCB1D49B1DC598CC1CEE /* CoachMarksControllerDelegate.swift in Sources */,
+				149176B03307F1FF7ADE172DFD8A4722 /* CoachMarkSkipDefaultView.swift in Sources */,
+				8AFD224B9698CE5B89A616547213AF64 /* CoachMarkSkipView.swift in Sources */,
+				EF89458FBBC86384400C87DBB0A0F2E6 /* CoachMarksViewController.swift in Sources */,
+				AB4D2482C58323E204731F241F9B687C /* CoachMarkTransitionManager.swift in Sources */,
+				602B5633C50BB46B8B7FF8022E26B939 /* CoachMarkView.swift in Sources */,
+				475AE2E4761AA2FB529463E30A93E2E7 /* CoachMarkViewControllerDelegate.swift in Sources */,
+				DA930D64146BDD4582644706EAEB5CB5 /* ConfigurationChange.swift in Sources */,
+				0A12AE8480976DBB7D27385ABB2F5C2C /* ErrorMessage.swift in Sources */,
+				E8822018315F237916130DDFFFF2DB74 /* FlowManager.swift in Sources */,
+				9DFC92AABD407DFD055F909B2FA18F75 /* Instructions.swift in Sources */,
+				FE4F899976F6559D82872F6B7575990C /* Instructions-dummy.m in Sources */,
+				5CA19CF4AED351064AD9D10A6B4D04EA /* MaskView.swift in Sources */,
+				752F7F028A79A673098224F9623922F7 /* OverlayManager.swift in Sources */,
+				ED69FF4049A08563D97B782C0B54C0F4 /* OverlaySnapshotView.swift in Sources */,
+				D0C8391A866ABE328AC7718F5F48CC27 /* OverlayStyleManager.swift in Sources */,
+				8CA303B134DA987C7F52835E3CCE9E92 /* OverlayView.swift in Sources */,
+				9D897D29CCAA521B8AA1FE6252ECEFB1 /* PassthroughViews.swift in Sources */,
+				EB477D2CF8C8AD34C03661EF780DE318 /* PauseStyle.swift in Sources */,
+				B1A9F7D33554C1298A8FF7B0BD624011 /* PresentationContext.swift in Sources */,
+				04320C04A55EAA6B318EFF0BC4ABB9F7 /* SkipViewDisplayManager.swift in Sources */,
+				2481E28EE996F595EFE6346EFF9E7BD1 /* TranslucentOverlayStyleManager.swift in Sources */,
+				8136E86F9E33D77C74A62C0EBAAB3057 /* UIApplication+WindowScene.swift in Sources */,
+				CE1C9EA0240C350E2984D17866D96801 /* UIView+Layout.swift in Sources */,
+				2C2B7C5A086BF88A9CC34EBEFA037659 /* ViewControllerConfiguration.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		02F5FA83F939091FD7064FA932E2A321 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Instructions;
+			target = 97482FB5B78AAF68DDD9AC7CD1C3A456 /* Instructions */;
+			targetProxy = 35DC8930F7B640B6C4BF9BFB89C9EF53 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0D774DAB2C2AEDE24AB0CBC115E422BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69E00E8ABF7273BDFD79C2F1CD219AC0 /* Instructions.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Instructions/Instructions-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Instructions/Instructions-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Instructions/Instructions.modulemap";
+				PRODUCT_MODULE_NAME = Instructions;
+				PRODUCT_NAME = Instructions;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		32F60D3C70AB16E08C7004FF54C6FAEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 543CDE2D842912FBAFADB7CF2E9C6FA5 /* Pods-KillTeamApplication.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		907341CE13F1CC4F1B1C895F85EDF5F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BCF79DBD7CB03AE116E447CE0590DD9 /* Instructions.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Instructions/Instructions-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Instructions/Instructions-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Instructions/Instructions.modulemap";
+				PRODUCT_MODULE_NAME = Instructions;
+				PRODUCT_NAME = Instructions;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		BC01E0B73776AF6B58DC318A9BE988D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		C605C363CC9F26F9FF97DBB1D5C6E25C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		E2A8E72B79700789BBBB01E5BF9B1562 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B564416AB1CFCA0C69835FBB7460E24C /* Pods-KillTeamApplication.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27DF0CD8845DEF691B6283F254F0229D /* Build configuration list for PBXNativeTarget "Pods-KillTeamApplication" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2A8E72B79700789BBBB01E5BF9B1562 /* Debug */,
+				32F60D3C70AB16E08C7004FF54C6FAEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC01E0B73776AF6B58DC318A9BE988D7 /* Debug */,
+				C605C363CC9F26F9FF97DBB1D5C6E25C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFBDDA5A334C330CCDC2F2243F5ADB2F /* Build configuration list for PBXNativeTarget "Instructions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D774DAB2C2AEDE24AB0CBC115E422BA /* Debug */,
+				907341CE13F1CC4F1B1C895F85EDF5F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}
