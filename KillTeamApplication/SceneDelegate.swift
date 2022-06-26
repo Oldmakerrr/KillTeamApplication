@@ -6,17 +6,24 @@
 //
 
 import UIKit
+import Instructions
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window?.windowScene = windowScene
+    func ifAppLaunchedFirstTime() -> Bool {
+        if let data = UserDefaults.standard.value(forKey: "isAppAlreadyLaunchedOnce") as? Bool {
+            return data
+        } else {
+            UserDefaults.standard.set(false, forKey: "isAppAlreadyLaunchedOnce")
+            return true
+        }
+    }
+    
+    func configureNavigatinBar() {
         UINavigationBar.appearance().barStyle = .black
-        UINavigationBar.appearance().tintColor = .orange
+        UINavigationBar.appearance().tintColor = ColorScheme.shared.theme.selectedView
         
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = 0
@@ -36,10 +43,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UITabBar.appearance().standardAppearance = tabAppearance
             UITabBar.appearance().scrollEdgeAppearance = tabAppearance
         }
+    }
+    
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        configureNavigatinBar()
+        let isAppAlreadyLaunchedOnce = true
+        //let isAppAlreadyLaunchedOnce = ifAppLaunchedFirstTime()
+        let userSettings = UserSettings(firstTimeLaunch: isAppAlreadyLaunchedOnce)
         let gameStore = GameStore()
         let store = Store()
         let storage = Storage(store: store)
-        let builder = ModuleBuilder(store: store, gameStore: gameStore, storage: storage)
+        let builder = ModuleBuilder(store: store,
+                                    gameStore: gameStore,
+                                    storage: storage,
+                                    userSettings: userSettings)
         let router = MainRouter(builder: builder)
         DispatchQueue.global(qos: .utility).async {
             storage.loadSavedKillTeam()

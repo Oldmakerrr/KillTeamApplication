@@ -6,8 +6,17 @@
 //
 
 import UIKit
+import Instructions
 
 extension EditKillTeamTableViewController {
+    
+    func showCoachMarks() {
+        guard let killTeam = presenter?.model.killTeam else { return }
+        if !isCoachMarkShowed() && !killTeam.choosenFireTeam.isEmpty {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
+    }
     
     func checkTableViewState() {
         if presenter?.model.killTeam?.choosenFireTeam.count == 0 {
@@ -68,7 +77,7 @@ extension EditKillTeamTableViewController {
             changeUnit(indexPath: indexPath)
             completion(true)
         }
-        action.backgroundColor = .orange
+        action.backgroundColor = ColorScheme.shared.theme.selectedView
         action.image = UIImage(systemName: "arrow.swap")
         return action
     }

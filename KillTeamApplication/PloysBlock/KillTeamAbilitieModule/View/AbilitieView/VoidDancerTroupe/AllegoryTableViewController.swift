@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol AllegoryTableViewControllerDelegate: AnyObject {
+    func didComplete(_ allegoryTableViewController: AllegoryTableViewController)
+}
+
 class AllegoryTableViewController: UITableViewController {
+    
+    weak var delegate:AllegoryTableViewControllerDelegate?
     
     var allegory: [VoidDancerTroupeAbilitie.Allegory]?
     let gameStore: GameStoreProtocol
@@ -16,7 +22,6 @@ class AllegoryTableViewController: UITableViewController {
     init(gameStore: GameStoreProtocol) {
         self.gameStore = gameStore
         super.init(style: .plain)
-       // gameStore.multicastDelegate.addDelegate(self)
         guard let gameData = gameStore.getGameDate() else { return }
         self.gameData = gameData
     }
@@ -53,28 +58,11 @@ class AllegoryTableViewController: UITableViewController {
         guard let allegory = allegory?[indexPath.row] else { return }
         gameData.currentAbilitie = allegory.name
         gameStore.updateGameData(gameData: gameData)
-        self.showAlert()
-    
+        delegate?.didComplete(self)
     }
     
-    private func showAlert() {
-        let alert = UIAlertController(title: "Allegory successfuly used", message: nil, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Done", style: .cancel, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        })
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
 }
 
-//extension AllegoryTableViewController: GameStoreDelegate {
-//    func didUpdate(_ gameStore: GameStore, gameData: GameData?) {
-//        <#code#>
-//    }
-//
-//
-//}
-//
 class AllegoryTableViewCell: KillTeamAbilitieTableViewCell<AllegoryView> {
     
     func setupText(allegory: VoidDancerTroupeAbilitie.Allegory) {

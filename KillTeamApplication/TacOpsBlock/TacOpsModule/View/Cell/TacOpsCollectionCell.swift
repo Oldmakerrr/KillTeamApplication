@@ -29,7 +29,7 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         String(describing: self)
     }
     
-    let button = InfoButton()
+    let moreInfoButton = InfoButton()
     let nameLabel = BoldLabel()
     let imageView = UIImageView()
     
@@ -111,15 +111,15 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
     }
     
     private func setupButton() {
-        contentView.addSubview(button)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        contentView.addSubview(moreInfoButton)
+        moreInfoButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor),
-            button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
-            button.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.small),
-            button.widthAnchor.constraint(equalToConstant: 30),
-            button.heightAnchor.constraint(equalTo: button.widthAnchor)
+            moreInfoButton.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor),
+            moreInfoButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
+            moreInfoButton.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor),
+            moreInfoButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.small),
+            moreInfoButton.widthAnchor.constraint(equalToConstant: 30),
+            moreInfoButton.heightAnchor.constraint(equalTo: moreInfoButton.widthAnchor)
         ])
     }
     

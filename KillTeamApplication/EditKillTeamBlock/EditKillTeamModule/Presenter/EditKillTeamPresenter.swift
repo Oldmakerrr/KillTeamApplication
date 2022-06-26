@@ -16,7 +16,8 @@ protocol EditKillTeamProtocol: AnyObject {
 protocol EditKillTeamPresenterProtocol: AnyObject {
     var model: ChosenKillTeam { get }
     var store: StoreProtocol { get }
-    init (view: EditKillTeamProtocol, store: StoreProtocol)
+    var userSettings: UserSettingsProtocol { get set }
+    init (view: EditKillTeamProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol)
     
     func addFireTeam(view: UITableViewController)
     func renameKillTeamAlertController(view: UIViewController)
@@ -42,10 +43,12 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     weak var view: EditKillTeamProtocol?
     weak var delegate: EditKillTeamPresenterDelegate?
     let store: StoreProtocol
+    var userSettings: UserSettingsProtocol
     
-    required init(view: EditKillTeamProtocol, store: StoreProtocol) {
+    required init(view: EditKillTeamProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
+        self.userSettings = userSettings
         store.multicastDelegate.addDelegate(self)
     }
     

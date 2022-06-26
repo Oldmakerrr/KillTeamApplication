@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Instructions
 
 extension UIViewController {
     
@@ -34,7 +35,7 @@ extension UIViewController {
     }
     
     func showToast(message : String) {
-        let toastView = ToastTextView(message: message)
+        let toastView = ToastTextView(message: message, blureStyle: .dark)
         self.view.addSubview(toastView)
         NSLayoutConstraint.activate([
             toastView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
@@ -49,14 +50,82 @@ extension UIViewController {
         })
     }
     
-    func setupRightNavigationLabel(label: UILabel) {
+    func setupRightNavigationView(view: UIView, toRight rightView: UIView? = nil) {
         guard let navigationBar = navigationController?.navigationBar else { return }
-        label.textColor = .white
-        navigationBar.addSubview(label)
-        NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
-            label.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large)
-        ])
+        view.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.addSubview(view)
+        view.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor).isActive = true
+        if let rightView = rightView {
+            view.trailingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+        } else {
+            view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large).isActive = true
+        }
+    }
+    
+    enum PreviewSwipeDirection {
+        case left
+        case right
+    }
+    
+    func previewSwipeActions(forCellAt indexPath: IndexPath = IndexPath(row: 0, section: 0),
+                             message: String = "  Swipe me  ",
+                             actionBackgroundColor: UIColor = UIColor.blue,
+                             swipeDirection: PreviewSwipeDirection,
+                             tableView: UITableView) {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
+
+        let label: UILabel = {
+            let label = UILabel(frame: CGRect.zero)
+            label.text = message
+            label.backgroundColor = actionBackgroundColor
+            label.textColor = .white
+            return label
+        }()
+        
+        let bestSize = label.sizeThatFits(label.frame.size)
+        switch swipeDirection {
+        case .left:
+            label.frame = CGRect(x: 0, y: 0, width: bestSize.width, height: cell.bounds.height)
+        case .right:
+            label.frame = CGRect(x: cell.bounds.width - bestSize.width, y: 0, width: bestSize.width, height: cell.bounds.height)
+        }
+        
+        cell.insertSubview(label, belowSubview: cell.contentView)
+
+        UIView.animate(withDuration: 0.3, animations: {
+            switch swipeDirection {
+            case .left:
+                cell.transform = CGAffineTransform.identity.translatedBy(x: label.bounds.width, y: 0)
+                label.transform = CGAffineTransform.identity.translatedBy(x: -label.bounds.width, y: 0)
+            case .right:
+                cell.transform = CGAffineTransform.identity.translatedBy(x: -label.bounds.width, y: 0)
+                label.transform = CGAffineTransform.identity.translatedBy(x: label.bounds.width, y: 0)
+            }
+        }) { (finished) in
+            UIView.animateKeyframes(withDuration: 0.3, delay: 0.4, options: [], animations: {
+                cell.transform = CGAffineTransform.identity
+                label.transform = CGAffineTransform.identity
+            }, completion: { (finished) in
+                label.removeFromSuperview()
+            })
+        }
+    }
+
+    
+    func isCoachMarkShowed() -> Bool {
+        guard let viewController = self.description.components(separatedBy: ".").last?.components(separatedBy: ":").first else { return false }
+        let key = "Instruction_\(viewController)"
+        guard let data = UserDefaults.standard.value(forKey: key) as? Bool else { return false }
+        return data
+    }
+    
+    func setCoachMarkStateToShowed() {
+        guard let viewController = self.description.components(separatedBy: ".").last?.components(separatedBy: ":").first else { return }
+        let key = "Instruction_\(viewController)"
+        UserDefaults.standard.set(true, forKey: key)
     }
     
 }

@@ -10,7 +10,7 @@ import UIKit
 protocol EditUnitViewControllerProtocol: AnyObject {
     var presenter: EditUnitPresenterProtocol? { get }
     var countOfEquipmentPointLabel: BoldLabel { get }
-    var chaosBlessingButton: UIBarButtonItem? { get }
+    var chaosBlessingButton: UIButton? { get }
     func showChooseAbilitieAlert(title: String)
 }
 
@@ -18,10 +18,11 @@ protocol EditUnitPresenterProtocol: AnyObject {
     var view: EditUnitViewControllerProtocol? { get }
     var model: ChoosenUnit { get }
     var store: StoreProtocol { get }
-    init (view: EditUnitViewControllerProtocol, store: StoreProtocol)
+    var userSettings: UserSettingsProtocol { get }
+    init (view: EditUnitViewControllerProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol)
     
     func goToAbilitieKillTeamViewController()
-    func setImage() -> String?
+    func updateButtonImage()
     func selectCell(wargear: Wargear)
     func clearIndex()
 }
@@ -39,15 +40,18 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
     var model = ChoosenUnit() {
         didSet {
             view?.countOfEquipmentPointLabel.text = "EP = \(model.killTeam?.countEquipmentPoint ?? 0)"
-            updateButtonImage(imageName: setImage())
+            updateButtonImage()
         }
     }
     
     var store: StoreProtocol
     
-    required init(view: EditUnitViewControllerProtocol, store: StoreProtocol) {
+    let userSettings: UserSettingsProtocol
+    
+    required init(view: EditUnitViewControllerProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
+        self.userSettings = userSettings
         self.store.multicastDelegate.addDelegate(self)
         self.model.indexPathUnit = store.indexOfChoosenUnit
         prepareModel()
@@ -104,15 +108,20 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         delegate?.didComplete(self)
     }
     
-    func setImage() -> String? {
-        guard let chaosBlessing = model.currentUnit?.additionalAbilitie else { return nil }
-        let chaosBlessingName = chaosBlessing.name
-        return chaosBlessingName.components(separatedBy: " ").first
+    private func getImageName() -> String {
+        guard let chaosBlessing = model.currentUnit?.additionalAbilitie else { return "killTeamViewController" }
+        if let chaosBlessingName = chaosBlessing.name.components(separatedBy: " ").first {
+            return chaosBlessingName
+        } else {
+            return "killTeamViewController"
+        }
     }
     
-    private func updateButtonImage(imageName: String?) {
-        guard let button = view?.chaosBlessingButton, let imageName = imageName else { return }
-        button.image = UIImage(named: imageName)
+    func updateButtonImage() {
+        guard let button = view?.chaosBlessingButton else { return }
+        let imageName = getImageName()
+        let image = UIImage(named: imageName)?.withTintColor(ColorScheme.shared.theme.selectedView).withRenderingMode(.alwaysTemplate)
+        button.setBackgroundImage(image, for: .normal)
     }
     
     func selectCell(wargear: Wargear) {
@@ -173,10 +182,11 @@ extension EditUnitPresenter: StoreDelegate {
 
 extension EditUnitPresenter: ChaosBlessingTableViewControllerDelegate {
     func didSelect(_ chaosBlessingTableViewController: ChaosBlessingTableViewController, chaosBlessing: UnitAbilitie) {
+        guard let view = view as? UIViewController else { return }
         addAdditionalAbilitie(abilitie: chaosBlessing)
-        chaosBlessingTableViewController.dismiss(animated: true) { [self] in
+        chaosBlessingTableViewController.dismiss(animated: true) { 
             if let nameOfMarkOfChaos = chaosBlessing.name.components(separatedBy: " ").first {
-                view?.showChooseAbilitieAlert(title: "Mark of \(nameOfMarkOfChaos) choosen")
+                view.showToast(message: "Mark of \(nameOfMarkOfChaos) selected")
             }
         }
     }
@@ -186,10 +196,10 @@ extension EditUnitPresenter: ChaosBlessingTableViewControllerDelegate {
 
 extension EditUnitPresenter: BoonOfTzeenchTableViewControllerDelegate {
     func didComplete(_ boonOfTzeenchTableViewController: BoonOfTzeenchTableViewController, boonOfTzeentch: WarpcovenAbilitie.BoonsOfTzeentch) {
+        guard let view = view as? UIViewController else { return }
         addAdditionalAbilitie(abilitie: boonOfTzeentch)
-        boonOfTzeenchTableViewController.dismiss(animated: true) {  [self] in
-            view?.showChooseAbilitieAlert(title: "\(boonOfTzeentch.name) choosen")
-            
+        boonOfTzeenchTableViewController.dismiss(animated: true) {
+            view.showToast(message: "\(boonOfTzeentch.name) selected")
         }
         
     }

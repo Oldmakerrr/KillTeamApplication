@@ -14,6 +14,7 @@ class PathfinderAbilitieView: KillTeamAbilitieView {
         switch abilitie.name {
         case "ARTIFICIAL INTELLIGENCE":
             addSubTextPointView(subText: abilitie.rules)
+            addImageView()
         default:
             abilitie.rules.forEach { text in
                 setupTextView(text: text)
@@ -57,6 +58,30 @@ class PathfinderAbilitieView: KillTeamAbilitieView {
         backgroundView.addView(view: backgroundView, subView: view)
         addArrangedSubview(backgroundView)
         view.setupText(action: markerRule.uniqueAction, delegate: delegate, viewWidth: view.getViewWidth())
+    }
+    
+    private func addImageView() {
+        let imageNames = ["PathfinderDrone_1","PathfinderDrone_2"]
+        for imageName in imageNames {
+            let view = UIView()
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = UIImage(named: imageName)
+            view.addSubview(imageView)
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 60),
+                imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+            ])
+            NSLayoutConstraint.activate([
+                imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                imageView.topAnchor.constraint(equalTo: view.topAnchor),
+                imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                imageView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor),
+                imageView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor)
+            ])
+            addArrangedSubview(view)
+        }
     }
 }
 

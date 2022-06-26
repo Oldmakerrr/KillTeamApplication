@@ -17,7 +17,8 @@ extension UIView {
             blurEffectView.translatesAutoresizingMaskIntoConstraints = false
             addSubview(blurEffectView)
             NSLayoutConstraint.activate([
-                blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+                blurEffectView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                blurEffectView.centerYAnchor.constraint(equalTo: centerYAnchor),
                 blurEffectView.widthAnchor.constraint(equalTo: widthAnchor),
                 blurEffectView.heightAnchor.constraint(equalTo: heightAnchor)
             ])
@@ -73,5 +74,21 @@ extension UIView {
     func centerY(inView view: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    func animateSelect() {
+        alpha = 0.8
+        UIView.animate(withDuration: 0.1, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        }) { (finished) in
+            self.animateDeselect()
+        }
+    }
+        
+    func animateDeselect() {
+        alpha = 1.0
+        UIView.animate(withDuration: 0.1) {
+            self.transform = .identity
+        }
     }
 }

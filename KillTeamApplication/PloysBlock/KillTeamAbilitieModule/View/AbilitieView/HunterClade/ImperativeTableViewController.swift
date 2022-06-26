@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ImperativeTableViewControllerDelegate: AnyObject {
+    func didComplete(_ imperativeTableViewController: ImperativeTableViewController)
+}
+
 class ImperativeTableViewController: UITableViewController {
+    
+    weak var delegate: ImperativeTableViewControllerDelegate?
     
     var imperative: [HunterCladeAbilitie.Imperative]?
     let gameStore: GameStoreProtocol
@@ -52,26 +58,10 @@ class ImperativeTableViewController: UITableViewController {
         guard let imperative = imperative?[indexPath.row] else { return }
         gameData.currentAbilitie = imperative.name
         gameStore.updateGameData(gameData: gameData)
-        showAlert()
+        delegate?.didComplete(self)
     }
     
-    private func showAlert() {
-        let alert = UIAlertController(title: "Imperative successfuly used", message: nil, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Done", style: .cancel, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        })
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
 }
-
-//extension ImperativeTableViewController: GameStoreDelegate {
-//
-//    func didUpdate(_ gameStore: GameStore, gameData: GameData?) {
-//        <#code#>
-//    }
-//
-//}
 
 //MARK: - ImperativeCell
 

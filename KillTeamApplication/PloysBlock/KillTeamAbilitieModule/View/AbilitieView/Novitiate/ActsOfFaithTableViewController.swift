@@ -38,15 +38,6 @@ class ActsOfFaithTableViewController: UITableViewController {
         cell.view.backgroundColor = indexPath.row % 2 == 0 ? lightColor : darkColor
     }
     
-    private func showAlert(title: String) {
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Done", style: .cancel, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        })
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
-    }
-    
 //MARK: - TableViewDataSource
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,9 +61,12 @@ class ActsOfFaithTableViewController: UITableViewController {
             point -= cost
             gameData.countKillTeamAbilitiePoint = point
             gameStore.updateGameData(gameData: gameData)
-            showAlert(title: "Act of Faith successfully used")
+            showToast(message: "Act of Faith successfully used")
         } else {
-            showAlert(title: "You have not enough point")
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.shake()
+            }
+            showToast(message: "You have not enough point")
         }
     }
     

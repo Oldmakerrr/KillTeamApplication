@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Instructions
 
 class CounterViewController: UIViewController, CounterViewProtocol {
+    
+    let coachMarksController = CoachMarksController()
     
     var presenter: CounterPresenterProtocol?
     
@@ -18,10 +21,6 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     let addKillTeamButton = AddButton()
 
     let turningPointLabel = CounterLabel()
-        
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
     
     let currentAbilitieButton: ChangeTurnButton = {
         let button = ChangeTurnButton()
@@ -58,15 +57,17 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     let nextTurnButton = ChangeTurnButton()
     let endGameButton = ChangeTurnButton()
     
-    lazy var nextTurnButtonView = ButtonView(button: nextTurnButton, width: 100, height: 30)
-    lazy var endGameButtonView = ButtonView(button: endGameButton, width: 100, height: 30)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         setupBackgroundImage()
         setupSubView()
         setupDelegates()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showCoachMarks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +80,7 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
     override func viewWillDisappear(_ animated: Bool) {
         addKillTeamButton.removeFromSuperview()
+        coachMarksController.stop(immediately: true)
     }
     
     func showAlert(ploy: Ploy) {

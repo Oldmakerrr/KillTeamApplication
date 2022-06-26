@@ -6,46 +6,69 @@
 //
 
 import UIKit
-
+import Instructions
 
 class PloysViewController: UIViewController, PloysViewControllerProtocol {
     
     var presenter: PloysPresenterProtocol?
     
+    let coachMarksController = CoachMarksController()
+    
     let tableView = UITableView()
     
     let commandPointLabel = BoldLabel()
+    
+    let psychicPowerButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(systemName: "flame.fill"), for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
         setupTableView()
-        tabBarController?.delegate = self
+        //tabBarController?.delegate = self
         navigationItem.title = "Ploys"
+        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showCoachMarks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        setupRightNavigationLabel(label: commandPointLabel)
         commandPointLabel.text = "CP = \(presenter?.model.gameData.countCommandPoint ?? 0)"
-        if presenter?.model.strategicPloy.count == 0 && presenter?.model.tacticalPloy.count == 0 {
-            setEmptyState(title: "No Kill Team",
-                          message: "Please choose or create new Kill Team on the main screen")
-        } else {
-            restore()
-        }
-        let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
-        shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
+        emptyTableState()
         setupKillTeamAbilitieButton()
+        let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
+        commandPointLabel.textColor = .white
+        setupRightNavigationView(view: commandPointLabel)
+        shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        commandPointLabel.removeFromSuperview()
+        super.viewWillDisappear(animated)
+        coachMarksController.stop()
+        navigationController?.navigationBar.clearNavigationBar()
+       
     }
     
-    func setupCommandPointLabel() {
-        
+    
+    func emptyTableState() {
+        if presenter?.model.strategicPloy.count == 0 && presenter?.model.tacticalPloy.count == 0 {
+            setEmptyState(title: "No Kill Team",
+                          message: "Please create new Kill Team or choose existed on the main screen")
+        } else {
+            restore()
+        }
     }
     
     func setupKillTeamAbilitieButton() {
@@ -56,7 +79,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(goToKillTeamAbilitieButtonAction))
-        killTeamAbilitieBarButtonItem.title = "Abilitie"
+        killTeamAbilitieBarButtonItem.title = "Abilities"
         navigationItem.leftBarButtonItem = killTeamAbilitieBarButtonItem
     }
     
@@ -65,8 +88,13 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     }
     
     func setupPsychicPowerButton() {
-        let psychicPowerButton = UIBarButtonItem(image: UIImage(systemName: "flame.fill"), style: .done, target: self, action: #selector(psychicPowerButtonAction))
-        navigationItem.rightBarButtonItem = psychicPowerButton
+        guard let navigationBar = navigationController?.navigationBar else { return }
+        psychicPowerButton.addTarget(self, action: #selector(psychicPowerButtonAction), for: .touchUpInside)
+        navigationBar.addSubview(psychicPowerButton)
+        NSLayoutConstraint.activate([
+            psychicPowerButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
+            psychicPowerButton.trailingAnchor.constraint(equalTo: commandPointLabel.leadingAnchor, constant: -Constant.Size.Otstup.normal)
+        ])
     }
     
     @objc func psychicPowerButtonAction() {
@@ -77,23 +105,23 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         if shouldShow {
             setupPsychicPowerButton()
         } else {
-            navigationItem.rightBarButtonItem = nil
+            psychicPowerButton.removeFromSuperview()
         }
     }
     
     func usePloy(ploy: Ploy, cell: UITableViewCell, tableView: UITableView) {
         guard let presenter = presenter else { return }
         if ploy.cost > presenter.model.gameData.countCommandPoint {
-            showToast(message: "You have not enough command point.")
+            showToast(message: "You have not enough Command Points")
             cell.shake()
         } else {
             presenter.model.gameData.countCommandPoint -= ploy.cost
             if ploy.type == .strategic {
                 presenter.addPloy(ploy: ploy)
-                showToast(message: "Strategic ploy successfully used.")
+                showToast(message: "Strategic Ploy successfully used")
                 tableView.reloadData()
             } else {
-                showToast(message: "Tactical ploy successfully used.")
+                showToast(message: "Tactical Ploy successfully used")
             }
             commandPointLabel.text = "CP = \(presenter.model.gameData.countCommandPoint)"
         }
@@ -170,7 +198,7 @@ extension PloysViewController: UITableViewDelegate {
         case 0:
             let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
             if self.presenter!.model.gameData.currentStrategicPloys.contains(strategicPloy) {
-                showToast(message: "You have already used this stratigic ploy in that Turning Point")
+                showToast(message: "You have already used this Stratigic Ploy in that Turning Point")
                 cell.shake()
             } else {
                 usePloy(ploy: strategicPloy, cell: cell, tableView: tableView)
@@ -186,14 +214,14 @@ extension PloysViewController: UITableViewDelegate {
     
 }
 
-extension PloysViewController: UITabBarControllerDelegate {
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        guard let nav = viewController as? UINavigationController else { return }
-        nav.popToRootViewController(animated: true)
-    }
-    
-}
+//extension PloysViewController: UITabBarControllerDelegate {
+//
+//    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+//        guard let nav = viewController as? UINavigationController else { return }
+//        nav.popToRootViewController(animated: true)
+//    }
+//
+//}
 
 extension PloysViewController: WeaponRuleButtonDelegate {
     

@@ -46,8 +46,8 @@
             filePath = "KillTeamApplication/EditKillTeamBlock/EditUnitModule/Presenter/EditUnitPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "didUpdate(_:killTeam:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -81,22 +81,6 @@
             startingLineNumber = "50"
             endingLineNumber = "50"
             landmarkName = "chooseKillTeam(killTeam:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BDB1A018-7E90-45AA-A3B3-E56EF28C3587"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KillTeamApplication/Service/Store.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "saveMyKillTeam(killTeam:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -9,15 +9,16 @@ import Foundation
 import UIKit
 
 protocol TacOpsViewControllerProtocol: AnyObject {
-    var goToChoosenTacOpsButton: UIBarButtonItem { get }
+    var goToChoosenTacOpsButton: UIButton { get }
     var presenter: TacOpsPresenterProtocol? { get }
     var tacOpsCollection: UICollectionView { get }
 }
 
 protocol TacOpsPresenterProtocol: AnyObject {
-    init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol)
+    init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol, userSettings: UserSettingsProtocol)
     var view: TacOpsViewControllerProtocol? { get }
     var model: TacOpsModel { get }
+    var userSettings: UserSettingsProtocol { get }
     
     func pickTacOps(sender: TypeOfTacOp, collectionView: UICollectionView)
     func mixDeck()
@@ -44,13 +45,16 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     var model = TacOpsModel()
     
+    let userSettings: UserSettingsProtocol
+    
     private var selectedTacOp: TacOp?
     
-    required init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol) {
+    required init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
         self.gameStore = gameStore
         self.router = router
+        self.userSettings = userSettings
         gameStore.multicastDelegate.addDelegate(self)
         store.multicastDelegate.addDelegate(self)
         loadTacOps(tacOps: gameStore.tacOps)
@@ -80,14 +84,13 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     private func prepareTacOp(tacOp: TacOp) -> TacOp {
         var tacOp = tacOp
-        tacOp.isCompleteSubConditions = []
-        tacOp.isCompleteSubConditions?.append(false)
+        tacOp.isCompleteConditions.append(false)
         if tacOp.secondCondition != nil {
-            tacOp.isCompleteSubConditions?.append(false)
+            tacOp.isCompleteConditions.append(false)
         }
         if let subCondition = tacOp.subCondition {
             subCondition.forEach({ _ in
-                tacOp.isCompleteSubConditions?.append(false)
+                tacOp.isCompleteConditions.append(false)
             })
         }
         return tacOp

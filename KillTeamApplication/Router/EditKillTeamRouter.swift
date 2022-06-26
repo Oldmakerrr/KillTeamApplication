@@ -13,12 +13,13 @@ protocol EditKillTeamRouterProtocol: RouterProtocol {
 
 }
 
-class EeditKillTeamRouter: EditKillTeamRouterProtocol {
+class EditKillTeamRouter: EditKillTeamRouterProtocol {
     
     var builder: BuilderProtocol
     
     var editKillTeamNavigationController: EditKillTeamNavigationController?
     var editUnitPresenter: EditUnitPresenter?
+    var counterPresenter: CounterPresenter?
     
     init (builder: BuilderProtocol) {
         self.builder = builder
@@ -37,12 +38,20 @@ class EeditKillTeamRouter: EditKillTeamRouterProtocol {
     }
     
     func showKillTeamAbilitie() {
-        if let imperativeTableViewController = builder.createKillTeamImperativesList(router: self) {
-            editKillTeamNavigationController?.present(imperativeTableViewController, animated: true)
+        
+        if let counterView = editKillTeamNavigationController?.viewControllers.first as? CounterViewController {
+            if let delegate = counterView.presenter as? AllegoryTableViewControllerDelegate {
+                if let allegoryTableViewController = builder.createKillTeamAllegoryList(router: self, delegate: delegate) {
+                    editKillTeamNavigationController?.present(allegoryTableViewController, animated: true)
+                }
+            }
+            if let delegate = counterView.presenter as? ImperativeTableViewControllerDelegate {
+                if let imperativeTableViewController = builder.createKillTeamImperativesList(router: self, delegate: delegate) {
+                    editKillTeamNavigationController?.present(imperativeTableViewController, animated: true)
+                }
+            }
         }
-        if let allegoryTableViewController = builder.createKillTeamAllegoryList(router: self) {
-            editKillTeamNavigationController?.present(allegoryTableViewController, animated: true)
-        }
+       
         if let editUnitPresenter = editUnitPresenter,
            let chaosBlessingTableViewController = builder.createChaosBlessingList(router: self, delegate: editUnitPresenter) {
             editKillTeamNavigationController?.present(chaosBlessingTableViewController, animated: true)
@@ -71,7 +80,7 @@ class EeditKillTeamRouter: EditKillTeamRouterProtocol {
 }
 
 
-extension EeditKillTeamRouter: CounterPresenterDelegate {
+extension EditKillTeamRouter: CounterPresenterDelegate {
     func didComplete(_ presenter: CounterPresenterProtocol, sender: NavigationFromCounterModule) {
         switch sender {
         case .createNewKillTeam:
@@ -93,13 +102,13 @@ enum NavigationFromCounterModule {
     case killTeamAbilitie
 }
 
-extension EeditKillTeamRouter: ChooseKillTeamPresenterDelegate {
+extension EditKillTeamRouter: ChooseKillTeamPresenterDelegate {
     func didComplete(presenter: ChooseKillTeamPresenterProtocol) {
         showEditKillTeamController()
     }
 }
 
-extension EeditKillTeamRouter: EditKillTeamPresenterDelegate {
+extension EditKillTeamRouter: EditKillTeamPresenterDelegate {
     func didComplete(_presenter: EditKillTeamPresenterProtocol, sender: GoFromEditKillTeam) {
         switch sender {
         case .addFireTeam:
@@ -110,13 +119,13 @@ extension EeditKillTeamRouter: EditKillTeamPresenterDelegate {
     }
 }
 
-extension EeditKillTeamRouter: ChooseLoadedKillTeamPresenterDelegate {
+extension EditKillTeamRouter: ChooseLoadedKillTeamPresenterDelegate {
     func didComplete(_ presenter: ChooseLoadedKillTeamPresenterProtocol) {
         showEditKillTeamController()
     }
 }
 
-extension EeditKillTeamRouter: EditUnitPresenterDelegate {
+extension EditKillTeamRouter: EditUnitPresenterDelegate {
     func didComplete(_ editUnitPresenter: EditUnitPresenter) {
         showKillTeamAbilitie()
     }
@@ -124,7 +133,7 @@ extension EeditKillTeamRouter: EditUnitPresenterDelegate {
     
 }
 
-extension EeditKillTeamRouter: RosterPresenterDelegate {
+extension EditKillTeamRouter: RosterPresenterDelegate {
     func didComplete(_ presenter: RosterPresenterProtocol) {
         showChooseKillTeamTableViewController()
     }

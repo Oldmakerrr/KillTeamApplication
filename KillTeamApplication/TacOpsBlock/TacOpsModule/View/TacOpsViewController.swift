@@ -6,15 +6,21 @@
 //
 
 import UIKit
+import Instructions
 
 class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
+    
+    let coachMarksController = CoachMarksController()
 
     var presenter: TacOpsPresenterProtocol?
     
-    let goToChoosenTacOpsButton = UIBarButtonItem()
+    let goToChoosenTacOpsButton = UIButton()
    
     let customAlert = CustomScrollAlert()
+    
     var moreInfoTacOpView = TacOpView()
+    let changeTacOpsTypeButton = UIButton()
+    let mixDeckButton = UIButton()
     
     let tacOpsCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,18 +35,30 @@ class TacOpsViewController: UIViewController, TacOpsViewControllerProtocol {
         navigationItem.title = "Seek & Destroy"
         setupTacOpsCollection()
         moreInfoTacOpView.delegate = self
-        setupRightBarButton()
-        setupGoToChoosenTacOpsButton()
-        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setupRightBarButton()
+        setupGoToChoosenTacOpsButton()
         tacOpsCollection.reloadData()
         if let bool = presenter?.checkSelectTacOp {
             goToChoosenTacOpsButton.isEnabled = bool()
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showCoachMarks()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        coachMarksController.stop()
+        navigationController?.navigationBar.clearNavigationBar()
+    }
     
 }
 

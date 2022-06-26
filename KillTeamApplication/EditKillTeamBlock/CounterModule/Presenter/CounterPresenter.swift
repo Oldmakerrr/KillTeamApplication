@@ -25,10 +25,11 @@ protocol CounterViewProtocol: AnyObject {
 }
 
 protocol CounterPresenterProtocol: AnyObject {
-    init (view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol)
+    init (view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol, userSettings: UserSettingsProtocol)
     var model: CounterModel {get set}
     var store: StoreProtocol {get}
     var gameStore: GameStoreProtocol { get }
+    var userSettings: UserSettingsProtocol { get set }
     
     func showKillTeamAbilitieViewController()
     func buttonAction(sender: UIButton)
@@ -50,6 +51,8 @@ class CounterPresenter: CounterPresenterProtocol {
     
     let gameStore: GameStoreProtocol
     
+    var userSettings: UserSettingsProtocol
+    
     weak var view: CounterViewProtocol?
     
     weak var delegate: CounterPresenterDelegate?
@@ -60,12 +63,13 @@ class CounterPresenter: CounterPresenterProtocol {
         }
     }
     
-    required init(view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol) {
+    required init(view: CounterViewProtocol, router: EditKillTeamRouterProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, storage: StorageProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.router = router
         self.store = store
         self.storage = storage
         self.gameStore = gameStore
+        self.userSettings = userSettings
         self.gameStore.multicastDelegate.addDelegate(self)
         self.store.multicastDelegate.addDelegate(self)
     }
@@ -88,7 +92,7 @@ class CounterPresenter: CounterPresenterProtocol {
             title = ""
         }
         if model.killTeam?.abilitiesOfKillTeam is VoidDancerTroupeAbilitie {
-            title = "Choosen Allegory:"
+            title = "Selected Allegory:"
         }
         return title
     }
@@ -140,7 +144,7 @@ class CounterPresenter: CounterPresenterProtocol {
     
     func addKillTeam() {
         if !storage.isLoadedKillTeamEmpty() {
-            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose an existing.", preferredStyle: .actionSheet)
+            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose existed", preferredStyle: .actionSheet)
             let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
                 self.showChooseKillTeamTableViewController()
             }
@@ -288,7 +292,7 @@ extension CounterPresenter: StoreDelegate {
     }
 }
 
-extension CounterPresenter: CurrentKillTeamViewProtocol {
+extension CounterPresenter: CurrentKillTeamViewDelegate {
     func didComplete(_ currentKillTeamView: CurrentKillTeamView) {
         guard let killTeam = model.killTeam else {
             addKillTeam()
@@ -298,5 +302,26 @@ extension CounterPresenter: CurrentKillTeamViewProtocol {
         store.updateCurrentKillTeam(killTeam: killTeam)
     } 
 
+    
+}
+
+
+extension CounterPresenter: AllegoryTableViewControllerDelegate {
+    
+    func didComplete(_ allegoryTableViewController: AllegoryTableViewController) {
+        guard let view = view as? UIViewController else { return }
+        allegoryTableViewController.dismiss(animated: true)
+        view.showToast(message: "Allegory successfuly selected")
+    }
+    
+}
+
+extension CounterPresenter: ImperativeTableViewControllerDelegate {
+    
+    func didComplete(_ imperativeTableViewController: ImperativeTableViewController) {
+        guard let view = view as? UIViewController else { return }
+        imperativeTableViewController.dismiss(animated: true)
+        view.showToast(message: "Imperative successfuly selected")
+    }
     
 }

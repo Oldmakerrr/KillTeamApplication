@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Instructions
 
 class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtocol {
+    
+    let coachMarksController = CoachMarksController()
     
     var presenter: AddFireTeamPresenterProtocol?
     
@@ -17,12 +20,34 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         tableView.register(AddFireTeamCell.self, forCellReuseIdentifier: AddFireTeamCell.identifier)
-        setupRightNavigationLabel(label: maxCountFIreTeamLabel)
-        maxCountFIreTeamLabel.text = "Max FT: \(presenter?.model.killTeam?.countOfFireTeam ?? 0)"
+        setupViewsOnNavigationBar()
+        
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showCoachMarks()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        maxCountFIreTeamLabel.removeFromSuperview()
+        navigationController?.navigationBar.clearNavigationBar()
+        coachMarksController.stop(immediately: true)
+    }
+    
+    private func setupViewsOnNavigationBar() {
+        maxCountFIreTeamLabel.textColor = .white
+        maxCountFIreTeamLabel.text = "Max FT: \(presenter?.model.killTeam?.countOfFireTeam ?? 0)"
+        setupRightNavigationView(view: maxCountFIreTeamLabel)
+    }
+    
+    private func showCoachMarks() {
+        if !isCoachMarkShowed() {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
     }
 
     // MARK: - Table view data source

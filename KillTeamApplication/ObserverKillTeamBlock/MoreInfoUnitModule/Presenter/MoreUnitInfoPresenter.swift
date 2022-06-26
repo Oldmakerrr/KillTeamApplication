@@ -13,8 +13,9 @@ protocol MoreInfoUnitViewControllerProtocol: AnyObject {
 }
 
 protocol MoreUnitInfoPresenterProtocol: AnyObject {
-    init(view: MoreInfoUnitViewControllerProtocol, store: StoreProtocol)
+    init(view: MoreInfoUnitViewControllerProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol)
     var view: MoreInfoUnitViewControllerProtocol? { get }
+    var userSettings: UserSettingsProtocol { get }
     var store: StoreProtocol { get set }
     var model: MoreInfoUnitModel { get }
     func updateChoosenUnit()
@@ -27,11 +28,14 @@ class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
     
     var store: StoreProtocol
     
+    let userSettings: UserSettingsProtocol
+    
     var model = MoreInfoUnitModel()
     
-    required init(view: MoreInfoUnitViewControllerProtocol, store: StoreProtocol) {
+    required init(view: MoreInfoUnitViewControllerProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
+        self.userSettings = userSettings
         store.multicastDelegate.addDelegate(self)
         model.indexPathOfChoosenUnit = store.indexObservedUnit
         updateChoosenUnit()

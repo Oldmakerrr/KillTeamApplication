@@ -29,13 +29,14 @@ class TableViewEmptyState: BaseView {
          message: String?,
          image: UIImage?,
          buttonTitle: String?,
-         delegate: TableViewEmptyStateDelegate?) {
+         delegate: TableViewEmptyStateDelegate?,
+         blureStyle: UIBlurEffect.Style? = nil) {
         self.title = title
         self.message = message
         self.image = image
         self.buttonTitle = buttonTitle
         self.delegate = delegate
-        super.init(frame: .zero)
+        super.init(blureStyle: blureStyle)
     }
     
     required init?(coder: NSCoder) {

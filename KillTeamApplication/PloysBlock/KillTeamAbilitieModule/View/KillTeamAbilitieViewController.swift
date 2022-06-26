@@ -12,24 +12,30 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     var presenter: KillTeamAbilitiePresenterProtocol?
     var menuBar: MenuBar?
     var contentView = UIStackView()
-    
-    var funcArray = [(KillTeamAbilitie)->(UIStackView)]()
+    var funcArray: [(KillTeamAbilitie)->(UIStackView)]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = ColorScheme.shared.theme.viewBackground
-        title = "Abilitie"
+        title = "Abilities"
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupAbilitie()
     }
     
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        funcArray = nil
+        menuBar = nil
+        view.subviews.forEach { subview in
+            subview.removeFromSuperview()
+        }
+        navigationController?.navigationBar.clearNavigationBar()
+    }
     
     private func setupAbilitie() {
         guard let abilitie = presenter?.model.abilitie else { return }
-        
         if let novitiateAbilitie = abilitie as? NovitiateAbilitie {
             contentView = setupNovitiateAbilitie(abilitie: novitiateAbilitie)
         }
@@ -127,9 +133,10 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     private func setupWyrmbladeAbilitie(abilitie: WyrmbladeAbilitie) -> UIStackView {
         let view = WyrmbladeAbilitieView()
         let namesOfCell = ["Cult Ambush", "Preternatural Assassin"]
-        funcArray.removeAll()
-        funcArray.append(setupWyrmbladeFirstAbilitie)
-        funcArray.append(setupWyrmbladeSecondAbilitie)
+        funcArray = []
+        funcArray?.removeAll()
+        funcArray?.append(setupWyrmbladeFirstAbilitie)
+        funcArray?.append(setupWyrmbladeSecondAbilitie)
         menuBar = MenuBar(namesOfCell: namesOfCell)
         menuBar?.delegate = self
         setupMenuBar()
@@ -140,10 +147,11 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     private func setupHunterCadreAbilitie(abilitie: HunterCadreAbilitie) -> UIStackView {
         let view = HunterCadreAbilitieView()
         let namesOfCell = ["Drones", "Markerlight", "Artificial Intelligence", "Saviour Protocols"]
-        funcArray.append(setupHunterCadreDroneAbilitie)
-        funcArray.append(setupHunterCadreMarkerlightAbilitie)
-        funcArray.append(setupHunterCadreArtificialIntelligenceAbilitie)
-        funcArray.append(setupHunterCadreSaviourProtocolsAbilitie)
+        funcArray = []
+        funcArray?.append(setupHunterCadreDroneAbilitie)
+        funcArray?.append(setupHunterCadreMarkerlightAbilitie)
+        funcArray?.append(setupHunterCadreArtificialIntelligenceAbilitie)
+        funcArray?.append(setupHunterCadreSaviourProtocolsAbilitie)
         menuBar = MenuBar(namesOfCell: namesOfCell)
         menuBar?.delegate = self
         setupMenuBar()
@@ -156,12 +164,12 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
         let view = PathfinderAbilitieView()
         view.setupAbilitieText(abilitie: abilitie.artificialIntelligence)
         let namesOfCell = ["Artificial Intelligence", "Markerlight", "Saviour Protocols", "Pulse Weapon", "Art of War"]
-        funcArray.removeAll()
-        funcArray.append(setupPathfinderArtificialIntelligenceAbilitie)
-        funcArray.append(setupPathfinderMarkerlightAbilitie)
-        funcArray.append(setupPathfinderSaviourProtocolsAbilitie)
-        funcArray.append(setupPathfinderPulseWeaponAbilitie)
-        funcArray.append(setupPathfinderArtOfWarAbilitie)
+        funcArray = []
+        funcArray?.append(setupPathfinderArtificialIntelligenceAbilitie)
+        funcArray?.append(setupPathfinderMarkerlightAbilitie)
+        funcArray?.append(setupPathfinderSaviourProtocolsAbilitie)
+        funcArray?.append(setupPathfinderPulseWeaponAbilitie)
+        funcArray?.append(setupPathfinderArtOfWarAbilitie)
         menuBar = MenuBar(namesOfCell: namesOfCell)
         menuBar?.delegate = self
         setupMenuBar()
@@ -223,16 +231,17 @@ extension KillTeamAbilitieViewController: WeaponRuleButtonDelegate {
 
 extension KillTeamAbilitieViewController: MenuBarDelegate {
     func didSelect(_ menuBar: MenuBar, indexPath: IndexPath) {
-        guard let abilitie = presenter?.model.abilitie else { return }
+        guard let abilitie = presenter?.model.abilitie,
+              let function = funcArray?[indexPath.item] else { return }
         contentView.removeFromSuperview()
         if let pathfinderAbilitie = abilitie as? PathfinderAbilitie {
-            contentView = funcArray[indexPath.item](pathfinderAbilitie)
+            contentView = function(pathfinderAbilitie)
         }
         if let wyrmbladeAbilitie = abilitie as? WyrmbladeAbilitie {
-            contentView = funcArray[indexPath.item](wyrmbladeAbilitie)
+            contentView = function(wyrmbladeAbilitie)
         }
         if let hunterCadreAbilitie = abilitie as? HunterCadreAbilitie {
-            contentView = funcArray[indexPath.item](hunterCadreAbilitie)
+            contentView = function(hunterCadreAbilitie)
         }
         setupContentView(contentView: contentView)
     }

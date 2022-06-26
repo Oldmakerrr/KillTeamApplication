@@ -156,13 +156,13 @@ struct DarkTheme: ColorTheme {
     var shadow = #colorLiteral(red: 0.1607843137, green: 0.1058823529, blue: 0.2352941176, alpha: 1)
     
     let cellBackground = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-    let cellBorder = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    let cellBorder = #colorLiteral(red: 0.4012935758, green: 0.4812894464, blue: 0.5522467494, alpha: 1)
     let cellHeader = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
     let selectedCell = #colorLiteral(red: 0.9607843137, green: 0.7960784314, blue: 0.6549019608, alpha: 1)
     
-    let viewHeader = #colorLiteral(red: 0.9019607843, green: 0.4941176471, blue: 0.1333333333, alpha: 1)
-    let viewBackground  = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-    let subViewBackground = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    let viewHeader = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+    let viewBackground  = #colorLiteral(red: 0.4012935758, green: 0.4812894464, blue: 0.5522467494, alpha: 1)
+    let subViewBackground = #colorLiteral(red: 0.496037157, green: 0.5678072005, blue: 0.6553210113, alpha: 1)
     
     let viewControllerBackground = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     var viewControllerBackgroundLight = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
@@ -182,7 +182,38 @@ struct DarkTheme: ColorTheme {
 
 }
 
+struct New: ColorTheme {
+    
+    var textWhite = #colorLiteral(red: 0.9959705472, green: 0.9961406589, blue: 0.9959598184, alpha: 1)
+    var psychicPowerViewHeader = #colorLiteral(red: 0.09526111931, green: 0.289956063, blue: 0.5891153812, alpha: 1)
+    var navigationBar = #colorLiteral(red: 0.6480363777, green: 0.706360088, blue: 0.7908885807, alpha: 1)
+    var shadow = #colorLiteral(red: 0.1607843137, green: 0.1058823529, blue: 0.2352941176, alpha: 1)
+    let cellBackground = #colorLiteral(red: 0.9058823529, green: 0.8980392157, blue: 0.8784313725, alpha: 1)
+    let cellBorder = #colorLiteral(red: 0.9607843137, green: 0.7960784314, blue: 0.6549019608, alpha: 1)
+    let cellHeader = #colorLiteral(red: 0.9607843137, green: 0.7960784314, blue: 0.6549019608, alpha: 1)
+    let selectedCell = #colorLiteral(red: 0.9607843137, green: 0.7960784314, blue: 0.6549019608, alpha: 1)
+    
+    let viewHeader = #colorLiteral(red: 0.9019607843, green: 0.4941176471, blue: 0.1333333333, alpha: 1)
+    let viewBackground  = #colorLiteral(red: 0.9490196078, green: 0.9529411765, blue: 0.9568627451, alpha: 1)
+    let subViewBackground = #colorLiteral(red: 0.8900747299, green: 0.8901053071, blue: 0.898252666, alpha: 1)
+    
+    let viewControllerBackground = #colorLiteral(red: 0.6488893377, green: 0.663974278, blue: 0.7936158966, alpha: 1)
+    var viewControllerBackgroundLight = #colorLiteral(red: 0.8352941176, green: 0.8470588235, blue: 0.862745098, alpha: 1)
+    
+    let buttonBackground = #colorLiteral(red: 0.9960784314, green: 0.9764705882, blue: 0.9058823529, alpha: 1)
+    
+    let swipeRemoveAction = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+    let swipeInfoAction = #colorLiteral(red: 0.1803921569, green: 0.5254901961, blue: 0.7568627451, alpha: 1)
+    
+    let selectedView = #colorLiteral(red: 0.9019607843, green: 0.4941176471, blue: 0.1333333333, alpha: 1)
+    
+    let textNormal = #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3254901961, alpha: 1)
+    let textHeader = #colorLiteral(red: 0.1294117647, green: 0.1843137255, blue: 0.2392156863, alpha: 1)
+    let textHyperlink = #colorLiteral(red: 0.1294117647, green: 0.3803921569, blue: 0.5490196078, alpha: 1)
+    let textButton = #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3254901961, alpha: 1)
+    let textDark = #colorLiteral(red: 0.148689013, green: 0.1065989482, blue: 0.1273573443, alpha: 1)
 
+}
 
 final class ColorScheme {
     
@@ -190,6 +221,6 @@ final class ColorScheme {
     var theme: ColorTheme
     
     init() {
-        self.theme = ClassicTheme()
+        self.theme = New()
     }
 }

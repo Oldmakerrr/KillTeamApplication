@@ -15,7 +15,8 @@ protocol AddFireTeamPresenterProtocol: AnyObject {
     var model: AddFireTeamModel { get }
     var store: StoreProtocol { get }
     var view: AddFireTeamTableVCProtocol? { get set }
-    init(view: AddFireTeamTableVCProtocol, store: StoreProtocol)
+    var userSettings: UserSettingsProtocol { get set }
+    init(view: AddFireTeamTableVCProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol)
 }
 
 class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
@@ -24,11 +25,14 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
     
     var model = AddFireTeamModel()
     
-    var store: StoreProtocol
+    let store: StoreProtocol
     
-    required init(view: AddFireTeamTableVCProtocol, store: StoreProtocol) {
+    var userSettings: UserSettingsProtocol
+    
+    required init(view: AddFireTeamTableVCProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
+        self.userSettings = userSettings
         store.multicastDelegate.addDelegate(self)
     }
     

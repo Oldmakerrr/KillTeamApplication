@@ -12,13 +12,13 @@ protocol RouterProtocol { }
 
 class MainRouter: RouterProtocol {
     
-    let editKillTeamRouter: EeditKillTeamRouter
+    let editKillTeamRouter: EditKillTeamRouter
     let killTeamObserverRouter: KillTeamObserverRouter
     let ploysRouter: PloysRouter
     let tacOpsRouter: TacOpsRouter
     
         init(builder: BuilderProtocol) {
-            self.editKillTeamRouter = EeditKillTeamRouter(builder: builder)
+            self.editKillTeamRouter = EditKillTeamRouter(builder: builder)
             self.killTeamObserverRouter = KillTeamObserverRouter(builder: builder)
             self.ploysRouter = PloysRouter(builder: builder)
             self.tacOpsRouter = TacOpsRouter(builder: builder)
@@ -65,7 +65,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.barStyle = .black
-        tabBar.tintColor = .orange
+        tabBar.tintColor = ColorScheme.shared.theme.selectedView
     }
 }
 

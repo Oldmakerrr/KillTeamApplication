@@ -10,6 +10,13 @@ import UIKit
 
 extension CounterViewController {
     
+    func showCoachMarks() {
+        if !isCoachMarkShowed() {
+            coachMarksController.start(in: .window(over: self))
+            setCoachMarkStateToShowed()
+        }
+    }
+    
     func currentPloysViewState() {
         guard let ploys = presenter?.model.gameData.currentStrategicPloys else { return }
         if ploys.isEmpty {
@@ -91,9 +98,12 @@ extension CounterViewController {
     }
     
     func setupDelegates() {
-        currentKillTeamView.delegate = presenter as? CurrentKillTeamViewProtocol
+        currentKillTeamView.delegate = presenter as? CurrentKillTeamViewDelegate
         commandPoint.delegate = presenter as? CounterPointViewDelegate
         victoryPoint.delegate = presenter as? CounterPointViewDelegate
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
     }
     
     func fillCounterStackView() {

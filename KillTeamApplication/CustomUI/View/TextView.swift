@@ -9,18 +9,25 @@ import UIKit
 
 class BaseView: UIView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var blureStyle: UIBlurEffect.Style?
+    
+    init(blureStyle: UIBlurEffect.Style? = nil) {
+        super.init(frame: .zero)
+        self.blureStyle = blureStyle
         configure()
         setupView()
     }
+    
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func setupView() {
-        
+        if let blureStyle = blureStyle {
+            setupBlurView(style: blureStyle)
+        }
     }
     
     func configure() {
@@ -33,9 +40,9 @@ class ViewWithLabel: BaseView {
     let label: UILabel
     private let otstup = Constant.Size.Otstup.normal
     
-    init(label: UILabel = NormalLabel()) {
+    init(label: UILabel = NormalLabel(), blureStyle: UIBlurEffect.Style? = nil) {
         self.label = label
-        super.init(frame: .zero)
+        super.init(blureStyle: blureStyle)
     }
     
     func setupText(text: String) {
@@ -43,6 +50,7 @@ class ViewWithLabel: BaseView {
     }
     
     override func setupView() {
+        super.setupView()
         addSubview(label)
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: topAnchor, constant: otstup),

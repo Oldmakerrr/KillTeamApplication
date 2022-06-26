@@ -52,10 +52,12 @@ extension MoreInfoUnitViewController {
     
     func setupAdditionalView() {
         guard let unit = presenter?.model.choosenUnit else { return }
+        //let characteristicsView = CharacteristicsView()
+        //addUnitCharacteristicsView(unit: unit, characteristicsView: characteristicsView)
+        //characteristicsView.layoutIfNeeded()
+        //let width = characteristicsView.frame.size.width
+        //characteristicsView.setupText(unit: unit, widthSuperView: width)
         addUnitCharacteristicsView(unit: unit)
-        characteristicsView.layoutIfNeeded()
-        let width = characteristicsView.frame.size.width
-        characteristicsView.setupText(unit: unit, widthSuperView: width)
         addCurrentWoundView(unit: unit)
         addDescriptionView(text: unit.description)
         if let rangeWeapon = unit.selectedRangeWeapon {
@@ -237,37 +239,46 @@ extension MoreInfoUnitViewController {
         return backgroundView
     }
     
-    private func addUnitCharacteristicsView (unit: Unit) {
+    private func addUnitCharacteristicsView(unit: Unit) {
         addHeaderView(text: unit.name)
-        let contentView = UIView()
-        contentView.backgroundColor = ColorScheme.shared.theme.viewBackground
-        contentView.layer.applyCornerRadius()
-        contentView.layer.masksToBounds = true
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: unit.portrait)
-        imageView.contentMode = .scaleToFill
-        imageView.backgroundColor = .white
-        imageView.layer.applyCornerRadius()
-        imageView.layer.masksToBounds = true
-        contentView.addSubview(imageView)
-        contentView.addSubview(characteristicsView)
-        
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.normal),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.normal),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.normal),
-            imageView.heightAnchor.constraint(equalToConstant: Constant.Size.PortraitUnit.height),
-            imageView.widthAnchor.constraint(equalToConstant: Constant.Size.PortraitUnit.width),
-            imageView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor)
-        ])
-        NSLayoutConstraint.activate([
-            characteristicsView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            characteristicsView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
-            characteristicsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
-        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: contentView))
+        let view = CharacteristicsViewWithoutImage(unit: unit)
+        scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: view))
     }
+    
+    //WithImage
+    /*
+     private func addUnitCharacteristicsView (unit: Unit, characteristicsView: CharacteristicsView) {
+         addHeaderView(text: unit.name)
+         let contentView = UIView()
+         contentView.backgroundColor = ColorScheme.shared.theme.viewBackground
+         contentView.layer.applyCornerRadius()
+         contentView.layer.masksToBounds = true
+         let imageView = UIImageView()
+         imageView.translatesAutoresizingMaskIntoConstraints = false
+         imageView.image = UIImage(named: unit.portrait)
+         imageView.contentMode = .scaleToFill
+         imageView.backgroundColor = .white
+         imageView.layer.applyCornerRadius()
+         imageView.layer.masksToBounds = true
+         contentView.addSubview(imageView)
+         contentView.addSubview(characteristicsView)
+         
+         NSLayoutConstraint.activate([
+             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.normal),
+             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.normal),
+             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.normal),
+             imageView.heightAnchor.constraint(equalToConstant: Constant.Size.PortraitUnit.height),
+             imageView.widthAnchor.constraint(equalToConstant: Constant.Size.PortraitUnit.width),
+             imageView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor)
+         ])
+         NSLayoutConstraint.activate([
+             characteristicsView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+             characteristicsView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
+             characteristicsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+         ])
+         scrollViewContainer.addArrangedSubview(addBackgroundView(contentView: contentView))
+     }
+     */
     
     private func addEquipmentView(equipments: [Equipment]) {
         addHeaderView(text: "Equipment")
