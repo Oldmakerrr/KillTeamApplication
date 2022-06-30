@@ -161,8 +161,8 @@ class MenuCell: BaseCell {
         super.setupView()
         addSubview(label)
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.normal),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.normal),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.normal),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.normal),
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
             
         ])

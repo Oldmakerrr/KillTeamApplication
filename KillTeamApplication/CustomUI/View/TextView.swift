@@ -38,7 +38,7 @@ class BaseView: UIView {
 class ViewWithLabel: BaseView {
     
     let label: UILabel
-    private let otstup = Constant.Size.Otstup.normal
+    private let otstup = Constant.Size.EdgeInsets.normal
     
     init(label: UILabel = NormalLabel(), blureStyle: UIBlurEffect.Style? = nil) {
         self.label = label

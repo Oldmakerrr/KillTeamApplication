@@ -86,10 +86,10 @@ class EditKillTeamCell: UITableViewCell, ReusableView {
         stackView.layer.cornerRadius = Constant.Size.cornerRadius
         stackView.layer.masksToBounds = true
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.small),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.small),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.small)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.EdgeInsets.small),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
     }
     

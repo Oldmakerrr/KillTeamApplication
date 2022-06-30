@@ -38,10 +38,10 @@ class HeaderView: UIView {
     
     func addConstraints() {
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.normal),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.normal)
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.normal),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.normal)
         ])
     }
 }
@@ -65,16 +65,16 @@ class HeaderIntView: HeaderView {
     
     override func addConstraints() {
         NSLayoutConstraint.activate([
-            costLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
-            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small),
-            costLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.large),
-            costLabel.leadingAnchor.constraint(greaterThanOrEqualTo: nameLabel.trailingAnchor, constant: Constant.Size.Otstup.normal)
+            costLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.EdgeInsets.small),
+            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
+            costLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.large),
+            costLabel.leadingAnchor.constraint(greaterThanOrEqualTo: nameLabel.trailingAnchor, constant: Constant.Size.EdgeInsets.normal)
         ])
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small),
-            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: costLabel.leadingAnchor, constant: -Constant.Size.Otstup.small),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.large)
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: costLabel.leadingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.large)
         ])
     }
     
@@ -99,24 +99,24 @@ class HeaderImageView: HeaderIntView {
     
     override func addConstraints() {
         NSLayoutConstraint.activate([
-            costLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
-            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small),
-            costLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.large),
-            costLabel.leadingAnchor.constraint(greaterThanOrEqualTo: imageView.trailingAnchor, constant: Constant.Size.Otstup.small),
+            costLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.EdgeInsets.small),
+            costLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
+            costLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.large),
+            costLabel.leadingAnchor.constraint(greaterThanOrEqualTo: imageView.trailingAnchor, constant: Constant.Size.EdgeInsets.small),
             costLabel.widthAnchor.constraint(equalToConstant: 60)
         ])
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small),
-            nameLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -Constant.Size.Otstup.small),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.large),
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameLabel.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.large),
         ])
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: costLabel.centerYAnchor),
             imageView.heightAnchor.constraint(equalToConstant: Constant.Font.sizeHeaderFont),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 0.7),
-            imageView.trailingAnchor.constraint(lessThanOrEqualTo: costLabel.leadingAnchor, constant: -Constant.Size.Otstup.small),
-            imageView.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: Constant.Size.Otstup.small),
+            imageView.trailingAnchor.constraint(lessThanOrEqualTo: costLabel.leadingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            imageView.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: Constant.Size.EdgeInsets.small),
             
         ])
     }

@@ -233,8 +233,8 @@ extension MoreInfoUnitViewController {
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: Constant.Size.Otstup.small),
-            contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -Constant.Size.Otstup.small)
+            contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
         return backgroundView
     }

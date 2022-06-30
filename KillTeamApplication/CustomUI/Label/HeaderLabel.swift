@@ -22,7 +22,7 @@ class HeaderLabel: UILabel {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        font = Constant.Font.header
+        font = Constant.Font.bigBold
         textColor = ColorScheme.shared.theme.textHeader
         numberOfLines = 0
     }

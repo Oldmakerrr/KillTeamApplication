@@ -14,7 +14,7 @@ extension CounterViewController: CoachMarksControllerDataSource, CoachMarksContr
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachView.bodyView.hintLabel.text = "Tap here and you may Edit your Kill Team. You may choose Kill Team from the list if Kill Team hasn't been choosen"
+            coachView.bodyView.hintLabel.text = "Tap here and you may Edit your Kill Team. You may choose Kill Team from the list if Kill Team hasn't been chosen"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
             coachView.bodyView.hintLabel.text = "You can manage your game Resources"

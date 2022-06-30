@@ -93,10 +93,10 @@ extension PsychicPowerViewController {
             let view = PsychicPowerView()
             view.layer.applyCornerRadius()
             view.layer.masksToBounds = true
-            backgroundView.addView(top: Constant.Size.Otstup.small,
-                                   bottom: Constant.Size.Otstup.small,
-                                   leading: Constant.Size.Otstup.small,
-                                   trailing: Constant.Size.Otstup.small,
+            backgroundView.addView(top: Constant.Size.EdgeInsets.small,
+                                   bottom: Constant.Size.EdgeInsets.small,
+                                   leading: Constant.Size.EdgeInsets.small,
+                                   trailing: Constant.Size.EdgeInsets.small,
                                    view: backgroundView,
                                    subView: view)
             

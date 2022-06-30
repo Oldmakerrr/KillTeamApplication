@@ -117,8 +117,8 @@ class EquipmentView: UIStackView, WargearView {
         addArrangedSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.normal),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.normal),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
             button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
             button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
@@ -140,12 +140,12 @@ extension UIStackView {
             label.text = text
             labels.append(label)
             if index == 0 {
-                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.normal).isActive = true
             } else {
-                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: Constant.Size.EdgeInsets.normal).isActive = true
             }
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.normal).isActive = true
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.EdgeInsets.normal).isActive = true
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.EdgeInsets.normal).isActive = true
             if index+1 == subText.count {
                 label.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             }
@@ -167,20 +167,20 @@ extension UIStackView {
             label.text = text
             labels.append(label)
             if index == 0 {
-                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.normal).isActive = true
             } else {
-                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+                label.topAnchor.constraint(equalTo: labels[index-1].bottomAnchor, constant: Constant.Size.EdgeInsets.normal).isActive = true
             }
-            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.Size.Otstup.small).isActive = true
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.Size.EdgeInsets.small).isActive = true
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.EdgeInsets.normal).isActive = true
             if index+1 == subText.count {
-                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.normal).isActive = true
             }
             
             NSLayoutConstraint.activate([
                 imageView.topAnchor.constraint(equalTo: label.topAnchor, constant: label.font.pointSize/2 - 2),
-                imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.normal),
-                imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -Constant.Size.Otstup.small),
+                imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.EdgeInsets.normal),
+                imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -Constant.Size.EdgeInsets.small),
                 imageView.heightAnchor.constraint(equalToConstant: Constant.Size.imagePointSize),
                 imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
             ])
@@ -214,10 +214,10 @@ extension UIStackView {
 
 extension UIView {
     
-    func addView(top: CGFloat = Constant.Size.Otstup.small,
-                 bottom: CGFloat = Constant.Size.Otstup.small,
-                 leading: CGFloat = Constant.Size.Otstup.normal,
-                 trailing: CGFloat = Constant.Size.Otstup.normal,
+    func addView(top: CGFloat = Constant.Size.EdgeInsets.small,
+                 bottom: CGFloat = Constant.Size.EdgeInsets.small,
+                 leading: CGFloat = Constant.Size.EdgeInsets.normal,
+                 trailing: CGFloat = Constant.Size.EdgeInsets.normal,
                  view: UIView, subView:
                     UIView) {
         subView.translatesAutoresizingMaskIntoConstraints = false

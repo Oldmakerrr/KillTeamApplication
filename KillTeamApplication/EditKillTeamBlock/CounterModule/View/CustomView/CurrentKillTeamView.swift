@@ -104,9 +104,9 @@ class CurrentKillTeamView: UIView {
         killTeamLogo.image = UIImage(named: "KILL_TEAM")
         killTeamLogo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            killTeamLogo.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: Constant.Size.Otstup.normal),
-            killTeamLogo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.normal),
-            killTeamLogo.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.Otstup.normal),
+            killTeamLogo.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: Constant.Size.EdgeInsets.normal),
+            killTeamLogo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.normal),
+            killTeamLogo.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.normal),
             killTeamLogo.widthAnchor.constraint(equalTo: killTeamLogo.heightAnchor),
             killTeamLogo.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])

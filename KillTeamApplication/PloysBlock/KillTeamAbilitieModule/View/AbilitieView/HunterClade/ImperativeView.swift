@@ -35,22 +35,22 @@ class ImperativeView: UIView {
         addSubview(optimisationLabel)
         addSubview(deprecationLabel)
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.small),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.small),
-            nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.Otstup.small)
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
         NSLayoutConstraint.activate([
-            optimisationLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constant.Size.Otstup.small),
-            optimisationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.small),
-            optimisationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.small),
-            optimisationLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.Otstup.small)
+            optimisationLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constant.Size.EdgeInsets.small),
+            optimisationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            optimisationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            optimisationLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
         NSLayoutConstraint.activate([
-            deprecationLabel.topAnchor.constraint(equalTo: optimisationLabel.bottomAnchor, constant: Constant.Size.Otstup.small),
-            deprecationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.small),
-            deprecationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.small),
-            deprecationLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small)
+            deprecationLabel.topAnchor.constraint(equalTo: optimisationLabel.bottomAnchor, constant: Constant.Size.EdgeInsets.small),
+            deprecationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            deprecationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            deprecationLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
     }
 }

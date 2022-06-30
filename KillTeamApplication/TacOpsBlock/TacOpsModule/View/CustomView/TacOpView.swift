@@ -40,8 +40,8 @@ class TacOpView: UIStackView {
         view.addSubview(button)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.normal),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.normal),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
             button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
             button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
@@ -51,22 +51,22 @@ class TacOpView: UIStackView {
     func setupText(tacOp: TacOp, delegate: WeaponRuleButtonDelegate) {
         
         let descriptionLabel = NormalLabel()
-        addTextView(text: tacOp.description, trailingSpace: Constant.Size.Otstup.normal, label: descriptionLabel)
+        addTextView(text: tacOp.description, trailingSpace: Constant.Size.EdgeInsets.normal, label: descriptionLabel)
         
         if let subDescription = tacOp.subDescription {
             let label = NormalLabel()
-            addTextView(text: subDescription, trailingSpace: Constant.Size.Otstup.normal, label: label)
+            addTextView(text: subDescription, trailingSpace: Constant.Size.EdgeInsets.normal, label: label)
         }
         
-        addConditionTextView(text: tacOp.firstCondition, trailingSpace: Constant.Size.Otstup.large)
+        addConditionTextView(text: tacOp.firstCondition, trailingSpace: Constant.Size.EdgeInsets.large)
         
         if let secondCondition = tacOp.secondCondition {
-            addConditionTextView(text: secondCondition, trailingSpace: Constant.Size.Otstup.large)
+            addConditionTextView(text: secondCondition, trailingSpace: Constant.Size.EdgeInsets.large)
         }
         
         if let subConditionTitle = tacOp.subConditionTitle {
             let label = BoldLabel()
-            addTextView(text: subConditionTitle, trailingSpace: Constant.Size.Otstup.large, label: label)
+            addTextView(text: subConditionTitle, trailingSpace: Constant.Size.EdgeInsets.large, label: label)
         }
         
         if let subCondition = tacOp.subCondition {
@@ -77,7 +77,7 @@ class TacOpView: UIStackView {
         
         if let subText = tacOp.subText {
             let label = NormalLabel()
-            addTextView(text: subText, trailingSpace: Constant.Size.Otstup.normal, label: label)
+            addTextView(text: subText, trailingSpace: Constant.Size.EdgeInsets.normal, label: label)
         }
         
         if let uniquiAction = tacOp.uniquiAction {
@@ -108,9 +108,9 @@ class TacOpView: UIStackView {
         view.addSubview(label)
         label.text = text
         label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingSpace).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
-        label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.small).isActive = true
-        label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.small).isActive = true
+        label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.EdgeInsets.normal).isActive = true
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.small).isActive = true
+        label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.small).isActive = true
         addArrangedSubview(view)
         
     }
@@ -126,14 +126,14 @@ class TacOpView: UIStackView {
         view.addSubview(imageView)
         label.text = text
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.Size.Otstup.small),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal),
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.small),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.small)
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.Size.EdgeInsets.small),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.EdgeInsets.normal),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.small),
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: trailingSpace),
-            imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -Constant.Size.Otstup.small),
+            imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -Constant.Size.EdgeInsets.small),
             imageView.topAnchor.constraint(equalTo: label.topAnchor, constant: label.font.pointSize/2 - 2),
             imageView.heightAnchor.constraint(equalToConstant: Constant.Size.imagePointSize),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)

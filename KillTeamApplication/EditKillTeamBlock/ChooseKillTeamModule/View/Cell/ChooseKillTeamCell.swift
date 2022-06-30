@@ -47,17 +47,17 @@ class ChooseKillTeamCell: UITableViewCell {
             logoImage.heightAnchor.constraint(equalToConstant: Constant.Size.LogoImage.height),
             logoImage.widthAnchor.constraint(equalToConstant: Constant.Size.LogoImage.width),
             logoImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            logoImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.normal)
+            logoImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.EdgeInsets.normal)
         ])
         
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: logoImage.topAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: Constant.Size.Otstup.normal)
+            nameLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: Constant.Size.EdgeInsets.normal)
         ])
         
         NSLayoutConstraint.activate([
             subNameLabel.bottomAnchor.constraint(equalTo: logoImage.bottomAnchor),
-            subNameLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: Constant.Size.Otstup.normal)
+            subNameLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: Constant.Size.EdgeInsets.normal)
         ])
         
     }

@@ -56,9 +56,9 @@ extension UIViewController {
         navigationBar.addSubview(view)
         view.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor).isActive = true
         if let rightView = rightView {
-            view.trailingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+            view.trailingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: -Constant.Size.EdgeInsets.normal).isActive = true
         } else {
-            view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large).isActive = true
+            view.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.EdgeInsets.large).isActive = true
         }
     }
     

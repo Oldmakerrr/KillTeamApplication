@@ -55,7 +55,7 @@ enum WeaponType: String, Codable {
 
 extension Weapon: Equatable {
     static func == (lhs: Weapon, rhs: Weapon) -> Bool {
-        lhs.name == rhs.name
+        lhs.name == rhs.name && lhs.type == rhs.type
     }
 }
 

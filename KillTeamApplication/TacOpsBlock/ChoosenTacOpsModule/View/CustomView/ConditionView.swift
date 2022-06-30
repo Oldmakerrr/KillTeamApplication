@@ -37,15 +37,15 @@ class ConditionView: UIView {
         addSubview(label)
         addSubview(imageView)
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.Size.Otstup.small),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.normal),
-            label.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small)
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: Constant.Size.EdgeInsets.small),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.normal),
+            label.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.EdgeInsets.small),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
 
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -Constant.Size.Otstup.small),
+            imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor, constant: -Constant.Size.EdgeInsets.small),
             imageView.topAnchor.constraint(equalTo: label.topAnchor),
             imageView.heightAnchor.constraint(equalToConstant: label.font.pointSize + 4),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)

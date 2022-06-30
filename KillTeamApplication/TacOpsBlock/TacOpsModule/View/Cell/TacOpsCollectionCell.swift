@@ -71,9 +71,9 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         nameLabel.textAlignment = .center
         nameLabel.numberOfLines = 0
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.normal),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.normal),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.normal),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.EdgeInsets.normal),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.EdgeInsets.normal),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.EdgeInsets.normal),
             nameLabel.heightAnchor.constraint(equalToConstant: Constant.Size.screenHeight * 0.050),
             nameLabel.bottomAnchor.constraint(greaterThanOrEqualTo: imageView.topAnchor)
             //   nameLabel.bottomAnchor.constraint(equalTo: imageView.topAnchor)
@@ -115,9 +115,9 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         moreInfoButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
             moreInfoButton.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor),
-            moreInfoButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
+            moreInfoButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
             moreInfoButton.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor),
-            moreInfoButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.Otstup.small),
+            moreInfoButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.EdgeInsets.small),
             moreInfoButton.widthAnchor.constraint(equalToConstant: 30),
             moreInfoButton.heightAnchor.constraint(equalTo: moreInfoButton.widthAnchor)
         ])

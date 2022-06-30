@@ -35,22 +35,22 @@ class AllegoryView: UIView {
         addSubview(performanceLabel)
         addSubview(accoladeLabel)
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.Otstup.small),
-            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.small),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.small),
-            nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.Otstup.small)
+            nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
         NSLayoutConstraint.activate([
-            performanceLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constant.Size.Otstup.small),
-            performanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.small),
-            performanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.small),
-            performanceLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.Otstup.small)
+            performanceLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constant.Size.EdgeInsets.small),
+            performanceLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            performanceLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            performanceLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
         NSLayoutConstraint.activate([
-            accoladeLabel.topAnchor.constraint(equalTo: performanceLabel.bottomAnchor, constant: Constant.Size.Otstup.small),
-            accoladeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.small),
-            accoladeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.Otstup.small),
-            accoladeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.Otstup.small)
+            accoladeLabel.topAnchor.constraint(equalTo: performanceLabel.bottomAnchor, constant: Constant.Size.EdgeInsets.small),
+            accoladeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            accoladeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.small),
+            accoladeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
     }
 }

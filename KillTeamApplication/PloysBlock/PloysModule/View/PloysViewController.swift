@@ -93,7 +93,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         navigationBar.addSubview(psychicPowerButton)
         NSLayoutConstraint.activate([
             psychicPowerButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
-            psychicPowerButton.trailingAnchor.constraint(equalTo: commandPointLabel.leadingAnchor, constant: -Constant.Size.Otstup.normal)
+            psychicPowerButton.trailingAnchor.constraint(equalTo: commandPointLabel.leadingAnchor, constant: -Constant.Size.EdgeInsets.normal)
         ])
     }
     

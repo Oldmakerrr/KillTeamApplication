@@ -55,9 +55,9 @@ class EditUnitWargearCell: UITableViewCell, ReusableView {
     private func setupNameWeaponLabel() {
         contentView.addSubview(nameWeaponLabel)
         NSLayoutConstraint.activate([
-            nameWeaponLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.small),
-            nameWeaponLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
-            nameWeaponLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.large)
+            nameWeaponLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameWeaponLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameWeaponLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.EdgeInsets.large)
         ])
     }
     

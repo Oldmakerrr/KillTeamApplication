@@ -40,8 +40,8 @@ class WeaponView: UIStackView, WargearView {
         buttonView.addSubview(button)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: Constant.Size.Otstup.normal),
-            button.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -Constant.Size.Otstup.normal),
+            button.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: Constant.Size.EdgeInsets.normal),
+            button.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -Constant.Size.EdgeInsets.normal),
             button.centerXAnchor.constraint(equalTo: centerXAnchor),
             button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
             button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
@@ -142,12 +142,12 @@ class WeaponView: UIStackView, WargearView {
         arrayOfView.append([label])
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.small),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.large),
-            label.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -Constant.Size.Otstup.small),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.small),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.EdgeInsets.large),
+            label.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
         ])
         availableSpace -= label.getViewWidth()
-        availableSpace -= Constant.Size.Otstup.large
+        availableSpace -= Constant.Size.EdgeInsets.large
         
         for rule in rules {
             let button = WeaponRuleButton()
@@ -157,7 +157,7 @@ class WeaponView: UIStackView, WargearView {
             
             NSLayoutConstraint.activate([
                 button.centerYAnchor.constraint(equalTo: arrayOfView[numberOfRow][numberViewInRow].centerYAnchor),
-                button.leadingAnchor.constraint(equalTo: arrayOfView[numberOfRow][numberViewInRow].trailingAnchor, constant: Constant.Size.Otstup.small)
+                button.leadingAnchor.constraint(equalTo: arrayOfView[numberOfRow][numberViewInRow].trailingAnchor, constant: Constant.Size.EdgeInsets.small)
             ])
            
             if button.getViewWidth() > availableSpace {
@@ -173,14 +173,14 @@ class WeaponView: UIStackView, WargearView {
                 NSLayoutConstraint.activate([
                     button.topAnchor.constraint(equalTo: arrayOfView[numberOfRow-1][numberViewInRow].bottomAnchor),
                     button.leadingAnchor.constraint(equalTo: arrayOfView[numberOfRow-1][numberViewInRow].leadingAnchor),
-                    button.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -Constant.Size.Otstup.small)
+                    button.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.small)
                 ])
                
                 availableSpace -= button.getViewWidth()
-                availableSpace -= Constant.Size.Otstup.large
+                availableSpace -= Constant.Size.EdgeInsets.large
             } else {
                 availableSpace -= button.getViewWidth()
-                availableSpace -= Constant.Size.Otstup.small
+                availableSpace -= Constant.Size.EdgeInsets.small
                 arrayOfView[numberOfRow].append(button)
                 numberViewInRow += 1
             }

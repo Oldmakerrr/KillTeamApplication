@@ -56,7 +56,7 @@ class PloyView: UIStackView {
     func setupView() {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: Constant.Size.Otstup.normal).isActive = true
+        view.heightAnchor.constraint(equalToConstant: Constant.Size.EdgeInsets.normal).isActive = true
         addArrangedSubview(view)
     }
     
@@ -108,8 +108,8 @@ class PloyView: UIStackView {
         self.delegate = delegate
         view.addSubview(button)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.normal),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.normal),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.widthAnchor.constraint(equalToConstant: Constant.Size.NormalButton.width),
             button.heightAnchor.constraint(equalToConstant: Constant.Size.NormalButton.height)
@@ -137,16 +137,16 @@ extension UIView {
             label.numberOfLines = 0
             label.text = text
             NSLayoutConstraint.activate([
-                label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.Otstup.large),
-                label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.Otstup.normal)
+                label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constant.Size.EdgeInsets.large),
+                label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constant.Size.EdgeInsets.normal)
             ])
             if index == 0 {
-                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+                label.topAnchor.constraint(equalTo: view.topAnchor, constant: Constant.Size.EdgeInsets.normal).isActive = true
             } else {
-                label.topAnchor.constraint(equalTo: arrayLabels[index-1].bottomAnchor, constant: Constant.Size.Otstup.normal).isActive = true
+                label.topAnchor.constraint(equalTo: arrayLabels[index-1].bottomAnchor, constant: Constant.Size.EdgeInsets.normal).isActive = true
             }
             if index+1 == subTexts.count {
-                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.Otstup.normal).isActive = true
+                label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -Constant.Size.EdgeInsets.normal).isActive = true
             }
             
         }
