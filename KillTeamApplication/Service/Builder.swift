@@ -158,7 +158,7 @@ class ModuleBuilder: BuilderProtocol {
 
     func createKillTeamImperativesList(router: RouterProtocol, delegate: ImperativeTableViewControllerDelegate) -> ImperativeTableViewController? {
         guard let killTeam = store.getKillTeam(),
-              let abilitie = killTeam.abilitiesOfKillTeam as? HunterCladeAbilitie  else { return nil }
+              let abilitie = killTeam.abilityOfKillTeam as? HunterCladeAbilitie  else { return nil }
         let view = ImperativeTableViewController(gameStore: gameStore)
         view.imperative = abilitie.imperatives
         view.delegate = delegate
@@ -167,7 +167,7 @@ class ModuleBuilder: BuilderProtocol {
 
     func createKillTeamAllegoryList(router: RouterProtocol, delegate: AllegoryTableViewControllerDelegate) -> AllegoryTableViewController? {
         guard let killTeam = store.getKillTeam(),
-              let abilitie = killTeam.abilitiesOfKillTeam as? VoidDancerTroupeAbilitie else { return nil }
+              let abilitie = killTeam.abilityOfKillTeam as? VoidDancerTroupeAbilitie else { return nil }
         let view = AllegoryTableViewController(gameStore: gameStore)
         view.delegate = delegate
         view.allegory = abilitie.allegory
@@ -176,7 +176,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createChaosBlessingList(router: RouterProtocol, delegate: ChaosBlessingTableViewControllerDelegate) -> ChaosBlessingTableViewController? {
         guard let killTeam = store.getKillTeam(),
-              let abilitie = killTeam.abilitiesOfKillTeam as? LegionaryAbilitie else { return nil }
+              let abilitie = killTeam.abilityOfKillTeam as? LegionaryAbilitie else { return nil }
         let view = ChaosBlessingTableViewController()
         view.chaosBlessing = abilitie.chaosBlessings
         view.delegate = delegate
@@ -185,7 +185,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createBoonOfTzeenchTableViewController(router: RouterProtocol, delegate: BoonOfTzeenchTableViewControllerDelegate) -> BoonOfTzeenchTableViewController? {
         guard let killTeam = store.getKillTeam(),
-              let abilitie = killTeam.abilitiesOfKillTeam as? WarpcovenAbilitie else { return nil }
+              let abilitie = killTeam.abilityOfKillTeam as? WarpcovenAbilitie else { return nil }
         let view = BoonOfTzeenchTableViewController()
         view.addBoonOfTzeench(abilitie: abilitie)
         view.delegate = delegate

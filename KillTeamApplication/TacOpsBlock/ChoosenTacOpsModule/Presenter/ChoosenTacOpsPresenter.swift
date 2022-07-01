@@ -75,13 +75,13 @@ extension ChoosenTacOpsPresenter: ChoosenTacOpViewDelegate {
         
             switch indexPath?.item {
             case 0:
-                model.gameData.firstTacOp?.isCompleteConditions[numberOfCondition] = changeConditionState(isSelect)
+                model.gameData.firstTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
                 addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.firstTacOp?.victoryPoint[numberOfCondition])
             case 1:
-                model.gameData.secondTacOp?.isCompleteConditions[numberOfCondition] = changeConditionState(isSelect)
+                model.gameData.secondTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
                 addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.secondTacOp?.victoryPoint[numberOfCondition])
             case 2:
-                model.gameData.thirdTacOp?.isCompleteConditions[numberOfCondition] = changeConditionState(isSelect)
+                model.gameData.thirdTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
                 addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.thirdTacOp?.victoryPoint[numberOfCondition])
             default:
                 return

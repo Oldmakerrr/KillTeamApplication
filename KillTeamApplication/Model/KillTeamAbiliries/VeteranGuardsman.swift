@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct VeteranGuardsmanAbilitie: Codable, KillTeamAbilitie {
+struct VeteranGuardsmanAbilitie: Codable, KillTeamAbility {
     
     let name: String
     let description: String
@@ -23,6 +23,7 @@ struct VeteranGuardsmanAbilitie: Codable, KillTeamAbilitie {
     
     struct TacticalAssets: Codable {
         let name: String
+        let id: String
         let description: String
         let weapon: Weapon
     }

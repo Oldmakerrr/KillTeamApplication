@@ -66,19 +66,19 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         guard let killTeam = store.getKillTeam(), let indexPath = store.indexOfChoosenUnit else { return }
         model.killTeam = killTeam
         model.indexPathUnit = indexPath
-        if !killTeam.choosenFireTeam.isEmpty {
-            model.currentUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        if !killTeam.chosenFireTeams.isEmpty {
+            model.currentUnit = killTeam.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row]
         }
     }
     
     private func prepeareWargear(store: StoreProtocol) {
         guard let killTeam = store.getKillTeam(),
               let indexPath = store.indexOfChoosenUnit else { return }
-        let unit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
-        if let weapon = unit.availableWeapon {
+        let unit = killTeam.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row]
+        if let weapon = unit.availableWeapons {
             sortSeapon(weapons: weapon)
         }
-        model.wargear.append(killTeam.equipment)
+        model.wargear.append(killTeam.equipments)
         model.headerForRow.append("Equipment")
     }
     
@@ -109,7 +109,7 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
     }
     
     private func getImageName() -> String {
-        guard let chaosBlessing = model.currentUnit?.additionalAbilitie else { return "killTeamViewController" }
+        guard let chaosBlessing = model.currentUnit?.additionalAbility else { return "killTeamViewController" }
         if let chaosBlessingName = chaosBlessing.name.components(separatedBy: " ").first {
             return chaosBlessingName
         } else {
@@ -132,17 +132,17 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
             case .range:
                 unit.selectedRangeWeapon = weapon
             case .close:
-                unit.selectedCloseWeapon = weapon
+                unit.selectedMeleeWeapon = weapon
             }
         }
         if let equipment = wargear as? Equipment {
-            if unit.equipment.contains(equipment) {
+            if unit.equipments.contains(equipment) {
                 killTeam.countEquipmentPoint += equipment.cost
-                unit.equipment.removeAll(where: { equip in
+                unit.equipments.removeAll(where: { equip in
                     equip == equipment
                 })
             } else {
-                unit.equipment.append(equipment)
+                unit.equipments.append(equipment)
                 killTeam.countEquipmentPoint -= equipment.cost
             }
         }
@@ -152,15 +152,15 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
     private func updateUnitWargear(unit: Unit, killTeam: KillTeam) {
         guard let indexPath = model.indexPathUnit else { return }
         var killTeam = killTeam
-        killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
+        killTeam.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] = unit
         store.updateCurrentKillTeam(killTeam: killTeam)
     }
     
     private func addAdditionalAbilitie(abilitie: UnitAbilitieProtocol) {
         guard var unit = model.currentUnit,
               let indexPath = model.indexPathUnit else { return }
-        unit.additionalAbilitie = abilitie
-        model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
+        unit.additionalAbility = abilitie
+        model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] = unit
         if let killTeam = model.killTeam {
             store.updateCurrentKillTeam(killTeam: killTeam)
         }
@@ -172,8 +172,8 @@ extension EditUnitPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
         guard let killTeam = killTeam, let indexPath = store.indexOfChoosenUnit else { return }
         model.killTeam = killTeam
-        if !killTeam.choosenFireTeam.isEmpty {
-            model.currentUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        if !killTeam.chosenFireTeams.isEmpty {
+            model.currentUnit = killTeam.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row]
         }
     }
 }

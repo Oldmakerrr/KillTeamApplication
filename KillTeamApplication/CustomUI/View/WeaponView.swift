@@ -60,20 +60,20 @@ class WeaponView: UIStackView, WargearView {
         case .range:
             setupCharacteristicView(attack: "A = \(wargear.attacks)",
                                     ballisticSkills: "BS = \(wargear.ballisticWeaponSkill)+",
-                                    damage: "D = \(wargear.damage)/\(wargear.critDamage)")
+                                    damage: "D = \(wargear.damage)/\(wargear.criticalDamage)")
         case .close:
             setupCharacteristicView(attack: "A = \(wargear.attacks)",
                                     ballisticSkills: "WS = \(wargear.ballisticWeaponSkill)+",
-                                    damage: "D = \(wargear.damage)/\(wargear.critDamage)")
+                                    damage: "D = \(wargear.damage)/\(wargear.criticalDamage)")
         }
-        if let specialRule = wargear.specialRule {
+        if let specialRule = wargear.specialRules {
             setupSpecialRule(rules: specialRule, text: "Special rule:", delegate: delegate, viewWidth: viewWidth)
         }
         
-        if let critSpecialRule = wargear.criticalHitspecialRule {
+        if let critSpecialRule = wargear.criticalHitSpecialRules {
             setupSpecialRule(rules: critSpecialRule, text: "!:", delegate: delegate, viewWidth: viewWidth)
         }
-        if let weapon = wargear as? Weapon, let subWeapon = weapon.secondProfile   {
+        if let weapon = wargear as? Weapon, let subWeapon = weapon.subProfiles   {
             for weapon in subWeapon {
                 setupText(wargear: weapon, delegate: delegate, viewWidth: viewWidth)
             }

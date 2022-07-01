@@ -54,7 +54,7 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     
     func addFireTeam(view: UITableViewController) {
         guard let killTeam = model.killTeam else { return }
-        if killTeam.choosenFireTeam.isEmpty {
+        if killTeam.chosenFireTeams.isEmpty {
             goToAddFireTeam()
         } else {
             showAddUnitOrFireTeamAlertController(view: view, killTeam: killTeam)
@@ -78,42 +78,40 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     
     func removeUnit(indexPath: IndexPath) {
         returnCostEquipment(indexPath: indexPath)
-        model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates.remove(at: indexPath.row)
+        model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates.remove(at: indexPath.row)
         if let killTeam = model.killTeam {
             store.updateCurrentKillTeam(killTeam: killTeam)
         }
     }
     
     func removeFireTeam(indexPath: IndexPath) {
-        model.killTeam?.choosenFireTeam.remove(at: indexPath.section)
+        model.killTeam?.chosenFireTeams.remove(at: indexPath.section)
         if let killTeam = model.killTeam {
             store.updateCurrentKillTeam(killTeam: killTeam)
         }
     }
     
     func getAvailableUnit(indexPath: IndexPath) -> [Unit]? {
-        return model.killTeam?.choosenFireTeam[indexPath.section].availableDataslates
+        return model.killTeam?.chosenFireTeams[indexPath.section].availableDataslates
     }
     
     func changeUnit(unit: Unit, indexPath: IndexPath) {
-        var unit = unit
-        unit.updateCurrentWounds()
         returnCostEquipment(indexPath: indexPath)
-        model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
+        model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] = unit
         if let killTeam = model.killTeam {
             store.updateCurrentKillTeam(killTeam: killTeam)
         }
     }
     
     func changeUnitName(name: String, indexPath: IndexPath) {
-        model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row].customName = name
+        model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row].customName = name
         if let killTeam = model.killTeam {
             store.updateCurrentKillTeam(killTeam: killTeam)
         }
     }
     
     func getUnitName(indexPath: IndexPath) -> String {
-        guard let unit = model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] else { return "" }
+        guard let unit = model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] else { return "" }
         if let unitCustomName = unit.customName {
             return unitCustomName
         } else {
@@ -122,7 +120,7 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     }
     
     private func returnCostEquipment(indexPath: IndexPath) {
-        model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row].equipment.forEach({ equipment in
+        model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row].equipments.forEach({ equipment in
             model.killTeam?.countEquipmentPoint += equipment.cost
         })
     }
@@ -133,7 +131,7 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if killTeam.countOfFireTeam != 1 {
             addActionToAlert(alert: alert, view: view)
-        } else if killTeam.fireTeam.count > 1 {
+        } else if killTeam.fireTeams.count > 1 {
             addActionToAlert(alert: alert, view: view)
         } else {
             addUnit(index: 0, view: view)
@@ -156,10 +154,10 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     private func addUnitToFireTeamAlertAction(view: UITableViewController) -> UIAlertAction {
         let action = UIAlertAction(title: "Add unit", style: .default) { _ in
             let alert = UIAlertController(title: "Choose FireTeam", message: nil, preferredStyle: .actionSheet)
-            if self.model.killTeam?.choosenFireTeam.count == 1 {
+            if self.model.killTeam?.chosenFireTeams.count == 1 {
                 self.addUnit(index: 0, view: view)
             } else {
-                for (index, fireTeam) in self.model.killTeam!.choosenFireTeam.enumerated() {
+                for (index, fireTeam) in self.model.killTeam!.chosenFireTeams.enumerated() {
                     let action = UIAlertAction(title: "\(index+1): \(fireTeam.name)", style: .default) { _ in
                         self.addUnit(index: index, view: view)
                     }
@@ -174,20 +172,17 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     }
     
     private func addUnit(index: Int, view: UITableViewController) {
-        if model.killTeam?.choosenFireTeam[index].availableDataslates.count == 1 {
-            if var unit = model.killTeam?.choosenFireTeam[index].availableDataslates.first {
-                unit.updateCurrentWounds()
-                self.model.killTeam?.choosenFireTeam[index].currentDataslates.insert(unit, at: 0)
+        if model.killTeam?.chosenFireTeams[index].availableDataslates.count == 1 {
+            if let unit = model.killTeam?.chosenFireTeams[index].availableDataslates.first {
+                self.model.killTeam?.chosenFireTeams[index].currentDataslates.insert(unit, at: 0)
                 view.tableView.reloadData()
                 self.store.updateCurrentKillTeam(killTeam: self.model.killTeam!)
             }
         } else {
             let alert = UIAlertController(title: "Add unit", message: nil, preferredStyle: .actionSheet)
-            self.model.killTeam?.choosenFireTeam[index].availableDataslates.forEach { unit in
+            self.model.killTeam?.chosenFireTeams[index].availableDataslates.forEach { unit in
                 let action = UIAlertAction(title: unit.name, style: .default) { _ in
-                    var unit = unit
-                    unit.updateCurrentWounds()
-                    self.model.killTeam?.choosenFireTeam[index].currentDataslates.insert(unit, at: 0)
+                    self.model.killTeam?.chosenFireTeams[index].currentDataslates.insert(unit, at: 0)
                     view.tableView.reloadData()
                     self.store.updateCurrentKillTeam(killTeam: self.model.killTeam!)
                 }

@@ -38,7 +38,7 @@ class KillTeamAbilitiePresenter: KillTeamAbilitiePresenterProtocol {
 
 extension KillTeamAbilitiePresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
-        guard let abilitiesOfKillTeam = killTeam?.abilitiesOfKillTeam else { return }
+        guard let abilitiesOfKillTeam = killTeam?.abilityOfKillTeam else { return }
         model.abilitie = abilitiesOfKillTeam
     }
     

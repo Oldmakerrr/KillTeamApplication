@@ -89,6 +89,7 @@ class ChooseKillTeamTableViewController: UITableViewController, ChooseKillTeamVi
         }
         self.dismiss(animated: true, completion: nil)
         killTeam.addDefaultFireTeam()
+        killTeam.uid = UUID().uuidString
         presenter?.goToEditKillTeamViewController(killTeam: killTeam)
     }
     

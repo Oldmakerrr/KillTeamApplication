@@ -21,8 +21,8 @@ extension EditUnitViewController {
     
     func setupChaosBlesisnButton() {
         guard let presenter = presenter else { return }
-        if presenter.model.killTeam?.abilitiesOfKillTeam is LegionaryAbilitie ||
-            presenter.model.killTeam?.abilitiesOfKillTeam is WarpcovenAbilitie {
+        if presenter.model.killTeam?.abilityOfKillTeam is LegionaryAbilitie ||
+            presenter.model.killTeam?.abilityOfKillTeam is WarpcovenAbilitie {
             chaosBlessingButton = UIButton()
             presenter.updateButtonImage()
             guard let chaosBlessingButton = chaosBlessingButton else { return }

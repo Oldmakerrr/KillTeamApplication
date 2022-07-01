@@ -12,7 +12,7 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
     var presenter: KillTeamAbilitiePresenterProtocol?
     var menuBar: MenuBar?
     var contentView = UIStackView()
-    var funcArray: [(KillTeamAbilitie)->(UIStackView)]?
+    var funcArray: [(KillTeamAbility)->(UIStackView)]?
     
     override func viewDidLoad() {
         super.viewDidLoad()

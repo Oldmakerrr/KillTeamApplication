@@ -9,9 +9,10 @@ import Foundation
 
 struct FireTeam: Codable {
     let name: String
+    let id: String
     let archetype: [FireTeamType]
-    var availableDataslates: [Unit]
-    var currentDataslates: [Unit] = []
+    let availableDataslates: [Unit]
+    var currentDataslates: [Unit]
 }
 
 enum FireTeamType: String, Codable {
@@ -23,6 +24,6 @@ enum FireTeamType: String, Codable {
 
 extension FireTeam: Equatable {
     static func == (lhs: FireTeam, rhs: FireTeam) -> Bool {
-        lhs.name == rhs.name
+        lhs.id == rhs.id
     }
 }

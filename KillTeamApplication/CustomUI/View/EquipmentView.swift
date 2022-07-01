@@ -46,20 +46,20 @@ class EquipmentView: UIStackView, WargearView {
         
         setupHeader(equipment: wargear)
         addTextView(text: wargear.description)
-        if let subText = wargear.subText {
+        if let subText = wargear.subTexts {
             addSubTextPointView(subText: subText)
         }
-        if let uniqueAction = wargear.unitAction {
+        if let uniqueAction = wargear.uniqueAction {
             guard let delegate = delegate else { return }
             setupUniqueActionView(action: uniqueAction, delegate: delegate, viewWidth: viewWidth)
         }
-        if let body = wargear.body {
+        if let body = wargear.additionalText {
             addTextView(text: body)
         }
-        if let abilitie = wargear.uniqueAction {
+        if let abilitie = wargear.ability {
             setupAbilitie(abilitie: abilitie)
         }
-        if let wargear = wargear.wargear {
+        if let wargear = wargear.weapon {
             guard let delegate = delegate else { return }
             setupWeaponView(weapon: wargear, delegate: delegate, viewWidth: viewWidth)
         }

@@ -50,7 +50,7 @@ extension CounterViewController {
 //MARK: - ConfigureAbilitieView
     
     func setupTextToAbilitieView() {
-        guard let abilitie = presenter?.model.killTeam?.abilitiesOfKillTeam else {
+        guard let abilitie = presenter?.model.killTeam?.abilityOfKillTeam else {
             currentAbilitieButton.isHidden = true
             return }
         
@@ -107,7 +107,7 @@ extension CounterViewController {
     }
     
     func fillCounterStackView() {
-        if presenter?.model.killTeam?.abilitiesOfKillTeam is NovitiateAbilitie {
+        if presenter?.model.killTeam?.abilityOfKillTeam is NovitiateAbilitie {
             guard killTeamAbilitiePoint == nil else { return }
             killTeamAbilitiePoint = CounterPointView(title: "Act of Faith")
             if presenter?.model.gameData.countTurningPoint == 0 {

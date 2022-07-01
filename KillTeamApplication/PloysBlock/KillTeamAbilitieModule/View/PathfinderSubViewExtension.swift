@@ -9,7 +9,7 @@ import UIKit
 
 extension KillTeamAbilitieViewController {
     
-    func setupPathfinderMarkerlightAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupPathfinderMarkerlightAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = PathfinderAbilitieView()
         if let abilitie = abilitie as? PathfinderAbilitie {
             view.setupMarkerlightRule(markerRule: abilitie.markerlight, delegate: self)
@@ -17,7 +17,7 @@ extension KillTeamAbilitieViewController {
         return view
     }
     
-    func setupPathfinderArtOfWarAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupPathfinderArtOfWarAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = PathfinderAbilitieView()
         if let abilitie = abilitie as? PathfinderAbilitie {
             view.setupArtOfWarRule(artOfWarRule: abilitie.artOfwar)
@@ -26,7 +26,7 @@ extension KillTeamAbilitieViewController {
         return view
     }
     
-    func setupPathfinderArtificialIntelligenceAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupPathfinderArtificialIntelligenceAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = PathfinderAbilitieView()
         if let abilitie = abilitie as? PathfinderAbilitie {
             view.setupAbilitieText(abilitie: abilitie.artificialIntelligence)
@@ -34,7 +34,7 @@ extension KillTeamAbilitieViewController {
         return view
     }
     
-    func setupPathfinderPulseWeaponAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupPathfinderPulseWeaponAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = PathfinderAbilitieView()
         if let abilitie = abilitie as? PathfinderAbilitie {
             view.setupAbilitieText(abilitie: abilitie.pulseWaepon)
@@ -42,7 +42,7 @@ extension KillTeamAbilitieViewController {
         return view
     }
     
-    func setupPathfinderSaviourProtocolsAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupPathfinderSaviourProtocolsAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = PathfinderAbilitieView()
         if let abilitie = abilitie as? PathfinderAbilitie {
             view.setupAbilitieText(abilitie: abilitie.saviourProtocols)

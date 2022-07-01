@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LegionaryAbilitie: Codable, KillTeamAbilitie {
+struct LegionaryAbilitie: Codable, KillTeamAbility {
     
     let chaosBlessing: UnitAbilitie
     let favouredOfTheDarkGods: UnitAbilitie

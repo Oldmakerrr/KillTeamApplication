@@ -43,7 +43,7 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
     
     private func showCoachMarks() {
         guard let killTeam = presenter?.model.killTeam else { return }
-        if !isCoachMarkShowed() && !killTeam.choosenFireTeam.isEmpty {
+        if !isCoachMarkShowed() && !killTeam.chosenFireTeams.isEmpty {
             coachMarksController.start(in: .window(over: self))
             setCoachMarkStateToShowed()
         }
@@ -57,7 +57,7 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
                           message: "Please create new Kill Team or choose existed on the main screen")
             return
         }
-        if killTeam.choosenFireTeam.count == 0 {
+        if killTeam.chosenFireTeams.count == 0 {
             setEmptyState(title: "No Fire Team",
                           message: "Please add and edit Fire Team on the Edit Kill Team screen")
         } 
@@ -66,12 +66,12 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.model.killTeam?.choosenFireTeam.count ?? 0
+        return presenter?.model.killTeam?.chosenFireTeams.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = TableHeaderView()
-        view.label.text = presenter?.model.killTeam?.choosenFireTeam[section].name
+        view.label.text = presenter?.model.killTeam?.chosenFireTeams[section].name
         return view
     }
     
@@ -80,12 +80,12 @@ class RosterTableViewController: UITableViewController, RosterTableViewControlle
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.model.killTeam?.choosenFireTeam[section].currentDataslates.count ?? 0
+        return presenter?.model.killTeam?.chosenFireTeams[section].currentDataslates.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RosterTableViewCell.identifier, for: indexPath) as! RosterTableViewCell
-        guard let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]  else { return UITableViewCell() }
+        guard let unit = presenter?.model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row]  else { return UITableViewCell() }
         cell.updateCell()
         cell.setupText(unit: unit)
         return cell

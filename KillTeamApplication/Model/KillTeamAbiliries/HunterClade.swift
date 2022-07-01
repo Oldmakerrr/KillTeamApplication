@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HunterCladeAbilitie: Codable, KillTeamAbilitie {
+struct HunterCladeAbilitie: Codable, KillTeamAbility {
     
     let name: String
     let description: [String]

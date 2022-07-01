@@ -105,7 +105,8 @@ final class Store: StoreProtocol {
     }
     
     private func saveMyKillTeam(killTeam: KillTeam) {
-        UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: killTeam.id)
+        guard let uid = killTeam.uid else { return }
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: uid)
         UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: KeySaver.lastUsedKillTeamKey)
     }
     
@@ -114,7 +115,7 @@ final class Store: StoreProtocol {
     var allFaction: [Faction] = []
         
     func killTeamFromJson() {
-        let path = Bundle.main.path(forResource: "AllFaction", ofType: "json")
+        let path = Bundle.main.path(forResource: "AllFaction_v3", ofType: "json")
         let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
         allFaction = try! JSONDecoder().decode([Faction].self, from: jsonData! as Data)
     }

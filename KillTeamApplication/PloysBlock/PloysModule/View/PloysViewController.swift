@@ -48,7 +48,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         commandPointLabel.text = "CP = \(presenter?.model.gameData.countCommandPoint ?? 0)"
         emptyTableState()
         setupKillTeamAbilitieButton()
-        let isExistPsychicPower = presenter?.model.killTeam?.psychicPower != nil
+        let isExistPsychicPower = presenter?.model.killTeam?.psychicPowers != nil
         commandPointLabel.textColor = .white
         setupRightNavigationView(view: commandPointLabel)
         shouldPsychicPowerButton(shouldShow: isExistPsychicPower)
@@ -72,7 +72,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     }
     
     func setupKillTeamAbilitieButton() {
-        guard presenter?.model.killTeam?.abilitiesOfKillTeam != nil else {
+        guard presenter?.model.killTeam?.abilityOfKillTeam != nil else {
             navigationItem.leftBarButtonItem = nil
             return }
         let killTeamAbilitieBarButtonItem = UIBarButtonItem(image: nil,

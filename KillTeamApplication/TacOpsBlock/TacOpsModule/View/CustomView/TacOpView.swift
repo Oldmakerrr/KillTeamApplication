@@ -69,7 +69,7 @@ class TacOpView: UIStackView {
             addTextView(text: subConditionTitle, trailingSpace: Constant.Size.EdgeInsets.large, label: label)
         }
         
-        if let subCondition = tacOp.subCondition {
+        if let subCondition = tacOp.subConditions {
             subCondition.forEach { text in
                 addConditionTextView(text: text, trailingSpace: 25)
             }
@@ -80,7 +80,7 @@ class TacOpView: UIStackView {
             addTextView(text: subText, trailingSpace: Constant.Size.EdgeInsets.normal, label: label)
         }
         
-        if let uniquiAction = tacOp.uniquiAction {
+        if let uniquiAction = tacOp.uniqueAction {
             let view = UIView()
             let actionView = UniqueActionView()
             actionView.layer.applyBorder()
@@ -89,7 +89,7 @@ class TacOpView: UIStackView {
             actionView.setupText(action: uniquiAction, delegate: delegate, viewWidth: actionView.getViewWidth())
         }
         
-        if let abilitie = tacOp.abilitie {
+        if let abilitie = tacOp.ability {
             let view = AbilitieView()
             view.setupText(abilitie: abilitie)
             addArrangedSubview(view)

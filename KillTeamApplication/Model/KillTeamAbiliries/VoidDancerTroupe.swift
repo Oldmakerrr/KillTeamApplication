@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol KillTeamAbilitie: Codable {}
+protocol KillTeamAbility: Codable {}
 
-struct VoidDancerTroupeAbilitie: Codable, KillTeamAbilitie {
+struct VoidDancerTroupeAbilitie: Codable, KillTeamAbility {
 
     let name: String
     let description: String

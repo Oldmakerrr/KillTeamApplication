@@ -41,7 +41,7 @@ class EditUnitEquipmentCell: UITableViewCell, ReusableView {
     }
     
     private func checkSelectedState() {
-        guard let equipments = unit?.equipment, let equipment = equipment else { return }
+        guard let equipments = unit?.equipments, let equipment = equipment else { return }
         if equipments.contains(equipment) {
             contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
         } else {

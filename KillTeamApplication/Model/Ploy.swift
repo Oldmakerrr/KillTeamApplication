@@ -9,13 +9,14 @@ import Foundation
 
 struct Ploy: Codable {
     let name: String
+    let id: String
     let description: String
     let cost: Int
     let type: PloyType
     let subText: [String]?
-    let passiveAbilities : UnitAbilitie?
-    let abilities: UnitUniqueAction?
-    let wargear: Weapon?
+    let ability : UnitAbilitie?
+    let uniqueAction: UnitUniqueAction?
+    let weapon: Weapon?
 }
 
 enum PloyType: String, Codable {

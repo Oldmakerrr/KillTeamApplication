@@ -53,7 +53,7 @@ class Storage: StorageProtocol {
             
     func removeKillTeam(indexPath: IndexPath) {
         if let killTeam = store.killTeam {
-            if loadedKillTeam[indexPath.row].id == killTeam.id {
+            if loadedKillTeam[indexPath.row].uid == killTeam.uid {
                 store.killTeam = nil
                 UserDefaults.standard.removeObject(forKey: KeySaver.lastUsedKillTeamKey)
             }
@@ -64,8 +64,9 @@ class Storage: StorageProtocol {
     }
     
     func appendNewKillTeam(killTeam: KillTeam) {
+        guard let uid = killTeam.uid else { return }
         loadedKillTeam.insert(killTeam, at: 0)
-        appendNewKey(key: killTeam.id)
+        appendNewKey(key: uid)
         KeySaver.saveKey(key: keysForKillTeam)
     }
         

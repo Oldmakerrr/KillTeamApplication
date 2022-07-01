@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NovitiateAbilitie: Codable, KillTeamAbilitie {
+struct NovitiateAbilitie: Codable, KillTeamAbility {
     
     let name: String
     let description: String

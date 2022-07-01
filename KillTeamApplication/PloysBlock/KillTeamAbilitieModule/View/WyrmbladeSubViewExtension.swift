@@ -9,7 +9,7 @@ import UIKit
 
 extension KillTeamAbilitieViewController {
     
-    func setupWyrmbladeFirstAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupWyrmbladeFirstAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = WyrmbladeAbilitieView()
         if let abilitie = abilitie as? WyrmbladeAbilitie {
             view.setupFirstRule(abilitie: abilitie)
@@ -17,7 +17,7 @@ extension KillTeamAbilitieViewController {
         return view
     }
     
-    func setupWyrmbladeSecondAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupWyrmbladeSecondAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = WyrmbladeAbilitieView()
         if let abilitie = abilitie as? WyrmbladeAbilitie {
             view.setupSecondRule(abilitie: abilitie)

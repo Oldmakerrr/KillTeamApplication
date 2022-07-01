@@ -15,6 +15,7 @@ protocol UnitAbilitieProtocol {
 
 struct UnitUniqueAction: Codable {
     let name: String
+    let id: String
     let cost: Int
     let description: String
     let subText: [String]?
@@ -24,6 +25,7 @@ struct UnitUniqueAction: Codable {
 
 struct UnitAbilitie: Codable, UnitAbilitieProtocol {
     let name: String
+    let id: String
     let description: String
     let subText: [String]?
 }

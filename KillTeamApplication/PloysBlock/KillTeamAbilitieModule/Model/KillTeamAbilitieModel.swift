@@ -9,6 +9,6 @@ import Foundation
 
 class KillTeamAbilitieModel {
     
-    var abilitie: KillTeamAbilitie?
+    var abilitie: KillTeamAbility?
     
 }

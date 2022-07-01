@@ -88,10 +88,10 @@ class CounterPresenter: CounterPresenterProtocol {
     
     private func createTitleForAbilitieView() -> String {
         var title = String()
-        if model.killTeam?.abilitiesOfKillTeam is HunterCladeAbilitie {
+        if model.killTeam?.abilityOfKillTeam is HunterCladeAbilitie {
             title = ""
         }
-        if model.killTeam?.abilitiesOfKillTeam is VoidDancerTroupeAbilitie {
+        if model.killTeam?.abilityOfKillTeam is VoidDancerTroupeAbilitie {
             title = "Selected Allegory:"
         }
         return title
@@ -214,14 +214,14 @@ class CounterPresenter: CounterPresenterProtocol {
     }
     
     private func isExistKillTeamAbilitie(killTeam: KillTeam?) {
-        guard let abilitie = killTeam?.abilitiesOfKillTeam else {
+        guard let abilitie = killTeam?.abilityOfKillTeam else {
             model.gameData.countKillTeamAbilitiePoint = nil
             return }
         novitiateAbilitie(abilite: abilitie)
         gameStore.updateGameData(gameData: model.gameData)
     }
     
-    private func novitiateAbilitie(abilite: KillTeamAbilitie) {
+    private func novitiateAbilitie(abilite: KillTeamAbility) {
         guard abilite is NovitiateAbilitie else { return }
         if model.gameData.countKillTeamAbilitiePoint == nil {
             model.gameData.countKillTeamAbilitiePoint = 0

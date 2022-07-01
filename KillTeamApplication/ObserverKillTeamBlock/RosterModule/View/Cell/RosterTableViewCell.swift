@@ -22,10 +22,10 @@ class RosterTableViewCell: EditKillTeamCell {
     }
     
     override func addNameLabel(unit: Unit) -> UIView {
-        guard let currentWounds = unit.currentWounds  else { return UIView() }
+        //guard let currentWounds = unit.currentWounds  else { return UIView() }
         let header = HeaderImageView()
-        let image = unitStatusImage(currentWounds: currentWounds, maxWounds: unit.wounds)
-        header.setupText(name: unit.customName ?? unit.name, cost: "W = \(currentWounds)", image: image)
+        let image = unitStatusImage(currentWounds: unit.currentWounds, maxWounds: unit.wounds)
+        header.setupText(name: unit.customName ?? unit.name, cost: "W = \(unit.currentWounds)", image: image)
         return header
     }
     

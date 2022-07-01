@@ -40,15 +40,15 @@ class PloyView: UIStackView {
             addSubTextPointView(subText: subText)
         }
         
-        if let abilitie = ploy.passiveAbilities {
+        if let abilitie = ploy.ability {
             setupAbilitiesView(abilities: abilitie)
         }
         
-        if let action = ploy.abilities {
+        if let action = ploy.uniqueAction {
             setupUniqueAction(action: action, delegate: delegate, viewWidth: viewWidth)
         }
         
-        if let weapon = ploy.wargear {
+        if let weapon = ploy.weapon {
             setupWeponView(weapon: weapon, viewWidth: viewWidth, delegate: delegate)
         }
     }

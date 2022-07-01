@@ -60,8 +60,8 @@ class PsychicPowerPresenter: PsychicPowerPresenterProtocol {
 extension PsychicPowerPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
         model.typesOfPsychicPower.removeAll()
-        guard let psychicPowers = killTeam?.psychicPower,
-              let psychicPowerDescription = killTeam?.psychicPowerDescription else { return }
+        guard let psychicPowers = killTeam?.psychicPowers,
+              let psychicPowerDescription = killTeam?.psychicPowerDescriptions else { return }
         model.psychicPowerDescription = psychicPowerDescription
         for psychicPower in psychicPowers {
             if let type = psychicPower.type {

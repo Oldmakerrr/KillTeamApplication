@@ -37,7 +37,7 @@ class EditUnitWargearCell: UITableViewCell, ReusableView {
     }
     
     private func checkSelectedState() {
-        if unit?.selectedRangeWeapon == wargear || unit?.selectedCloseWeapon == wargear || isAdditionalWeapon() {
+        if unit?.selectedRangeWeapon == wargear || unit?.selectedMeleeWeapon == wargear || isAdditionalWeapon() {
             contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
         } else {
             contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
@@ -45,7 +45,7 @@ class EditUnitWargearCell: UITableViewCell, ReusableView {
     }
     
     private func isAdditionalWeapon () -> Bool {
-        guard let additionalWeapon = unit?.additionalWeapon, let wargear = wargear else {
+        guard let additionalWeapon = unit?.additionalWeapons, let wargear = wargear else {
             return false
         }
         return additionalWeapon.contains(wargear) ? true : false

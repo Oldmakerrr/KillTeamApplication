@@ -9,7 +9,7 @@ import UIKit
 
 extension KillTeamAbilitieViewController {
     
-    func setupHunterCadreDroneAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupHunterCadreDroneAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = HunterCadreAbilitieView()
         if let abilitie = abilitie as? HunterCadreAbilitie {
             view.setupDroneRule(abilitie: abilitie)
@@ -17,7 +17,7 @@ extension KillTeamAbilitieViewController {
         return view
     }
     
-    func setupHunterCadreMarkerlightAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupHunterCadreMarkerlightAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = HunterCadreAbilitieView()
         if let abilitie = abilitie as? HunterCadreAbilitie {
             view.setupUniqueAction(action: abilitie.uniqueAction)
@@ -25,7 +25,7 @@ extension KillTeamAbilitieViewController {
         return view
     }
     
-    func setupHunterCadreArtificialIntelligenceAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupHunterCadreArtificialIntelligenceAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = HunterCadreAbilitieView()
         if let abilitie = abilitie as? HunterCadreAbilitie {
             view.setupAbiliteRule(abilitie: abilitie.abilities[0])
@@ -33,7 +33,7 @@ extension KillTeamAbilitieViewController {
         return view
     }
     
-    func setupHunterCadreSaviourProtocolsAbilitie(abilitie: KillTeamAbilitie) -> UIStackView {
+    func setupHunterCadreSaviourProtocolsAbilitie(abilitie: KillTeamAbility) -> UIStackView {
         let view = HunterCadreAbilitieView()
         if let abilitie = abilitie as? HunterCadreAbilitie {
             view.setupAbiliteRule(abilitie: abilitie.abilities[1])

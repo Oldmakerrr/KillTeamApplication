@@ -27,7 +27,7 @@ class UpdateUserKillTeam {
         if let userName = killTeam.userCustomName {
             updatedKillTeam.userCustomName = userName
         }
-        if killTeam.choosenFireTeam.isEmpty {
+        if killTeam.chosenFireTeams.isEmpty {
             return updatedKillTeam
         } else {
             updatedKillTeam = updateFireTeam(newKillTeam: updatedKillTeam, oldKillTeam: killTeam)
@@ -38,12 +38,12 @@ class UpdateUserKillTeam {
     
     func updateUnitInFireTeam(newKillTeam: KillTeam, oldKillTeam: KillTeam) -> KillTeam {
         var newKillTeam = newKillTeam
-        for (indexF, oldFireTeam) in oldKillTeam.choosenFireTeam.enumerated() {
+        for (indexF, oldFireTeam) in oldKillTeam.chosenFireTeams.enumerated() {
             for (IndexU, oldUnit) in oldFireTeam.currentDataslates.enumerated() {
-                newKillTeam.fireTeam.forEach { ft in
+                newKillTeam.fireTeams.forEach { ft in
                     ft.availableDataslates.forEach { newUnit in
                         if newUnit.name == oldUnit.name {
-                            newKillTeam.choosenFireTeam[indexF].currentDataslates.insert(updateUnit(newUnit: newUnit, oldUnit: oldUnit, newKillTeam: newKillTeam), at: IndexU)
+                            newKillTeam.chosenFireTeams[indexF].currentDataslates.insert(updateUnit(newUnit: newUnit, oldUnit: oldUnit, newKillTeam: newKillTeam), at: IndexU)
                         }
                     }
                 }
@@ -54,10 +54,10 @@ class UpdateUserKillTeam {
     
     func updateFireTeam(newKillTeam: KillTeam, oldKillTeam: KillTeam) -> KillTeam {
         var newKillTeam = newKillTeam
-        for (index, oldFireTeam) in oldKillTeam.choosenFireTeam.enumerated() {
-            newKillTeam.fireTeam.forEach { newFireTeam in
+        for (index, oldFireTeam) in oldKillTeam.chosenFireTeams.enumerated() {
+            newKillTeam.fireTeams.forEach { newFireTeam in
                 if newFireTeam.name == oldFireTeam.name {
-                    newKillTeam.choosenFireTeam.insert(newFireTeam, at: index)
+                    newKillTeam.chosenFireTeams.insert(newFireTeam, at: index)
                 }
             }
         }
@@ -69,24 +69,24 @@ class UpdateUserKillTeam {
         if let oldUnitName = oldUnit.customName {
             newUnit.customName = oldUnitName
         }
-        if let oldUnitMeleeWeapon = oldUnit.selectedCloseWeapon {
-            newUnit.availableWeapon?.forEach({ weapon in
+        if let oldUnitMeleeWeapon = oldUnit.selectedMeleeWeapon {
+            newUnit.availableWeapons?.forEach({ weapon in
                 if weapon.name == oldUnitMeleeWeapon.name {
-                    newUnit.selectedCloseWeapon = weapon
+                    newUnit.selectedMeleeWeapon = weapon
                 }
             })
         }
         if let oldUnitRangeWeapon = oldUnit.selectedRangeWeapon {
-            newUnit.availableWeapon?.forEach({ weapon in
+            newUnit.availableWeapons?.forEach({ weapon in
                 if weapon.name == oldUnitRangeWeapon.name {
                     newUnit.selectedRangeWeapon = weapon
                 }
             })
         }
-        for (index, oldEquipment) in oldUnit.equipment.enumerated() {
-            newKillTeam.equipment.forEach { newEquipment in
+        for (index, oldEquipment) in oldUnit.equipments.enumerated() {
+            newKillTeam.equipments.forEach { newEquipment in
                 if newEquipment.name == oldEquipment.name {
-                    newUnit.equipment.insert(newEquipment, at: index)
+                    newUnit.equipments.insert(newEquipment, at: index)
                 }
             }
         }

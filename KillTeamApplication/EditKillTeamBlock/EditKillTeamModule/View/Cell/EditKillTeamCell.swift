@@ -36,12 +36,12 @@ class EditKillTeamCell: UITableViewCell, ReusableView {
         if let rangeWeapon = unit.selectedRangeWeapon {
             addWeaponLabel(weaponName: rangeWeapon.name, text: "Ranged weapon")
         }
-        if let closeWeapon = unit.selectedCloseWeapon {
+        if let closeWeapon = unit.selectedMeleeWeapon {
             addWeaponLabel(weaponName: closeWeapon.name, text: "Melee weapon")
         }
-        if !unit.equipment.isEmpty {
+        if !unit.equipments.isEmpty {
             var text = [String]()
-            unit.equipment.forEach { equipment in
+            unit.equipments.forEach { equipment in
                 text.append(equipment.name)
             }
             addEquipmentLabel(array: text)

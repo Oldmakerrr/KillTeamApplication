@@ -18,22 +18,23 @@ protocol WeaponProtocol {
     var attacks: Int { get }
     var ballisticWeaponSkill: Int { get }
     var damage: Int { get }
-    var critDamage: Int { get }
-    var specialRule: [WeaponSpecialRule]? { get }
-    var criticalHitspecialRule: [WeaponSpecialRule]? { get }
+    var criticalDamage: Int { get }
+    var specialRules: [WeaponSpecialRule]? { get }
+    var criticalHitSpecialRules: [WeaponSpecialRule]? { get }
 }
 
 struct Weapon: Codable, WeaponProtocol, Wargear {
     let name: String
+    let id: String
     let profileName: String?
     let type: WeaponType
     let attacks: Int
     let ballisticWeaponSkill: Int
     let damage: Int
-    let critDamage: Int
-    let specialRule: [WeaponSpecialRule]?
-    let criticalHitspecialRule: [WeaponSpecialRule]?
-    let secondProfile: [SubProfileWeapon]?
+    let criticalDamage: Int
+    let specialRules: [WeaponSpecialRule]?
+    let criticalHitSpecialRules: [WeaponSpecialRule]?
+    let subProfiles: [SubProfileWeapon]?
 }
 
 struct SubProfileWeapon: Codable, WeaponProtocol {
@@ -43,9 +44,9 @@ struct SubProfileWeapon: Codable, WeaponProtocol {
     let attacks: Int
     let ballisticWeaponSkill: Int
     let damage: Int
-    let critDamage: Int
-    let specialRule: [WeaponSpecialRule]?
-    let criticalHitspecialRule: [WeaponSpecialRule]?
+    let criticalDamage: Int
+    let specialRules: [WeaponSpecialRule]?
+    let criticalHitSpecialRules: [WeaponSpecialRule]?
 }
 
 enum WeaponType: String, Codable {
@@ -55,7 +56,7 @@ enum WeaponType: String, Codable {
 
 extension Weapon: Equatable {
     static func == (lhs: Weapon, rhs: Weapon) -> Bool {
-        lhs.name == rhs.name && lhs.type == rhs.type
+        lhs.id == rhs.id 
     }
 }
 

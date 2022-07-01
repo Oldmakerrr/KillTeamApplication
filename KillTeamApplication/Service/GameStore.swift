@@ -67,7 +67,7 @@ final class GameStore: GameStoreProtocol {
     var tacOps = [TacOp]()
     
     func parseTacOps() {
-        let path = Bundle.main.path(forResource: "TacOps", ofType: "json")
+        let path = Bundle.main.path(forResource: "TacOps_v3", ofType: "json")
         let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
         tacOps = try! JSONDecoder().decode([TacOp].self, from: jsonData! as Data)
     }

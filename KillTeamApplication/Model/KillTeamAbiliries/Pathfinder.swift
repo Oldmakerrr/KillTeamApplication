@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PathfinderAbilitie: Codable, KillTeamAbilitie {
+struct PathfinderAbilitie: Codable, KillTeamAbility {
     
     let artificialIntelligence: Abilitie
     let markerlight: MarkerlightRule
