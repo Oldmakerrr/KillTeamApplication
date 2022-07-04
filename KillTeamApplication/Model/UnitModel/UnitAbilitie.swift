@@ -9,6 +9,7 @@ import Foundation
 
 protocol UnitAbilitieProtocol {
     var name: String { get }
+    var id: String { get }
     var description: String { get }
     var subText: [String]? { get }
 }

@@ -75,9 +75,7 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         guard let killTeam = store.getKillTeam(),
               let indexPath = store.indexOfChoosenUnit else { return }
         let unit = killTeam.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row]
-        if let weapon = unit.availableWeapons {
-            sortSeapon(weapons: weapon)
-        }
+        sortSeapon(weapons: unit.availableWeapons)
         model.wargear.append(killTeam.equipments)
         model.headerForRow.append("Equipment")
     }
@@ -195,7 +193,7 @@ extension EditUnitPresenter: ChaosBlessingTableViewControllerDelegate {
 }
 
 extension EditUnitPresenter: BoonOfTzeenchTableViewControllerDelegate {
-    func didComplete(_ boonOfTzeenchTableViewController: BoonOfTzeenchTableViewController, boonOfTzeentch: WarpcovenAbilitie.BoonsOfTzeentch) {
+    func didComplete(_ boonOfTzeenchTableViewController: BoonOfTzeenchTableViewController, boonOfTzeentch: WarpcovenAbility.BoonsOfTzeentch) {
         guard let view = view as? UIViewController else { return }
         addAdditionalAbilitie(abilitie: boonOfTzeentch)
         boonOfTzeenchTableViewController.dismiss(animated: true) {

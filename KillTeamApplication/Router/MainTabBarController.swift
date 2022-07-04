@@ -34,7 +34,7 @@ class MainTabBarController: UITabBarController {
     let ploysNavigationController: PloyNavigationController
     let tacOpsNavigationController: TacOpsNavigationController
     
-    init(mainRouter: MainRouter, builder: BuilderProtocol, complition: () -> ()) {
+    init(mainRouter: MainRouter, builder: BuilderProtocol) {
         
         let counterRootViewController = builder.createCounterModule(router: mainRouter.editKillTeamRouter)
         self.editKillTeamNavigationController = EditKillTeamNavigationController(rootViewController: counterRootViewController as! UIViewController)
@@ -54,7 +54,6 @@ class MainTabBarController: UITabBarController {
         
         super.init(nibName: nil, bundle: nil)
         viewControllers = [editKillTeamNavigationController, killTeamObserverNavigationController, ploysNavigationController, tacOpsNavigationController]
-        complition()
     }
     
     required init?(coder: NSCoder) {

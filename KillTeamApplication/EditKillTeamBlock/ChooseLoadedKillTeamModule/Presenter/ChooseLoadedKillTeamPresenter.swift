@@ -18,8 +18,7 @@ protocol ChooseLoadedKillTeamPresenterProtocol: AnyObject {
     var store: StoreProtocol { get }
     var model: ChooseLoadedKillTeamModel { get }
     func chooseKillTeam(killTeam: KillTeam)
-    func removeMyKillTeam(indexPath: IndexPath, view: UITableViewController)
-    func removeKillTeamSwipeAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction
+    func removeMyKillTeam(indexPath: IndexPath, uid: String)
 }
 
 protocol ChooseLoadedKillTeamPresenterDelegate: AnyObject {
@@ -42,8 +41,11 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
         self.view = view
         self.store = store
         self.storage = storage
-        storage.loadSavedKillTeam()
-        model.loadedKillTeam = storage.loadedKillTeam
+        self.model.loadedKillTeam = storage.loadSavedKillTeam()
+//            storage.loadSavedKillTeam { killTeams in
+//                self.model.loadedKillTeam = killTeams
+//            }
+       // model.loadedKillTeam = storage.loadedKillTeam
     }
     
     func chooseKillTeam(killTeam: KillTeam) {
@@ -53,20 +55,9 @@ class ChooseLoadedKillTeamPresenter: ChooseLoadedKillTeamPresenterProtocol {
         store.updateCurrentKillTeam(killTeam: killTeam)
     }
     
-    func removeMyKillTeam(indexPath: IndexPath, view: UITableViewController) {
+    func removeMyKillTeam(indexPath: IndexPath, uid: String) {
         model.loadedKillTeam.remove(at: indexPath.row)
-        storage.removeKillTeam(indexPath: indexPath)
-        view.tableView.reloadData()
+        storage.removeKillTeam(indexPath: indexPath, uid: uid)
     }
-    
-    func removeKillTeamSwipeAction(indexPath: IndexPath, view: UITableViewController) -> UIContextualAction {
-        let removeSwipe = UIContextualAction(style: .destructive, title: "Remove") { _, _, completion in
-            self.removeMyKillTeam(indexPath: indexPath, view: view)
-            completion(true)
-        }
-        removeSwipe.backgroundColor = .red
-        removeSwipe.image = UIImage(systemName: "minus.square.fill")
-        return removeSwipe
-    }
-    
+        
 }

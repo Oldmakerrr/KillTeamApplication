@@ -9,7 +9,7 @@ import Foundation
 
 protocol KillTeamAbility: Codable {}
 
-struct VoidDancerTroupeAbilitie: Codable, KillTeamAbility {
+struct VoidDancerTroupeAbility: Codable, KillTeamAbility {
 
     let name: String
     let description: String
@@ -25,6 +25,7 @@ struct VoidDancerTroupeAbilitie: Codable, KillTeamAbility {
     
     struct Allegory: Codable {
         let name: String
+        let id: String
         let performance: String
         let accolade: String
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WarpcovenAbilitie: Codable, KillTeamAbility {
+struct WarpcovenAbility: Codable, KillTeamAbility {
     
     let name: String
     let description: [String]

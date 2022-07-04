@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HunterCladeAbilitie: Codable, KillTeamAbility {
+struct HunterCladeAbility: Codable, KillTeamAbility {
     
     let name: String
     let description: [String]
@@ -15,6 +15,7 @@ struct HunterCladeAbilitie: Codable, KillTeamAbility {
     
     struct Imperative: Codable {
         let name: String
+        let id: String
         let optimisation: String
         let deprecation: String
     }

@@ -13,6 +13,7 @@ struct FireTeam: Codable {
     let archetype: [FireTeamType]
     let availableDataslates: [Unit]
     var currentDataslates: [Unit]
+//    let defaultUnit: [String:Int]?
 }
 
 enum FireTeamType: String, Codable {

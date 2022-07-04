@@ -8,16 +8,14 @@
 import Foundation
 
 protocol UserSettingsProtocol {
-    var isFirstTimeLaunch: Bool { get }
-    var isInstructionShowed: [String] { get set }
+    var isFirstTimeLaunch: Bool? { get }
 }
 
 class UserSettings: UserSettingsProtocol {
     
-    var isFirstTimeLaunch: Bool
-    var isInstructionShowed = [String]()
+    var isFirstTimeLaunch: Bool?
     
-    init(firstTimeLaunch: Bool) {
+    init(firstTimeLaunch: Bool? = nil) {
         self.isFirstTimeLaunch = firstTimeLaunch
     }
     

@@ -32,22 +32,22 @@ final class StoreMulticastDelegate<T> {
 }
 
 protocol StoreProtocol {
-    
     var multicastDelegate: StoreMulticastDelegate<StoreDelegate> { get }
+    var allFaction: [Faction] { get }
+    func setFaction(_ faction: [Faction])
     func getKillTeam() -> KillTeam?
     func updateCurrentKillTeam(killTeam: KillTeam)
+    
     var indexOfChoosenUnit: IndexPath? { get }
     var indexObservedUnit: IndexPath? { get }
     var lastChoosenPsychicDisciplines: String? { get }
+    
     func updateLastChoosenPsychicDisciplines(psychicDisciplines: String)
     func updateIndexObservedUnit(indexPath: IndexPath)
     func updateIndexChoosenUnit(indexPath: IndexPath)
     
     func clearIndexObservedUnit()
     func clearIndexChoosenUnit()
-    
-    var allFaction: [Faction] { get }
-    
 }
 
 protocol StoreDelegate: AnyObject {
@@ -58,6 +58,8 @@ final class Store: StoreProtocol {
     
     var multicastDelegate = StoreMulticastDelegate<StoreDelegate>()
     
+    var allFaction: [Faction] = []
+    
     var killTeam: KillTeam? {
         didSet {
             if let killTeam = killTeam {
@@ -67,6 +69,10 @@ final class Store: StoreProtocol {
                 presenter.didUpdate(self, killTeam: killTeam)
             }
         }
+    }
+    
+    func setFaction(_ faction: [Faction]) {
+        allFaction = faction
     }
     
     func getKillTeam() -> KillTeam? {
@@ -109,16 +115,5 @@ final class Store: StoreProtocol {
         UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: uid)
         UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: KeySaver.lastUsedKillTeamKey)
     }
-    
-    //MARK: - JSON
-        
-    var allFaction: [Faction] = []
-        
-    func killTeamFromJson() {
-        let path = Bundle.main.path(forResource: "AllFaction_v3", ofType: "json")
-        let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
-        allFaction = try! JSONDecoder().decode([Faction].self, from: jsonData! as Data)
-    }
-
-    
+            
 }

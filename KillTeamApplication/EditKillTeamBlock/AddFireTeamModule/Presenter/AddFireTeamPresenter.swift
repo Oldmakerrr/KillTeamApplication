@@ -36,21 +36,6 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
         store.multicastDelegate.addDelegate(self)
     }
     
-//    private func addCurrentWound(fireTeam: FireTeam) -> FireTeam {
-//        var fireTeam = fireTeam
-//        var availableDataslates = fireTeam.availableDataslates
-//        var currentDataslates = fireTeam.currentDataslates
-//        for (index, unit) in availableDataslates.enumerated() {
-//            availableDataslates[index].currentWounds = unit.wounds
-//        }
-//        for (index, unit) in currentDataslates.enumerated() {
-//            currentDataslates[index].currentWounds = unit.wounds
-//        }
-//        fireTeam.availableDataslates = availableDataslates
-//        fireTeam.currentDataslates = currentDataslates
-//        return fireTeam
-//    }
-    
     private func addCounterFireTeam(killTeam: KillTeam) {
         model.counterFireteam = [String: Int]()
         killTeam.fireTeams.forEach { fireTeam in

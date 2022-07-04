@@ -21,6 +21,7 @@ protocol CounterViewProtocol: AnyObject {
     var nextTurnButton: ChangeTurnButton { get }
     var endGameButton: ChangeTurnButton { get }
     
+    func makeButtonEnable()
     func currentPloysViewState()
 }
 
@@ -72,6 +73,15 @@ class CounterPresenter: CounterPresenterProtocol {
         self.userSettings = userSettings
         self.gameStore.multicastDelegate.addDelegate(self)
         self.store.multicastDelegate.addDelegate(self)
+        self.storage.parseJson.parseJson(store: store, storage: storage) {
+            self.storage.loadLastUsedKillTeam { killTeam in
+                if let killTeam = killTeam {
+                    store.updateCurrentKillTeam(killTeam: killTeam)
+                    view.currentKillTeamView.setupText(killTeam: killTeam)
+                }
+                view.makeButtonEnable()
+            }
+        }
     }
     
     @objc func showChooseKillTeamTableViewController() {
@@ -88,10 +98,10 @@ class CounterPresenter: CounterPresenterProtocol {
     
     private func createTitleForAbilitieView() -> String {
         var title = String()
-        if model.killTeam?.abilityOfKillTeam is HunterCladeAbilitie {
+        if model.killTeam?.abilityOfKillTeam is HunterCladeAbility {
             title = ""
         }
-        if model.killTeam?.abilityOfKillTeam is VoidDancerTroupeAbilitie {
+        if model.killTeam?.abilityOfKillTeam is VoidDancerTroupeAbility {
             title = "Selected Allegory:"
         }
         return title
@@ -142,8 +152,8 @@ class CounterPresenter: CounterPresenterProtocol {
         model.gameData.countKillTeamAbilitiePoint = point
     }
     
-    func addKillTeam() {
-        if !storage.isLoadedKillTeamEmpty() {
+    func addKillTeam(){
+        if !storage.isKeysEmpty() {
             let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose existed", preferredStyle: .actionSheet)
             let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
                 self.showChooseKillTeamTableViewController()
@@ -156,8 +166,7 @@ class CounterPresenter: CounterPresenterProtocol {
             addKillTeamAlertController.addAction(chooseKillTeamAlert)
             addKillTeamAlertController.addAction(cancleAlert)
             let view = view as! UIViewController
-            view.present(addKillTeamAlertController, animated: true) {
-            }
+            view.present(addKillTeamAlertController, animated: true)
         } else {
             showChooseKillTeamTableViewController()
         }
@@ -222,7 +231,7 @@ class CounterPresenter: CounterPresenterProtocol {
     }
     
     private func novitiateAbilitie(abilite: KillTeamAbility) {
-        guard abilite is NovitiateAbilitie else { return }
+        guard abilite is NovitiateAbility else { return }
         if model.gameData.countKillTeamAbilitiePoint == nil {
             model.gameData.countKillTeamAbilitiePoint = 0
         }

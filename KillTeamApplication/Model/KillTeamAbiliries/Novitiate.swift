@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NovitiateAbilitie: Codable, KillTeamAbility {
+struct NovitiateAbility: Codable, KillTeamAbility {
     
     let name: String
     let description: String
@@ -18,6 +18,7 @@ struct NovitiateAbilitie: Codable, KillTeamAbility {
     
     struct ActOfFaith: Codable, UnitAbilitieProtocol {
         let name: String
+        let id: String
         let description: String
         let cost: Int
         let subText: [String]?

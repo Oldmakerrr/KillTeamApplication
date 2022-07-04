@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WyrmbladeAbilitie: Codable, KillTeamAbility {
+struct WyrmbladeAbility: Codable, KillTeamAbility {
     
     let rules: [Rule]
     

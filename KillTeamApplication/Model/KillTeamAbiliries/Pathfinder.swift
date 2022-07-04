@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PathfinderAbilitie: Codable, KillTeamAbility {
+struct PathfinderAbility: Codable, KillTeamAbility {
     
     let artificialIntelligence: Abilitie
     let markerlight: MarkerlightRule
@@ -32,6 +32,7 @@ struct PathfinderAbilitie: Codable, KillTeamAbility {
     
     struct Abilitie: Codable {
         let name: String
+        let id: String
         let rules: [String]
     }
     

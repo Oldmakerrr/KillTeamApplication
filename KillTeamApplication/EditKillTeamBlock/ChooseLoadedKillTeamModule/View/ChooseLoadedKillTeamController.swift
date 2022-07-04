@@ -20,6 +20,17 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
+    
+    private func removeKillTeamSwipeAction(indexPath: IndexPath, view: UITableViewController, uid: String) -> UIContextualAction {
+        let removeSwipe = UIContextualAction(style: .destructive, title: "Remove") { _, _, completion in
+            self.presenter?.removeMyKillTeam(indexPath: indexPath, uid: uid)
+            self.tableView.reloadData()
+            completion(true)
+        }
+        removeSwipe.backgroundColor = .red
+        removeSwipe.image = UIImage(systemName: "minus.square.fill")
+        return removeSwipe
+    }
 
 // MARK: - Table view data source
 
@@ -53,9 +64,8 @@ class ChooseLoadedKillTeamController: UITableViewController, ChooseLoadedKillTea
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let removeKillTeamAction = presenter?.removeKillTeamSwipeAction(indexPath: indexPath, view: self) else {
-            return nil
-        }
+        guard let uid = presenter?.model.loadedKillTeam[indexPath.row].uid else { return nil }
+        let removeKillTeamAction = removeKillTeamSwipeAction(indexPath: indexPath, view: self, uid: uid)
         return UISwipeActionsConfiguration(actions: [removeKillTeamAction])
     }
 }

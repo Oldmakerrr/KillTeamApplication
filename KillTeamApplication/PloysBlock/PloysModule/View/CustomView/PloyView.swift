@@ -36,7 +36,7 @@ class PloyView: UIStackView {
         setupHeader(name: ploy.name, cost: ploy.cost, image: image)
         setupDescription(description: ploy.description)
         
-        if let subText = ploy.subText {
+        if let subText = ploy.subTexts {
             addSubTextPointView(subText: subText)
         }
         

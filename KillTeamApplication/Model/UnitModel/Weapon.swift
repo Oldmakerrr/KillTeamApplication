@@ -13,6 +13,7 @@ protocol Wargear {
 
 protocol WeaponProtocol {
     var name: String { get }
+    var id: String { get }
     var profileName: String? { get }
     var type: WeaponType { get }
     var attacks: Int { get }
@@ -39,6 +40,7 @@ struct Weapon: Codable, WeaponProtocol, Wargear {
 
 struct SubProfileWeapon: Codable, WeaponProtocol {
     let name: String
+    let id: String
     let profileName: String?
     let type: WeaponType
     let attacks: Int

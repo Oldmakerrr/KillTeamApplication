@@ -53,32 +53,32 @@ struct KillTeam: Codable {
     init(from decoder: Decoder) throws {
         let abilityOfKillTeam = try decoder.container(keyedBy: CodingKeys.self)
         
-        if let novitiateAbility = try? abilityOfKillTeam.decode(NovitiateAbilitie.self, forKey: .abilityOfKillTeam) {
+        if let novitiateAbility = try? abilityOfKillTeam.decode(NovitiateAbility.self, forKey: .abilityOfKillTeam) {
             self.abilityOfKillTeam = novitiateAbility
         }
-        if let hunterCladeAbilitie = try? abilityOfKillTeam.decode(HunterCladeAbilitie.self, forKey: .abilityOfKillTeam) {
-            self.abilityOfKillTeam = hunterCladeAbilitie
+        if let hunterCladeAbility = try? abilityOfKillTeam.decode(HunterCladeAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = hunterCladeAbility
         }
-        if let veteranGuardsmanAbilitie = try? abilityOfKillTeam.decode(VeteranGuardsmanAbilitie.self, forKey: .abilityOfKillTeam) {
-            self.abilityOfKillTeam = veteranGuardsmanAbilitie
+        if let veteranGuardsmanAbility = try? abilityOfKillTeam.decode(VeteranGuardsmanAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = veteranGuardsmanAbility
         }
-        if let legionaryAbilitie = try? abilityOfKillTeam.decode(LegionaryAbilitie.self, forKey: .abilityOfKillTeam) {
-            self.abilityOfKillTeam = legionaryAbilitie
+        if let legionaryAbility = try? abilityOfKillTeam.decode(LegionaryAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = legionaryAbility
         }
-        if let warpcovenAbilitie = try? abilityOfKillTeam.decode(WarpcovenAbilitie.self, forKey: .abilityOfKillTeam) {
-            self.abilityOfKillTeam = warpcovenAbilitie
+        if let warpcovenAbility = try? abilityOfKillTeam.decode(WarpcovenAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = warpcovenAbility
         }
-        if let voidDancerTroupeAbilitie = try? abilityOfKillTeam.decode(VoidDancerTroupeAbilitie.self, forKey: .abilityOfKillTeam) {
-            self.abilityOfKillTeam = voidDancerTroupeAbilitie
+        if let voidDancerTroupeAbility = try? abilityOfKillTeam.decode(VoidDancerTroupeAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = voidDancerTroupeAbility
         }
-        if let wyrmbladeAbilitie = try? abilityOfKillTeam.decode(WyrmbladeAbilitie.self, forKey: .abilityOfKillTeam) {
-            self.abilityOfKillTeam = wyrmbladeAbilitie
+        if let wyrmbladeAbility = try? abilityOfKillTeam.decode(WyrmbladeAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = wyrmbladeAbility
         }
-        if let hunterCadreAbilitie = try? abilityOfKillTeam.decode(HunterCadreAbilitie.self, forKey: .abilityOfKillTeam) {
-            self.abilityOfKillTeam = hunterCadreAbilitie
+        if let hunterCadreAbility = try? abilityOfKillTeam.decode(HunterCadreAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = hunterCadreAbility
         }
-        if let pathfinderAbilitie = try? abilityOfKillTeam.decode(PathfinderAbilitie.self, forKey: .abilityOfKillTeam) {
-            self.abilityOfKillTeam = pathfinderAbilitie
+        if let pathfinderAbility = try? abilityOfKillTeam.decode(PathfinderAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = pathfinderAbility
         }
         let killTeamName = try decoder.container(keyedBy: CodingKeys.self)
         self.killTeamName = try killTeamName.decode(String.self, forKey: .killTeamName)
@@ -114,33 +114,33 @@ struct KillTeam: Codable {
     
     
     func encode(to encoder: Encoder) throws {
-        var abilitiesOfKillTeam = encoder.container(keyedBy: CodingKeys.self)
-        if let novitiateAbilitie = self.abilityOfKillTeam as? NovitiateAbilitie {
-            try abilitiesOfKillTeam.encode(novitiateAbilitie, forKey: .abilityOfKillTeam)
+        var abilityOfKillTeam = encoder.container(keyedBy: CodingKeys.self)
+        if let novitiateAbility = self.abilityOfKillTeam as? NovitiateAbility {
+            try abilityOfKillTeam.encode(novitiateAbility, forKey: .abilityOfKillTeam)
         }
-        if let hunterCladeAbilitie = self.abilityOfKillTeam as? HunterCladeAbilitie {
-            try abilitiesOfKillTeam.encode(hunterCladeAbilitie, forKey: .abilityOfKillTeam)
+        if let hunterCladeAbility = self.abilityOfKillTeam as? HunterCladeAbility {
+            try abilityOfKillTeam.encode(hunterCladeAbility, forKey: .abilityOfKillTeam)
         }
-        if let veteranGuardsmanAbilitie = self.abilityOfKillTeam as? VeteranGuardsmanAbilitie {
-            try abilitiesOfKillTeam.encode(veteranGuardsmanAbilitie, forKey: .abilityOfKillTeam)
+        if let veteranGuardsmanAbility = self.abilityOfKillTeam as? VeteranGuardsmanAbility {
+            try abilityOfKillTeam.encode(veteranGuardsmanAbility, forKey: .abilityOfKillTeam)
         }
-        if let legionaryAbilitie = self.abilityOfKillTeam as? LegionaryAbilitie {
-            try abilitiesOfKillTeam.encode(legionaryAbilitie, forKey: .abilityOfKillTeam)
+        if let legionaryAbility = self.abilityOfKillTeam as? LegionaryAbility {
+            try abilityOfKillTeam.encode(legionaryAbility, forKey: .abilityOfKillTeam)
         }
-        if let warpcovenAbilitie = self.abilityOfKillTeam as? WarpcovenAbilitie {
-            try abilitiesOfKillTeam.encode(warpcovenAbilitie, forKey: .abilityOfKillTeam)
+        if let warpcovenAbility = self.abilityOfKillTeam as? WarpcovenAbility {
+            try abilityOfKillTeam.encode(warpcovenAbility, forKey: .abilityOfKillTeam)
         }
-        if let voidDancerTroupeAbilitie = self.abilityOfKillTeam as? VoidDancerTroupeAbilitie {
-            try abilitiesOfKillTeam.encode(voidDancerTroupeAbilitie, forKey: .abilityOfKillTeam)
+        if let voidDancerTroupeAbility = self.abilityOfKillTeam as? VoidDancerTroupeAbility {
+            try abilityOfKillTeam.encode(voidDancerTroupeAbility, forKey: .abilityOfKillTeam)
         }
-        if let wyrmbladeAbilitie = self.abilityOfKillTeam as? WyrmbladeAbilitie {
-            try abilitiesOfKillTeam.encode(wyrmbladeAbilitie, forKey: .abilityOfKillTeam)
+        if let wyrmbladeAbility = self.abilityOfKillTeam as? WyrmbladeAbility {
+            try abilityOfKillTeam.encode(wyrmbladeAbility, forKey: .abilityOfKillTeam)
         }
-        if let hunterCadreAbilitie = self.abilityOfKillTeam as? HunterCadreAbilitie {
-            try abilitiesOfKillTeam.encode(hunterCadreAbilitie, forKey: .abilityOfKillTeam)
+        if let hunterCadreAbility = self.abilityOfKillTeam as? HunterCadreAbility {
+            try abilityOfKillTeam.encode(hunterCadreAbility, forKey: .abilityOfKillTeam)
         }
-        if let pathfinderAbilitie = self.abilityOfKillTeam as? PathfinderAbilitie {
-            try abilitiesOfKillTeam.encode(pathfinderAbilitie, forKey: .abilityOfKillTeam)
+        if let pathfinderAbility = self.abilityOfKillTeam as? PathfinderAbility {
+            try abilityOfKillTeam.encode(pathfinderAbility, forKey: .abilityOfKillTeam)
         }
         var killTeamName = encoder.container(keyedBy: CodingKeys.self)
         try killTeamName.encode(self.killTeamName, forKey: .killTeamName)

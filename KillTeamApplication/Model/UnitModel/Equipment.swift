@@ -12,7 +12,7 @@ struct Equipment: Codable, Wargear {
     let id: String
     let description: String
     let cost: Int
-    let maxCounPerKillTeam: Int?
+    let maxNumberPerKillTeam: Int?
     let additionalText: String?
     let subTexts: [String]?
     let ability: UnitAbilitie?

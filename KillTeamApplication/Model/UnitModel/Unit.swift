@@ -24,7 +24,7 @@ struct Unit: Codable {
     var selectedRangeWeapon: Weapon?
     var selectedMeleeWeapon: Weapon?
     let additionalWeapons: [Weapon]?
-    let availableWeapons: [Weapon]?
+    let availableWeapons: [Weapon]
     var equipments: [Equipment]
     let abilities: [UnitAbilitie]?
     let uniqueActions: [UnitUniqueAction]?
@@ -59,7 +59,7 @@ struct Unit: Codable {
     
     init(from decoder: Decoder) throws {
         let additionalAbilitie = try decoder.container(keyedBy: CodingKeys.self)
-        if let boonOfTzeentch = try? additionalAbilitie.decode(WarpcovenAbilitie.BoonsOfTzeentch.self, forKey: .additionalAbility) {
+        if let boonOfTzeentch = try? additionalAbilitie.decode(WarpcovenAbility.BoonsOfTzeentch.self, forKey: .additionalAbility) {
             self.additionalAbility = boonOfTzeentch
         }
         if let abilitie = try? additionalAbilitie.decode(UnitAbilitie.self, forKey: .additionalAbility) {
@@ -98,7 +98,7 @@ struct Unit: Codable {
         let additionalWeapon = try decoder.container(keyedBy: CodingKeys.self)
         self.additionalWeapons = try? additionalWeapon.decode([Weapon]?.self, forKey: .additionalWeapons)
         let availableWeapon = try decoder.container(keyedBy: CodingKeys.self)
-        self.availableWeapons = try? availableWeapon.decode([Weapon]?.self, forKey: .availableWeapons)
+        self.availableWeapons = try availableWeapon.decode([Weapon].self, forKey: .availableWeapons)
         let equipment = try decoder.container(keyedBy: CodingKeys.self)
         self.equipments = try equipment.decode([Equipment].self, forKey: .equipments)
         let abilities = try decoder.container(keyedBy: CodingKeys.self)
@@ -143,13 +143,13 @@ struct Unit: Codable {
         var additionalWeapon = encoder.container(keyedBy: CodingKeys.self)
         try? additionalWeapon.encode(self.additionalWeapons, forKey: .additionalWeapons)
         var availableWeapon = encoder.container(keyedBy: CodingKeys.self)
-        try? availableWeapon.encode(self.availableWeapons, forKey: .availableWeapons)
+        try availableWeapon.encode(self.availableWeapons, forKey: .availableWeapons)
         var equipment = encoder.container(keyedBy: CodingKeys.self)
         try equipment.encode(self.equipments, forKey: .equipments)
         var abilities = encoder.container(keyedBy: CodingKeys.self)
         try? abilities.encode(self.abilities, forKey: .abilities)
         var additionalAbilitie = encoder.container(keyedBy: CodingKeys.self)
-        if let boonOfTzeentch = self.additionalAbility as? WarpcovenAbilitie.BoonsOfTzeentch {
+        if let boonOfTzeentch = self.additionalAbility as? WarpcovenAbility.BoonsOfTzeentch {
             try additionalAbilitie.encode(boonOfTzeentch, forKey: .additionalAbility)
         }
         if let abilitie = self.additionalAbility as? UnitAbilitie {
@@ -168,4 +168,12 @@ enum UnitType: String, Codable {
     case staunch
     case marksman
     case scout
+}
+
+extension Unit: Equatable {
+    static func == (lhs: Unit, rhs: Unit) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    
 }

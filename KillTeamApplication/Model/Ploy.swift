@@ -13,7 +13,7 @@ struct Ploy: Codable {
     let description: String
     let cost: Int
     let type: PloyType
-    let subText: [String]?
+    let subTexts: [String]?
     let ability : UnitAbilitie?
     let uniqueAction: UnitUniqueAction?
     let weapon: Weapon?
@@ -26,6 +26,6 @@ enum PloyType: String, Codable {
 
 extension Ploy: Equatable {
     static func == (lhs: Ploy, rhs: Ploy) -> Bool {
-        lhs.name == rhs.name
+        lhs.id == rhs.id
     }
 }

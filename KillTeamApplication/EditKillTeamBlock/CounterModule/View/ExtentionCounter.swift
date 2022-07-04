@@ -10,6 +10,10 @@ import UIKit
 
 extension CounterViewController {
     
+    func makeButtonEnable() {
+        addKillTeamButton.isEnabled = true
+    }
+    
     func showCoachMarks() {
         if !isCoachMarkShowed() {
             coachMarksController.start(in: .window(over: self))
@@ -54,7 +58,7 @@ extension CounterViewController {
             currentAbilitieButton.isHidden = true
             return }
         
-        if abilitie is HunterCladeAbilitie {
+        if abilitie is HunterCladeAbility {
             if let currentAbilitie = presenter?.model.gameData.currentAbilitie {
                 setupTextToAbilitieView(title: currentAbilitie)
                 return
@@ -64,7 +68,7 @@ extension CounterViewController {
             }
         }
         
-        if abilitie is VoidDancerTroupeAbilitie {
+        if abilitie is VoidDancerTroupeAbility {
             if let currentAbilitie = presenter?.model.gameData.currentAbilitie {
                 let title = "Choosen Allegory: \(currentAbilitie)"
                 setupTextToAbilitieView(title: title)
@@ -107,7 +111,7 @@ extension CounterViewController {
     }
     
     func fillCounterStackView() {
-        if presenter?.model.killTeam?.abilityOfKillTeam is NovitiateAbilitie {
+        if presenter?.model.killTeam?.abilityOfKillTeam is NovitiateAbility {
             guard killTeamAbilitiePoint == nil else { return }
             killTeamAbilitiePoint = CounterPointView(title: "Act of Faith")
             if presenter?.model.gameData.countTurningPoint == 0 {
@@ -129,6 +133,7 @@ extension CounterViewController {
     }
     
     func configure() {
+        addKillTeamButton.isEnabled = false
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         navigationController?.navigationBar.isHidden = true
     }
