@@ -23,6 +23,7 @@ protocol CounterViewProtocol: AnyObject {
     
     func makeButtonEnable()
     func currentPloysViewState()
+    func showAddButtonAndCurrentKillTeamView(complition: ((Bool) -> Void)?)
 }
 
 protocol CounterPresenterProtocol: AnyObject {
@@ -79,7 +80,11 @@ class CounterPresenter: CounterPresenterProtocol {
                     store.updateCurrentKillTeam(killTeam: killTeam)
                     view.currentKillTeamView.setupText(killTeam: killTeam)
                 }
-                view.makeButtonEnable()
+                view.showAddButtonAndCurrentKillTeamView { _ in
+                    view.currentKillTeamView.addTapGesture()
+                    view.makeButtonEnable()
+                }
+                
             }
         }
     }

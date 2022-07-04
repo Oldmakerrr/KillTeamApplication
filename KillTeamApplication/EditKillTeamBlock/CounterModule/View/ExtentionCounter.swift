@@ -133,12 +133,19 @@ extension CounterViewController {
     }
     
     func configure() {
-        addKillTeamButton.isEnabled = false
+        addKillTeamButton.alpha = 0.1
         view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         navigationController?.navigationBar.isHidden = true
     }
     
 //MARK: SetupSubView
+    
+    func showAddButtonAndCurrentKillTeamView(complition: ((Bool) -> Void)? = nil) {
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseInOut, animations: {
+            self.addKillTeamButton.alpha = 1
+            self.currentKillTeamView.alpha = 0.8
+        }, completion: complition)
+    }
     
     func setupSubView() {
         setupCurrentKillTeamView()
@@ -157,7 +164,7 @@ extension CounterViewController {
             currentKillTeamView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.13),
             currentKillTeamView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor)
         ])
-        
+
         currentKillTeamView.killTeamLogo.layer.applyCornerRadiusRound(view: currentKillTeamView.killTeamLogo)
         currentKillTeamView.killTeamLogo.layer.masksToBounds = true
     }

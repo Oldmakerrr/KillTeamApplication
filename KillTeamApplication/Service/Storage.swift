@@ -11,17 +11,18 @@ protocol StorageProtocol {
     var parseJson: ParseJSON { get }
     
     func loadSavedKillTeam() -> [KillTeam]
+    var ployCommandReRoll: Ploy? { get }
     func loadKeys()
     func isKeysEmpty() -> Bool
     
     func loadLastUsedKillTeam(completion: @escaping(KillTeam?) -> Void)
+    func setPloyCommandReRoll(_ commandReRoll: Ploy)
     
     func appendNewKillTeam(killTeam: KillTeam)
     func removeKillTeam(indexPath: IndexPath, uid: String)
 }
 
 class Storage: StorageProtocol {
-    
     
     private let databaseQueue = DispatchQueue.global(qos: .utility)
     
@@ -31,6 +32,8 @@ class Storage: StorageProtocol {
     
     private var loadedKillTeam = [KillTeam]()
     
+    var ployCommandReRoll: Ploy?
+    
     private var keysForKillTeam: [String] = []
 
     init(store: Store) {
@@ -39,6 +42,10 @@ class Storage: StorageProtocol {
     
     func isKeysEmpty() -> Bool {
         return keysForKillTeam.isEmpty
+    }
+    
+    func setPloyCommandReRoll(_ commandReRoll: Ploy) {
+        ployCommandReRoll = commandReRoll
     }
     
 //MARK - RemoveAndAddKey
@@ -104,6 +111,7 @@ class Storage: StorageProtocol {
                 killTeams.append(killTeam)
             }
         }
+        loadedKillTeam = killTeams
         return killTeams
     }
         

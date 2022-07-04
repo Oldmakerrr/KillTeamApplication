@@ -9,22 +9,50 @@ import Foundation
 import var CommonCrypto.CC_MD5_DIGEST_LENGTH
 import func CommonCrypto.CC_MD5
 import typealias CommonCrypto.CC_LONG
+import UIKit
 
 final class ParseJSON {
     
     private let databaseQueue = DispatchQueue.global(qos: .utility)
     
-    private let tacOpsFileName = "TacOps_v3"
-    private let dataFileName = "AllFaction_TEST"
+    private let tacOpsFileName = "TacOps"
+    private let dataFileName = "AllFaction"
     private let keyChecksumDatabase = "ChecksumDatabase"
+    private let ployCommandReRoll = "PloyCommandReRoll"
     
     func parseTacOps(completion: @escaping (([TacOp]) -> Void)) {
         databaseQueue.async {
-            let path = Bundle.main.path(forResource: self.tacOpsFileName, ofType: "json")
-            let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
-            let tacOps = try! JSONDecoder().decode([TacOp].self, from: jsonData! as Data)
-            DispatchQueue.main.async {
-                completion(tacOps)
+            guard let path = Bundle.main.path(forResource: self.tacOpsFileName, ofType: "json") else {
+                print("DEBUG: Tac Ops - Incorrect File Name")
+                return
+            }
+            do {
+                let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe)
+                let tacOps = try JSONDecoder().decode([TacOp].self, from: jsonData as Data)
+                DispatchQueue.main.async {
+                    completion(tacOps)
+                }
+            } catch let error {
+                print("DEBUG: Tac Ops - parse error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func parsePloyCommandReRoll(completion: @escaping ((Ploy) -> Void)) {
+        databaseQueue.async { [self] in
+            
+            guard let path = Bundle.main.path(forResource: self.ployCommandReRoll, ofType: "json") else {
+                print("DEBUG: Ploy Command Re-Roll - Incorrect File Name")
+                return
+            }
+            do {
+                let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe)
+                let commandReRoll = try JSONDecoder().decode(Ploy.self, from: jsonData as Data)
+                DispatchQueue.main.async {
+                    completion(commandReRoll)
+                }
+            } catch let error {
+                print("DEBUG: Ploy Command Re-Roll - parse error: \(error.localizedDescription)")
             }
         }
     }
@@ -32,6 +60,9 @@ final class ParseJSON {
     func parseJson(store: StoreProtocol, storage: StorageProtocol, completion: @escaping ()->Void) {
         databaseQueue.async {
             self.killTeamFromJson { killTeamDatabase in
+                self.parsePloyCommandReRoll { ploy in
+                    storage.setPloyCommandReRoll(ploy)
+                }
                 store.setFaction(killTeamDatabase)
                 self.getHashSumDatabase { checksum in
                     self.getChecksumDatabase { databaseChecksum in
@@ -50,10 +81,17 @@ final class ParseJSON {
     }
     
     private func killTeamFromJson(completion: @escaping ([Faction])->Void) {
-        let path = Bundle.main.path(forResource: dataFileName, ofType: "json")
-        let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
-        let killTeamDatabase = try! JSONDecoder().decode([Faction].self, from: jsonData! as Data)
-        completion(killTeamDatabase)
+        guard let path = Bundle.main.path(forResource: dataFileName, ofType: "json") else {
+            print("DEBUG: KillTeams database - Incorrect File Name")
+            return
+        }
+        do {
+            let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe)
+            let killTeamDatabase = try JSONDecoder().decode([Faction].self, from: jsonData as Data)
+            completion(killTeamDatabase)
+        } catch let error {
+            print("DEBUG: KillTeams database - parse error: \(error.localizedDescription)")
+        }
     }
     
 //MARK: - ChecksumDatabase
@@ -67,14 +105,17 @@ final class ParseJSON {
         completion(databaseId)
     }
     
-    private func getHashSumDatabase(completion: @escaping(String?) -> Void) {
-        let path = Bundle.main.path(forResource: dataFileName, ofType: "json")
-        let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
-        if let jsonData = jsonData as? Data {
-            completion(jsonData.md5)
-        } else {
-            completion(nil)
+    private func getHashSumDatabase(completion: @escaping(String) -> Void) {
+        guard let path = Bundle.main.path(forResource: dataFileName, ofType: "json") else {
+            print("DEBUG: KillTeams database - Incorrect File Name")
+            return
         }
+        do {
+            let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe) as Data
+            completion(jsonData.md5)
+        } catch let error {
+            print("DEBUG: KillTeams database - parse error: \(error.localizedDescription)")
+        }   
     }
     
 }

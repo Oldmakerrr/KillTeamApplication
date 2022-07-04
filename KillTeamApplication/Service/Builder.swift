@@ -116,7 +116,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createPloysModule(router: RouterProtocol) -> PloysViewControllerProtocol {
         let view = PloysViewController()
-        let presenter = PloysPresenter(view: view, store: store, gameStore: gameStore, router: router as! PloysRouterProtocol, userSettings: userSettings)
+        let presenter = PloysPresenter(view: view, store: store, storage: storage, gameStore: gameStore, router: router as! PloysRouterProtocol, userSettings: userSettings)
         presenter.delegate = router as? PloysPresenterDelegate
         view.presenter = presenter
         return view

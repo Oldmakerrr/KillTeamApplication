@@ -48,8 +48,12 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
         }
     }
     
+    
+    
     private func addFireTeam(fireTeam: FireTeam) {
         guard var killTeam = model.killTeam else { return }
+        var fireTeam = fireTeam
+        fireTeam.fillCurrentDataslates()
         killTeam.chosenFireTeams.append(fireTeam)
         if var fireTeamCount = model.counterFireteam[fireTeam.name] {
             fireTeamCount += 1

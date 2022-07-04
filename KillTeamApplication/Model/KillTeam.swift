@@ -184,7 +184,9 @@ struct KillTeam: Codable {
 
     mutating func addDefaultFireTeam() {
         if countOfFireTeam == 1 && fireTeams.count == 1 {
-            chosenFireTeams = fireTeams
+            guard var fireTeam = fireTeams.first else { return }
+            fireTeam.fillCurrentDataslates()
+            chosenFireTeams.append(fireTeam)
         }
     }
    

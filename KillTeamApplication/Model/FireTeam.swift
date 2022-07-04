@@ -13,7 +13,24 @@ struct FireTeam: Codable {
     let archetype: [FireTeamType]
     let availableDataslates: [Unit]
     var currentDataslates: [Unit]
-//    let defaultUnit: [String:Int]?
+    let defaultDataslates: [String:Int]
+    
+    mutating func fillCurrentDataslates() {
+        for (key, value) in defaultDataslates {
+            for unit in availableDataslates {
+                if unit.id == key {
+                    if unit.keyWords.contains("leader".uppercased()) || unit.keyWords.contains("sorcerer".uppercased()) {
+                        currentDataslates.insert(unit, at: 0)
+                    } else {
+                        for _ in 0..<value {
+                            currentDataslates.append(unit)
+                        }
+                    }
+                    break
+                }
+            }
+        }
+    }
 }
 
 enum FireTeamType: String, Codable {

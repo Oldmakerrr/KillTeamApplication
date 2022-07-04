@@ -31,21 +31,22 @@ class CurrentKillTeamView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        addGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func addGestureRecognizer() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        addGestureRecognizer(tapGestureRecognizer)
+    func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        tapGesture.numberOfTapsRequired = 1
+        addGestureRecognizer(tapGesture)
     }
     
     @objc func tapAction() {
-        delegate?.didComplete(self)
+        animateSelectView { _ in
+            self.delegate?.didComplete(self)
+        }
     }
     
     func setupText(killTeam: KillTeam?) {
@@ -67,7 +68,7 @@ class CurrentKillTeamView: UIView {
         backgroundColor = ColorScheme.shared.theme.viewBackground
         layer.applySketchShadow()
         layer.applyCornerRadius()
-        alpha = 0.8
+        alpha = 0.1
     }
     
     private func setupView() {

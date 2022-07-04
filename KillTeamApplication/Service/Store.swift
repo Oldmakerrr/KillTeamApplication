@@ -60,6 +60,8 @@ final class Store: StoreProtocol {
     
     var allFaction: [Faction] = []
     
+    var commandReRoll: Ploy?
+    
     var killTeam: KillTeam? {
         didSet {
             if let killTeam = killTeam {
