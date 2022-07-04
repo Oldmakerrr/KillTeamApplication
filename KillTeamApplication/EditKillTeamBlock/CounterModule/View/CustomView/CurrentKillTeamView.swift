@@ -44,9 +44,9 @@ class CurrentKillTeamView: UIView {
     }
     
     @objc func tapAction() {
-        animateSelectView { _ in
+        animateSelectView(scale: 0.98, completion: { _ in
             self.delegate?.didComplete(self)
-        }
+        })
     }
     
     func setupText(killTeam: KillTeam?) {

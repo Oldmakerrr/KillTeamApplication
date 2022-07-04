@@ -58,7 +58,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
         super.viewWillDisappear(animated)
         coachMarksController.stop()
         navigationController?.navigationBar.clearNavigationBar()
-       
+        
     }
     
     
@@ -115,19 +115,21 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
             showToast(message: "You have not enough Command Points")
             cell.shake()
         } else {
-            presenter.model.gameData.countCommandPoint -= ploy.cost
-            if ploy.type == .strategic {
-                presenter.addPloy(ploy: ploy)
-                showToast(message: "Strategic Ploy successfully used")
-                tableView.reloadData()
-            } else {
-                showToast(message: "Tactical Ploy successfully used")
+            cell.animateSelectView { [self] _ in
+                presenter.model.gameData.countCommandPoint -= ploy.cost
+                if ploy.type == .strategic {
+                    presenter.addPloy(ploy: ploy)
+                    showToast(message: "Strategic Ploy successfully used")
+                    tableView.reloadData()
+                } else {
+                    showToast(message: "Tactical Ploy successfully used")
+                }
+                commandPointLabel.text = "CP = \(presenter.model.gameData.countCommandPoint)"
             }
-            commandPointLabel.text = "CP = \(presenter.model.gameData.countCommandPoint)"
         }
     }
     
-   
+    
 }
 
 extension PloysViewController: UITableViewDataSource {
@@ -194,6 +196,7 @@ extension PloysViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        
         switch indexPath.section {
         case 0:
             let strategicPloy = presenter!.model.strategicPloy[indexPath.row]
@@ -231,5 +234,5 @@ extension PloysViewController: WeaponRuleButtonDelegate {
     
 }
 
- 
- 
+
+

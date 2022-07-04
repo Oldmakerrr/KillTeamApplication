@@ -56,6 +56,20 @@ class ChangePointButton: UIButton {
 
 class ChangeTurnButton: UIButton {
     
+    override var isHighlighted: Bool {
+        didSet{
+            if isHighlighted {
+                UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseInOut, animations: {
+                    self.transform = CGAffineTransform(scaleX: 0.97, y: 0.97)
+                }, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseOut, animations: {
+                    self.transform = .identity
+                }, completion: nil)
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -69,7 +83,7 @@ class ChangeTurnButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = #colorLiteral(red: 0.293800056, green: 0.2970282733, blue: 0.3509224057, alpha: 1)
         setTitleColor(#colorLiteral(red: 0.5879502892, green: 0.5915290713, blue: 0.6288157105, alpha: 1), for: .normal)
-        setTitleColor(#colorLiteral(red: 1, green: 0.502659142, blue: 0, alpha: 1), for: .highlighted)
+        setTitleColor(#colorLiteral(red: 0.7084809558, green: 0.770476526, blue: 0.7829832597, alpha: 1), for: .highlighted)
         layer.applyCornerRadius()
     }
 }

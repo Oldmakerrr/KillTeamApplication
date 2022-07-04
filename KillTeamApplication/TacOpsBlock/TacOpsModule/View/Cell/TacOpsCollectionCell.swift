@@ -52,11 +52,14 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func setupColor(tacOp: TacOp?) {
         if self.tacOp == tacOp {
+            contentView.alpha = 1
             contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
+            transform = CGAffineTransform(scaleX: 1.025, y: 1.025)
         } else {
+            contentView.alpha = 0.8
+            transform = CGAffineTransform(scaleX: 0.975, y: 0.975)
             contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
         }
     }
@@ -76,8 +79,6 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constant.Size.EdgeInsets.normal),
             nameLabel.heightAnchor.constraint(equalToConstant: Constant.Size.screenHeight * 0.050),
             nameLabel.bottomAnchor.constraint(greaterThanOrEqualTo: imageView.topAnchor)
-            //   nameLabel.bottomAnchor.constraint(equalTo: imageView.topAnchor)
-           // nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20)
         ])
         
     }
@@ -86,21 +87,12 @@ class TacOpsCollectionCell: UICollectionViewCell, ReusableView {
         imageView.image = UIImage(named: "KILL_TEAM")
         imageView.contentMode = .scaleAspectFit
         NSLayoutConstraint.activate([
-          //  imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             imageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: -Constant.Size.screenHeight * 0.0115),
             imageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor),
             imageView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10),
             imageView.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 10),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
-            
-           // imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: 10),
-           // imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
-           // imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-           // imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-           // imageView.heightAnchor.constraint(equalToConstant: 100),
-           // imageView.widthAnchor.constraint(equalToConstant: 100)
-        
         ])
         
         

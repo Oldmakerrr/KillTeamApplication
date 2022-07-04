@@ -24,20 +24,12 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     
     let currentAbilitieButton: ChangeTurnButton = {
         let button = ChangeTurnButton()
-        button.backgroundColor = #colorLiteral(red: 0.293800056, green: 0.2970282733, blue: 0.3509224057, alpha: 1)
-        button.setTitleColor(#colorLiteral(red: 0.5959115028, green: 0.5955135226, blue: 0.6286229491, alpha: 1), for: .normal)
-        button.setTitleColor(#colorLiteral(red: 1, green: 0.502659142, blue: 0, alpha: 1), for: .highlighted)
-        button.layer.applyCornerRadius()
         button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         return button
     }()
     
     let currentStrategicPloysButton: ChangeTurnButton = {
         let button = ChangeTurnButton()
-        button.backgroundColor = #colorLiteral(red: 0.293800056, green: 0.2970282733, blue: 0.3509224057, alpha: 1)
-        button.setTitleColor(#colorLiteral(red: 0.5959115028, green: 0.5955135226, blue: 0.6286229491, alpha: 1), for: .normal)
-        button.setTitleColor(#colorLiteral(red: 1, green: 0.502659142, blue: 0, alpha: 1), for: .highlighted)
-        button.layer.applyCornerRadius()
         button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         return button
     }()
@@ -97,7 +89,9 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     }
     
     @objc func addKillTeam() {
-        presenter?.addKillTeam()
+        addKillTeamButton.animateSelectView(scale: 0.9) { _ in
+            self.presenter?.addKillTeam()
+        }
     }
     
     @objc func buttonAction(sender: UIButton) {
