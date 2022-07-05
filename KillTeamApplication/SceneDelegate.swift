@@ -33,6 +33,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
             UITabBar.appearance().standardAppearance = tabAppearance
             UITabBar.appearance().scrollEdgeAppearance = tabAppearance
+        } else {
+            UINavigationBar.appearance().barStyle = .black
+            UINavigationBar.appearance().tintColor = .orange
+            UITabBar.appearance().barStyle = .black
+            UITabBar.appearance().tintColor = .orange
         }
     }
     
