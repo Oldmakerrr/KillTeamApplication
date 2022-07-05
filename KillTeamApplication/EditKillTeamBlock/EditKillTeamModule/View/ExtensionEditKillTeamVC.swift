@@ -12,14 +12,14 @@ extension EditKillTeamTableViewController {
     
     func showCoachMarks() {
         guard let killTeam = presenter?.model.killTeam else { return }
-        if !isCoachMarkShowed() && !killTeam.choosenFireTeam.isEmpty {
+        if !isCoachMarkShowed() && !killTeam.chosenFireTeams.isEmpty {
             coachMarksController.start(in: .window(over: self))
             setCoachMarkStateToShowed()
         }
     }
     
     func checkTableViewState() {
-        if presenter?.model.killTeam?.choosenFireTeam.count == 0 {
+        if presenter?.model.killTeam?.chosenFireTeams.count == 0 {
             setEmptyState(title: "No Fire Team",
                           message: "Please add Fire Team",
                           buttonTitle: "Add Fire Team",
@@ -32,7 +32,9 @@ extension EditKillTeamTableViewController {
     }
     
     @objc func addFireTeam() {
-        presenter?.addFireTeam(view: self)
+        addUnitOrFireTeamButton.animateSelectView(scale: 0.9) { _ in
+            self.presenter?.addFireTeam(view: self)
+        }
     }
     
     func addGestureToTitleView() {
@@ -88,7 +90,7 @@ extension EditKillTeamTableViewController {
             action.backgroundColor = .clear
             self.presenter?.removeUnit(indexPath: indexPath)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            if self.presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates.count == 0 {
+            if self.presenter?.model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates.count == 0 {
                 tableView.beginUpdates()
                 self.presenter?.removeFireTeam(indexPath: indexPath)
                 self.tableView.deleteSections(section, with: .automatic)

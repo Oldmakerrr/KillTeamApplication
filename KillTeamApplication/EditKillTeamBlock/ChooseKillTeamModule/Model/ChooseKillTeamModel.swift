@@ -8,5 +8,6 @@
 import Foundation
 
 class AllKillTeam {
-    var allFaction: [Faction] = []
+    var allFaction = [Faction]()
+    var filteredArrayOfKillTeam = [KillTeam]()
 }

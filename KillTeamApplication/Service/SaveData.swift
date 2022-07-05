@@ -21,3 +21,22 @@ final class KeySaver {
         return UserDefaults.standard.array(forKey: "KeyForKillTeam") as? [String]
     }
 }
+
+final class KillTeamSaver {
+    
+    static func saveKillTeam(killTeam: KillTeam) {
+        guard let uid = killTeam.uid else { return }
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: uid)
+    }
+    
+    static func saveLastUsedKillTeam(killTeam: KillTeam) {
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(killTeam), forKey: KeySaver.lastUsedKillTeamKey)
+    }
+    
+    static func loadKillTeam(key: String) -> KillTeam? {
+        if let data = UserDefaults.standard.value(forKey: key) as? Data {
+            return try? PropertyListDecoder().decode(KillTeam.self, from: data)
+        } else { return nil }
+    }
+    
+}

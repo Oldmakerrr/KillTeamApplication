@@ -37,7 +37,7 @@ class EditUnitWargearCell: UITableViewCell, ReusableView {
     }
     
     private func checkSelectedState() {
-        if unit?.selectedRangeWeapon == wargear || unit?.selectedCloseWeapon == wargear || isAdditionalWeapon() {
+        if unit?.selectedRangeWeapon == wargear || unit?.selectedMeleeWeapon == wargear || isAdditionalWeapon() {
             contentView.backgroundColor = ColorScheme.shared.theme.selectedCell
         } else {
             contentView.backgroundColor = ColorScheme.shared.theme.cellBackground
@@ -45,7 +45,7 @@ class EditUnitWargearCell: UITableViewCell, ReusableView {
     }
     
     private func isAdditionalWeapon () -> Bool {
-        guard let additionalWeapon = unit?.additionalWeapon, let wargear = wargear else {
+        guard let additionalWeapon = unit?.additionalWeapons, let wargear = wargear else {
             return false
         }
         return additionalWeapon.contains(wargear) ? true : false
@@ -55,9 +55,9 @@ class EditUnitWargearCell: UITableViewCell, ReusableView {
     private func setupNameWeaponLabel() {
         contentView.addSubview(nameWeaponLabel)
         NSLayoutConstraint.activate([
-            nameWeaponLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.Otstup.small),
-            nameWeaponLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.Otstup.small),
-            nameWeaponLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.Otstup.large)
+            nameWeaponLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constant.Size.EdgeInsets.small),
+            nameWeaponLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constant.Size.EdgeInsets.small),
+            nameWeaponLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constant.Size.EdgeInsets.large)
         ])
     }
     

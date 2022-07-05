@@ -53,10 +53,10 @@ class PsychicPowerView: UIStackView {
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
-        view.addView(top: Constant.Size.Otstup.normal,
+        view.addView(top: Constant.Size.EdgeInsets.normal,
                      bottom: 0,
-                     leading: Constant.Size.Otstup.normal,
-                     trailing: Constant.Size.Otstup.small,
+                     leading: Constant.Size.EdgeInsets.normal,
+                     trailing: Constant.Size.EdgeInsets.small,
                      view: view,
                      subView: label)
         addArrangedSubview(view)
@@ -77,10 +77,10 @@ class PsychicPowerView: UIStackView {
     private func setupWeaponView(weapon: Weapon, delegate: WeaponRuleButtonDelegate, viewWidth: CGFloat) {
         let backgroundView = UIView()
         let view = WeaponView()
-        backgroundView.addView(top: Constant.Size.Otstup.small,
-                               bottom: Constant.Size.Otstup.small,
-                               leading: Constant.Size.Otstup.small,
-                               trailing: Constant.Size.Otstup.small,
+        backgroundView.addView(top: Constant.Size.EdgeInsets.small,
+                               bottom: Constant.Size.EdgeInsets.small,
+                               leading: Constant.Size.EdgeInsets.small,
+                               trailing: Constant.Size.EdgeInsets.small,
                                view: backgroundView,
                                subView: view)
         addArrangedSubview(backgroundView)
@@ -94,7 +94,7 @@ class PsychicPowerView: UIStackView {
     private func setupView() {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: Constant.Size.Otstup.small).isActive = true
+        view.heightAnchor.constraint(equalToConstant: Constant.Size.EdgeInsets.small).isActive = true
         addArrangedSubview(view)
     }
     

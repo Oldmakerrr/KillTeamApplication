@@ -8,29 +8,44 @@
 import Foundation
 
 protocol StorageProtocol {
+    var parseJson: ParseJSON { get }
     
-    var loadedKillTeam: [KillTeam] { get }
-    func loadSavedKillTeam()
+    func loadSavedKillTeam() -> [KillTeam]
+    var ployCommandReRoll: Ploy? { get }
     func loadKeys()
-    func loadLastUsedKillTeam()
-    func isLoadedKillTeamEmpty() -> Bool
-    func appendNewKillTeam(killTeam: KillTeam)
-    func removeKillTeam(indexPath: IndexPath)
+    func isKeysEmpty() -> Bool
     
+    func loadLastUsedKillTeam(completion: @escaping(KillTeam?) -> Void)
+    func setPloyCommandReRoll(_ commandReRoll: Ploy)
+    
+    func appendNewKillTeam(killTeam: KillTeam)
+    func removeKillTeam(indexPath: IndexPath, uid: String)
 }
 
 class Storage: StorageProtocol {
     
+    private let databaseQueue = DispatchQueue.global(qos: .utility)
+    
     private let store: Store
-    var loadedKillTeam: [KillTeam] = []
+    
+    let parseJson = ParseJSON()
+    
+    private var loadedKillTeam = [KillTeam]()
+    
+    var ployCommandReRoll: Ploy?
+    
     private var keysForKillTeam: [String] = []
 
     init(store: Store) {
         self.store = store
     }
     
-    func isLoadedKillTeamEmpty() -> Bool {
-        return loadedKillTeam.isEmpty
+    func isKeysEmpty() -> Bool {
+        return keysForKillTeam.isEmpty
+    }
+    
+    func setPloyCommandReRoll(_ commandReRoll: Ploy) {
+        ployCommandReRoll = commandReRoll
     }
     
 //MARK - RemoveAndAddKey
@@ -49,50 +64,56 @@ class Storage: StorageProtocol {
         }
     }
         
-//MARK - RemoveAndAddKillTeam
+//MARK: - RemoveAndAddKillTeam
             
-    func removeKillTeam(indexPath: IndexPath) {
+    func removeKillTeam(indexPath: IndexPath, uid: String) {
         if let killTeam = store.killTeam {
-            if loadedKillTeam[indexPath.row].id == killTeam.id {
+            if loadedKillTeam[indexPath.row].uid == killTeam.uid {
                 store.killTeam = nil
                 UserDefaults.standard.removeObject(forKey: KeySaver.lastUsedKillTeamKey)
             }
         }
+        UserDefaults.standard.removeObject(forKey: uid)
         loadedKillTeam.remove(at: indexPath.row)
         removeKey(indexPath: indexPath)
         KeySaver.saveKey(key: keysForKillTeam)
     }
     
     func appendNewKillTeam(killTeam: KillTeam) {
+        guard let uid = killTeam.uid else { return }
         loadedKillTeam.insert(killTeam, at: 0)
-        appendNewKey(key: killTeam.id)
+        appendNewKey(key: uid)
         KeySaver.saveKey(key: keysForKillTeam)
     }
         
 //MARK: - LoadKillTeam
     
-    func loadLastUsedKillTeam() {
-        if var killTeam = loadKillTeam(key: KeySaver.lastUsedKillTeamKey) {
-            killTeam.updateCurrentWounds()
-            store.killTeam = killTeam
+    func loadLastUsedKillTeam(completion: @escaping(KillTeam?) -> Void) {
+        databaseQueue.async {
+            if var killTeam = KillTeamSaver.loadKillTeam(key: KeySaver.lastUsedKillTeamKey) {
+                killTeam.updateCurrentWounds()
+                DispatchQueue.main.async {
+                    completion(killTeam)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }
         }
     }
     
-    func loadSavedKillTeam() {
+    func loadSavedKillTeam() -> [KillTeam] {
         loadKeys()
         var killTeams = [KillTeam]()
         for key in keysForKillTeam {
-            if let killTeam = loadKillTeam(key: key) {
+            if let killTeam = KillTeamSaver.loadKillTeam(key: key) {
                 killTeams.append(killTeam)
             }
         }
         loadedKillTeam = killTeams
-    }
-        
-    private func loadKillTeam(key: String) -> KillTeam? {
-        if let data = UserDefaults.standard.value(forKey: key) as? Data {
-            return try? PropertyListDecoder().decode(KillTeam.self, from: data)
-        } else { return nil }
+        return killTeams
     }
         
 }
+

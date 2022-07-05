@@ -48,8 +48,8 @@ class MoreUnitInfoPresenter: MoreUnitInfoPresenterProtocol {
     func updateChoosenUnit() {
         guard let indexPath = store.indexObservedUnit,
               let killTeam = store.getKillTeam() else { return }
-        if !killTeam.choosenFireTeam.isEmpty {
-            model.choosenUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        if !killTeam.chosenFireTeams.isEmpty {
+            model.choosenUnit = killTeam.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row]
             model.killTeam = killTeam
         }
     }
@@ -61,8 +61,8 @@ extension MoreUnitInfoPresenter: StoreDelegate {
         guard let killTeam = killTeam, let indexPath = store.indexObservedUnit else { return }
         model.killTeam = killTeam
         model.indexPathOfChoosenUnit = indexPath
-        if !killTeam.choosenFireTeam.isEmpty {
-            model.choosenUnit = killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row]
+        if !killTeam.chosenFireTeams.isEmpty {
+            model.choosenUnit = killTeam.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row]
         }
     }
 }

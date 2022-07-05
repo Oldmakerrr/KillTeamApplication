@@ -9,9 +9,28 @@ import Foundation
 
 struct FireTeam: Codable {
     let name: String
+    let id: String
     let archetype: [FireTeamType]
-    var availableDataslates: [Unit]
-    var currentDataslates: [Unit] = []
+    let availableDataslates: [Unit]
+    var currentDataslates: [Unit]
+    let defaultDataslates: [String:Int]
+    
+    mutating func fillCurrentDataslates() {
+        for (key, value) in defaultDataslates {
+            for unit in availableDataslates {
+                if unit.id == key {
+                    if unit.keyWords.contains("leader".uppercased()) || unit.keyWords.contains("sorcerer".uppercased()) {
+                        currentDataslates.insert(unit, at: 0)
+                    } else {
+                        for _ in 0..<value {
+                            currentDataslates.append(unit)
+                        }
+                    }
+                    break
+                }
+            }
+        }
+    }
 }
 
 enum FireTeamType: String, Codable {
@@ -23,6 +42,6 @@ enum FireTeamType: String, Codable {
 
 extension FireTeam: Equatable {
     static func == (lhs: FireTeam, rhs: FireTeam) -> Bool {
-        lhs.name == rhs.name
+        lhs.id == rhs.id
     }
 }

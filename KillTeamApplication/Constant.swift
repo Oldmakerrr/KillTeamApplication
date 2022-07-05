@@ -10,32 +10,7 @@ import UIKit
 
 class Constant {
     
-    class Color {
-        
-       
-      //  static let cellBackground = #colorLiteral(red: 0.9058823529, green: 0.8980392157, blue: 0.8784313725, alpha: 1)
-      //  static let cellBorder = #colorLiteral(red: 0.9607843137, green: 0.7960784314, blue: 0.6549019608, alpha: 1)
-      //  static let cellHeader = #colorLiteral(red: 0.9607843137, green: 0.7960784314, blue: 0.6549019608, alpha: 1)
-      //
-      //  static let stackViewBackground  = #colorLiteral(red: 0.9490196078, green: 0.9529411765, blue: 0.9568627451, alpha: 1)
-      //  static let stackView = #colorLiteral(red: 0.8352941176, green: 0.8588235294, blue: 0.8588235294, alpha: 1)
-      //
-      //  static let viewControllerBackground = #colorLiteral(red: 0.5215686275, green: 0.5725490196, blue: 0.6196078431, alpha: 1)
-      //  static let buttonBackground = #colorLiteral(red: 0.9960784314, green: 0.9764705882, blue: 0.9058823529, alpha: 1)
-      //  static let swipeInfoAction = #colorLiteral(red: 0.1803921569, green: 0.5254901961, blue: 0.7568627451, alpha: 1)
-      //  static let selectedView = #colorLiteral(red: 0.9019607843, green: 0.4941176471, blue: 0.1333333333, alpha: 1)
-    }
-    
     class Font {
-        
-       // static let normalColor = #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3254901961, alpha: 1)
-       // static let headerColor = #colorLiteral(red: 0.1294117647, green: 0.1843137255, blue: 0.2392156863, alpha: 1)
-       // static let hyperlinkColor = #colorLiteral(red: 0.1294117647, green: 0.3803921569, blue: 0.5490196078, alpha: 1)
-       // static let buttonText = #colorLiteral(red: 0.1803921569, green: 0.2509803922, blue: 0.3254901961, alpha: 1)
-      
-        static let sanFrancisco = UIFont.init(name: "San Francisco", size: sizeHeaderFont)
-        static let proximaNova = UIFont.init(name: "Proxima Nova", size: sizeNormalFont)
-        static let openSans = UIFont.init(name: "Open Sans", size: sizeNormalFont)
         static let sizeNormalFont: CGFloat = 16
         static let sizeBigFont: CGFloat = 18
         static let sizeHeaderFont: CGFloat = 20
@@ -43,8 +18,7 @@ class Constant {
         static let italic: UIFont = UIFont.italicSystemFont(ofSize: sizeNormalFont)
         static let bold = UIFont.boldSystemFont(ofSize: sizeNormalFont)
         static let bigBold = UIFont.boldSystemFont(ofSize: sizeBigFont)
-        static let header = UIFont.boldSystemFont(ofSize: sizeBigFont)
-        
+        static let header = UIFont.boldSystemFont(ofSize: sizeHeaderFont)
     }
     
     class Size {
@@ -68,7 +42,7 @@ class Constant {
             static let height: CGFloat = 30
         }
         
-        class Otstup {
+        class EdgeInsets {
         
             static let small: CGFloat = 5
             static let normal: CGFloat = 10

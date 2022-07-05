@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WarpcovenAbilitie: Codable, KillTeamAbilitie {
+struct WarpcovenAbility: Codable, KillTeamAbility {
     
     let name: String
     let description: [String]
@@ -15,6 +15,7 @@ struct WarpcovenAbilitie: Codable, KillTeamAbilitie {
     
     struct BoonsOfTzeentch: Codable, UnitAbilitieProtocol {
         let name: String
+        let id: String
         let type: TypeOfBoonsOfTzeentch
         let description: String
         let subText: [String]?

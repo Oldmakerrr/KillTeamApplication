@@ -31,21 +31,22 @@ class CurrentKillTeamView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        addGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func addGestureRecognizer() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        addGestureRecognizer(tapGestureRecognizer)
+    func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        tapGesture.numberOfTapsRequired = 1
+        addGestureRecognizer(tapGesture)
     }
     
     @objc func tapAction() {
-        delegate?.didComplete(self)
+        animateSelectView(scale: 0.98, completion: { _ in
+            self.delegate?.didComplete(self)
+        })
     }
     
     func setupText(killTeam: KillTeam?) {
@@ -67,7 +68,7 @@ class CurrentKillTeamView: UIView {
         backgroundColor = ColorScheme.shared.theme.viewBackground
         layer.applySketchShadow()
         layer.applyCornerRadius()
-        alpha = 0.8
+        alpha = 0.1
     }
     
     private func setupView() {
@@ -104,9 +105,9 @@ class CurrentKillTeamView: UIView {
         killTeamLogo.image = UIImage(named: "KILL_TEAM")
         killTeamLogo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            killTeamLogo.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: Constant.Size.Otstup.normal),
-            killTeamLogo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.normal),
-            killTeamLogo.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.Otstup.normal),
+            killTeamLogo.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: Constant.Size.EdgeInsets.normal),
+            killTeamLogo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.normal),
+            killTeamLogo.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Constant.Size.EdgeInsets.normal),
             killTeamLogo.widthAnchor.constraint(equalTo: killTeamLogo.heightAnchor),
             killTeamLogo.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])

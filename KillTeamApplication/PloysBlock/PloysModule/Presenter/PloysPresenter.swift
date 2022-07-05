@@ -13,7 +13,7 @@ protocol PloysViewControllerProtocol: AnyObject {
 }
 
 protocol PloysPresenterProtocol: AnyObject {
-    init(view: PloysViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: PloysRouterProtocol, userSettings: UserSettingsProtocol)
+    init(view: PloysViewControllerProtocol, store: StoreProtocol, storage: StorageProtocol, gameStore: GameStoreProtocol, router: PloysRouterProtocol, userSettings: UserSettingsProtocol)
     var view: PloysViewControllerProtocol? { get }
     var gameStore: GameStoreProtocol { get }
     var store: StoreProtocol { get }
@@ -43,6 +43,8 @@ class PloysPresenter: PloysPresenterProtocol {
     
     let store: StoreProtocol
     
+    let storage: StorageProtocol
+    
     let gameStore: GameStoreProtocol
     
     let model = PloysModel()
@@ -51,9 +53,10 @@ class PloysPresenter: PloysPresenterProtocol {
     
     let userSettings: UserSettingsProtocol
     
-    required init(view: PloysViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: PloysRouterProtocol, userSettings: UserSettingsProtocol) {
+    required init(view: PloysViewControllerProtocol, store: StoreProtocol, storage: StorageProtocol, gameStore: GameStoreProtocol, router: PloysRouterProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
+        self.storage = storage
         self.gameStore = gameStore
         self.router = router
         self.userSettings = userSettings
@@ -94,6 +97,9 @@ extension PloysPresenter: StoreDelegate {
                 model.tacticalPloy.append(ploy)
             }
         })
+        if let ployCommandReRoll = storage.ployCommandReRoll {
+            model.tacticalPloy.append(ployCommandReRoll)
+        }
     }
 }
 

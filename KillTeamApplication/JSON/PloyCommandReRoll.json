@@ -1,0 +1,7 @@
+{
+     "name": "COMMAND RE-ROLL",
+     "id": "ddb3083d-73b9-46f8-831e-2105bf8cc8e4",
+     "description": "Use this Tactical Ploy after rolling one of your attack dice or defence dice. You can re-roll that dice.",
+     "cost": 1,
+     "type": "tactical"
+}

@@ -17,6 +17,7 @@ protocol ChooseKillTeamPresenterProtocol: AnyObject {
     var model: AllKillTeam { get }
     var store: StoreProtocol { get }
     func goToEditKillTeamViewController(killTeam: KillTeam)
+    func filterContent(searchText: String?)
 }
 
 protocol ChooseKillTeamPresenterDelegate: AnyObject {
@@ -40,12 +41,21 @@ class ChooseKillTeamPresenter: ChooseKillTeamPresenterProtocol {
     }
     
     func goToEditKillTeamViewController(killTeam: KillTeam) {
-        //guard let key = killTeam.id else { return }
         delegate?.didComplete(presenter: self)
         store.updateCurrentKillTeam(killTeam: killTeam)
         storage.appendNewKillTeam(killTeam: killTeam)
-        //store.appendNewKillTeam(killTeam: killTeam)
-        //store.appendNewKey(key: key)
-        //KeySaver.saveKey(key: store.keysForKillTeam)
+    }
+    
+    func filterContent(searchText: String?) {
+        guard let searchText = searchText else { return }
+        var filteredArray = [KillTeam]()
+        for faction in model.allFaction {
+            filteredArray += faction.killTeam.filter{ killTeam in
+                let searchedFaction = killTeam.killTeamName.lowercased().contains(searchText.lowercased())
+                return searchedFaction
+            }
+        }
+        model.filteredArrayOfKillTeam = filteredArray
     }
 }
+

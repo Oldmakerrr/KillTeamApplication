@@ -46,8 +46,8 @@
             filePath = "KillTeamApplication/EditKillTeamBlock/EditUnitModule/Presenter/EditUnitPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
             landmarkName = "didUpdate(_:killTeam:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "KillTeamApplication/EditKillTeamBlock/ChooseLoadedKillTeamModule/Presenter/ChooseLoadedKillTeamPresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "chooseKillTeam(killTeam:)"
             landmarkType = "7">
          </BreakpointContent>

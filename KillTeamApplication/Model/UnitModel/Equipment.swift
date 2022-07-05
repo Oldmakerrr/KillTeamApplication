@@ -9,19 +9,20 @@ import Foundation
 
 struct Equipment: Codable, Wargear {
     let name: String
+    let id: String
     let description: String
     let cost: Int
-    let maxCounPerKillTeam: Int?
-    let body: String?
-    let subText: [String]?
-    let uniqueAction: UnitAbilitie?
-    let unitAction: UnitUniqueAction?
-    let wargear: Weapon?
+    let maxNumberPerKillTeam: Int?
+    let additionalText: String?
+    let subTexts: [String]?
+    let ability: UnitAbilitie?
+    let uniqueAction: UnitUniqueAction?
+    let weapon: Weapon?
 }
 
 
 extension Equipment: Equatable {
     static func == (lhs: Equipment, rhs: Equipment) -> Bool {
-        lhs.name == rhs.name
+        lhs.id == rhs.id
     }
 }

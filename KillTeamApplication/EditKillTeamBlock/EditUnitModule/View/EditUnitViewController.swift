@@ -216,12 +216,12 @@ class TableHeaderView: UIView {
         addSubview(imageView)
         NSLayoutConstraint.activate([
             label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.Otstup.large),
-            label.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -Constant.Size.Otstup.large)
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constant.Size.EdgeInsets.large),
+            label.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -Constant.Size.EdgeInsets.large)
         ])
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: Constant.Size.Otstup.large),
-            imageView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Constant.Size.Otstup.large),
+            imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: Constant.Size.EdgeInsets.large),
+            imageView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -Constant.Size.EdgeInsets.large),
             imageView.topAnchor.constraint(equalTo: label.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)

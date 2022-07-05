@@ -49,12 +49,12 @@ extension TacOpsViewController {
         
         NSLayoutConstraint.activate([
             changeTacOpsTypeButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
-            changeTacOpsTypeButton.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.Otstup.large),
+            changeTacOpsTypeButton.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -Constant.Size.EdgeInsets.large),
             changeTacOpsTypeButton.heightAnchor.constraint(equalToConstant: navigationBar.bounds.size.height-10),
             changeTacOpsTypeButton.widthAnchor.constraint(equalTo: changeTacOpsTypeButton.heightAnchor),
             
             mixDeckButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
-            mixDeckButton.trailingAnchor.constraint(equalTo: changeTacOpsTypeButton.leadingAnchor, constant: -Constant.Size.Otstup.normal),
+            mixDeckButton.trailingAnchor.constraint(equalTo: changeTacOpsTypeButton.leadingAnchor, constant: -Constant.Size.EdgeInsets.normal),
             mixDeckButton.heightAnchor.constraint(equalToConstant: navigationBar.bounds.size.height-10),
             mixDeckButton.widthAnchor.constraint(equalTo: mixDeckButton.heightAnchor, constant: 4)
         ])
@@ -74,7 +74,7 @@ extension TacOpsViewController {
         navigationBar.addSubview(goToChoosenTacOpsButton)
         NSLayoutConstraint.activate([
             goToChoosenTacOpsButton.centerYAnchor.constraint(equalTo: navigationBar.centerYAnchor),
-            goToChoosenTacOpsButton.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor, constant: Constant.Size.Otstup.large),
+            goToChoosenTacOpsButton.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor, constant: Constant.Size.EdgeInsets.large),
             goToChoosenTacOpsButton.heightAnchor.constraint(equalToConstant: navigationBar.bounds.size.height-10),
             goToChoosenTacOpsButton.widthAnchor.constraint(equalTo: goToChoosenTacOpsButton.heightAnchor, constant: -5)
         ])

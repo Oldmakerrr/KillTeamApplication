@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02BE855A0DE6AD50D94F7267 /* Pods_KillTeamApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D1DA5216F93737AE8DDF420 /* Pods_KillTeamApplication.framework */; };
 		1810011627E9E5CF00A18B1B /* BoldTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810011527E9E5CF00A18B1B /* BoldTextLabel.swift */; };
 		1810011827EB5C6300A18B1B /* AbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810011727EB5C6300A18B1B /* AbilitieView.swift */; };
 		1810011A27EB5DCA00A18B1B /* UniqueActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810011927EB5DCA00A18B1B /* UniqueActionView.swift */; };
@@ -18,15 +17,17 @@
 		181E3544284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E3543284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift */; };
 		181E35462847B267002BB1BE /* CoachMarkAddFireTeamExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E35452847B267002BB1BE /* CoachMarkAddFireTeamExtention.swift */; };
 		181E35482847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E35472847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift */; };
+		1822F07F287408A800D3D40D /* AllFaction.json in Resources */ = {isa = PBXBuildFile; fileRef = 1822F07C287408A800D3D40D /* AllFaction.json */; };
+		1822F080287408A800D3D40D /* PloyCommandReRoll.json in Resources */ = {isa = PBXBuildFile; fileRef = 1822F07D287408A800D3D40D /* PloyCommandReRoll.json */; };
 		18339DAC27C21BED00EBCC35 /* TacOpsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */; };
 		18497F9D284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */; };
 		18497F9F284CB3230046CA39 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18497F9E284CB3230046CA39 /* UINavigationBar.swift */; };
-		184EB2D3284F8F0E003B4232 /* updateUserKillTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EB2D2284F8F0E003B4232 /* updateUserKillTeam.swift */; };
+		184EB2D3284F8F0E003B4232 /* UpdateUserKillTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184EB2D2284F8F0E003B4232 /* UpdateUserKillTeam.swift */; };
 		1857E36A27C4E6D100FEFA76 /* TacOpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36927C4E6D100FEFA76 /* TacOpView.swift */; };
-		1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */; };
-		1857E37327C574E600FEFA76 /* ChoosenTacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */; };
-		1857E37527C575EF00FEFA76 /* ChoosenTacOpsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37427C575EF00FEFA76 /* ChoosenTacOpsPresenter.swift */; };
-		1857E37727C57BF600FEFA76 /* ChoosenTacOpsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37627C57BF600FEFA76 /* ChoosenTacOpsCell.swift */; };
+		1857E37027C574B900FEFA76 /* ChosenTacOpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E36F27C574B900FEFA76 /* ChosenTacOpsModel.swift */; };
+		1857E37327C574E600FEFA76 /* ChosenTacOpsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37227C574E600FEFA76 /* ChosenTacOpsViewController.swift */; };
+		1857E37527C575EF00FEFA76 /* ChosenTacOpsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37427C575EF00FEFA76 /* ChosenTacOpsPresenter.swift */; };
+		1857E37727C57BF600FEFA76 /* ChosenTacOpsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37627C57BF600FEFA76 /* ChosenTacOpsCell.swift */; };
 		1857E37927C6341E00FEFA76 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37827C6341E00FEFA76 /* GameStore.swift */; };
 		186E0000281B111B006E86E9 /* BoonOfTzeenchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFFF281B111B006E86E9 /* BoonOfTzeenchTableViewController.swift */; };
 		186E0003281B295C006E86E9 /* PathfinderAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0002281B295C006E86E9 /* PathfinderAbilitieView.swift */; };
@@ -44,8 +45,6 @@
 		186E004328286A87006E86E9 /* AddFireTeamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E004228286A87006E86E9 /* AddFireTeamButton.swift */; };
 		186E0045282A4D4B006E86E9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0044282A4D4B006E86E9 /* Storage.swift */; };
 		186E0047282A7172006E86E9 /* UIVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0046282A7172006E86E9 /* UIVIew.swift */; };
-		186E0076283B82AD006E86E9 /* AllFaction.json in Resources */ = {isa = PBXBuildFile; fileRef = 186E0074283B82AC006E86E9 /* AllFaction.json */; };
-		186E0077283B82AD006E86E9 /* TacOps.json in Resources */ = {isa = PBXBuildFile; fileRef = 186E0075283B82AD006E86E9 /* TacOps.json */; };
 		186EFFEA281B0DAD006E86E9 /* LegionaryAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFE9281B0DAD006E86E9 /* LegionaryAbilitieView.swift */; };
 		186EFFEC281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFEB281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift */; };
 		186EFFF0281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFEF281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift */; };
@@ -99,6 +98,7 @@
 		18A521C027C18AFF003A29DA /* WeaponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521BF27C18AFF003A29DA /* WeaponView.swift */; };
 		18A521C227C18B5E003A29DA /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521C127C18B5E003A29DA /* CustomAlert.swift */; };
 		18A521C427C18BB6003A29DA /* EquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521C327C18BB6003A29DA /* EquipmentView.swift */; };
+		18A61A0728740ABA00BAAD96 /* TacOps.json in Resources */ = {isa = PBXBuildFile; fileRef = 18A61A0628740ABA00BAAD96 /* TacOps.json */; };
 		18CF2827284023C800E81A2E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF2826284023C800E81A2E /* UIViewController.swift */; };
 		18CF2829284023F600E81A2E /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF2828284023F600E81A2E /* UITableViewCell.swift */; };
 		18CF282B2840244100E81A2E /* TableViewEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF282A2840244100E81A2E /* TableViewEmptyState.swift */; };
@@ -173,13 +173,15 @@
 		18E909E8281AC8010077516B /* VeteranGuardsmanAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E909E7281AC8010077516B /* VeteranGuardsmanAbilitieView.swift */; };
 		18E909EA281ACC6F0077516B /* TacticalAssetsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E909E9281ACC6F0077516B /* TacticalAssetsTableViewController.swift */; };
 		18E909EC281AD0CB0077516B /* TacticalAssetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E909EB281AD0CB0077516B /* TacticalAssetsView.swift */; };
+		18FEBC782872C36E004CE78B /* ParseJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FEBC772872C36E004CE78B /* ParseJSON.swift */; };
 		18FFD4A32848A18200CAB341 /* CoachMarkRosterExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFD4A22848A18200CAB341 /* CoachMarkRosterExtention.swift */; };
 		18FFD4A52848AD9400CAB341 /* CoachMarkPloysExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFD4A42848AD9400CAB341 /* CoachMarkPloysExtention.swift */; };
 		18FFD4A72848B60D00CAB341 /* CoachMarkTacOpsExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFD4A62848B60D00CAB341 /* CoachMarkTacOpsExtention.swift */; };
+		7D8955AC6B22085F90876ED0 /* Pods_KillTeamApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3EEE947BC66A4D6E5D1B89B /* Pods_KillTeamApplication.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		12E8E43D6BC799897499ECD2 /* Pods-KillTeamApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KillTeamApplication.release.xcconfig"; path = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.release.xcconfig"; sourceTree = "<group>"; };
+		124C0A0EC62EEFBE7A63E1BA /* Pods-KillTeamApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KillTeamApplication.debug.xcconfig"; path = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.debug.xcconfig"; sourceTree = "<group>"; };
 		1810011527E9E5CF00A18B1B /* BoldTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldTextLabel.swift; sourceTree = "<group>"; };
 		1810011727EB5C6300A18B1B /* AbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbilitieView.swift; sourceTree = "<group>"; };
 		1810011927EB5DCA00A18B1B /* UniqueActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueActionView.swift; sourceTree = "<group>"; };
@@ -190,15 +192,17 @@
 		181E3543284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkEditKillTeamExtention.swift; sourceTree = "<group>"; };
 		181E35452847B267002BB1BE /* CoachMarkAddFireTeamExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkAddFireTeamExtention.swift; sourceTree = "<group>"; };
 		181E35472847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkEditUnitExtention.swift; sourceTree = "<group>"; };
+		1822F07C287408A800D3D40D /* AllFaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AllFaction.json; sourceTree = "<group>"; };
+		1822F07D287408A800D3D40D /* PloyCommandReRoll.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PloyCommandReRoll.json; sourceTree = "<group>"; };
 		18339DAB27C21BED00EBCC35 /* TacOpsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpsCollectionCell.swift; sourceTree = "<group>"; };
 		18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkChoosenTacOpExtention.swift; sourceTree = "<group>"; };
 		18497F9E284CB3230046CA39 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
-		184EB2D2284F8F0E003B4232 /* updateUserKillTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = updateUserKillTeam.swift; sourceTree = "<group>"; };
+		184EB2D2284F8F0E003B4232 /* UpdateUserKillTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserKillTeam.swift; sourceTree = "<group>"; };
 		1857E36927C4E6D100FEFA76 /* TacOpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacOpView.swift; sourceTree = "<group>"; };
-		1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsModel.swift; sourceTree = "<group>"; };
-		1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsViewController.swift; sourceTree = "<group>"; };
-		1857E37427C575EF00FEFA76 /* ChoosenTacOpsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsPresenter.swift; sourceTree = "<group>"; };
-		1857E37627C57BF600FEFA76 /* ChoosenTacOpsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosenTacOpsCell.swift; sourceTree = "<group>"; };
+		1857E36F27C574B900FEFA76 /* ChosenTacOpsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenTacOpsModel.swift; sourceTree = "<group>"; };
+		1857E37227C574E600FEFA76 /* ChosenTacOpsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenTacOpsViewController.swift; sourceTree = "<group>"; };
+		1857E37427C575EF00FEFA76 /* ChosenTacOpsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenTacOpsPresenter.swift; sourceTree = "<group>"; };
+		1857E37627C57BF600FEFA76 /* ChosenTacOpsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenTacOpsCell.swift; sourceTree = "<group>"; };
 		1857E37827C6341E00FEFA76 /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
 		186E0002281B295C006E86E9 /* PathfinderAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathfinderAbilitieView.swift; sourceTree = "<group>"; };
 		186E0004281BDFCF006E86E9 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -215,8 +219,6 @@
 		186E004228286A87006E86E9 /* AddFireTeamButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFireTeamButton.swift; sourceTree = "<group>"; };
 		186E0044282A4D4B006E86E9 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		186E0046282A7172006E86E9 /* UIVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVIew.swift; sourceTree = "<group>"; };
-		186E0074283B82AC006E86E9 /* AllFaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = AllFaction.json; path = ../../../Documents/KillTeamAppData/AllFaction.json; sourceTree = "<group>"; };
-		186E0075283B82AD006E86E9 /* TacOps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = TacOps.json; path = ../../../Documents/KillTeamAppData/TacOps.json; sourceTree = "<group>"; };
 		186EFFE9281B0DAD006E86E9 /* LegionaryAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegionaryAbilitieView.swift; sourceTree = "<group>"; };
 		186EFFEB281B0DC8006E86E9 /* ChaosBlessingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaosBlessingTableViewController.swift; sourceTree = "<group>"; };
 		186EFFEF281B0F03006E86E9 /* VoidDancerTroupeAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidDancerTroupeAbilitieView.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 		18A521BF27C18AFF003A29DA /* WeaponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponView.swift; sourceTree = "<group>"; };
 		18A521C127C18B5E003A29DA /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		18A521C327C18BB6003A29DA /* EquipmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentView.swift; sourceTree = "<group>"; };
+		18A61A0628740ABA00BAAD96 /* TacOps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TacOps.json; sourceTree = "<group>"; };
 		18CF2826284023C800E81A2E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		18CF2828284023F600E81A2E /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		18CF282A2840244100E81A2E /* TableViewEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewEmptyState.swift; sourceTree = "<group>"; };
@@ -347,11 +350,12 @@
 		18E909E7281AC8010077516B /* VeteranGuardsmanAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeteranGuardsmanAbilitieView.swift; sourceTree = "<group>"; };
 		18E909E9281ACC6F0077516B /* TacticalAssetsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacticalAssetsTableViewController.swift; sourceTree = "<group>"; };
 		18E909EB281AD0CB0077516B /* TacticalAssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TacticalAssetsView.swift; sourceTree = "<group>"; };
+		18FEBC772872C36E004CE78B /* ParseJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseJSON.swift; sourceTree = "<group>"; };
 		18FFD4A22848A18200CAB341 /* CoachMarkRosterExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkRosterExtention.swift; sourceTree = "<group>"; };
 		18FFD4A42848AD9400CAB341 /* CoachMarkPloysExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkPloysExtention.swift; sourceTree = "<group>"; };
 		18FFD4A62848B60D00CAB341 /* CoachMarkTacOpsExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkTacOpsExtention.swift; sourceTree = "<group>"; };
-		5D1DA5216F93737AE8DDF420 /* Pods_KillTeamApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KillTeamApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6194EA5B43216D04E42F8A4 /* Pods-KillTeamApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KillTeamApplication.debug.xcconfig"; path = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.debug.xcconfig"; sourceTree = "<group>"; };
+		86F44FFFAA17E9569A5FB20C /* Pods-KillTeamApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KillTeamApplication.release.xcconfig"; path = "Target Support Files/Pods-KillTeamApplication/Pods-KillTeamApplication.release.xcconfig"; sourceTree = "<group>"; };
+		A3EEE947BC66A4D6E5D1B89B /* Pods_KillTeamApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KillTeamApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,13 +363,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02BE855A0DE6AD50D94F7267 /* Pods_KillTeamApplication.framework in Frameworks */,
+				7D8955AC6B22085F90876ED0 /* Pods_KillTeamApplication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1822F075287401A300D3D40D /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				1822F07C287408A800D3D40D /* AllFaction.json */,
+				18A61A0628740ABA00BAAD96 /* TacOps.json */,
+				1822F07D287408A800D3D40D /* PloyCommandReRoll.json */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 		18503FD727EB859300B62DB1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,20 +389,20 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		1857E36B27C573F000FEFA76 /* ChoosenTacOpsModule */ = {
+		1857E36B27C573F000FEFA76 /* ChosenTacOpsModule */ = {
 			isa = PBXGroup;
 			children = (
 				1857E36E27C5740C00FEFA76 /* Model */,
 				1857E36D27C5740700FEFA76 /* View */,
 				1857E36C27C5740000FEFA76 /* Presenter */,
 			);
-			path = ChoosenTacOpsModule;
+			path = ChosenTacOpsModule;
 			sourceTree = "<group>";
 		};
 		1857E36C27C5740000FEFA76 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				1857E37427C575EF00FEFA76 /* ChoosenTacOpsPresenter.swift */,
+				1857E37427C575EF00FEFA76 /* ChosenTacOpsPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -396,7 +410,7 @@
 		1857E36D27C5740700FEFA76 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1857E37227C574E600FEFA76 /* ChoosenTacOpsViewController.swift */,
+				1857E37227C574E600FEFA76 /* ChosenTacOpsViewController.swift */,
 				18497F9C284B5D000046CA39 /* CoachMarkChoosenTacOpExtention.swift */,
 				18E9095B28159FA30077516B /* CustomView */,
 				18E908B7280BE1740077516B /* Cell */,
@@ -407,7 +421,7 @@
 		1857E36E27C5740C00FEFA76 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1857E36F27C574B900FEFA76 /* ChoosenTacOpsModel.swift */,
+				1857E36F27C574B900FEFA76 /* ChosenTacOpsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -492,8 +506,8 @@
 			children = (
 				18A5214727C17D5B003A29DA /* KillTeamApplication */,
 				18A5214627C17D5B003A29DA /* Products */,
-				75659772FDCD7A12B0357769 /* Pods */,
-				3A1D8B15F7590A3F08D99F9E /* Frameworks */,
+				A3A9112CBA9527B637983FDC /* Pods */,
+				A608FDF6BF88FF25F5E3AB76 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -511,8 +525,7 @@
 				18A5214827C17D5B003A29DA /* AppDelegate.swift */,
 				18A5214A27C17D5B003A29DA /* SceneDelegate.swift */,
 				1892484927F09BAF00F1996C /* Constant.swift */,
-				186E0074283B82AC006E86E9 /* AllFaction.json */,
-				186E0075283B82AD006E86E9 /* TacOps.json */,
+				1822F075287401A300D3D40D /* JSON */,
 				186E003C2828047A006E86E9 /* Extension */,
 				18E908D3280BE9AC0077516B /* Model */,
 				1892484B27F1F18E00F1996C /* CustomUI */,
@@ -533,13 +546,14 @@
 			isa = PBXGroup;
 			children = (
 				18A5215C27C17DB7003A29DA /* Builder.swift */,
-				18A5215E27C17DE7003A29DA /* SaveData.swift */,
-				184EB2D2284F8F0E003B4232 /* updateUserKillTeam.swift */,
-				18103AA027F5F9F400DBD2C4 /* ErrorLayer.swift */,
-				18A5216027C17DF7003A29DA /* Store.swift */,
-				181E353F284724DF002BB1BE /* UserSettings.swift */,
 				186E0044282A4D4B006E86E9 /* Storage.swift */,
+				18FEBC772872C36E004CE78B /* ParseJSON.swift */,
+				18A5216027C17DF7003A29DA /* Store.swift */,
 				1857E37827C6341E00FEFA76 /* GameStore.swift */,
+				184EB2D2284F8F0E003B4232 /* UpdateUserKillTeam.swift */,
+				18A5215E27C17DE7003A29DA /* SaveData.swift */,
+				181E353F284724DF002BB1BE /* UserSettings.swift */,
+				18103AA027F5F9F400DBD2C4 /* ErrorLayer.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -871,7 +885,7 @@
 		18D3B95127C18FD800B74C2D /* PloysBlock */ = {
 			isa = PBXGroup;
 			children = (
-				18E909C628197B080077516B /* KillTeamAbilitieModule */,
+				18E909C628197B080077516B /* KillTeamAbilityModule */,
 				18E909802816E0150077516B /* PsychicPowerModule */,
 				18D3B95227C18FE200B74C2D /* PloysModule */,
 			);
@@ -920,7 +934,7 @@
 		18D3B96027C1908500B74C2D /* TacOpsBlock */ = {
 			isa = PBXGroup;
 			children = (
-				1857E36B27C573F000FEFA76 /* ChoosenTacOpsModule */,
+				1857E36B27C573F000FEFA76 /* ChosenTacOpsModule */,
 				18D3B96127C1909000B74C2D /* TacOpsModule */,
 			);
 			path = TacOpsBlock;
@@ -1024,7 +1038,7 @@
 		18E908B7280BE1740077516B /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				1857E37627C57BF600FEFA76 /* ChoosenTacOpsCell.swift */,
+				1857E37627C57BF600FEFA76 /* ChosenTacOpsCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1207,14 +1221,14 @@
 			path = KillTeamAbiliries;
 			sourceTree = "<group>";
 		};
-		18E909C628197B080077516B /* KillTeamAbilitieModule */ = {
+		18E909C628197B080077516B /* KillTeamAbilityModule */ = {
 			isa = PBXGroup;
 			children = (
 				18E909C928197B2D0077516B /* Model */,
 				18E909C828197B270077516B /* View */,
 				18E909C728197B200077516B /* Presenter */,
 			);
-			path = KillTeamAbilitieModule;
+			path = KillTeamAbilityModule;
 			sourceTree = "<group>";
 		};
 		18E909C728197B200077516B /* Presenter */ = {
@@ -1233,7 +1247,7 @@
 				186E002C281C6178006E86E9 /* WyrmbladeSubViewExtension.swift */,
 				186E002E281C637E006E86E9 /* HunterCadreSubViewExtension.swift */,
 				18E909DF281AA5620077516B /* CustomView */,
-				18E909D0281A850B0077516B /* AbilitieView */,
+				18E909D0281A850B0077516B /* AbilityViews */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1246,7 +1260,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		18E909D0281A850B0077516B /* AbilitieView */ = {
+		18E909D0281A850B0077516B /* AbilityViews */ = {
 			isa = PBXGroup;
 			children = (
 				186E0001281B2948006E86E9 /* Pathfinder */,
@@ -1259,7 +1273,7 @@
 				18E909D4281A8C7A0077516B /* HunterClade */,
 				18E909D1281A85270077516B /* Novitiate */,
 			);
-			path = AbilitieView;
+			path = AbilityViews;
 			sourceTree = "<group>";
 		};
 		18E909D1281A85270077516B /* Novitiate */ = {
@@ -1312,21 +1326,21 @@
 			path = Warpcoven;
 			sourceTree = "<group>";
 		};
-		3A1D8B15F7590A3F08D99F9E /* Frameworks */ = {
+		A3A9112CBA9527B637983FDC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5D1DA5216F93737AE8DDF420 /* Pods_KillTeamApplication.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		75659772FDCD7A12B0357769 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A6194EA5B43216D04E42F8A4 /* Pods-KillTeamApplication.debug.xcconfig */,
-				12E8E43D6BC799897499ECD2 /* Pods-KillTeamApplication.release.xcconfig */,
+				124C0A0EC62EEFBE7A63E1BA /* Pods-KillTeamApplication.debug.xcconfig */,
+				86F44FFFAA17E9569A5FB20C /* Pods-KillTeamApplication.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A608FDF6BF88FF25F5E3AB76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3EEE947BC66A4D6E5D1B89B /* Pods_KillTeamApplication.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1336,11 +1350,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18A5215927C17D5C003A29DA /* Build configuration list for PBXNativeTarget "KillTeamApplication" */;
 			buildPhases = (
-				8717600E6A7FBE74F663AFA6 /* [CP] Check Pods Manifest.lock */,
+				362199467DCA190C10FA91CD /* [CP] Check Pods Manifest.lock */,
 				18A5214127C17D5B003A29DA /* Sources */,
 				18A5214227C17D5B003A29DA /* Frameworks */,
 				18A5214327C17D5B003A29DA /* Resources */,
-				F38D890DFF5FB4AD7C791B6C /* [CP] Embed Pods Frameworks */,
+				AB7A0CEC16916DAF49E05F4F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1388,9 +1402,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18A61A0728740ABA00BAAD96 /* TacOps.json in Resources */,
+				1822F07F287408A800D3D40D /* AllFaction.json in Resources */,
 				18A5215527C17D5C003A29DA /* LaunchScreen.storyboard in Resources */,
-				186E0077283B82AD006E86E9 /* TacOps.json in Resources */,
-				186E0076283B82AD006E86E9 /* AllFaction.json in Resources */,
+				1822F080287408A800D3D40D /* PloyCommandReRoll.json in Resources */,
 				18A5215227C17D5C003A29DA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1398,7 +1413,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8717600E6A7FBE74F663AFA6 /* [CP] Check Pods Manifest.lock */ = {
+		362199467DCA190C10FA91CD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1420,7 +1435,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F38D890DFF5FB4AD7C791B6C /* [CP] Embed Pods Frameworks */ = {
+		AB7A0CEC16916DAF49E05F4F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1449,7 +1464,7 @@
 				18A5217827C181E8003A29DA /* AddFireTeamModel.swift in Sources */,
 				181E3544284782A3002BB1BE /* CoachMarkEditKillTeamExtention.swift in Sources */,
 				18D3B94C27C18F7200B74C2D /* MoreInfoUnitViewController.swift in Sources */,
-				1857E37727C57BF600FEFA76 /* ChoosenTacOpsCell.swift in Sources */,
+				1857E37727C57BF600FEFA76 /* ChosenTacOpsCell.swift in Sources */,
 				186EFFF2281B0F1C006E86E9 /* AllegoryTableViewController.swift in Sources */,
 				186EFFF7281B0F70006E86E9 /* WyrmbladeAbilitieView.swift in Sources */,
 				18E909BB281936DF0077516B /* HunterClade.swift in Sources */,
@@ -1491,7 +1506,7 @@
 				18E908EC280DC22D0077516B /* InfoButton.swift in Sources */,
 				18E9095A28159F5B0077516B /* ConditionView.swift in Sources */,
 				18E908C1280BE5F20077516B /* HeaderLabel.swift in Sources */,
-				1857E37027C574B900FEFA76 /* ChoosenTacOpsModel.swift in Sources */,
+				1857E37027C574B900FEFA76 /* ChosenTacOpsModel.swift in Sources */,
 				18E909CF28197C090077516B /* KillTeamAbilitiePresenter.swift in Sources */,
 				18E908A52807FB990077516B /* LabelWithImageView.swift in Sources */,
 				1892484A27F09BAF00F1996C /* Constant.swift in Sources */,
@@ -1518,6 +1533,7 @@
 				1892484D27F1F1AD00F1996C /* BoldLabel.swift in Sources */,
 				18E909E8281AC8010077516B /* VeteranGuardsmanAbilitieView.swift in Sources */,
 				186EFFF4281B0F3C006E86E9 /* AllegoryView.swift in Sources */,
+				18FEBC782872C36E004CE78B /* ParseJSON.swift in Sources */,
 				18D3B95027C18FA100B74C2D /* AdditionalVIew.swift in Sources */,
 				18A521C427C18BB6003A29DA /* EquipmentView.swift in Sources */,
 				18E909DE281A8EF20077516B /* ImperativeView.swift in Sources */,
@@ -1556,10 +1572,10 @@
 				186E0037281EE920006E86E9 /* CounterPointView.swift in Sources */,
 				1892482627EF06E800F1996C /* WeaponRuleButton.swift in Sources */,
 				18A5216127C17DF7003A29DA /* Store.swift in Sources */,
-				184EB2D3284F8F0E003B4232 /* updateUserKillTeam.swift in Sources */,
+				184EB2D3284F8F0E003B4232 /* UpdateUserKillTeam.swift in Sources */,
 				186E002B281C46EB006E86E9 /* ZoomAndSnapFlowLayout.swift in Sources */,
 				18A521C227C18B5E003A29DA /* CustomAlert.swift in Sources */,
-				1857E37527C575EF00FEFA76 /* ChoosenTacOpsPresenter.swift in Sources */,
+				1857E37527C575EF00FEFA76 /* ChosenTacOpsPresenter.swift in Sources */,
 				18E909E1281AA57B0077516B /* KillTeamAbilitieView.swift in Sources */,
 				181E3540284724DF002BB1BE /* UserSettings.swift in Sources */,
 				186E0031281C6FF5006E86E9 /* TextView.swift in Sources */,
@@ -1598,7 +1614,7 @@
 				18E909C528196DC70077516B /* Pathfinder.swift in Sources */,
 				18A521C027C18AFF003A29DA /* WeaponView.swift in Sources */,
 				18FFD4A32848A18200CAB341 /* CoachMarkRosterExtention.swift in Sources */,
-				1857E37327C574E600FEFA76 /* ChoosenTacOpsViewController.swift in Sources */,
+				1857E37327C574E600FEFA76 /* ChosenTacOpsViewController.swift in Sources */,
 				18A521B627C18A23003A29DA /* EditUnitModel.swift in Sources */,
 				18E9095828159F2B0077516B /* ChoosenTacOpView.swift in Sources */,
 				186E004028280C28006E86E9 /* CALayer.swift in Sources */,
@@ -1743,7 +1759,7 @@
 		};
 		18A5215A27C17D5C003A29DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A6194EA5B43216D04E42F8A4 /* Pods-KillTeamApplication.debug.xcconfig */;
+			baseConfigurationReference = 124C0A0EC62EEFBE7A63E1BA /* Pods-KillTeamApplication.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1763,7 +1779,7 @@
 		};
 		18A5215B27C17D5C003A29DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 12E8E43D6BC799897499ECD2 /* Pods-KillTeamApplication.release.xcconfig */;
+			baseConfigurationReference = 86F44FFFAA17E9569A5FB20C /* Pods-KillTeamApplication.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -15,7 +15,7 @@ protocol TacOpsViewControllerProtocol: AnyObject {
 }
 
 protocol TacOpsPresenterProtocol: AnyObject {
-    init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol, userSettings: UserSettingsProtocol)
+    init(view: TacOpsViewControllerProtocol, store: StoreProtocol, storage: StorageProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol, userSettings: UserSettingsProtocol)
     var view: TacOpsViewControllerProtocol? { get }
     var model: TacOpsModel { get }
     var userSettings: UserSettingsProtocol { get }
@@ -41,6 +41,8 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     var store: StoreProtocol
     
+    let storage: StorageProtocol
+    
     var router: TacOpsRouterProtocol
     
     var model = TacOpsModel()
@@ -49,16 +51,19 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     private var selectedTacOp: TacOp?
     
-    required init(view: TacOpsViewControllerProtocol, store: StoreProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol, userSettings: UserSettingsProtocol) {
+    required init(view: TacOpsViewControllerProtocol, store: StoreProtocol, storage: StorageProtocol, gameStore: GameStoreProtocol, router: TacOpsRouterProtocol, userSettings: UserSettingsProtocol) {
         self.view = view
         self.store = store
         self.gameStore = gameStore
         self.router = router
         self.userSettings = userSettings
+        self.storage = storage
         gameStore.multicastDelegate.addDelegate(self)
         store.multicastDelegate.addDelegate(self)
-        loadTacOps(tacOps: gameStore.tacOps)
-        model.currentDeck = model.seekAndDestroyDeck
+        storage.parseJson.parseTacOps { tacOps in
+            self.loadTacOps(tacOps: tacOps)
+            self.model.currentDeck = self.model.seekAndDestroyDeck
+        }
     }
     
 //MARK: - AddTacOpsFromStore
@@ -84,13 +89,13 @@ class TacOpsPresenter: TacOpsPresenterProtocol {
     
     private func prepareTacOp(tacOp: TacOp) -> TacOp {
         var tacOp = tacOp
-        tacOp.isCompleteConditions.append(false)
+        tacOp.isCompletedConditions.append(false)
         if tacOp.secondCondition != nil {
-            tacOp.isCompleteConditions.append(false)
+            tacOp.isCompletedConditions.append(false)
         }
-        if let subCondition = tacOp.subCondition {
+        if let subCondition = tacOp.subConditions {
             subCondition.forEach({ _ in
-                tacOp.isCompleteConditions.append(false)
+                tacOp.isCompletedConditions.append(false)
             })
         }
         return tacOp

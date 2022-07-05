@@ -23,7 +23,7 @@ protocol BuilderProtocol {
     func createKillTeamAbilitieModule(router: RouterProtocol) -> KillTeamAbilitieViewControllerProtocol
     
     func createTacOpsModule(router: RouterProtocol) -> TacOpsViewControllerProtocol
-    func createChoosenTacOpsModule(router: RouterProtocol) -> ChoosenTacOpsViewControllerProtocol
+    func createChoosenTacOpsModule(router: RouterProtocol) -> ChosenTacOpsViewControllerProtocol
     
     func createKillTeamImperativesList(router: RouterProtocol, delegate: ImperativeTableViewControllerDelegate) -> ImperativeTableViewController?
     func createKillTeamAllegoryList(router: RouterProtocol, delegate: AllegoryTableViewControllerDelegate) -> AllegoryTableViewController?
@@ -116,7 +116,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createPloysModule(router: RouterProtocol) -> PloysViewControllerProtocol {
         let view = PloysViewController()
-        let presenter = PloysPresenter(view: view, store: store, gameStore: gameStore, router: router as! PloysRouterProtocol, userSettings: userSettings)
+        let presenter = PloysPresenter(view: view, store: store, storage: storage, gameStore: gameStore, router: router as! PloysRouterProtocol, userSettings: userSettings)
         presenter.delegate = router as? PloysPresenterDelegate
         view.presenter = presenter
         return view
@@ -141,15 +141,15 @@ class ModuleBuilder: BuilderProtocol {
     
     func createTacOpsModule(router: RouterProtocol) -> TacOpsViewControllerProtocol {
         let view = TacOpsViewController()
-        let presenter = TacOpsPresenter(view: view, store: store, gameStore: gameStore, router: router as! TacOpsRouterProtocol, userSettings: userSettings)
+        let presenter = TacOpsPresenter(view: view, store: store, storage: storage, gameStore: gameStore, router: router as! TacOpsRouterProtocol, userSettings: userSettings)
         view.presenter = presenter
         presenter.delegate = router as? TacOpsPresenterDelegate
         return view
     }
 
-    func createChoosenTacOpsModule(router: RouterProtocol) -> ChoosenTacOpsViewControllerProtocol {
-        let view = ChoosenTacOpsViewController()
-        let presenter = ChoosenTacOpsPresenter(view: view, gameStore: gameStore, userSettings: userSettings)
+    func createChoosenTacOpsModule(router: RouterProtocol) -> ChosenTacOpsViewControllerProtocol {
+        let view = ChosenTacOpsViewController()
+        let presenter = ChosenTacOpsPresenter(view: view, gameStore: gameStore, userSettings: userSettings)
         view.presenter = presenter
         return view
     }
@@ -158,7 +158,7 @@ class ModuleBuilder: BuilderProtocol {
 
     func createKillTeamImperativesList(router: RouterProtocol, delegate: ImperativeTableViewControllerDelegate) -> ImperativeTableViewController? {
         guard let killTeam = store.getKillTeam(),
-              let abilitie = killTeam.abilitiesOfKillTeam as? HunterCladeAbilitie  else { return nil }
+              let abilitie = killTeam.abilityOfKillTeam as? HunterCladeAbility  else { return nil }
         let view = ImperativeTableViewController(gameStore: gameStore)
         view.imperative = abilitie.imperatives
         view.delegate = delegate
@@ -167,7 +167,7 @@ class ModuleBuilder: BuilderProtocol {
 
     func createKillTeamAllegoryList(router: RouterProtocol, delegate: AllegoryTableViewControllerDelegate) -> AllegoryTableViewController? {
         guard let killTeam = store.getKillTeam(),
-              let abilitie = killTeam.abilitiesOfKillTeam as? VoidDancerTroupeAbilitie else { return nil }
+              let abilitie = killTeam.abilityOfKillTeam as? VoidDancerTroupeAbility else { return nil }
         let view = AllegoryTableViewController(gameStore: gameStore)
         view.delegate = delegate
         view.allegory = abilitie.allegory
@@ -176,7 +176,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createChaosBlessingList(router: RouterProtocol, delegate: ChaosBlessingTableViewControllerDelegate) -> ChaosBlessingTableViewController? {
         guard let killTeam = store.getKillTeam(),
-              let abilitie = killTeam.abilitiesOfKillTeam as? LegionaryAbilitie else { return nil }
+              let abilitie = killTeam.abilityOfKillTeam as? LegionaryAbility else { return nil }
         let view = ChaosBlessingTableViewController()
         view.chaosBlessing = abilitie.chaosBlessings
         view.delegate = delegate
@@ -185,7 +185,7 @@ class ModuleBuilder: BuilderProtocol {
     
     func createBoonOfTzeenchTableViewController(router: RouterProtocol, delegate: BoonOfTzeenchTableViewControllerDelegate) -> BoonOfTzeenchTableViewController? {
         guard let killTeam = store.getKillTeam(),
-              let abilitie = killTeam.abilitiesOfKillTeam as? WarpcovenAbilitie else { return nil }
+              let abilitie = killTeam.abilityOfKillTeam as? WarpcovenAbility else { return nil }
         let view = BoonOfTzeenchTableViewController()
         view.addBoonOfTzeench(abilitie: abilitie)
         view.delegate = delegate

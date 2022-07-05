@@ -9,12 +9,14 @@ import Foundation
 
 protocol UnitAbilitieProtocol {
     var name: String { get }
+    var id: String { get }
     var description: String { get }
     var subText: [String]? { get }
 }
 
 struct UnitUniqueAction: Codable {
     let name: String
+    let id: String
     let cost: Int
     let description: String
     let subText: [String]?
@@ -24,6 +26,7 @@ struct UnitUniqueAction: Codable {
 
 struct UnitAbilitie: Codable, UnitAbilitieProtocol {
     let name: String
+    let id: String
     let description: String
     let subText: [String]?
 }

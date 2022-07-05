@@ -49,16 +49,16 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
 // MARK: - TableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.model.killTeam?.choosenFireTeam.count ?? 0
+        return presenter?.model.killTeam?.chosenFireTeams.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.model.killTeam?.choosenFireTeam[section].currentDataslates.count ?? 0
+        return presenter?.model.killTeam?.chosenFireTeams[section].currentDataslates.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: EditKillTeamCell.identifier, for: indexPath) as! EditKillTeamCell
-        guard let unit = presenter?.model.killTeam?.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] else { return UITableViewCell() }
+        guard let unit = presenter?.model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] else { return UITableViewCell() }
         cell.updateCell()
         cell.setupText(unit: unit)
         return cell
@@ -66,7 +66,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = TableHeaderView()
-        view.label.text = presenter?.model.killTeam?.choosenFireTeam[section].name
+        view.label.text = presenter?.model.killTeam?.chosenFireTeams[section].name
         return view
     }
     
@@ -83,7 +83,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let changeUnit = changeUnitAction(indexPath: indexPath)
         let renameUnit = renameUnitAction(indexPath: indexPath)
-        if presenter?.model.killTeam?.choosenFireTeam[indexPath.section].availableDataslates.count == 1 {
+        if presenter?.model.killTeam?.chosenFireTeams[indexPath.section].availableDataslates.count == 1 {
             return UISwipeActionsConfiguration(actions: [renameUnit])
         } else {
             return UISwipeActionsConfiguration(actions: [changeUnit, renameUnit])

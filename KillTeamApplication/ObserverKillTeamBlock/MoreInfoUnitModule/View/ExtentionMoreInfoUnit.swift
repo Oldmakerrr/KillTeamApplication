@@ -17,7 +17,7 @@ extension MoreInfoUnitViewController {
         unit.currentWounds = Int(stepper.value)
         currentWoundLabel.text = "Current wound: \(Int(stepper.value))"
         presenter?.model.choosenUnit? = unit
-        killTeam.choosenFireTeam[indexPath.section].currentDataslates[indexPath.row] = unit
+        killTeam.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] = unit
         presenter?.store.updateCurrentKillTeam(killTeam: killTeam)
         presenter?.model.killTeam = killTeam
     }
@@ -66,19 +66,19 @@ extension MoreInfoUnitViewController {
             setupAdditionalWeapon(unit: unit, type: .range)
         }
      
-        if let closeWeapon = unit.selectedCloseWeapon {
+        if let closeWeapon = unit.selectedMeleeWeapon {
             addHeaderView(text: "Wargear (Melee)")
             addWeaponView(weapon: closeWeapon)
             setupAdditionalWeapon(unit: unit, type: .close)
         }
         
-        if !unit.equipment.isEmpty {
-            addEquipmentView(equipments: unit.equipment)
+        if !unit.equipments.isEmpty {
+            addEquipmentView(equipments: unit.equipments)
         }
         if let abilities = unit.abilities {
-            addAbilitiesView(abilities: abilities, additionalAbilitie: unit.additionalAbilitie)
+            addAbilitiesView(abilities: abilities, additionalAbilitie: unit.additionalAbility)
         } else {
-            if let chaosBlessing = unit.additionalAbilitie as? UnitAbilitie {
+            if let chaosBlessing = unit.additionalAbility as? UnitAbilitie {
                 addHeaderView(text: "Abilities")
                 setupChaosBlessing(chaosBlessing: chaosBlessing)
             }
@@ -90,11 +90,11 @@ extension MoreInfoUnitViewController {
     }
     
     private func setupAdditionalWeapon(unit: Unit, type: WeaponType) {
-        guard let additionalWeapon = unit.additionalWeapon else { return }
+        guard let additionalWeapon = unit.additionalWeapons else { return }
         additionalWeapon.forEach { weapon in
             if weapon.type == type &&
                 weapon.name != unit.selectedRangeWeapon?.name &&
-                weapon.name != unit.selectedCloseWeapon?.name {
+                weapon.name != unit.selectedMeleeWeapon?.name {
                 addWeaponView(weapon: weapon)
             }
         }
@@ -107,7 +107,7 @@ extension MoreInfoUnitViewController {
         view.layer.applyCornerRadius()
         view.layer.masksToBounds = true
         view.setupText(wargear: weapon, delegate: self, viewWidth: view.getViewWidth())
-        guard let specialRule = weapon.specialRule, let availableWeapon = presenter?.model.choosenUnit?.availableWeapon else { return }
+        guard let specialRule = weapon.specialRules, let availableWeapon = presenter?.model.choosenUnit?.availableWeapons else { return }
         if specialRule.contains(where: { weaponSpecialRule in
             weaponSpecialRule.name == "Combi"
         }) || specialRule.contains(where: { weaponSpecialRule in
@@ -137,7 +137,7 @@ extension MoreInfoUnitViewController {
     
     private func addCurrentWoundView(unit: Unit) {
         let view = UIView()
-        currentWoundLabel.text = "Current wound: \(unit.currentWounds ?? unit.wounds)"
+        currentWoundLabel.text = "Current wound: \(unit.currentWounds)"
         currentWoundLabel.font = UIFont.boldSystemFont(ofSize: 22)
         stepper.addTarget(self, action: #selector(stepperAction), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -147,7 +147,7 @@ extension MoreInfoUnitViewController {
         stepper.translatesAutoresizingMaskIntoConstraints = false
         stepper.minimumValue = 0
         stepper.maximumValue = Double(unit.wounds)
-        stepper.value = Double(unit.currentWounds ?? unit.wounds)
+        stepper.value = Double(unit.currentWounds)
         stepper.stepValue = 1
         view.addSubview(currentWoundLabel)
         view.addSubview(stepper)
@@ -233,8 +233,8 @@ extension MoreInfoUnitViewController {
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: Constant.Size.Otstup.small),
-            contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -Constant.Size.Otstup.small)
+            contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: Constant.Size.EdgeInsets.small),
+            contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -Constant.Size.EdgeInsets.small)
         ])
         return backgroundView
     }

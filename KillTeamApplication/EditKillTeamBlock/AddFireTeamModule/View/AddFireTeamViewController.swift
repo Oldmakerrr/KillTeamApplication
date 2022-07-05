@@ -57,12 +57,12 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.model.killTeam?.fireTeam.count ?? 0
+        return presenter?.model.killTeam?.fireTeams.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AddFireTeamCell.identifier, for: indexPath) as! AddFireTeamCell
-        guard let fireTeam = presenter?.model.killTeam?.fireTeam[indexPath.row],
+        guard let fireTeam = presenter?.model.killTeam?.fireTeams[indexPath.row],
               let fireTeamCount = presenter?.model.counterFireteam[fireTeam.name] else { return UITableViewCell() }
         cell.countFireTeam = fireTeamCount
         cell.textLabel?.text = fireTeam.name

@@ -34,8 +34,6 @@ final class GameStoreMulticastDelegate<T> {
 
 protocol GameStoreProtocol: AnyObject {
     var multicastDelegate: GameStoreMulticastDelegate<GameStoreDelegate> { get }
-    var tacOps: [TacOp] { get }
-    func parseTacOps()
     func updateGameData(gameData: GameData)
     func getGameDate() -> GameData?
 }
@@ -62,14 +60,6 @@ final class GameStore: GameStoreProtocol {
     
     func updateGameData(gameData: GameData) {
         self.gameData = gameData
-    }
-    
-    var tacOps = [TacOp]()
-    
-    func parseTacOps() {
-        let path = Bundle.main.path(forResource: "TacOps", ofType: "json")
-        let jsonData = try? NSData(contentsOfFile: path!, options: NSData.ReadingOptions.mappedIfSafe)
-        tacOps = try! JSONDecoder().decode([TacOp].self, from: jsonData! as Data)
     }
     
 }

@@ -38,12 +38,12 @@ class LabelWithImageView: BaseView {
             label.topAnchor.constraint(equalTo: topAnchor),
             label.bottomAnchor.constraint(equalTo: bottomAnchor),
             label.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -Constant.Size.Otstup.normal)
+            label.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -Constant.Size.EdgeInsets.normal)
         ])
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: label.topAnchor),
             imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: Constant.Size.Otstup.normal),
+            imageView.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: Constant.Size.EdgeInsets.normal),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }

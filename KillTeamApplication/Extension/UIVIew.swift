@@ -91,4 +91,14 @@ extension UIView {
             self.transform = .identity
         }
     }
+    
+    func animateSelectView(scale: CGFloat = 0.97, completion: ((Bool) -> Void)?) {
+        UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseInOut) {
+            self.transform = CGAffineTransform(scaleX: scale, y: scale)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseOut, animations: {
+                self.transform = .identity
+            }, completion: completion)
+        }
+    }
 }

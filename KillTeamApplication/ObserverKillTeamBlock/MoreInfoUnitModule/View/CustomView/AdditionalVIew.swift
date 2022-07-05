@@ -31,10 +31,10 @@ class TextView: UIStackView {
         subView.backgroundColor = ColorScheme.shared.theme.viewBackground
         subView.addSubview(label)
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: subView.leadingAnchor, constant: Constant.Size.Otstup.normal),
-            label.topAnchor.constraint(equalTo: subView.topAnchor, constant: Constant.Size.Otstup.normal),
-            label.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: -Constant.Size.Otstup.normal),
-            label.bottomAnchor.constraint(equalTo: subView.bottomAnchor, constant: -Constant.Size.Otstup.normal)
+            label.leadingAnchor.constraint(equalTo: subView.leadingAnchor, constant: Constant.Size.EdgeInsets.normal),
+            label.topAnchor.constraint(equalTo: subView.topAnchor, constant: Constant.Size.EdgeInsets.normal),
+            label.trailingAnchor.constraint(equalTo: subView.trailingAnchor, constant: -Constant.Size.EdgeInsets.normal),
+            label.bottomAnchor.constraint(equalTo: subView.bottomAnchor, constant: -Constant.Size.EdgeInsets.normal)
 
         ])
     }

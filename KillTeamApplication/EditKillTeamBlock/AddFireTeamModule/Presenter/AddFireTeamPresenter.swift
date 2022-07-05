@@ -36,36 +36,25 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
         store.multicastDelegate.addDelegate(self)
     }
     
-    private func addCurrentWound(fireTeam: FireTeam) -> FireTeam {
-        var fireTeam = fireTeam
-        var availableDataslates = fireTeam.availableDataslates
-        var currentDataslates = fireTeam.currentDataslates
-        for (index, unit) in availableDataslates.enumerated() {
-            availableDataslates[index].currentWounds = unit.wounds
-        }
-        for (index, unit) in currentDataslates.enumerated() {
-            currentDataslates[index].currentWounds = unit.wounds
-        }
-        fireTeam.availableDataslates = availableDataslates
-        fireTeam.currentDataslates = currentDataslates
-        return fireTeam
-    }
-    
     private func addCounterFireTeam(killTeam: KillTeam) {
         model.counterFireteam = [String: Int]()
-        killTeam.fireTeam.forEach { fireTeam in
+        killTeam.fireTeams.forEach { fireTeam in
             model.counterFireteam[fireTeam.name] = 0
         }
-        killTeam.choosenFireTeam.forEach { fireTeam in
+        killTeam.chosenFireTeams.forEach { fireTeam in
             guard var fireTeamCount = model.counterFireteam[fireTeam.name] else { return }
             fireTeamCount += 1
             model.counterFireteam[fireTeam.name] = fireTeamCount
         }
     }
     
+    
+    
     private func addFireTeam(fireTeam: FireTeam) {
         guard var killTeam = model.killTeam else { return }
-        killTeam.choosenFireTeam.append(fireTeam)
+        var fireTeam = fireTeam
+        fireTeam.fillCurrentDataslates()
+        killTeam.chosenFireTeams.append(fireTeam)
         if var fireTeamCount = model.counterFireteam[fireTeam.name] {
             fireTeamCount += 1
             model.counterFireteam[fireTeam.name] = fireTeamCount
@@ -75,14 +64,14 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
     
     private func removeFireTeam(fireTeam: FireTeam) {
         guard let killTeam = model.killTeam else { return }
-        for (index, currentFireTeam) in killTeam.choosenFireTeam.enumerated() {
+        for (index, currentFireTeam) in killTeam.chosenFireTeams.enumerated() {
             if currentFireTeam == fireTeam {
-                model.killTeam?.choosenFireTeam[index].currentDataslates.forEach({ unit in
-                    unit.equipment.forEach { equipment in
+                model.killTeam?.chosenFireTeams[index].currentDataslates.forEach({ unit in
+                    unit.equipments.forEach { equipment in
                         model.killTeam?.countEquipmentPoint += equipment.cost
                     }
                 })
-                model.killTeam?.choosenFireTeam.remove(at: index)
+                model.killTeam?.chosenFireTeams.remove(at: index)
                 if var fireTeamCount = model.counterFireteam[fireTeam.name] {
                     fireTeamCount -= 1
                     model.counterFireteam[fireTeam.name] = fireTeamCount
@@ -104,11 +93,9 @@ extension AddFireTeamPresenter: StoreDelegate {
 extension AddFireTeamPresenter: AddFireTeamCellDelegate {
     func addFireTeam(_ cell: AddFireTeamCell, fireTeam: FireTeam) {
         guard let maxCountOfFireTeam = model.killTeam?.countOfFireTeam,
-              let countOfFireTeam = model.killTeam?.choosenFireTeam.count,
+              let countOfFireTeam = model.killTeam?.chosenFireTeams.count,
               let view = view as? UIViewController else { return }
         if countOfFireTeam < maxCountOfFireTeam {
-            var fireTeam = fireTeam
-            fireTeam = addCurrentWound(fireTeam: fireTeam)
             addFireTeam(fireTeam: fireTeam)
             if let killTeam = model.killTeam {
                 store.updateCurrentKillTeam(killTeam: killTeam)
