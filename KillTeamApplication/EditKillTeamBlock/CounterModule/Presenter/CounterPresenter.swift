@@ -159,7 +159,7 @@ class CounterPresenter: CounterPresenterProtocol {
     
     func addKillTeam(){
         if !storage.isKeysEmpty() {
-            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose existed", preferredStyle: .actionSheet)
+            let addKillTeamAlertController = UIAlertController(title: "Add Kill Team", message: "Create a new Kill Team or choose an existing one", preferredStyle: .actionSheet)
             let addNewKillTeamAlert = UIAlertAction(title: "Create", style: .default) { _ in
                 self.showChooseKillTeamTableViewController()
             }

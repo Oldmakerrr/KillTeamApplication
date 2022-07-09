@@ -134,7 +134,7 @@ extension TacOpsViewController {
 //MARK: - EditTacOpsDeck
     
     private func changeTacOpsAlert() {
-        let alertController = UIAlertController(title: "Choose Tac Ops type", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Choose your Tac Ops type", message: nil, preferredStyle: .actionSheet)
         let seekAndDestroy = UIAlertAction(title: "Seek & Destroy", style: .default) {[self] _ in
             presenter?.pickTacOps(sender: .seekAndDestroy, collectionView: tacOpsCollection)
             navigationItem.title = "Seek & Destroy"
@@ -151,12 +151,12 @@ extension TacOpsViewController {
             presenter?.pickTacOps(sender: .recon, collectionView: tacOpsCollection)
             navigationItem.title = "Recon"
         }
-        let cancle = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(seekAndDestroy)
         alertController.addAction(security)
         alertController.addAction(infiltration)
         alertController.addAction(recon)
-        alertController.addAction(cancle)
+        alertController.addAction(cancel)
         present(alertController, animated: true, completion: nil)
     }
     

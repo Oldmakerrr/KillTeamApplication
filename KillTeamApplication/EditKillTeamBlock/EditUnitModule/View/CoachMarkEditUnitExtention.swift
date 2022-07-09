@@ -16,17 +16,17 @@ extension EditUnitViewController: CoachMarksControllerDataSource, CoachMarksCont
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachView.bodyView.hintLabel.text = "Here you can see current number of Equipment Point"
+            coachView.bodyView.hintLabel.text = "Here you can see the current number of Equipment Point"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
             if let cell = tableView.cellForRow(at: IndexPath(item: 0, section: 0)) {
                 cell.animateSelect()
             }
-            coachView.bodyView.hintLabel.text = "Tap on cell - choose wargear"
+            coachView.bodyView.hintLabel.text = "Tap here to choose a wargear"
             coachView.bodyView.nextLabel.text = "Next"
         case 2:
             previewSwipeActions(message: " Info ", swipeDirection: .left, tableView: tableView)
-            coachView.bodyView.hintLabel.text = "Swipe left - more info about wargear"
+            coachView.bodyView.hintLabel.text = "Swipe left for more info about the wargear"
             coachView.bodyView.nextLabel.text = "Ok"
         default:
             break

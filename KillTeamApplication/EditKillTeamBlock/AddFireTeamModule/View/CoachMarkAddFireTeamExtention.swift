@@ -14,10 +14,10 @@ extension AddFireTeamViewController: CoachMarksControllerDataSource, CoachMarksC
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         switch index {
         case 0:
-            coachView.bodyView.hintLabel.text = "Here you can see Maximum number of Fire Team"
+            coachView.bodyView.hintLabel.text = "Here you can see the maximum number of Fire Teams that you can add"
             coachView.bodyView.nextLabel.text = "Next"
         case 1:
-            coachView.bodyView.hintLabel.text = "Here you can add and remove Fire Team, but sum of chosen Fire Teams can not be more than maximum number of Fire Team"
+            coachView.bodyView.hintLabel.text = "Here you can add and remove a Fire Team, but sum of chosen Fire Teams can not be more than the maximum number"
             coachView.bodyView.nextLabel.text = "OK"
         default:
             break
