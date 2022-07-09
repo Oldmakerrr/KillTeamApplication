@@ -21,8 +21,8 @@ extension EditKillTeamTableViewController {
     func checkTableViewState() {
         if presenter?.model.killTeam?.chosenFireTeams.count == 0 {
             setEmptyState(title: "No Fire Team",
-                          message: "Please add Fire Team",
-                          buttonTitle: "Add Fire Team",
+                          message: "Please add a Fire Team",
+                          buttonTitle: "Add a Fire Team",
                           delegate: presenter as? TableViewEmptyStateDelegate)
             addUnitOrFireTeamButton.removeFromSuperview()
         } else {
@@ -132,7 +132,7 @@ extension EditKillTeamTableViewController {
                 self.tableView.reloadData()
             }
         }
-        let cancel = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addTextField { [ weak self ] textField in
             guard let self = self else { return }
             textField.text = self.presenter?.getUnitName(indexPath: indexPath)

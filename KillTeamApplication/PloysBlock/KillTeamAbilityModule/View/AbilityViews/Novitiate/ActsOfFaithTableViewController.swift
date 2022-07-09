@@ -66,7 +66,7 @@ class ActsOfFaithTableViewController: UITableViewController {
             if let cell = tableView.cellForRow(at: indexPath) {
                 cell.shake()
             }
-            showToast(message: "You have not enough point")
+            showToast(message: "You don't have enough points")
         }
     }
     
