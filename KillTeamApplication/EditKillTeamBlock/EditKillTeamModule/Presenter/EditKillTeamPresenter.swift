@@ -197,7 +197,7 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
 //MARK: - EditKillTeam
     
     func renameKillTeamAlertController(view: UIViewController) {
-        let alert = UIAlertController(title: "Input name for your Kill Team", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Enter a name for your Kill Team", message: nil, preferredStyle: .alert)
         let renameAction = UIAlertAction(title: "Rename", style: .default) { [weak self] action in
             guard let self = self else { return }
             do {

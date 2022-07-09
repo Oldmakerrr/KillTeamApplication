@@ -57,7 +57,7 @@ class CurrentKillTeamView: UIView {
             nameLabel.text = customName
             factionNameLabel.text = killTeam?.killTeamName
         } else {
-            nameLabel.text = killTeam?.killTeamName ?? "Choose Kill Team"
+            nameLabel.text = killTeam?.killTeamName ?? "Choose a Kill Team"
             factionNameLabel.text = killTeam?.factionName ?? ""
         }
     }
@@ -79,7 +79,7 @@ class CurrentKillTeamView: UIView {
     private func setupLabel() {
         addSubview(nameLabel)
         addSubview(factionNameLabel)
-        nameLabel.text = "Choose Kill Team"
+        nameLabel.text = "Choose a Kill Team"
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.numberOfLines = 1
         NSLayoutConstraint.activate([
