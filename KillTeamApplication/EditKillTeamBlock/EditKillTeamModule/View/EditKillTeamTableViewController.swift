@@ -19,15 +19,7 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        navigationController?.navigationBar.isHidden = false
-        tableView.register(EditKillTeamCell.self, forCellReuseIdentifier: EditKillTeamCell.identifier)
-        setupTitleView(name: presenter?.model.killTeam?.userCustomName ?? presenter?.model.killTeam?.killTeamName)
-        addGestureToTitleView()
-        
-        coachMarksController.dataSource = self
-        coachMarksController.delegate = self
-        coachMarksController.animationDelegate = self
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,53 +38,17 @@ class EditKillTeamTableViewController: UITableViewController, EditKillTeamProtoc
         coachMarksController.stop(immediately: true)
     }
     
-// MARK: - TableViewDataSource
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.model.killTeam?.chosenFireTeams.count ?? 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.model.killTeam?.chosenFireTeams[section].currentDataslates.count ?? 0
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EditKillTeamCell.identifier, for: indexPath) as! EditKillTeamCell
-        guard let unit = presenter?.model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] else { return UITableViewCell() }
-        cell.updateCell()
-        cell.setupText(unit: unit)
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = TableHeaderView()
-        view.label.text = presenter?.model.killTeam?.chosenFireTeams[section].name
-        return view
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return Constant.Size.headerHeight
-    }
-    
-//MARK: - TableViewDelegate
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.goToEditUnitVC(indexPath: indexPath)
-    }
-    
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let changeUnit = changeUnitAction(indexPath: indexPath)
-        let renameUnit = renameUnitAction(indexPath: indexPath)
-        if presenter?.model.killTeam?.chosenFireTeams[indexPath.section].availableDataslates.count == 1 {
-            return UISwipeActionsConfiguration(actions: [renameUnit])
-        } else {
-            return UISwipeActionsConfiguration(actions: [changeUnit, renameUnit])
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let removeUnit = removeUnitAction(indexPath: indexPath, section: IndexSet(arrayLiteral: indexPath.section), tableView: tableView)
-        return UISwipeActionsConfiguration(actions: [removeUnit])
+    private func configure() {
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        navigationController?.navigationBar.isHidden = false
+        tableView.register(EditKillTeamCell.self, forCellReuseIdentifier: EditKillTeamCell.identifier)
+        setupTitleView(name: presenter?.model.killTeam?.userCustomName ?? presenter?.model.killTeam?.killTeamName)
+        addGestureToTitleView()
+        tableView.delegate = presenter as? UITableViewDelegate
+        tableView.dataSource = presenter as? UITableViewDataSource
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
     }
 
 }

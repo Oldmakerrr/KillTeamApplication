@@ -12,6 +12,7 @@ protocol EditUnitViewControllerProtocol: AnyObject {
     var countOfEquipmentPointLabel: BoldLabel { get }
     var chaosBlessingButton: UIButton? { get }
     func showChooseAbilitieAlert(title: String)
+    func showMoreInfo(AboutWargear wargear: Wargear)
 }
 
 protocol EditUnitPresenterProtocol: AnyObject {
@@ -31,7 +32,7 @@ protocol EditUnitPresenterDelegate: AnyObject {
     func didComplete(_ editUnitPresenter: EditUnitPresenter)
 }
 
-class EditUnitPresenter: EditUnitPresenterProtocol {
+class EditUnitPresenter: NSObject, EditUnitPresenterProtocol {
     
     weak var delegate: EditUnitPresenterDelegate?
     
@@ -52,6 +53,7 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         self.view = view
         self.store = store
         self.userSettings = userSettings
+        super.init()
         self.store.multicastDelegate.addDelegate(self)
         self.model.indexPathUnit = store.indexOfChoosenUnit
         prepareModel()
@@ -164,6 +166,18 @@ class EditUnitPresenter: EditUnitPresenterProtocol {
         }
     }
     
+    func addSwipeAction(indexPath: IndexPath) -> UISwipeActionsConfiguration {
+        let action = UIContextualAction(style: .normal, title: "More info") { _, _, complition in
+            let wargear = self.model.wargear[indexPath.section][indexPath.row]
+            self.view?.showMoreInfo(AboutWargear: wargear)
+            complition(true)
+        }
+        action.backgroundColor = ColorScheme.shared.theme.swipeInfoAction
+        action.title = "Info"
+        action.image = UIImage(systemName: "info.circle.fill")
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
 }
 
 extension EditUnitPresenter: StoreDelegate {
@@ -204,3 +218,62 @@ extension EditUnitPresenter: BoonOfTzeenchTableViewControllerDelegate {
     
     
 }
+
+//MARK: - UITableView Delegate/DataSource
+
+extension EditUnitPresenter: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return model.wargear.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return model.wargear[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = TableHeaderView()
+        view.label.text = model.headerForRow[section]
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        Constant.Size.headerHeight
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let weaponCell = tableView.dequeueReusableCell(withIdentifier: EditUnitWargearCell.identifier) as! EditUnitWargearCell
+        let equipmentCell = tableView.dequeueReusableCell(withIdentifier: EditUnitEquipmentCell.identifier) as! EditUnitEquipmentCell
+        let wargear = model.wargear[indexPath.section]
+            if let weapon = wargear as? [Weapon] {
+                weaponCell.wargear = weapon[indexPath.row]
+                weaponCell.unit = model.currentUnit
+                weaponCell.setupText(weapon: weapon[indexPath.row])
+                return weaponCell
+            }
+            if let equipment = wargear as? [Equipment] {
+                equipmentCell.setupText(equipment: equipment[indexPath.row])
+                equipmentCell.equipment = equipment[indexPath.row]
+                equipmentCell.unit = model.currentUnit
+                return equipmentCell
+            }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Constant.Size.cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return addSwipeAction(indexPath: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let wargear = model.wargear[indexPath.section][indexPath.row]
+        selectCell(wargear: wargear)
+        tableView.reloadData()
+    }
+    
+}
+
+

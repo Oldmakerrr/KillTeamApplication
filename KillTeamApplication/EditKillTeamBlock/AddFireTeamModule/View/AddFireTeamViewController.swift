@@ -18,13 +18,7 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
-        tableView.register(AddFireTeamCell.self, forCellReuseIdentifier: AddFireTeamCell.identifier)
-        setupViewsOnNavigationBar()
-        
-        coachMarksController.dataSource = self
-        coachMarksController.delegate = self
-        coachMarksController.animationDelegate = self
+        configure()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -35,6 +29,18 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.clearNavigationBar()
         coachMarksController.stop(immediately: true)
+    }
+    
+    private func configure() {
+        view.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
+        tableView.register(AddFireTeamCell.self, forCellReuseIdentifier: AddFireTeamCell.identifier)
+        setupViewsOnNavigationBar()
+        tableView.delegate = presenter as? UITableViewDelegate
+        tableView.dataSource = presenter as? UITableViewDataSource
+        coachMarksController.dataSource = self
+        coachMarksController.delegate = self
+        coachMarksController.animationDelegate = self
+
     }
     
     private func setupViewsOnNavigationBar() {
@@ -50,28 +56,5 @@ class AddFireTeamViewController: UITableViewController, AddFireTeamTableVCProtoc
         }
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.model.killTeam?.fireTeams.count ?? 0
-    }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: AddFireTeamCell.identifier, for: indexPath) as! AddFireTeamCell
-        guard let fireTeam = presenter?.model.killTeam?.fireTeams[indexPath.row],
-              let fireTeamCount = presenter?.model.counterFireteam[fireTeam.name] else { return UITableViewCell() }
-        cell.countFireTeam = fireTeamCount
-        cell.textLabel?.text = fireTeam.name
-        cell.delegate = presenter as? AddFireTeamCellDelegate
-        cell.fireTeam = fireTeam
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constant.Size.cellHeight
-    }
 }

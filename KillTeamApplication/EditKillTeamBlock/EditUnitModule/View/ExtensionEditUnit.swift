@@ -38,9 +38,25 @@ extension EditUnitViewController {
     
 //MARK: - Methods
     
+    func setupUnitNameLabelView() {
+        guard let unit = presenter?.model.currentUnit else { return }
+        view.addSubview(unitNameLabelView)
+        unitNameLabelView.setupText(text: unit.customName ?? unit.name)
+        unitNameLabelView.label.textColor = .white
+        unitNameLabelView.label.numberOfLines = 1
+        unitNameLabelView.label.adjustsFontSizeToFitWidth = true
+        unitNameLabelView.label.textAlignment = .center
+        NSLayoutConstraint.activate([
+            unitNameLabelView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            unitNameLabelView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            unitNameLabelView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            unitNameLabelView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
     func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
+        tableView.dataSource = presenter as? UITableViewDataSource
+        tableView.delegate = presenter as? UITableViewDelegate
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = ColorScheme.shared.theme.viewControllerBackground
         view.addSubview(tableView)
@@ -73,25 +89,17 @@ extension EditUnitViewController {
         view.layer.masksToBounds = true
     }
     
-    func addSwipeAction(indexPath: IndexPath) -> UISwipeActionsConfiguration {
-        let action = UIContextualAction(style: .normal, title: "More info") { _, _, complition in
-            guard let wargear = self.presenter?.model.wargear[indexPath.section][indexPath.row] else { return }
-            if let weapon = wargear as? Weapon {
-                let view = WeaponView()
-                self.showAlert(alertView: view)
-                self.setupWargearView(view: view, wargear: weapon, delegate: self, viewWidth: view.getViewWidth())
-            }
-            if let equipment = wargear as? Equipment {
-                let view = EquipmentView()
-                self.showAlert(alertView: view)
-                self.setupWargearView(view: view, wargear: equipment, delegate: self, viewWidth: view.getViewWidth())
-            }
-            complition(true)
+    func showMoreInfo(AboutWargear wargear: Wargear) {
+        if let weapon = wargear as? Weapon {
+            let view = WeaponView()
+            self.showAlert(alertView: view)
+            self.setupWargearView(view: view, wargear: weapon, delegate: self, viewWidth: view.getViewWidth())
         }
-        action.backgroundColor = ColorScheme.shared.theme.swipeInfoAction
-        action.title = "Info"
-        action.image = UIImage(systemName: "info.circle.fill")
-        return UISwipeActionsConfiguration(actions: [action])
+        if let equipment = wargear as? Equipment {
+            let view = EquipmentView()
+            self.showAlert(alertView: view)
+            self.setupWargearView(view: view, wargear: equipment, delegate: self, viewWidth: view.getViewWidth())
+        }
     }
 }
 

@@ -99,6 +99,7 @@
 		18A521C227C18B5E003A29DA /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521C127C18B5E003A29DA /* CustomAlert.swift */; };
 		18A521C427C18BB6003A29DA /* EquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A521C327C18BB6003A29DA /* EquipmentView.swift */; };
 		18A61A0728740ABA00BAAD96 /* TacOps.json in Resources */ = {isa = PBXBuildFile; fileRef = 18A61A0628740ABA00BAAD96 /* TacOps.json */; };
+		18A61A0928747C6300BAAD96 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A61A0828747C6300BAAD96 /* TableHeaderView.swift */; };
 		18CF2827284023C800E81A2E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF2826284023C800E81A2E /* UIViewController.swift */; };
 		18CF2829284023F600E81A2E /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF2828284023F600E81A2E /* UITableViewCell.swift */; };
 		18CF282B2840244100E81A2E /* TableViewEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF282A2840244100E81A2E /* TableViewEmptyState.swift */; };
@@ -276,6 +277,7 @@
 		18A521C127C18B5E003A29DA /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		18A521C327C18BB6003A29DA /* EquipmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentView.swift; sourceTree = "<group>"; };
 		18A61A0628740ABA00BAAD96 /* TacOps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TacOps.json; sourceTree = "<group>"; };
+		18A61A0828747C6300BAAD96 /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		18CF2826284023C800E81A2E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		18CF2828284023F600E81A2E /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		18CF282A2840244100E81A2E /* TableViewEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewEmptyState.swift; sourceTree = "<group>"; };
@@ -786,8 +788,8 @@
 			isa = PBXGroup;
 			children = (
 				18A521B927C18A90003A29DA /* EditUnitViewController.swift */,
-				181E35472847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift */,
 				18E90898280318C60077516B /* ExtensionEditUnit.swift */,
+				181E35472847B9BC002BB1BE /* CoachMarkEditUnitExtention.swift */,
 				18503FD727EB859300B62DB1 /* Cell */,
 			);
 			path = View;
@@ -1114,6 +1116,7 @@
 			children = (
 				1810011B27EB633B00A18B1B /* HeaderView.swift */,
 				18CF282A2840244100E81A2E /* TableViewEmptyState.swift */,
+				18A61A0828747C6300BAAD96 /* TableHeaderView.swift */,
 				18CF282C2840248500E81A2E /* ToastTextView.swift */,
 				186E0030281C6FF5006E86E9 /* TextView.swift */,
 				186E00382825103E006E86E9 /* ButtonView.swift */,
@@ -1623,6 +1626,7 @@
 				186E0045282A4D4B006E86E9 /* Storage.swift in Sources */,
 				18E909DA281A8E530077516B /* ActOfFateView.swift in Sources */,
 				18E909C128194A480077516B /* Warpcoven.swift in Sources */,
+				18A61A0928747C6300BAAD96 /* TableHeaderView.swift in Sources */,
 				18497F9F284CB3230046CA39 /* UINavigationBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1764,14 +1768,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X76643KRX5;
+				DEVELOPMENT_TEAM = 7L552PX75S;
 				INFOPLIST_FILE = KillTeamApplication/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Project.KillTeamApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vladimirberezin.killteamapplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1785,14 +1789,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X76643KRX5;
+				DEVELOPMENT_TEAM = 7L552PX75S;
 				INFOPLIST_FILE = KillTeamApplication/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = Project.KillTeamApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vladimirberezin.killteamapplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

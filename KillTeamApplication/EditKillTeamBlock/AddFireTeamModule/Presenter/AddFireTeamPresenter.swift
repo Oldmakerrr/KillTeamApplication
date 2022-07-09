@@ -19,7 +19,7 @@ protocol AddFireTeamPresenterProtocol: AnyObject {
     init(view: AddFireTeamTableVCProtocol, store: StoreProtocol, userSettings: UserSettingsProtocol)
 }
 
-class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
+class AddFireTeamPresenter: NSObject, AddFireTeamPresenterProtocol {
     
     weak var view: AddFireTeamTableVCProtocol?
     
@@ -33,6 +33,7 @@ class AddFireTeamPresenter: AddFireTeamPresenterProtocol {
         self.view = view
         self.store = store
         self.userSettings = userSettings
+        super.init()
         store.multicastDelegate.addDelegate(self)
     }
     
@@ -115,4 +116,33 @@ extension AddFireTeamPresenter: AddFireTeamCellDelegate {
         cell.countFireTeam = fireTeamCount
         store.updateCurrentKillTeam(killTeam: killTeam)
     }
+}
+
+//MARK: - UITableView Delegate/DataSource
+
+extension AddFireTeamPresenter: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return model.killTeam?.fireTeams.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: AddFireTeamCell.identifier, for: indexPath) as! AddFireTeamCell
+        guard let fireTeam = model.killTeam?.fireTeams[indexPath.row],
+              let fireTeamCount = model.counterFireteam[fireTeam.name] else { return UITableViewCell() }
+        cell.countFireTeam = fireTeamCount
+        cell.textLabel?.text = fireTeam.name
+        cell.delegate = self
+        cell.fireTeam = fireTeam
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return Constant.Size.cellHeight
+    }
+    
 }
