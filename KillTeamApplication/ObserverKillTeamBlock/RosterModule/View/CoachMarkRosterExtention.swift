@@ -13,7 +13,7 @@ extension RosterTableViewController: CoachMarksControllerDataSource, CoachMarksC
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
         let coachView = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
         tableView.cellForRow(at: IndexPath(item: 0, section: 0))?.animateSelect()
-        coachView.bodyView.hintLabel.text = "Tap on cell - get more info about unit"
+        coachView.bodyView.hintLabel.text = "Tap here to get more info about the unit"
         coachView.bodyView.nextLabel.text = "OK"
         return (bodyView: coachView.bodyView, arrowView: coachView.arrowView)
     }
