@@ -134,7 +134,8 @@ extension TacOpsViewController: UICollectionViewDelegateFlowLayout {
 
 extension TacOpsViewController: TacOpsCollectionCellButtonDelegate {
     func didSelect(_ cell: TacOpsCollectionCell) {
-        showAlert(tacOp: cell.tacOp!)
+        guard let tacOp = cell.tacOp else { return }
+        showAlert(tacOp: tacOp)
     }
 }
 

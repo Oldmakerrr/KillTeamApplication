@@ -105,6 +105,7 @@ extension CounterViewController {
         currentKillTeamView.delegate = presenter as? CurrentKillTeamViewDelegate
         commandPoint.delegate = presenter as? CounterPointViewDelegate
         victoryPoint.delegate = presenter as? CounterPointViewDelegate
+        customAlert.delegate = self
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
         coachMarksController.animationDelegate = self

@@ -37,6 +37,7 @@ class EditUnitViewController: UIViewController, EditUnitViewControllerProtocol {
         setupViewsOnNavigationBar()
         registerCell()
         
+        customAlert.delegate = self
         coachMarksController.dataSource = self
         coachMarksController.delegate = self
         coachMarksController.animationDelegate = self
@@ -89,6 +90,12 @@ extension EditUnitViewController: WeaponViewDelegate {
 
 extension EditUnitViewController: EquipmentViewDelegate {
     func didComplete(_ equipmentView: EquipmentView) {
+        dismissAlert()
+    }
+}
+
+extension EditUnitViewController: CustomScrollAlertDelegate {
+    func didComplete(_ customScrollAlert: CustomScrollAlert) {
         dismissAlert()
     }
 }

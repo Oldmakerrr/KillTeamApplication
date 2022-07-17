@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol CustomScrollAlertDelegate: AnyObject {
+    func didComplete(_ customScrollAlert: CustomScrollAlert)
+}
+
 class CustomScrollAlert {
     
     let backgroundAlphaTo: CGFloat = 0.6
@@ -17,6 +21,8 @@ class CustomScrollAlert {
                                y: UIScreen.main.bounds.height/2)
     
     weak var targetViewController: UIViewController?
+    
+    weak var delegate: CustomScrollAlertDelegate?
     
     private let backgrowndView: UIView = {
         let backgrounView = UIView()
@@ -28,7 +34,7 @@ class CustomScrollAlert {
     private var scrollView = UIScrollView()
 
     init() {
-        addGesture()
+        addGesture(to: backgrowndView)
     }
     
     func showAlert(alertView: UIView, targetViewController: UIViewController) {
@@ -39,6 +45,7 @@ class CustomScrollAlert {
         guard let targetView = targetViewController.view else { return }
         
         scrollView = UIScrollView()
+        addGesture(to: scrollView)
         scrollView.layer.applyCornerRadius()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -77,17 +84,14 @@ class CustomScrollAlert {
         })
     }
     
-    private func addGesture() {
+    private func addGesture(to view: UIView) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(gestureAction))
         tapGesture.numberOfTouchesRequired = 1
-        backgrowndView.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)
     }
     
     @objc private func gestureAction() {
-        self.dismissAlert()
-        if let tableViewController = targetViewController as? UITableViewController {
-            tableViewController.tableView.isScrollEnabled = true
-        }
+        delegate?.didComplete(self)
     }
     
     private func setupAlertViewToScrollView(_ alertView: UIView) {

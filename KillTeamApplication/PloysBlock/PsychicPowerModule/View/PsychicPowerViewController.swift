@@ -18,7 +18,7 @@ class PsychicPowerViewController: UIViewController, PsychicPowerViewControllerPr
     }()
     let scrollView = UIScrollView()
     var currentPsychicPowerView = [UIView]()
-    let customAlert = CustomScrollAlert()
+//    let customAlert = CustomScrollAlert()
     
     override func viewDidLoad() {
         super.viewDidLoad()
