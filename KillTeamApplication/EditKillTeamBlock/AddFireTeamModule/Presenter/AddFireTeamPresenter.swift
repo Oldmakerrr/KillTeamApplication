@@ -101,6 +101,7 @@ extension AddFireTeamPresenter: AddFireTeamCellDelegate {
             if let killTeam = model.killTeam {
                 store.updateCurrentKillTeam(killTeam: killTeam)
             }
+            view.showToast(message: "Fire Team successfully added")
         } else {
             view.showToast(message: "You have the maximum number of Fire Team")
         }
@@ -112,8 +113,10 @@ extension AddFireTeamPresenter: AddFireTeamCellDelegate {
     func removeFireTeam(_ cell: AddFireTeamCell, fireTeam: FireTeam) {
         removeFireTeam(fireTeam: fireTeam)
         guard let killTeam = model.killTeam,
-              let fireTeamCount = model.counterFireteam[fireTeam.name] else { return }
+              let fireTeamCount = model.counterFireteam[fireTeam.name],
+              let view = view as? UIViewController else { return }
         cell.countFireTeam = fireTeamCount
+        view.showToast(message: "Fire Team successfully removed")
         store.updateCurrentKillTeam(killTeam: killTeam)
     }
 }

@@ -35,6 +35,7 @@ extension UIViewController {
     }
     
     func showToast(message : String) {
+        view.subviews.first(where: { $0 is ToastTextView})?.removeFromSuperview()
         let toastView = ToastTextView(message: message, blureStyle: .dark)
         self.view.addSubview(toastView)
         NSLayoutConstraint.activate([

@@ -127,13 +127,22 @@ class EditUnitPresenter: NSObject, EditUnitPresenterProtocol {
     
     func selectCell(wargear: Wargear) {
         guard var unit = model.currentUnit,
-              var killTeam = model.killTeam else { return }
+              var killTeam = model.killTeam,
+              let view = view as? UIViewController else { return }
         if let weapon = wargear as? Weapon {
             switch weapon.type {
             case .range:
-                unit.selectedRangeWeapon = weapon
+                if unit.selectedRangeWeapon == weapon {
+                    view.showToast(message: "The \(weapon.name) has already been selected")
+                } else {
+                    unit.selectedRangeWeapon = weapon
+                }
             case .close:
-                unit.selectedMeleeWeapon = weapon
+                if unit.selectedMeleeWeapon == weapon {
+                    view.showToast(message: "The \(weapon.name) has already been selected")
+                } else {
+                    unit.selectedMeleeWeapon = weapon
+                }
             }
         }
         if let equipment = wargear as? Equipment {
