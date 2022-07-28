@@ -15,12 +15,20 @@ class CurrentKillTeamView: UIView {
     
     weak var delegate: CurrentKillTeamViewDelegate?
     
-    let nameLabel = HeaderLabel()
+    let nameLabel: HeaderLabel = {
+        let label = HeaderLabel()
+        label.text = "Choose a Kill Team"
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.boldSystemFont(ofSize: Constant.Size.screenHeight * 0.03)
+        label.numberOfLines = 1
+        return label
+    }()
+    
     let factionNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = ColorScheme.shared.theme.textNormal
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: Constant.Size.screenHeight * 0.03)
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
         return label
@@ -77,23 +85,16 @@ class CurrentKillTeamView: UIView {
     }
     
     private func setupLabel() {
-        addSubview(nameLabel)
-        addSubview(factionNameLabel)
-        nameLabel.text = "Choose a Kill Team"
-        nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.numberOfLines = 1
+        let stackView = UIStackView(arrangedSubviews: [nameLabel, factionNameLabel])
+        addSubview(stackView)
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nameLabel.leadingAnchor.constraint(equalTo: killTeamLogo.trailingAnchor, constant: Constant.Size.screenWidth * 0.036),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.screenWidth * 0.036),
-            nameLabel.topAnchor.constraint(equalTo: killTeamLogo.topAnchor, constant: Constant.Size.screenHeight * 0.013),
-            nameLabel.bottomAnchor.constraint(lessThanOrEqualTo: killTeamLogo.bottomAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            factionNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            factionNameLabel.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-            factionNameLabel.bottomAnchor.constraint(equalTo: killTeamLogo.bottomAnchor, constant: -Constant.Size.screenHeight * 0.013),
-            factionNameLabel.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor)
+            stackView.leadingAnchor.constraint(equalTo: killTeamLogo.trailingAnchor, constant: Constant.Size.screenWidth * 0.036),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constant.Size.screenWidth * 0.036),
+            stackView.topAnchor.constraint(equalTo: killTeamLogo.topAnchor, constant: Constant.Size.screenHeight * 0.0075),
+            stackView.bottomAnchor.constraint(equalTo: killTeamLogo.bottomAnchor, constant: -Constant.Size.screenHeight * 0.0075)
         ])
     }
     
@@ -111,8 +112,6 @@ class CurrentKillTeamView: UIView {
             killTeamLogo.widthAnchor.constraint(equalTo: killTeamLogo.heightAnchor),
             killTeamLogo.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-        
     }
-    
     
 }

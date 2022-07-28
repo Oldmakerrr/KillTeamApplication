@@ -29,7 +29,7 @@ extension CounterViewController {
             currentStrategicPloysButton.isHidden = false
         }
         if ploys.count == 1 {
-            currentStrategicPloysButton.setTitle(ploys.first?.name ?? "Current Strategic Ploys", for: .normal)
+            currentStrategicPloysButton.setTitle(ploys.first?.name.capitalized ?? "Current Strategic Ploys", for: .normal)
 
         } else {
             currentStrategicPloysButton.setTitle("Current Strategic Ploys", for: .normal)
@@ -151,8 +151,8 @@ extension CounterViewController {
     func setupSubView() {
         setupCurrentKillTeamView()
         setupStackView()
-        setupAbilitieButton()
         setupChangeTurnButtons()
+        setupAbilitieButton()
         setupCurrentPloysButton()
     }
     
@@ -186,23 +186,27 @@ extension CounterViewController {
     
     private func setupAbilitieButton() {
         view.addSubview(currentAbilitieButton)
+        endGameButton.layoutIfNeeded()
+        let height = endGameButton.frame.height
         currentAbilitieButton.addTarget(self, action: #selector(abilitieViewAction), for: .touchUpInside)
         NSLayoutConstraint.activate([
             currentAbilitieButton.topAnchor.constraint(equalTo: counterLabelsStackView.bottomAnchor, constant: Constant.Size.screenHeight * 0.025),
             currentAbilitieButton.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor),
             currentAbilitieButton.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
-            currentAbilitieButton.heightAnchor.constraint(equalToConstant: Constant.Size.screenHeight * 0.06),
+            currentAbilitieButton.heightAnchor.constraint(equalToConstant: height),
             currentAbilitieButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
     private func setupCurrentPloysButton() {
         view.addSubview(currentStrategicPloysButton)
+        endGameButton.layoutIfNeeded()
+        let height = endGameButton.frame.height
         currentStrategicPloysButton.addTarget(self, action: #selector(moreInfoCurrentPloys), for: .touchUpInside)
         NSLayoutConstraint.activate([
             currentStrategicPloysButton.topAnchor.constraint(equalTo: currentAbilitieButton.bottomAnchor, constant: Constant.Size.screenHeight * 0.025),
             currentStrategicPloysButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            currentStrategicPloysButton.heightAnchor.constraint(equalToConstant: Constant.Size.screenHeight * 0.06)
+            currentStrategicPloysButton.heightAnchor.constraint(equalToConstant: height)
         ])
     }
     
@@ -218,7 +222,7 @@ extension CounterViewController {
             endGameButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Constant.Size.screenHeight * 0.05),
             endGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             endGameButton.widthAnchor.constraint(equalToConstant: Constant.Size.screenWidth * 0.3),
-            endGameButton.heightAnchor.constraint(equalTo: endGameButton.widthAnchor, multiplier: 0.3),
+            endGameButton.heightAnchor.constraint(equalTo: endGameButton.widthAnchor, multiplier: 0.35),
             endGameButton.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
             
             nextTurnButton.bottomAnchor.constraint(equalTo: endGameButton.bottomAnchor, constant: -Constant.Size.screenHeight * 0.1),
