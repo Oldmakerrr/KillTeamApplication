@@ -203,9 +203,10 @@ class EditKillTeamPresenter: NSObject, EditKillTeamPresenterProtocol {
     func renameKillTeamAlertController(view: UIViewController) {
         let alert = UIAlertController(title: "Enter a name for your Kill Team", message: nil, preferredStyle: .alert)
         let renameAction = UIAlertAction(title: "Rename", style: .default) { [weak self] action in
-            guard let self = self else { return }
+            guard let self = self,
+                  let killTeamName = self.model.killTeam?.killTeamName else { return }
             do {
-                if let text = try alert.inputText() {
+                if let text = try alert.inputText(maxTextLength: killTeamName.count + 15) {
                     self.model.killTeam?.userCustomName = text
                     self.view?.customTitleView.setupText(text: text)
                     self.store.updateCurrentKillTeam(killTeam: self.model.killTeam!)

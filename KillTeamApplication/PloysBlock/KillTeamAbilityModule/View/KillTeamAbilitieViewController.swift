@@ -52,6 +52,10 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
             contentView = setupLegionaryAbilitie(abilitie: legionaryAbilitie)
         }
         
+        if let bloodedAbility = abilitie as? BloodedAbility {
+            contentView = setupBloodedAbility(ability: bloodedAbility)
+        }
+        
         if let warpcovenAbilitie = abilitie as? WarpcovenAbility {
             contentView = setupWarpcovenAbilitie(abilitie: warpcovenAbilitie)
         }
@@ -108,6 +112,12 @@ class KillTeamAbilitieViewController: UIViewController, KillTeamAbilitieViewCont
         let image = UIImage(named: "killTeamViewController")
         view.addRightBurButtonItem(navigationItem: navigationItem,
                                    image: image)
+        return view
+    }
+    
+    private func setupBloodedAbility(ability: BloodedAbility) -> UIStackView {
+        let view = BloodedAbilityView()
+        view.setupAbility(ability: ability)
         return view
     }
     

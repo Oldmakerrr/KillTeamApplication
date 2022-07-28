@@ -125,11 +125,15 @@ extension EditKillTeamTableViewController {
                                       message: "Input new name for this unit",
                                       preferredStyle: .alert)
         let actionRename = UIAlertAction(title: "Rename", style: .default) { [weak self] action in
-            guard let self = self else { return }
-            let textField = alert.textFields?.first
-            if let newName = textField?.text {
-                self.presenter?.changeUnitName(name: newName, indexPath: indexPath)
-                self.tableView.reloadData()
+            guard let self = self,
+                  let unit = self.presenter?.model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] else { return }
+            do {
+                if let newName = try alert.inputText(maxTextLength: unit.name.count + 15) {
+                    self.presenter?.changeUnitName(name: newName, indexPath: indexPath)
+                    self.tableView.reloadData()
+                }
+            } catch {
+                print(error)
             }
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

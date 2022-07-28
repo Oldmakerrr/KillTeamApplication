@@ -65,6 +65,9 @@ struct KillTeam: Codable {
         if let legionaryAbility = try? abilityOfKillTeam.decode(LegionaryAbility.self, forKey: .abilityOfKillTeam) {
             self.abilityOfKillTeam = legionaryAbility
         }
+        if let bloodedAbility = try? abilityOfKillTeam.decode(BloodedAbility.self, forKey: .abilityOfKillTeam) {
+            self.abilityOfKillTeam = bloodedAbility
+        }
         if let warpcovenAbility = try? abilityOfKillTeam.decode(WarpcovenAbility.self, forKey: .abilityOfKillTeam) {
             self.abilityOfKillTeam = warpcovenAbility
         }
@@ -126,6 +129,9 @@ struct KillTeam: Codable {
         }
         if let legionaryAbility = self.abilityOfKillTeam as? LegionaryAbility {
             try abilityOfKillTeam.encode(legionaryAbility, forKey: .abilityOfKillTeam)
+        }
+        if let bloodedAbility = self.abilityOfKillTeam as? BloodedAbility {
+            try abilityOfKillTeam.encode(bloodedAbility, forKey: .abilityOfKillTeam)
         }
         if let warpcovenAbility = self.abilityOfKillTeam as? WarpcovenAbility {
             try abilityOfKillTeam.encode(warpcovenAbility, forKey: .abilityOfKillTeam)
