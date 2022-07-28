@@ -44,15 +44,22 @@ class TextView: UIStackView {
 
 class CharacteristicsViewWithoutImage: UIStackView {
     
-    private let characteristic: [[String : String]]
+    private let characteristicValue: [[String]]
+    private let characteristicName = [["M","APL","GA"],["DF","SV","W"]]
     
     init(unit: Unit) {
-        characteristic = [["M":"\(unit.movement)",
-                          "APL":"\(unit.actionPointLimit)",
-                          "GA":"\(unit.groupActivation)"],
-                          ["DF":"\(unit.defense)",
-                          "SV":"\(unit.save)+",
-                          "W":"\(unit.wounds)"]]
+        var array = [[String]]()
+        var firstArray = [String]()
+        var secondArray = [String]()
+        firstArray.append("\(unit.movement * 2)'")
+        firstArray.append(String(unit.actionPointLimit))
+        firstArray.append(String(unit.groupActivation))
+        secondArray.append(String(unit.defense))
+        secondArray.append("\(unit.save)+")
+        secondArray.append(String(unit.wounds))
+        array.append(firstArray)
+        array.append(secondArray)
+        characteristicValue = array
         super.init(frame: .zero)
         configure()
         setupView()
@@ -64,8 +71,8 @@ class CharacteristicsViewWithoutImage: UIStackView {
     
     private func setupView() {
         addArrangedSubview(UIView())
-        characteristic.forEach { texts in
-            setupSubView(texts: texts)
+        for (index, texts) in characteristicValue.enumerated() {
+            setupSubView(texts:( texts, characteristicName[index]))
         }
         addArrangedSubview(UIView())
     }
@@ -78,15 +85,15 @@ class CharacteristicsViewWithoutImage: UIStackView {
         layer.masksToBounds = true
     }
     
-    private func setupSubView(texts: [String:String]) {
+    private func setupSubView(texts: ([String],[String])) {
         let stackView = UIStackView()
         stackView.backgroundColor = ColorScheme.shared.theme.subViewBackground
         stackView.alignment = .center
         stackView.spacing = 16
-        for text in texts {
+        for (index, text) in texts.0.enumerated() {
             let label = HeaderLabel()
             label.font = UIFont.boldSystemFont(ofSize: 22)
-            label.text = "\(text.key) = \(text.value)"
+            label.text = "\(texts.1[index]) = \(text)"
             label.textAlignment = .center
             stackView.addArrangedSubview(label)
         }

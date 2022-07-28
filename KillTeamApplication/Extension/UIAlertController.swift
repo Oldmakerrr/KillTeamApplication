@@ -9,20 +9,16 @@ import UIKit
 
 extension UIAlertController {
     
-    func inputText() throws -> String? {
-        let textField = self.textFields?.first
-        if let text = textField?.text {
-            
-            switch true {
-            case text == "":
-                throw InputTextError.invalidName
-            case text.count > 20 :
-                throw InputTextError.toLongText
-            default:
-                return text.trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-        } else {
-            return nil
+    func inputText(_ index: Int = 0, maxTextLength: Int = 20) throws -> String? {
+        guard let textFields = self.textFields,
+              let text = textFields[index].text else { return nil }
+        switch true {
+        case text.isEmpty :
+            throw InputTextError.invalidName
+        case text.count > maxTextLength :
+            throw InputTextError.toLongText
+        default:
+            return text.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
 }

@@ -11,6 +11,9 @@ protocol EditKillTeamProtocol: AnyObject {
     var presenter: EditKillTeamPresenterProtocol? { get }
     var customTitleView: LabelWithImageView { get }
     
+    func removeUnitAction(indexPath: IndexPath, section: IndexSet, tableView: UITableView) -> UIContextualAction
+    func changeUnitAction(indexPath: IndexPath) -> UIContextualAction
+    func renameUnitAction(indexPath: IndexPath) -> UIContextualAction
 }
 
 protocol EditKillTeamPresenterProtocol: AnyObject {
@@ -37,7 +40,7 @@ protocol EditKillTeamPresenterDelegate: AnyObject {
     func didComplete(_presenter: EditKillTeamPresenterProtocol, sender: GoFromEditKillTeam)
 }
 
-class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
+class EditKillTeamPresenter: NSObject, EditKillTeamPresenterProtocol {
     
     var model = ChosenKillTeam() 
     weak var view: EditKillTeamProtocol?
@@ -49,6 +52,7 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
         self.view = view
         self.store = store
         self.userSettings = userSettings
+        super.init()
         store.multicastDelegate.addDelegate(self)
     }
     
@@ -197,11 +201,12 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
 //MARK: - EditKillTeam
     
     func renameKillTeamAlertController(view: UIViewController) {
-        let alert = UIAlertController(title: "Input name for your Kill Team", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Enter a name for your Kill Team", message: nil, preferredStyle: .alert)
         let renameAction = UIAlertAction(title: "Rename", style: .default) { [weak self] action in
-            guard let self = self else { return }
+            guard let self = self,
+                  let killTeamName = self.model.killTeam?.killTeamName else { return }
             do {
-                if let text = try alert.inputText() {
+                if let text = try alert.inputText(maxTextLength: killTeamName.count + 15) {
                     self.model.killTeam?.userCustomName = text
                     self.view?.customTitleView.setupText(text: text)
                     self.store.updateCurrentKillTeam(killTeam: self.model.killTeam!)
@@ -221,8 +226,8 @@ class EditKillTeamPresenter: EditKillTeamPresenterProtocol {
     }
     
 }
-//MARK: - Delegate Method
 
+//MARK: - Delegate Method
 
 extension EditKillTeamPresenter: StoreDelegate {
     func didUpdate(_ store: Store, killTeam: KillTeam?) {
@@ -239,3 +244,53 @@ extension EditKillTeamPresenter: TableViewEmptyStateDelegate {
     
 }
 
+//MARK: - UITableView Delegate/DataSource
+
+extension EditKillTeamPresenter: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return model.killTeam?.chosenFireTeams.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return model.killTeam?.chosenFireTeams[section].currentDataslates.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: EditKillTeamCell.identifier, for: indexPath) as! EditKillTeamCell
+        guard let unit = model.killTeam?.chosenFireTeams[indexPath.section].currentDataslates[indexPath.row] else { return UITableViewCell() }
+        cell.updateCell()
+        cell.setupText(unit: unit)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = TableHeaderView()
+        view.label.text = model.killTeam?.chosenFireTeams[section].name
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return Constant.Size.headerHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        goToEditUnitVC(indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let changeUnit = view?.changeUnitAction(indexPath: indexPath),
+              let renameUnit = view?.renameUnitAction(indexPath: indexPath) else { return nil }
+        if model.killTeam?.chosenFireTeams[indexPath.section].availableDataslates.count == 1 {
+            return UISwipeActionsConfiguration(actions: [renameUnit])
+        } else {
+            return UISwipeActionsConfiguration(actions: [changeUnit, renameUnit])
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let removeUnit = view?.removeUnitAction(indexPath: indexPath, section: IndexSet(arrayLiteral: indexPath.section), tableView: tableView) else { return nil }
+        return UISwipeActionsConfiguration(actions: [removeUnit])
+    }
+
+}

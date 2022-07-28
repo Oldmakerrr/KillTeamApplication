@@ -76,6 +76,10 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     }
     
     func showAlert(ploy: Ploy) {
+        addKillTeamButton.isEnabled = false
+        UIView.animate(withDuration: 0.2) {
+            self.addKillTeamButton.alpha = 0.3
+        }
         let view = PloyView()
         view.layer.applyCornerRadius()
         view.layer.masksToBounds = true
@@ -85,6 +89,10 @@ class CounterViewController: UIViewController, CounterViewProtocol {
     }
     
     @objc func dismissAlert() {
+        addKillTeamButton.isEnabled = true
+        UIView.animate(withDuration: 0.4) {
+            self.addKillTeamButton.alpha = 1
+        }
         customAlert.dismissAlert()
     }
     
@@ -110,3 +118,8 @@ extension CounterViewController: WeaponRuleButtonDelegate {
     
 }
 
+extension CounterViewController: CustomScrollAlertDelegate {
+    func didComplete(_ customScrollAlert: CustomScrollAlert) {
+        dismissAlert()
+    }
+}

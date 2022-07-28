@@ -40,6 +40,10 @@ class PloyView: UIStackView {
             addSubTextPointView(subText: subText)
         }
         
+        if let postText = ploy.postSubText {
+            setupDescription(description: postText)
+        }
+        
         if let abilitie = ploy.ability {
             setupAbilitiesView(abilities: abilitie)
         }

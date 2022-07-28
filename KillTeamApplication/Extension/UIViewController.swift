@@ -17,12 +17,12 @@ extension UIViewController {
                        delegate: TableViewEmptyStateDelegate? = nil) {
         let emptyStateView = TableViewEmptyState(title: title, message: message, image: image, buttonTitle: buttonTitle, delegate: delegate)
         view.addSubview(emptyStateView)
-            NSLayoutConstraint.activate([
-                emptyStateView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                emptyStateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                emptyStateView.widthAnchor.constraint(equalTo: view.widthAnchor),
-                emptyStateView.heightAnchor.constraint(equalTo: view.heightAnchor)
-            ])
+        NSLayoutConstraint.activate([
+            emptyStateView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyStateView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyStateView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            emptyStateView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        ])
         
     }
     
@@ -76,7 +76,7 @@ extension UIViewController {
         guard let cell = tableView.cellForRow(at: indexPath) else {
             return
         }
-
+        
         let label: UILabel = {
             let label = UILabel(frame: CGRect.zero)
             label.text = message
@@ -94,7 +94,7 @@ extension UIViewController {
         }
         
         cell.insertSubview(label, belowSubview: cell.contentView)
-
+        
         UIView.animate(withDuration: 0.3, animations: {
             switch swipeDirection {
             case .left:
@@ -113,7 +113,7 @@ extension UIViewController {
             })
         }
     }
-
+    
     
     func isCoachMarkShowed() -> Bool {
         guard let viewController = self.description.components(separatedBy: ".").last?.components(separatedBy: ":").first else { return false }
@@ -126,6 +126,22 @@ extension UIViewController {
         guard let viewController = self.description.components(separatedBy: ".").last?.components(separatedBy: ":").first else { return }
         let key = "Instruction_\(viewController)"
         UserDefaults.standard.set(true, forKey: key)
+    }
+    
+    
+    
+    func moreInfoWeaponRuleAlert(weaponRule: WeaponSpecialRule) {
+        let screenSize: CGRect = UIScreen.main.bounds
+        let alert = WeaponRuleAlertController(title: nil, message: nil, preferredStyle: .alert)
+        alert.weaponRuleView.widthAnchor.constraint(equalToConstant: screenSize.width - 40).isActive = true
+        alert.setupText(rule: weaponRule)
+        alert.weaponRuleView.doneButton.addTarget(self, action: #selector(dismissMoreInfoWeaponRuleAlert), for: .touchUpInside)
+        alert.addAction(UIAlertAction())
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func dismissMoreInfoWeaponRuleAlert() {
+        dismiss(animated: true, completion: nil)
     }
     
 }

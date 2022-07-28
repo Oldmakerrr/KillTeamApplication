@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "171"
             endingLineNumber = "171"
-            landmarkName = "didUpdate(_:killTeam:)"
+            landmarkName = "addSwipeAction(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

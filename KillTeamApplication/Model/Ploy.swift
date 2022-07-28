@@ -14,6 +14,7 @@ struct Ploy: Codable {
     let cost: Int
     let type: PloyType
     let subTexts: [String]?
+    let postSubText: String?
     let ability : UnitAbilitie?
     let uniqueAction: UnitUniqueAction?
     let weapon: Weapon?

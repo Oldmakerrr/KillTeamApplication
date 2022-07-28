@@ -17,11 +17,11 @@ class MainRouter: RouterProtocol {
     let ploysRouter: PloysRouter
     let tacOpsRouter: TacOpsRouter
     
-        init(builder: BuilderProtocol) {
-            self.editKillTeamRouter = EditKillTeamRouter(builder: builder)
-            self.killTeamObserverRouter = KillTeamObserverRouter(builder: builder)
-            self.ploysRouter = PloysRouter(builder: builder)
-            self.tacOpsRouter = TacOpsRouter(builder: builder)
+    init(builder: BuilderProtocol) {
+        self.editKillTeamRouter = EditKillTeamRouter(builder: builder)
+        self.killTeamObserverRouter = KillTeamObserverRouter(builder: builder)
+        self.ploysRouter = PloysRouter(builder: builder)
+        self.tacOpsRouter = TacOpsRouter(builder: builder)
     }
 }
 
@@ -64,10 +64,30 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.barStyle = .black
+        self.delegate = self
         tabBar.tintColor = ColorScheme.shared.theme.selectedView
     }
 }
 
+extension MainTabBarController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        guard let navigationController = viewController as? UINavigationController else { return }
+        let selectedIndex = tabBarController.selectedIndex
+        switch selectedIndex {
+        case 0:
+            if navigationController.viewControllers.count > 2 {
+                if let editKillTeamVC = navigationController.viewControllers.first(where: {$0 is EditKillTeamTableViewController}) {
+                    navigationController.popToViewController(editKillTeamVC, animated: true)
+                }
+            }
+        case 2:
+            navigationController.popToRootViewController(animated: true)
+        default:
+            return
+        }
+    }
+}
 
 
 //MARK: - EditKillTeamNavigationController

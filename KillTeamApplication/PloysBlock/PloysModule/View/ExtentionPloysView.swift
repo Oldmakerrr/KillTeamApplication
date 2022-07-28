@@ -11,8 +11,8 @@ import UIKit
 extension PloysViewController {
     
     func showCoachMarks() {
-        guard let killTeam = presenter?.model.killTeam else { return }
-        if !isCoachMarkShowed() && !killTeam.chosenFireTeams.isEmpty {
+        guard presenter?.model.killTeam != nil else { return }
+        if !isCoachMarkShowed() {
             coachMarksController.start(in: .window(over: self))
             setCoachMarkStateToShowed()
         }

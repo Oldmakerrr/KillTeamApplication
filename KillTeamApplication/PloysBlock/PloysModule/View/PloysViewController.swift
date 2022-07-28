@@ -112,7 +112,7 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
     func usePloy(ploy: Ploy, cell: UITableViewCell, tableView: UITableView) {
         guard let presenter = presenter else { return }
         if ploy.cost > presenter.model.gameData.countCommandPoint {
-            showToast(message: "You have not enough Command Points")
+            showToast(message: "You don't have enough Command Points")
             cell.shake()
         } else {
             cell.animateSelectView { [self] _ in

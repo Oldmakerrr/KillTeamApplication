@@ -16,20 +16,20 @@ protocol WargearView {
     func setDelegate(delegate: Delegate)
 }
 
-protocol EquipmentViewProtocol: AnyObject {
-    func didComplete(_ EquipmentView: EquipmentView)
+protocol EquipmentViewDelegate: AnyObject {
+    func didComplete(_ equipmentView: EquipmentView)
 }
 
 class EquipmentView: UIStackView, WargearView {
     
-    typealias Delegate = EquipmentViewProtocol?
+    typealias Delegate = EquipmentViewDelegate?
     
     
     func setDelegate(delegate: Delegate) {
         self.delegate = delegate
     }
     
-    weak var delegate: EquipmentViewProtocol?
+    weak var delegate: EquipmentViewDelegate?
     
     private let button = DoneButton()
     
