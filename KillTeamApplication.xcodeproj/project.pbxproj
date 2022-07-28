@@ -31,6 +31,7 @@
 		1857E37927C6341E00FEFA76 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857E37827C6341E00FEFA76 /* GameStore.swift */; };
 		1861F5B62892C4AD00FF9840 /* Blooded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861F5B52892C4AD00FF9840 /* Blooded.swift */; };
 		1861F5B92892C5E100FF9840 /* BloodedAbilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861F5B82892C5E100FF9840 /* BloodedAbilityView.swift */; };
+		1861F5BD2893306B00FF9840 /* UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861F5BC2893306B00FF9840 /* UICollectionViewCell.swift */; };
 		186E0000281B111B006E86E9 /* BoonOfTzeenchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186EFFFF281B111B006E86E9 /* BoonOfTzeenchTableViewController.swift */; };
 		186E0003281B295C006E86E9 /* PathfinderAbilitieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0002281B295C006E86E9 /* PathfinderAbilitieView.swift */; };
 		186E0005281BDFCF006E86E9 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E0004281BDFCF006E86E9 /* MenuBar.swift */; };
@@ -209,6 +210,7 @@
 		1857E37827C6341E00FEFA76 /* GameStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStore.swift; sourceTree = "<group>"; };
 		1861F5B52892C4AD00FF9840 /* Blooded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blooded.swift; sourceTree = "<group>"; };
 		1861F5B82892C5E100FF9840 /* BloodedAbilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloodedAbilityView.swift; sourceTree = "<group>"; };
+		1861F5BC2893306B00FF9840 /* UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCell.swift; sourceTree = "<group>"; };
 		186E0002281B295C006E86E9 /* PathfinderAbilitieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathfinderAbilitieView.swift; sourceTree = "<group>"; };
 		186E0004281BDFCF006E86E9 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		186E0006281C18D5006E86E9 /* PathfinderSubViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathfinderSubViewExtension.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				18CF2826284023C800E81A2E /* UIViewController.swift */,
 				18497F9E284CB3230046CA39 /* UINavigationBar.swift */,
 				18CF2828284023F600E81A2E /* UITableViewCell.swift */,
+				1861F5BC2893306B00FF9840 /* UICollectionViewCell.swift */,
 				186E003F28280C28006E86E9 /* CALayer.swift */,
 				186E0046282A7172006E86E9 /* UIVIew.swift */,
 			);
@@ -1638,6 +1641,7 @@
 				18E9095828159F2B0077516B /* ChoosenTacOpView.swift in Sources */,
 				186E004028280C28006E86E9 /* CALayer.swift in Sources */,
 				18D3B94627C18F2100B74C2D /* RosterPresenter.swift in Sources */,
+				1861F5BD2893306B00FF9840 /* UICollectionViewCell.swift in Sources */,
 				18A521AE27C18538003A29DA /* EditKillTeamCell.swift in Sources */,
 				186E0045282A4D4B006E86E9 /* Storage.swift in Sources */,
 				18E909DA281A8E530077516B /* ActOfFateView.swift in Sources */,

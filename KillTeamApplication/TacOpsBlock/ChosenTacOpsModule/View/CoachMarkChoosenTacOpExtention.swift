@@ -14,6 +14,11 @@ extension ChosenTacOpsViewController: CoachMarksControllerDataSource, CoachMarks
         switch index {
         case 0:
             coachView.bodyView.hintLabel.text = "Press to mark completed mission"
+            coachView.bodyView.nextLabel.text = "Next"
+        case 1:
+            let cell = choosenTacOpsCollectionView.cellForItem(at: IndexPath(row: 0, section: 0))
+            cell?.swipeAnimate()
+            coachView.bodyView.hintLabel.text = "Swipe to go to the next Tac Op"
             coachView.bodyView.nextLabel.text = "OK"
         default:
             break
@@ -24,11 +29,12 @@ extension ChosenTacOpsViewController: CoachMarksControllerDataSource, CoachMarks
     
     func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
         var coachMark = CoachMark()
+        guard let cell = choosenTacOpsCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ChosenTacOpsCell else { return CoachMark() }
         switch index {
         case 0:
-            if let cell = choosenTacOpsCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ChosenTacOpsCell {
-                coachMark = coachMarksController.helper.makeCoachMark(for: cell.tacOpView.viewArray.first)
-            }
+            coachMark = coachMarksController.helper.makeCoachMark(for: cell.tacOpView.viewArray.first)
+        case 1:
+            coachMark = coachMarksController.helper.makeCoachMark(for: cell)
         default:
             break
         }
@@ -37,8 +43,10 @@ extension ChosenTacOpsViewController: CoachMarksControllerDataSource, CoachMarks
     
     
     func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
-        return 1
+        return 2
     }
+    
+    
     
     
 }

@@ -100,6 +100,7 @@ extension ChosenTacOpsViewController: UICollectionViewDataSource {
         }
         return cell
     }
+    
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
