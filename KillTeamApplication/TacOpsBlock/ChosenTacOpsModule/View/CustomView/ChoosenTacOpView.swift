@@ -29,7 +29,7 @@ class ChosenTacOpView: TacOpView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-   
+    
     
     @objc private func selectView(sender: UITapGestureRecognizer) {
         var index = 0
@@ -49,8 +49,9 @@ class ChosenTacOpView: TacOpView {
         }
     }
     
-    override func setupText(tacOp: TacOp, delegate: WeaponRuleButtonDelegate) {            for condition in tacOp.isCompletedConditions {
-                boolArray.append(condition)
+    override func setupText(tacOp: TacOp, delegate: WeaponRuleButtonDelegate) {
+        for condition in tacOp.isCompletedConditions {
+            boolArray.append(condition)
         }
         super.setupText(tacOp: tacOp, delegate: delegate)
     }

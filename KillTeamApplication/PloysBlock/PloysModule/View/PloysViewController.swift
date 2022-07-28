@@ -118,13 +118,14 @@ class PloysViewController: UIViewController, PloysViewControllerProtocol {
             cell.animateSelectView { [self] _ in
                 presenter.model.gameData.countCommandPoint -= ploy.cost
                 if ploy.type == .strategic {
-                    presenter.addPloy(ploy: ploy)
+                    presenter.model.gameData.currentStrategicPloys.append(ploy)
                     showToast(message: "Strategic Ploy successfully used")
                     tableView.reloadData()
                 } else {
                     showToast(message: "Tactical Ploy successfully used")
                 }
                 commandPointLabel.text = "CP = \(presenter.model.gameData.countCommandPoint)"
+                presenter.gameStore.updateGameData(gameData: presenter.model.gameData)
             }
         }
     }

@@ -21,7 +21,6 @@ protocol PloysPresenterProtocol: AnyObject {
     var model: PloysModel { get }
     var router: PloysRouterProtocol { get }
     
-    func addPloy(ploy: Ploy)
     func goToPsychicPowerViewController()
     func goToKillTeamAbilitieViewController() 
 }
@@ -62,14 +61,8 @@ class PloysPresenter: PloysPresenterProtocol {
         self.userSettings = userSettings
         gameStore.multicastDelegate.addDelegate(self)
         store.multicastDelegate.addDelegate(self)
-        //model.tacticalPloy.append(model.reRoll)
     }
-    
-    func addPloy(ploy: Ploy) {
-        model.gameData.currentStrategicPloys.append(ploy)
-        gameStore.updateGameData(gameData: model.gameData)
-    }
-    
+   
     func goToPsychicPowerViewController() {
         guard let killTeam = model.killTeam else { return }
         delegate?.didComplete(self, sender: .psychicPowerModule)

@@ -65,31 +65,28 @@ extension ChosenTacOpsPresenter: GameStoreDelegate {
     }
     
     func changeConditionState(_ isSelect: Bool) -> Bool {
-       return isSelect ?  false : true
+        return isSelect ?  false : true
     }
 }
 
 extension ChosenTacOpsPresenter: ChosenTacOpViewDelegate {
     
     func didSelectConditionView(_ tacOpView: ChosenTacOpView, isSelect: Bool, indexPath: IndexPath?, numberOfCondition: Int) {
-        
-            switch indexPath?.item {
-            case 0:
-                model.gameData.firstTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
-                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.firstTacOp?.victoryPoint[numberOfCondition])
-            case 1:
-                model.gameData.secondTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
-                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.secondTacOp?.victoryPoint[numberOfCondition])
-            case 2:
-                model.gameData.thirdTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
-                addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.thirdTacOp?.victoryPoint[numberOfCondition])
-            default:
-                return
-            }
-        
+        switch indexPath?.item {
+        case 0:
+            model.gameData.firstTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
+            addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.firstTacOp?.victoryPoint[numberOfCondition])
+        case 1:
+            model.gameData.secondTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
+            addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.secondTacOp?.victoryPoint[numberOfCondition])
+        case 2:
+            model.gameData.thirdTacOp?.isCompletedConditions[numberOfCondition] = changeConditionState(isSelect)
+            addVictoryPoint(isSelect: isSelect, victoryPoint: model.gameData.thirdTacOp?.victoryPoint[numberOfCondition])
+        default:
+            return
+        }
         updateGameData()
         view?.choosenTacOpsCollectionView.reloadData()
     }
-    
     
 }
