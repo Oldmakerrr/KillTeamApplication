@@ -109,7 +109,8 @@ class EditUnitPresenter: NSObject, EditUnitPresenterProtocol {
     }
     
     private func getImageName() -> String {
-        guard let chaosBlessing = model.currentUnit?.additionalAbility else { return "killTeamViewController" }
+        guard let chaosBlessing = model.currentUnit?.additionalAbility,
+                model.killTeam?.abilityOfKillTeam is LegionaryAbility else { return "killTeamViewController" }
         if let chaosBlessingName = chaosBlessing.name.components(separatedBy: " ").first {
             return chaosBlessingName
         } else {
